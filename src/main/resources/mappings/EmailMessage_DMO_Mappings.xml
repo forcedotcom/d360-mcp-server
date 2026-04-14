@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="EmailMessage">
+    <Dmo_Mapping dmoName="EmailMessageDmo">
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ParentId__c" targetField="CaseId" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Subject__c" targetField="Subject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false"/>
+        <fieldMapping sourceField="Incoming__c" targetField="IsIncoming" isFilterApplied="false"/>
+        <fieldMapping sourceField="HtmlBody__c" targetField="HTMLBodyText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TextBody__c" targetField="EmailMessageText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RelatedToId__c" targetField="RelatedToId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ToAddress__c" targetField="ToEmailAddressListText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="CcAddress__c" targetField="InternalCCEmailAddressListText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Headers__c" targetField="EmailHeaderText" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="MessageDate__c" targetField="MessageDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="FromName__c" targetField="FromName" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsTracked__c" targetField="IsTracked" isFilterApplied="false"/>
+        <fieldMapping sourceField="FromAddress__c" targetField="FromAddress" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ActivityDmo">
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MessageDate__c" targetField="ActivityDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivityType__c" targetField="ActivityType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Subject__c" targetField="SubjectText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Snippet__c" targetField="SnippetText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CodeSetBundle">
+    <Dmo_Mapping dmoName="CodeSetBundleDmo">
+        <fieldMapping sourceField="CodeSet10Id__c" targetField="CodeSet10Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet11Id__c" targetField="CodeSet11Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet12Id__c" targetField="CodeSet12Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet13Id__c" targetField="CodeSet13Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet14Id__c" targetField="CodeSet14Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet15Id__c" targetField="CodeSet15Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet1Id__c" targetField="CodeSet1Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet2Id__c" targetField="CodeSet2Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet3Id__c" targetField="CodeSet3Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet4Id__c" targetField="CodeSet4Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet5Id__c" targetField="CodeSet5Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet6Id__c" targetField="CodeSet6Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet7Id__c" targetField="CodeSet7Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet8Id__c" targetField="CodeSet8Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSet9Id__c" targetField="CodeSet9Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeSetBundleKey__c" targetField="CodeSetBundleKeyText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="CodeSetBundleType" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

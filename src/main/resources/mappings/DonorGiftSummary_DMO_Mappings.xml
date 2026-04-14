@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="DonorGiftSummary">
+    <Dmo_Mapping dmoName="DonorGiftSummaryDmo">
+        <fieldMapping sourceField="AverageGiftAmount__c" targetField="AverageGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BestGiftYear__c" targetField="BestGiftYear" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentRecurringStartDate__c" targetField="CurrentRecurringStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentYearGiftCount__c" targetField="CurrentYearGiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DaysSinceLastGift__c" targetField="DaysSinceLastGift" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorId__c" targetField="DonorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstGiftAmount__c" targetField="FirstGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstGiftCampaignId__c" targetField="FirstGiftCampaignId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstGiftDate__c" targetField="FirstGiftDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstRecurringStartDate__c" targetField="FirstRecurringStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstSoftCreditAmount__c" targetField="FirstSoftCreditAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstSoftCreditDate__c" targetField="FirstSoftCreditDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftCount__c" targetField="GiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftsLastYearAmount__c" targetField="GiftsLastYearAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftsThisYearAmount__c" targetField="GiftsThisYearAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftsTwoYearsAgoAmount__c" targetField="GiftsTwoYearsAgoAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GivingLevel__c" targetField="GivingLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestGiftAmount__c" targetField="HighestGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestGiftYearAmount__c" targetField="HighestGiftYearAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestSoftCreditAmount__c" targetField="HighestSoftCreditAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestSoftCreditDate__c" targetField="HighestSoftCreditDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastGiftAmount__c" targetField="LastGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastGiftDate__c" targetField="LastGiftDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastRecurringPaymentDate__c" targetField="LastRecurringPaymentDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastSoftCreditAmount__c" targetField="LastSoftCreditAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastSoftCreditDate__c" targetField="LastSoftCreditDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastTwoYearGiftCount__c" targetField="LastTwoYearGiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastYearGiftCount__c" targetField="LastYearGiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LowestGiftAmount__c" targetField="LowestGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondGiftDate__c" targetField="SecondGiftDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SoftCreditCount__c" targetField="SoftCreditCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalGiftsAmount__c" targetField="TotalGiftsAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalHardSoftCreditsAmount__c" targetField="TotalHardSoftCreditsAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalHardSoftCredits__c" targetField="TotalHardSoftCredits" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPaidRcrInstallments__c" targetField="TotalPaidRcrInstallments" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPaidRcrInstlAmt__c" targetField="TotalPaidRcrInstlAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstVolunJobPstnAsgntDtTransformed__c" targetField="FirstVolunJobPstnAsgntDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastVolunJobPstnAsgntDateTransformed__c" targetField="LastVolunJobPstnAsgntDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalVolunJobPstnAsgnCnt__c" targetField="TotalVolunJobPstnAsgnCount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalVolunteerHours__c" targetField="TotalVolunteerHoursNumber" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ListEmail">
+    <Dmo_Mapping dmoName="BulkEmailMessageDmo">
+        <fieldMapping sourceField="CampaignId__c" targetField="CampaignId"/>
+        <fieldMapping sourceField="FromAddress__c" targetField="FromAddress"/>
+        <fieldMapping sourceField="FromName__c" targetField="FromName"/>
+        <fieldMapping sourceField="HasAttachment__c" targetField="HasAttachment"/>
+        <fieldMapping sourceField="HtmlBody__c" targetField="HTMLBodyText"/>
+        <fieldMapping sourceField="Id__c" targetField="Id"/>
+        <fieldMapping sourceField="Name__c" targetField="Name"/>
+        <fieldMapping sourceField="ScheduledDate__c" targetField="ScheduledDate"/>
+        <fieldMapping sourceField="Subject__c" targetField="Subject"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="FlowRecordElementId__c" targetField="FlowElementId" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsClickTrackingEnabled__c" targetField="DoesTrackClicks" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsOpenTrackingEnabled__c" targetField="DoesTrackOpens" isFilterApplied="false"/>
+        <fieldMapping sourceField="ManagedContentId__c" targetField="DigitalContentId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ManagedContentId__c" targetField="EmailContentId" isFilterApplied="false"/>
+        <fieldMapping sourceField="MessagePurpose__c" targetField="MessagePurpose" isFilterApplied="false"/>
+        <fieldMapping sourceField="SegmentId__c" targetField="MarketSegmentId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

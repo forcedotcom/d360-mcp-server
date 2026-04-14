@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="WarrantyTerm">
+    <Dmo_Mapping dmoName="WarrantyTermDmo">
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveStartDate__c" targetField="EffectiveStartDateSource" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExchangeType__c" targetField="ExchangeType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Exclusions__c" targetField="ExclusionsTermText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpensesCoveredDuration__c" targetField="ExpensesCoveredDurationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpensesCovered__c" targetField="ExpensesCoveredPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpensesCoveredUnitOfTime__c" targetField="ExpensesCoveredDurationTimeUOM" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsActive__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsTransferable__c" targetField="IsTransferrable" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LaborCoveredDuration__c" targetField="LaborCoveredDurationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LaborCoveredUnitOfTime__c" targetField="LaborCoveredDurationTimeUOM" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LaborCovered__c" targetField="LaborCoveredPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartsCoveredDuration__c" targetField="PartsCoveredDurationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartsCoveredUnitOfTime__c" targetField="PartsCoveredDurationTimeUOM" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartsCovered__c" targetField="PartsCoveredPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Pricebook2Id__c" targetField="PriceBookId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SystemModstamp" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UsageCovered__c" targetField="UsageCoveredUOM" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WarrantyDuration__c" targetField="WarrantyDurationTermNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WarrantyTermName__c" targetField="NameInterfaceField" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WarrantyType__c" targetField="WarrantyType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WarrantyUnitOfTime__c" targetField="WarrantyDurationTimeUOM" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

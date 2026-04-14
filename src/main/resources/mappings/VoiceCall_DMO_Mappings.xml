@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="VoiceCall">
+    <Dmo_Mapping dmoName="ActivityDmo">
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivityType__c" targetField="ActivityType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallStartDateTime__c" targetField="ActivityDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="SubjectText" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="VoiceCallDmo">
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceType__c" targetField="DataSourceApplicationName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallOrigin__c" targetField="CallOriginType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FromPhoneNumber__c" targetField="FromPhoneNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallEndDateTime__c" targetField="CallEndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallStartDateTime__c" targetField="CallStartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Subject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallType__c" targetField="VoiceCallType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ToPhoneNumber__c" targetField="ToPhoneNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Price__c" targetField="VoiceCallCostAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallConnectDateTime__c" targetField="CallAcceptedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallConnectDateTime__c" targetField="CallConnectDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CallDurationInSeconds__c" targetField="CallDurationSecondsCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VoiceCallDisposition__c" targetField="VoiceCallDisposition" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VendorCallKey__c" targetField="VendorCallKeyText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VendorParentCallKey__c" targetField="VendorParentCallKeyText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RelatedRecordId__c" targetField="RelatedToId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RelatedToObject__c" targetField="RelatedToObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VendorType__c" targetField="VoiceCallVendorType" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="InvoiceBatchRun">
+    <Dmo_Mapping dmoName="InvoiceBatchRunDmo">
+        <fieldMapping sourceField="CompletionTime__c" targetField="CompletionDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreditApplicationStatus__c" targetField="CreditApplicationStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DocGenCompletionTime__c" targetField="DocGenCompletionDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DocGenStartTime__c" targetField="DocGenStartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DocGenStatus__c" targetField="DocGenStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceBatchRunNumber__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceDocsGenFailed__c" targetField="InvoiceDocsGenFailedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceDocsGenerated__c" targetField="InvoiceDocsGeneratedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecoveryStatus__c" targetField="InvoiceBatchRunRecoveryStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartTime__c" targetField="StartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="InvoiceBatchRunStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotBillSchdUpdtDurDrftToPost__c" targetField="TotBillSchdUpdtDurDrftToPostNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalBillSchedRecovered__c" targetField="TotalBillSchedRecoveredNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalBillSchedUnrecovered__c" targetField="TotalBillSchedUnrecoveredNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalBillingSchedulesFailed__c" targetField="TotalBillingSchedulesFailedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalBsSuccessfullyProcessed__c" targetField="TotalBillSchedSuccessProcessedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalDraftInvoiceAmount__c" targetField="TotalDraftInvoiceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalDraftInvoices__c" targetField="TotalDraftInvoicesNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalFilteredBillingSchedules__c" targetField="TotalFilteredBillingSchedulesNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalInvSuccessfullyProcessed__c" targetField="TotalInvSuccessfullyProcessedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalInvoicedAmount__c" targetField="TotalInvoicedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalInvoicesCanceled__c" targetField="TotalInvoicesCanceledNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalInvoicesFailed__c" targetField="TotalInvoicesFailedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalInvoicesGenerated__c" targetField="TotalInvoicesGeneratedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPostedInvoices__c" targetField="TotalPostedInvoicesNumber" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

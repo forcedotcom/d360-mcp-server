@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="GiftSoftCredit">
+    <Dmo_Mapping dmoName="GiftSoftCreditDmo">
+        <fieldMapping sourceField="AdvancementType__c" targetField="AdvancementType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GenerationalCohort__c" targetField="GenerationalCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftTransactionId__c" targetField="GiftTransactionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationAchievement__c" targetField="GraduationAchievement" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationCohort__c" targetField="GraduationCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartialAmount__c" targetField="PartialAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartialPercent__c" targetField="PartialPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartyPhilanthropicRsrchPrflId__c" targetField="PartyPhilanthropicRsrchPrflId" isFilterApplied="false"/>
+        <fieldMapping sourceField="RecipientId__c" targetField="RecipientId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Role__c" targetField="Role" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SoftCreditAmount__c" targetField="SoftCreditAmount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

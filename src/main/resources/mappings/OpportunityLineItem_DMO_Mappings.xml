@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="OpportunityLineItem">
+    <Dmo_Mapping dmoName="OpportunityLineItemDmo">
+        <fieldMapping sourceField="CanUseQuantitySchedule__c" targetField="CanUseQuantitySchedule" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CanUseRevenueSchedule__c" targetField="CanUseRevenueSchedule" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HasQuantitySchedule__c" targetField="HasQuantitySchedule" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HasRevenueSchedule__c" targetField="HasRevenueSchedule" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HasSchedule__c" targetField="HasSchedule" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastReferencedDate__c" targetField="LastReferencedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastViewedDate__c" targetField="LastViewedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ListPrice__c" targetField="ListPrice" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OpportunityId__c" targetField="OpportunityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PricebookEntryId__c" targetField="PricebookEntryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Product2Id__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Quantity__c" targetField="ProductQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServiceDate__c" targetField="ServiceDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SortOrder__c" targetField="SortOrderNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SystemModstamp" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPrice__c" targetField="TotalPriceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitPrice__c" targetField="UnitPriceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ProductDmo">
+        <fieldMapping sourceField="ProductCode__c" targetField="ProductCode" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

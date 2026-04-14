@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ForecastingFact">
+    <Dmo_Mapping dmoName="ForecastingFactDmo">
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastCategoryName__c" targetField="OpportunityForecastCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastedObjectId__c" targetField="ForecastedObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingItemId__c" targetField="ForecastingItemId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingTypeId__c" targetField="ForecastingTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OpportunityId__c" targetField="OpportunityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PeriodId__c" targetField="BusinessPeriodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TargetValue__c" targetField="TargetValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Territory2Id__c" targetField="SalesTerritoryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_Amount_Currency__c" targetField="Amt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_AmountLowerBound_Currency__c" targetField="LowerBoundAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_AmountHigherBound_Currency__c" targetField="HigherBoundAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_StartDate_Date__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

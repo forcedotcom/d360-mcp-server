@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CreditMemo">
+    <Dmo_Mapping dmoName="CreditMemoDmo">
+        <fieldMapping sourceField="Balance__c" targetField="BalanceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillToContactId__c" targetField="BillToContact" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingAccountId__c" targetField="BillingAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CorpCrcyCnvTotAmtWithTax__c" targetField="CorpCrcyCnvTotWithTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreationMode__c" targetField="CreditMemoCreationMode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreditDateCustom__c" targetField="CreditDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreditMemoNumber__c" targetField="CreditMemoNumberText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DocumentNumber__c" targetField="CreditMemoName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveDateCustom__c" targetField="EffectiveDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExternalReference__c" targetField="ExternalReferenceText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExternalReferenceDataSource__c" targetField="ExternalReferenceDataSourceText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetCreditsApplied__c" targetField="NetCreditsAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceEntityId__c" targetField="ReferenceObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SettlementLevel__c" targetField="CreditMemoSettlementLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceAction__c" targetField="CreditMemoSourceAction" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="CreditMemoStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAdjustmentAmount__c" targetField="TotalAdjustmentAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAmount__c" targetField="TotalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAmountWithTax__c" targetField="TotalWithTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalChargeAmount__c" targetField="TotalChargeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTaxAmount__c" targetField="TotalTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

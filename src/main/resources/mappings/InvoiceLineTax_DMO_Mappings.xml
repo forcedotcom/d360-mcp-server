@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="InvoiceLineTax">
+    <Dmo_Mapping dmoName="InvoiceLineTaxDmo">
+        <fieldMapping sourceField="BillingAddressId__c" targetField="BillingAddressId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ConvertedNegAmount__c" targetField="ConvertedNegAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDateCustom__c" targetField="EndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceLineId__c" targetField="InvoiceLineId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LegalEntityAccountingPeriodId__c" targetField="LegalEntityAccountingPeriodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LegalEntityId__c" targetField="LegalEntityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ShippingAddressId__c" targetField="ShippingAddressId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDateCustom__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxAmount__c" targetField="TaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxCode__c" targetField="TaxCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxDocumentNumber__c" targetField="TaxDocumentNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxEffectiveDateCustom__c" targetField="TaxEffectiveDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxExemptAmount__c" targetField="TaxExemptAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxName__c" targetField="TaxName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxProcessingStatus__c" targetField="TaxProcessingStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxRate__c" targetField="TaxRatePercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxTransactionNumber__c" targetField="InvoiceTaxTransactionNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxTransactionNumber__c" targetField="TaxTransactionNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxTreatmentId__c" targetField="TaxTreatmentId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

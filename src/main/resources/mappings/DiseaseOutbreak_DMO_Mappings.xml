@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="DiseaseOutbreak">
+    <Dmo_Mapping dmoName="DiseaseOutbreakDmo">
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" />
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Description__c" targetField="Description"  />
+        <fieldMapping sourceField="DetectionDate__c" targetField="DetectionDateTime"  />
+        <fieldMapping sourceField="DiseaseDefinitionId__c" targetField="DiseaseDefinitionId"  />
+        <fieldMapping sourceField="EndDateTransformed__c" targetField="EndDate"  />
+        <fieldMapping sourceField="Id__c" targetField="Id"  />
+        <fieldMapping sourceField="LocationReferenceRecordId__c" targetField="LocationReferenceRecordId"  />
+        <fieldMapping sourceField="LocationReferenceRecordObject__c" targetField="LocationReferenceRecordObject"  />
+        <fieldMapping sourceField="ManuallyRecordedconfirmedCnt__c" targetField="ManuallyRecordedConfirmedCount"  />
+        <fieldMapping sourceField="ManuallyRecordedsuspectedCnt__c" targetField="ManuallyRecordedSuspectedCount"  />
+        <fieldMapping sourceField="OutbreakLevel__c" targetField="OutbreakLevel"  />
+        <fieldMapping sourceField="RelatedDiseaseOutbreakId__c" targetField="RelatedDiseaseOutbreakId"  />
+        <fieldMapping sourceField="ReportedById__c" targetField="ReportedById"  />
+        <fieldMapping sourceField="ReportedByObject__c" targetField="ReportedByObject"  />
+        <fieldMapping sourceField="StartDateTransformed__c" targetField="StartDate"  />
+        <fieldMapping sourceField="Status__c" targetField="Status"  />
+        <fieldMapping sourceField="TotalConfirmedCount__c" targetField="TotalConfirmedCount"  />
+        <fieldMapping sourceField="TotalSuspectedCount__c" targetField="TotalSuspectedCount"  />
+        <fieldMapping sourceField="Name__c" targetField="DiseaseOutbreakName" />
+    </Dmo_Mapping>
+</SObjectDmoMappings>

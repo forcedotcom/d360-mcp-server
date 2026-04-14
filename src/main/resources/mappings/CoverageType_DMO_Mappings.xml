@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CoverageType">
+    <Dmo_Mapping dmoName="InsuranceCoverageTypeDmo">
+        <fieldMapping sourceField="BenefitPaymentFrequency__c" targetField="CoverageBenefitPaymentFrequency" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CategoryCode__c" targetField="ExternalCategoryIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CategoryGroup__c" targetField="CoverageCategoryGroup" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CategoryGroupType__c" targetField="CoverageCategoryGroupType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CategoryGroupTypeValue__c" targetField="CoverageCategoryGroupTypeValue" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Category__c" targetField="CoverageCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CoverageCode__c" targetField="ExternalCoverageIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DeathBenefitOptionType__c" targetField="DeathBenefitOptionType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DeductibleAmount__c" targetField="DeductibleAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Discount__c" targetField="DiscountAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveDate__c" targetField="EffectiveDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpirationDate__c" targetField="ExpirationDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IncomeOptionType__c" targetField="IncomeOptionType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LimitAmount__c" targetField="LimitAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LimitDateTimeToDate__c" targetField="LimitDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LimitPercentage__c" targetField="LimitPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LimitRange__c" targetField="CoverageLimitRange" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PremiumAmount__c" targetField="PremiumAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemIdentifier__c" targetField="ExternalRecordId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystem__c" targetField="ExternalSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

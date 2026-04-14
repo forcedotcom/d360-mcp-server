@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "data360": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/absolute/path/to/data360-mcp-server-1.0.0.jar"
+      ],
+      "env": {
+        "DATA360_CLIENT_ID": "your_client_id",
+        "DATA360_CLIENT_SECRET": "your_client_secret",
+        "DATA360_AUTH_FLOW": "client_credentials",
+        "DATA360_LOGIN_URL": "https://login.salesforce.com",
+        "DATA360_SEARCH_STRATEGY": "vector",
+        "SPRING_AI_MODEL_EMBEDDING": "openai",
+        "OPENAI_API_KEY": "YOUR_OPENAI_API_KEY"
+      }
+    }
+  }
+}

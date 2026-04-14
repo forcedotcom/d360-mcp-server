@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="AssessmentQuestionResponse">
+    <Dmo_Mapping dmoName="AssessmentQuestionResponseDmo">
+        <fieldMapping sourceField="AssessmentId__c" targetField="AssessmentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AssessmentQuestionId__c" targetField="AssessmentQuestionVersionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ChoiceValue__c" targetField="MultiselectResponseValueText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrencyValue__c" targetField="ResponseValueCurrency" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DateTimeValue__c" targetField="ResponseValueDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DateValueTransformed__c" targetField="ResponseValueDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DecimalResponseValue__c" targetField="ResponseValueDecimal" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IntegerResponseValue__c" targetField="ResponseValueInteger" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsTrueOrFalseValueTransformed__c" targetField="ResponseValueBoolean" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentAsmtQuestionVersionId__c" targetField="ParentAsmtQuestionVersionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RespondentTimezone__c" targetField="RespondentTimezoneText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResponseText__c" targetField="ResponseText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResponseType__c" targetField="ResponseDataTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResponseValue__c" targetField="ResponseValueText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TimeValueTransformed__c" targetField="ResponseValueTime" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

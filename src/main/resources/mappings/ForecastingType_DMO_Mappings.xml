@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ForecastingType">
+    <Dmo_Mapping dmoName="ForecastingTypeDmo">
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsActive__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DeveloperName__c" targetField="DeveloperName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CanDisplayQuotas__c" targetField="CanDisplayQuotas" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingGroupId__c" targetField="ForecastingGroupId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HasAdjustments__c" targetField="HasAdjustments" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HasOwnerAdjustments__c" targetField="HasOwnerAdjustments" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HasProductFamily__c" targetField="HasProductFamily" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsAmount__c" targetField="IsAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsCdp__c" targetField="IsCdp" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsDeleted__c" targetField="IsDeleted" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsQuantity__c" targetField="IsQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Language__c" targetField="LanguageId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastActivatedDate__c" targetField="LastActivatedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MasterLabel__c" targetField="MasterLabelText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RoleType__c" targetField="ForecastingRoleType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SystemModstamp" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

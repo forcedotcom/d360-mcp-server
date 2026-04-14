@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CreditMemoLine">
+    <Dmo_Mapping dmoName="CreditMemoLineDmo">
+        <fieldMapping sourceField="AdjustmentAmount__c" targetField="AdjustmentAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Balance__c" targetField="BalanceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingAddressId__c" targetField="ShippingAddressId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ChargeAmount__c" targetField="ChargeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CorpCurrencyCnvChargeAmt__c" targetField="CorpCurrencyCnvChargeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CorpCurrencyCnvTotalTaxAmt__c" targetField="CorpCurrencyCnvTotalTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreditMemoId__c" targetField="CreditMemoId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDateCustom__c" targetField="EndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LegalEntityAccountingPeriodId__c" targetField="LegalEntityAccountingPeriodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LegalEntityId__c" targetField="LegalEntity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LineAmount__c" targetField="LineAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetCreditsApplied__c" targetField="NetCreditsAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Product2Id__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ShippingAddressId__c" targetField="BillingAddressId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDateCustom__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="CreditMemoLineStatus" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="CreditMemoDmo">
+        <fieldMapping sourceField="CreditMemoId__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ProviderActivityGoalMeasure">
+    <Dmo_Mapping dmoName="ProviderActivityGoalMeasureDmo">
+        <fieldMapping sourceField="ActivityAttainmentPercentage__c" targetField="ActivityAttainmentPercentage" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivityProratedAtmtGoal__c" targetField="ActivityProratedAtmtGoalNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivityProratedGoal__c" targetField="ActivityProratedGoalNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivityWeightValue__c" targetField="ActivityWeightValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActualActivityCappedValue__c" targetField="ActualActivityCappedValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActualActivityWeightedValue__c" targetField="ActualActivityWeightedValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActvtyAtmtDifferenceValue__c" targetField="ActvtyAtmtDifferenceValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActvtyAttainmentCappedPct__c" targetField="ActvtyAttainmentCappedPct" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AdjustedOverallGoal__c" targetField="AdjustedOverallGoalNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AssigneeGoal__c" targetField="AssigneeGoalNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpectedActvtyPrrtAtmtVal__c" targetField="ExpectedActvtyPrrtAtmtValNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastProcessingDateTime__c" targetField="LastProcessingDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OverallGoal__c" targetField="OverallGoalNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProcessingJobIdentifier__c" targetField="ProcessingJobIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductList__c" targetField="ProductListText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Products_Weightage_Populated__c" targetField="IsProductWeightagePopulated" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderActivityGoalId__c" targetField="ProviderActivityPlanGoalId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderActivityMeasureTypeId__c" targetField="ProviderActivityMeasureTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReviewerGoal__c" targetField="ReviewerGoalNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SchdTotalProdtActvtyWtVal__c" targetField="SchdTotalProdtActvtyWtValNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ScheduledActvtyCappedValue__c" targetField="ScheduledActvtyCappedValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ScheduledActvtyWeightedVal__c" targetField="ScheduledActvtyWeightedValNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Suggested_Activity__c" targetField="IsSuggestedActivity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalActlProdtActvtyWtVal__c" targetField="TotalActlProdtActvtyWtValNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalActualActivityValue__c" targetField="TotalActualActivityValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalProjActvtyCappedValue__c" targetField="TotalProjActvtyCappedValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalProjectedActivityValue__c" targetField="TotalProjectedActivityValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalScheduledActivityValue__c" targetField="TotalScheduledActivityValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

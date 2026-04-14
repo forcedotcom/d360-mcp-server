@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LoyaltyTierGroup">
+    <Dmo_Mapping dmoName="LoyaltyTierGroupDmo">
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ExtendExpiration__c" targetField="IsExtendedToEndOfMonth" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsActive__c" targetField="IsActive" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsHiddenToMembers__c" targetField="IsHiddenToMembers" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsPrimary__c" targetField="IsPrimary" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LoyaltyProgramId__c" targetField="LoyaltyProgramId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="QpResetDate__c" targetField="QualifyingPointsResetDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="QpResetFrequency__c" targetField="QualifyingPointsResetFrequencyNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="QpResetPeriod__c" targetField="QualifyingPointsResetPeriodUOM" isFilterApplied="false"/>
+        <fieldMapping sourceField="TierModel__c" targetField="LoyaltyTierModelId" isFilterApplied="false"/>
+        <fieldMapping sourceField="TierPeriodQuantity__c" targetField="TierTimePeriodQuantity" isFilterApplied="false"/>
+        <fieldMapping sourceField="TierPeriodUnit__c" targetField="TierPeriodTimeUOM" isFilterApplied="false"/>
+        <fieldMapping sourceField="StartDate__c" targetField="StartDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="EndDate__c" targetField="EndDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="Category__c" targetField="Category" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

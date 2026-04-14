@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Incident">
+    <Dmo_Mapping dmoName="IncidentDmo">
+        <fieldMapping sourceField="AssignedGroupId__c" targetField="AssignedGroupId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AssignedUserId__c" targetField="AssignedUserId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BusinessHoursId__c" targetField="OperatingHoursId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Category__c" targetField="IncidentCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DetectedDateTime__c" targetField="DetectedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDateTime__c" targetField="EndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EntitlementId__c" targetField="ServiceEntitlementId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Impact__c" targetField="IncidentImpact" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IncidentNumber__c" targetField="IncidentNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsClosed__c" targetField="IsClosed" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsMajorIncident__c" targetField="IsMajorIncident" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MajorIncidentStatusComments__c" targetField="MajorIncidentStatusCommentsText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MajorIncidentStatus__c" targetField="MajorIncidentStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MilestoneStatus__c" targetField="MilestoneStatusText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentIncidentId__c" targetField="ParentIncidentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Priority__c" targetField="IncidentPriority" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PriorityOverrideReason__c" targetField="PriorityOverrideReasonText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReportedById__c" targetField="ReportedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReportedMethodIdentifier__c" targetField="ReportedMethodIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReportedMethod__c" targetField="IncidentReportedMethod" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResolutionDateTime__c" targetField="ResolutionDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResolutionStatusCode__c" targetField="IncidentResolutionStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResolutionSummary__c" targetField="ResolutionSummaryText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResolvedById__c" targetField="ResolvedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SlaExitDate__c" targetField="EntitlementProcessEndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SlaStartDate__c" targetField="EntitlementProcessStartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDateTime__c" targetField="StartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatusCode__c" targetField="IncidentStatusCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="IncidentStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StopStartDate__c" targetField="IncidentPausedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubCategory__c" targetField="IncidentSubCateogory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Subject__c" targetField="SubjectText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="IncidentType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Urgency__c" targetField="IncidentUrgency" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsStopped__c" targetField="IsStopped" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SystemModstamp" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

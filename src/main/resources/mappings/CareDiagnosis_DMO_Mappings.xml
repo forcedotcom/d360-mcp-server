@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CareDiagnosis">
+    <Dmo_Mapping dmoName="CareRequestDiagnosisDmo">
+        <fieldMapping sourceField="CareRequestCaseId__c" targetField="CareRequestCaseID" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CareRequestId__c" targetField="CareRequestId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeDescription__c" targetField="CodeDescriptionText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeType__c" targetField="CodeTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeTypeIdentifier__c" targetField="CodeTypeIdentifierText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DiagnosisCodeId__c" targetField="DiagnosisCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DiagnosisCodeSetId__c" targetField="DiagnosisCodeSetId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DiagnosisCodesetIDObject__c" targetField="DiagnosisCodeSetObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischargeCode__c" targetField="DischargeCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischargeCodeDescription__c" targetField="DischargeCodeDescription" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischargeCodeType__c" targetField="DischargeCodeType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischargeCodeTypeIdentifier__c" targetField="DischargeCodeTypeIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischargeDiagnosisCodeId__c" targetField="DischargeDiagnosisCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischargeDiagnosisCodesetIDObject__c" targetField="DischargeDiagnosticCodeSetObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DischrgeDiagnosisCodeSetId__c" targetField="DischargeDiagnosisCodeSetId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HealthConditionId__c" targetField="HealthConditionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedCode__c" targetField="ModifiedCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedCodeDescription__c" targetField="ModifiedCodeDescription" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedCodeType__c" targetField="ModifiedCodeType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedCodeTypeIdentifier__c" targetField="ModifiedCodeTypeIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedDiagnosisCodeId__c" targetField="ModifiedDiagnosisCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedDiagnosisCodeSetId__c" targetField="ModifiedDiagnosisCodesetId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModifiedDiagnosisCodesetIDObject__c" targetField="ModifiedDiagnosisCodeSetObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystem__c" targetField="SourceSystem" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemIdentifier__c" targetField="SourceSystemIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

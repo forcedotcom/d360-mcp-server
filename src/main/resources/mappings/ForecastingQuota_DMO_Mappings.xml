@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!--
+    Note on IsAmount, StartDate :
+    As IsAmount in core is a text field and a boolean in ssot, we need to map it for a formula field in between to do the data type conversion.
+    Similar for StartDate from DateTime type to Date type.
+    To be done as follows in the datakit, reach out to @harendra.singh for any questions on this
+
+    <DataStreamTemplate name="ForecastingQuota">
+        <DataSourceObject sourceObject="ForecastingQuota">
+            <FieldSetExtension>
+                <DataSourceField name="Fmla_IsAmount_Boolean" label="IsAmount" dataType="BOOLEAN" externalName="Fmla_IsAmount_Boolean"
+                                 versionNumber="1.0" fieldFormula="LOWER(sourceField['IsAmount']) == 'true'"
+                                 isDataRequired="false" isFormula="true" usageTag="NONE"/>
+                <DataSourceField name="Fmla_StartDate_Date" label="StartDate" dataType="DATE" externalName="Fmla_StartDate_Date"
+                                 versionNumber="1.0" fieldFormula="DAYPRECISION(sourceField['StartDate'])"
+                                 isDataRequired="false" isFormula="true" usageTag="NONE"/>
+            </FieldSetExtension>
+            <Dmo_Mapping dmoName="ForecastingQuotaDmo"/>
+        </DataSourceObject>
+    </DataStreamTemplate>
+-->
+
+<SObjectDmoMappings sourceObjectName="ForecastingQuota">
+    <Dmo_Mapping dmoName="ForecastingQuotaDmo">
+        <fieldMapping sourceField="Id__c" targetField="Id"/>
+        <fieldMapping sourceField="QuotaOwnerId__c" targetField="QuotaOwner"/>
+        <fieldMapping sourceField="PeriodId__c" targetField="BusinessPeriodId"/>
+        <fieldMapping sourceField="Fmla_StartDate_Date__c" targetField="StartDate"/>
+        <fieldMapping sourceField="ProductFamily__c" targetField="ProductFamily"/>
+        <fieldMapping sourceField="QuotaAmount__c" targetField="QuotaAmount"/>
+        <fieldMapping sourceField="QuotaQuantity__c" targetField="QuotaQuantity"/>
+        <fieldMapping sourceField="Fmla_IsAmount_Boolean__c" targetField="IsAmount"/>
+        <fieldMapping sourceField="ForecastingTypeId__c" targetField="ForecastingTypeId"/>
+        <fieldMapping sourceField="Territory2Id__c" targetField="SalesTerritoryId"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Fmla_QuotaAmount_Currency__c" targetField="QuotaAmt" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="GiftCommitment">
+    <Dmo_Mapping dmoName="GiftCommitmentDmo">
+        <fieldMapping sourceField="CampaignId__c" targetField="CampaignId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentGiftCmtScheduleId__c" targetField="CurrentGiftCmtScheduleId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorId__c" targetField="DonorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveStartDate__c" targetField="EffectiveStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveTransactionInterval__c" targetField="EffectiveInterval" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveTransactionPeriod__c" targetField="EffectiveTransactionPeriodName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpectedAssetMaturityDate__c" targetField="ExpectedAssetMaturityDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpectedAssetTransferDate__c" targetField="ExpectedAssetTransferDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpectedEndDate__c" targetField="ExpectedEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpectedTotalCmtAmount__c" targetField="ExpectedTotalCmtAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FormalCommitmentType__c" targetField="FormalCommitmentType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FulfillmentType__c" targetField="FulfilmentType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftVehicle__c" targetField="GiftVehicle" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftVehicleType__c" targetField="GiftVehicleType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsAssetTransferExpected__c" targetField="IsAssetTransferExpected" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastPaidTransactionDate__c" targetField="LastPaidTransactionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextTransactionAmount__c" targetField="NextTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextTransactionDate__c" targetField="NextTransactionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OpportunityId__c" targetField="OpportunityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecurrenceType__c" targetField="RecurrenceType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotCommitmentScheduleAmt__c" targetField="TotCommitmentScheduleAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotExpcAssetMaturityVal__c" targetField="TotExpcAssetMaturityValAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotExpcAssetTransferVal__c" targetField="TotExpcAssetTransferValAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAssetPresentValue__c" targetField="TotalAssetPresentValue" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalCurrentMonth__c" targetField="TotalCurrentMonth" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalCurrentQuarter__c" targetField="TotalCurrentQuarter" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalCurrentYear__c" targetField="TotalCurrentYear" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalNextYear__c" targetField="TotalNextYear" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPaidTransactionAmount__c" targetField="TotalPaidTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionPaymentCount__c" targetField="TransactionPaymentCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WrittenOffAmount__c" targetField="WrittenOffAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorGiftConceptId__c" targetField="DonorGiftConceptId" isFilterApplied="false"/>
+        <fieldMapping sourceField="GiftAgreementId__c" targetField="GiftAgreementId" isFilterApplied="false"/>
+        <fieldMapping sourceField="PartyPhilanthropicRsrchPrflId__c" targetField="PartyPhilanthropicRsrchPrflId" isFilterApplied="false"/>
+        <fieldMapping sourceField="PlannedGiftId__c" targetField="PlannedGiftId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Order">
+    <Dmo_Mapping dmoName="ContactPointAddressDmo">
+        <fieldMapping sourceField="BillingCity__c" targetField="CityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingCountry__c" targetField="CountryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingCountry__c" targetField="CountryName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingPostalCode__c" targetField="AddressLine1" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingState__c" targetField="StateProvinceName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="PartyId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="SalesOrderDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="BillToAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillToContactId__c" targetField="BillToContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveDate__c" targetField="OrderStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDate__c" targetField="OrderEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="NameInterfaceField" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OpportunityId__c" targetField="OpportunityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OrderNumber__c" targetField="OrderNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerUserId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Pricebook2Id__c" targetField="PricebookId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ShipToContactId__c" targetField="ShipToContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="SalesOrderStatusId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatusCode__c" targetField="SalesOrderStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAmount__c" targetField="TotalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="SalesOrderTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivatedDate__c" targetField="ActivatedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CustomerAuthorizedById__c" targetField="CustomerAuthorizedById" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

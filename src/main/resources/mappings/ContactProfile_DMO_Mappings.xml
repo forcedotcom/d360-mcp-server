@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ContactProfile">
+    <Dmo_Mapping dmoName="ContactProfileDmo">
+        <fieldMapping sourceField="AssetLiquidationValue__c" targetField="AssetLiquidationValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BirthSex__c" targetField="BirthSexType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BusinessOwnershipValue__c" targetField="BusinessOwnershipValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HousingStatus__c" targetField="HousingStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Income__c" targetField="IncomeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LivingArrangementType__c" targetField="LivingArrangementType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherAssetsValue__c" targetField="OtherAssetsValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherNonprofitGiftAmount__c" targetField="OtherNonprofitGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherNonprofitGiftCount__c" targetField="OtherNonprofitGiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RealEstateValue__c" targetField="RealEstateValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecurringDonorType__c" targetField="RecurringDonorType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResidenceSubType__c" targetField="ResidenceSubType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResidenceType__c" targetField="ResidenceType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RetirementSavingsAmount__c" targetField="RetirementSavingsAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StockValue__c" targetField="StockValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TribalAffiliationType__c" targetField="TribalAffiliationType" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="IndividualDmo">
+        <fieldMapping sourceField="AdvancementType__c" targetField="EducationalAdvancementType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Advancement_Graduation_Date_Transformed__c" targetField="AdvancementGraduationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BirthPlace__c" targetField="BirthPlace" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GenerationalCohort__c" targetField="GenerationalCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationAchievement__c" targetField="GraduationAchievement" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationCohort__c" targetField="GraduationCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_Ferpa_Parental_Disclosure_Boolean__c" targetField="HasFerpaParentalDisclosure" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_Ferpa_Thrd_Pty_Disclosure_Boolean__c" targetField="HasFerpaThrdPtyDisclosure" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestEducationLevel__c" targetField="HighestEducationLevelId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_First_Generation_Student_Transformed__c" targetField="IsFirstGenerationStudent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Location__c" targetField="LocationText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MilitaryBranch__c" targetField="MilitaryBranch" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MilitaryService__c" targetField="MilitaryServiceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrimaryCitizenshipType__c" targetField="PrimaryCitizenshipType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Race__c" targetField="Race" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondaryCitizenshipType__c" targetField="SecondaryCitizenshipType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Website__c" targetField="WebSiteURL" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

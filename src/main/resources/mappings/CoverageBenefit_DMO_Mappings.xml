@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CoverageBenefit">
+    <Dmo_Mapping dmoName="CoverageBenefitDmo">
+        <fieldMapping sourceField="BenefitNotes__c" targetField="BenefitNotes" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CoinsuranceNotes__c" targetField="CoinsuranceNoteText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CopayNotes__c" targetField="CopayNoteText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CoverageBenefitPeriodEndDate__c" targetField="BenefitPeriodEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CoverageBenefitPeriodStartDate__c" targetField="BenefitPeriodStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CoverageType__c" targetField="CoverageType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DeductibleNotes__c" targetField="DeductibleNoteText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Disclaimer__c" targetField="DisclaimerText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EmergencyDepartmentCopay__c" targetField="EmergencyTreatmentCopayAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyInNetworkDeductibleApplied__c" targetField="InNetworkFamilyDeductibleAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyInNetworkDeductibleLimit__c" targetField="InNtwkFamilyDeductibleLimitAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyInNetworkDeductibleRemaining__c" targetField="InNtwkFamilyDeductibleRemainingAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyInNetworkOutofPocketApplied__c" targetField="InNetworkFamilyOutofPocketAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyInNetworkOutofPocketLimit__c" targetField="InNtwkFamilyOutofPocketLimitAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyInNetworkOutofPocketRemaining__c" targetField="InNetworkFamilyOOPRemainingAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyOutofNetworkDeductibleApplied__c" targetField="OutofNetworkFamilyDeductibleAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyOutofNetworkDeductibleLimit__c" targetField="OutofNtwkFamilyDeductibleLimitAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyOutofNetworkDeductibleRemaining__c" targetField="OutofNtwkFamilyDeductibleRemainingAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyOutofNetworkOutofPocketApplied__c" targetField="OutofNetworkFamilyOutofPocketAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyOutofNetworkOutofPocketLimit__c" targetField="OutofNtwkFamilyOutofPocketLmtAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FamilyOutofNetworkOutofPocketRemaining__c" targetField="OutofNtwkFamilyOutofPocketRemainingAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FinalCoverageStatusCodeId__c" targetField="FinalCoverageStatusCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InNetworkCoinsuranceAmount__c" targetField="InNetworkCoinsuranceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InNetworkCoinsurancePercentage__c" targetField="InNetworkCoinsurancePercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InNetworkLifetimeMaximum__c" targetField="InNtwkLifetimeCoverageMaximumAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualInNetworkDeductibleApplied__c" targetField="InNetworkIndividualDeductibleAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualInNetworkDeductibleLimit__c" targetField="InNtwkIndividualDeductibleLimitAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualInNetworkDeductibleRemaining__c" targetField="INNIndividualDeductibleRemainingAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualInNetworkOutofPocketApplied__c" targetField="InNetworkIndividualOutofPocketAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualInNetworkOutofPocketLimit__c" targetField="InNetworkIndividualOutofPocketLimitAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualInNetworkOutofPocketRemaining__c" targetField="InNtwkIndividualOutofPocketRemainingAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualOutofNetworkDeductibleApplied__c" targetField="OutofNtwkIndividualDeductibleAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualOutofNetworkDeductibleLimit__c" targetField="OutofNtwkIndividualDeductibleLimitAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualOutofNetworkDeductibleRemain__c" targetField="OutofNtwkIndividualDedRemainingAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualOutofNetworkOutofPocketApplied__c" targetField="OutofNtwkIndividualOutofPocketAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualOutofNetworkOutofPocketLimit__c" targetField="OutofNtwkIndvOutofPocketLmtAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualOutofNetworkOutofPocketRemain__c" targetField="OutofNtwkIndvOutofPocketRemainAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsBenefitActive__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LifetimeMaximumNotes__c" targetField="LifetimeMaximumPaymentNoteText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MemberId__c" targetField="MemberId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MemberPlanId__c" targetField="MemberPlanId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutcomeStatusCodeId__c" targetField="OutcomeStatusCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutofNetworkCoinsuranceAmount__c" targetField="OutofNetworkCoinsuranceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutofNetworkCoinsurancePercentage__c" targetField="OutofNetworkCoinsurancePercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutofNetworkLifetimeMaximum__c" targetField="OutofNtwkLifetimeCoverageMaximumAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutofPocketNotes__c" targetField="OutofPocketPaymentNoteText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrimaryCareCopay__c" targetField="PrimaryCareCopayAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystem__c" targetField="SourceSystemName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemModifiedDate__c" targetField="SourceSystemModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SpecialistCopay__c" targetField="SpecialistConsultationCopayAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatusCodeId__c" targetField="StatusCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UrgentCareCopay__c" targetField="UrgentCareCopayAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VerificationDate__c" targetField="VerificationDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

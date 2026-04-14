@@ -1,0 +1,547 @@
+[
+  {
+    "name": "ssot__AccountId__c",
+    "label": "Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountBusinessType__c",
+    "label": "Account Business Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__Description__c",
+    "label": "Account Description",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__Id__c",
+    "label": "Account Id",
+    "isPrimaryKey": true
+  },
+  {
+    "name": "ssot__Name__c",
+    "label": "Account Name",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__Number__c",
+    "label": "Account Number",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountOwnershipType__c",
+    "label": "Account Ownership Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountPriority__c",
+    "label": "Account Priority",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountRatingType__c",
+    "label": "Account Rating Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountSegmentType__c",
+    "label": "Account Segment Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountSource__c",
+    "label": "Account Source",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountTypeId__c",
+    "label": "Account Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountType__c",
+    "label": "Account Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountWebsiteURL__c",
+    "label": "Account Website URL",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AccountServiceEntitlements__c",
+    "label": "AccountServiceEntitlements relationship",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AlternateName__c",
+    "label": "Alternate Name",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AnnualRevenueAmount__c",
+    "label": "Annual Revenue Amount",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AssignTerritoryFlag__c",
+    "label": "Assign Territory Flag",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AutoPayEnabledFlag__c",
+    "label": "Auto Pay Enabled Flag",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AutoPaymentAmount__c",
+    "label": "Auto Payment Amount",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AutoPaymentAmountCurrency__c",
+    "label": "Auto Payment Amount Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__AutoPaymentMethodId__c",
+    "label": "Auto Payment Method",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BalanceAmount__c",
+    "label": "Balance Amount",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BalanceAmountCurrency__c",
+    "label": "Balance Amount Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BalanceAmountLimit__c",
+    "label": "Balance Amount Limit",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BalanceAmountLimitCurrency__c",
+    "label": "Balance Amount Limit Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BalanceUnitOfMeasureId__c",
+    "label": "Balance Unit Of Measure",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BalanceUnitOfMeasureCurrencyId__c",
+    "label": "Balance Unit Of Measure Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BillContactAddressId__c",
+    "label": "Bill Contact Address",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BillDeliveryMethodId__c",
+    "label": "Bill Delivery Method",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BillFrequency__c",
+    "label": "Bill Frequency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__BusinessUnitId__c",
+    "label": "Business Unit",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ContactPointAddressId__c",
+    "label": "Contact Point Address",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ContactPointAppId__c",
+    "label": "Contact Point App",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ContactPointLocationId__c",
+    "label": "Contact Point Location",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ContactPointPhoneId__c",
+    "label": "Contact Point Phone",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ContactPointSocialId__c",
+    "label": "Contact Point Social",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ContactPointEmailId__c",
+    "label": "ContactPointEmailId",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__CreatedDate__c",
+    "label": "Created Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__IsCreditBlocked__c",
+    "label": "Credit Blocked",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__CreditLimitAmount__c",
+    "label": "Credit Limit",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__CreditRatingType__c",
+    "label": "Credit Rating Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__DataSourceId__c",
+    "label": "Data Source",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__DataSourceObjectId__c",
+    "label": "Data Source Object",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__DefaultFreightTermsId__c",
+    "label": "Default Freight Terms",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__DefaultPriceBookId__c",
+    "label": "Default Price Book",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__EffectiveDate__c",
+    "label": "Effective Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__EmployeeCount__c",
+    "label": "Employee Count",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__EndDate__c",
+    "label": "End Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ExternalRecordId__c",
+    "label": "External Record Id",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ExternalSourceId__c",
+    "label": "External Source Id",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__FaxPhoneId__c",
+    "label": "Fax Phone",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__FixedFundingOverdrawPercent__c",
+    "label": "Fixed Funding Overdraw Percentage",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__GeneralLedgerAccountId__c",
+    "label": "General Ledger Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__GroupIncome__c",
+    "label": "Group Income",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__GroupSize__c",
+    "label": "Group Size",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__HoldStatusReasonId__c",
+    "label": "Hold Status Reason",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__IndividualId__c",
+    "label": "Individual",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__InternalOrganizationId__c",
+    "label": "Internal Organization",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__IsActive__c",
+    "label": "Is Active",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__IsCustomer__c",
+    "label": "Is Customer",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__isSeller__c",
+    "label": "Is Seller",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__LastActivityDate__c",
+    "label": "Last Activity Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__LastModifiedById__c",
+    "label": "Last Modified By",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__LastModifiedDate__c",
+    "label": "Last Modified Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__LastVisitDate__c",
+    "label": "Last Visit Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__NinetyDayBalanceAmount__c",
+    "label": "Ninety Day Balance Amount",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__NinetyDayBalanceAmountCurrency__c",
+    "label": "Ninety Day Balance Amount Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__OperatingHoursId__c",
+    "label": "Operating Hours",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__OrderDeliveryMethodId__c",
+    "label": "Order Delivery Method",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__OrganizationId__c",
+    "label": "Organization",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__OwnerId__c",
+    "label": "Owner",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ParentAccountId__c",
+    "label": "Parent Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PartyId__c",
+    "label": "Party",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PartyObject__c",
+    "label": "Party Object",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PartyRoleId__c",
+    "label": "Party Role",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PartyWebAddressId__c",
+    "label": "Party Web Address",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PaymentTerm__c",
+    "label": "Payment Term",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PaymentTermId__c",
+    "label": "Payment Term",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PrimaryIndustry__c",
+    "label": "Primary Industry",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PrimarySalesContactPointId__c",
+    "label": "Primary Sales Contact Point",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__PrimarySalesRepId__c",
+    "label": "Primary Sales Rep",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ProfileImageUrl__c",
+    "label": "Profile Image URL",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__RateBasedFundingOverdrawPercent__c",
+    "label": "Rate Based Funding Overdraw Percentage",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__RecordType__c",
+    "label": "Record Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ReviewFrequencyText__c",
+    "label": "Review Frequency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SLAExpirationDate__c",
+    "label": "SLA Expiration Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SLATypeId__c",
+    "label": "SLA Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SalesPhoneId__c",
+    "label": "Sales Phone",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ShippingAddressId__c",
+    "label": "Shipping Address",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ShippingContactId__c",
+    "label": "Shipping Contact",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ShippingEmailId__c",
+    "label": "Shipping Email",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ShippingPhoneid__c",
+    "label": "Shipping Phone",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SixtyDayBalanceAmount__c",
+    "label": "Sixty Day Balance Amount",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SixtyDayBalanceAmountCurrency__c",
+    "label": "Sixty Day Balance Amount Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SourceSystemIdentifier__c",
+    "label": "Source System Identifier",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__SourceSystemModifiedDateTime__c",
+    "label": "Source System Modified Date",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__TaxPaymentJurisdictionCode__c",
+    "label": "Tax Payment Jurisdiction Code",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ThirtyDayBalanceAmount__c",
+    "label": "Thirty Day Balance Amount",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__ThirtyDayBalanceAmountCurrency__c",
+    "label": "Thirty Day Balance Amount Currency",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__TradeClassificationType__c",
+    "label": "Trade Classification Type",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__UseAsBillingAccount__c",
+    "label": "Use As Billing Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__UseAsSalesAccount__c",
+    "label": "Use As Sales Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__UseAsServiceAccount__c",
+    "label": "Use As Service Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__UseAsShippingAccount__c",
+    "label": "Use As Shipping Account",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__WebsiteAddr__c",
+    "label": "Website",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__isInternal__c",
+    "label": "is Internal",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__isPartner__c",
+    "label": "is Partner",
+    "isPrimaryKey": false
+  },
+  {
+    "name": "ssot__isSupplier__c",
+    "label": "is Supplier",
+    "isPrimaryKey": false
+  }
+]

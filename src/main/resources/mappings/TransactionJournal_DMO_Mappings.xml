@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="TransactionJournal">
+    <Dmo_Mapping dmoName="LoyaltyTransactionJournalDmo">
+        <fieldMapping sourceField="ActivityDate__c" targetField="ActivityDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BookedFareClass__c" targetField="BookedFareClassId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BookedRoomType__c" targetField="BookedRoomTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BookingDate__c" targetField="BookingDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Brand__c" targetField="BrandId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FlightNumber__c" targetField="FlightNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Industry__c" targetField="IndustryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="JournalDate__c" targetField="JournalDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="JournalReason__c" targetField="ReasonText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentMethod__c" targetField="PaymentMethodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductCategoryId__c" targetField="ProductCategoryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductId__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Quantity__c" targetField="TransactionQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceRecordId__c" targetField="ExternalRecordId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionAmount__c" targetField="TransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionLocation__c" targetField="TransactionSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TraveledFareClass__c" targetField="TraveledFareClassId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UsageType__c" targetField="UsageType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VoucherCode__c" targetField="VoucherCodeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Coupon__c" targetField="CouponId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OfferId__c" targetField="OfferId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AccountId__c" targetField="PartyId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsParentTransaction__c" targetField="IsParentTransaction" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ReturnOrderLineItem">
+    <Dmo_Mapping dmoName="ReturnOrderProductDmo">
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="Product2Id__c" targetField="ProductId" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalPrice__c" targetField="TotalAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="QuantityUnitOfMeasure__c" targetField="ReturnedQuantityUOM" isFilterApplied="false"/>
+        <fieldMapping sourceField="ReturnOrderLineItemNumber__c" targetField="ReturnOrderProductNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAmount__c" targetField="RepaymentAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalLineTaxAmount__c" targetField="TotalProductTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="ReasonForReturn__c" targetField="ReturnReasonCode" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ReturnOrderId__c" targetField="ReturnOrderId" isFilterApplied="false"/>
+        <fieldMapping sourceField="QuantityReturned__c" targetField="ReturnedQuantityCount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustmentTaxAmount__c" targetField="TotalProductAdjustTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalLineAmount__c" targetField="TotalProductAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalLineAmountWithTax__c" targetField="TotalProductAmtWithTax" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustmentAmount__c" targetField="TotalProductAdjustAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalTaxAmount__c" targetField="TotalTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustmentAmountWithTax__c" targetField="TotalProductAdjustAmtWithTax" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

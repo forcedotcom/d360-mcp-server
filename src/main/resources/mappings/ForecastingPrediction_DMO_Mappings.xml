@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ForecastingPrediction">
+    <Dmo_Mapping dmoName="ForecastingPredictionDmo">
+        <fieldMapping sourceField="ID__c" targetField="ID" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Period__c" targetField="BusinessPeriodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDate__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastOwner__c" targetField="ForecastOwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductFamily__c" targetField="ProductFamilyId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingType__c" targetField="ForecastingTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Amount__c" targetField="Amt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AmountLowerBound__c" targetField="LowerBoundAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AmountHigherBound__c" targetField="HigherBoundAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Quantity__c" targetField="Quantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="QuantityLowerBound__c" targetField="LowerBoundQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="QuantityHigherBound__c" targetField="HigherBoundQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrevPredictionAmount__c" targetField="PrevPredictionAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrevPredictionChangeDate__c" targetField="PrevPredictionChangeDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

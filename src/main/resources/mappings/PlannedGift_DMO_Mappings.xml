@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="PlannedGift">
+    <Dmo_Mapping dmoName="PlannedGiftDmo">
+        <fieldMapping sourceField="ActuarialFactor__c" targetField="ActuarialFactorNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BequestRealizationDateTransformed__c" targetField="BequestRealizationDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="CaseId__c" targetField="CaseId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DateReceivedTransformed__c" targetField="ReceivedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DiscountRate__c" targetField="DiscountRate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorGiftConceptId__c" targetField="DonorGiftConceptId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorId__c" targetField="DonorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Expectancy__c" targetField="ExpectancyYears" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstPaymentDateTransformed__c" targetField="FirstPaymentDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="GiftAgreementId__c" targetField="GiftAgreementId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftType__c" targetField="PlannedGiftType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvestmentReturnRate__c" targetField="InvestmentReturnRate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsRevocableBoolean__c" targetField="IsRevocable" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastValuationDateTransformed__c" targetField="LastValuationDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="MaturityDateTransformed__c" targetField="MaturityDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="PlannedGiftName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetReturnRate__c" targetField="NetReturnRate" isFilterApplied="false"/>
+        <fieldMapping sourceField="OpportunityId__c" targetField="OpportunityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PayoutFrequency__c" targetField="PayoutFrequency" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PayoutRate__c" targetField="PayoutRate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PolicyNumber__c" targetField="PolicyNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProbabilityFactor__c" targetField="GiftProbabilityPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResiduaryShare__c" targetField="ResiduarySharePercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDateTransformed__c" targetField="StartDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TermEndDateTransformed__c" targetField="TermEndDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Term__c" targetField="TermYears" isFilterApplied="false"/>
+        <fieldMapping sourceField="TermType__c" targetField="TermType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TrustName__c" targetField="TrustName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TrustType__c" targetField="TrustType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitsHeld__c" targetField="UnitsHeldNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="AmountReceivedTransformed__c" targetField="ReceivedAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="CurrentValueTransformed__c" targetField="CurrentValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="ExpectedAmountTrasnsformed__c" targetField="ExpectedAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="ExpectedEstateValueTransformed__c" targetField="ExpectedEstateValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="ExpensesAmountTransformed__c" targetField="ExpensesAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="FaceValueTransformed__c" targetField="FaceValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="FutureValueTransformed__c" targetField="FutureValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="MarketValueTransformed__c" targetField="MarketValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="NetValueTransformed__c" targetField="NetValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="PremiumAmountTransformed__c" targetField="PremiumAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="PresentValueTransformed__c" targetField="PresentValueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="PrincipalAmountTransformed__c" targetField="PrincipalAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TrusteeFeesTransformed__c" targetField="TrusteeFeesAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="UnitsValueTransformed__c" targetField="UnitsValueAmt" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

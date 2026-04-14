@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="InsurancePolicy">
+    <Dmo_Mapping dmoName="InsurancePolicyDmo">
+        <fieldMapping sourceField="CancellationDate__c" targetField="CancellationDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentDueAmount__c" targetField="CurrentDueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DateRenewed__c" targetField="RenewalDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveDate__c" targetField="EffectiveDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpirationDate__c" targetField="ExpirationDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GrossWrittenPremium__c" targetField="GrossWrittenPremiumAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsRenewedPolicyFormula__c" targetField="IsRenewedPolicy" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="InsurancePolicyNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NameInsuredId__c" targetField="PrimaryInsuredId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PolicyName__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PremiumAmount__c" targetField="PremiumAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PremiumFrequency__c" targetField="PremiumFrequency" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PremiumPaymentType__c" targetField="PremiumPaymentType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProducerId__c" targetField="PrimaryProducerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RenewalDate__c" targetField="NextRenewalDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RenewedFromPolicyId__c" targetField="PriorInsurancePolicy" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="InsurancePolicyStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalCommissionAmount__c" targetField="TotalCommissionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalStandardAmount__c" targetField="TotalStandardAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalSumInsured__c" targetField="InsuredAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTermFeeAmount__c" targetField="TotalTermFeeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTermPremiumAmount__c" targetField="TotalTermPremiumAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTermTaxAmount__c" targetField="TotalTermTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

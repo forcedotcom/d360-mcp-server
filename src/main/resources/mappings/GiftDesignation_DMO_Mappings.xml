@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="GiftDesignation">
+    <Dmo_Mapping dmoName="GiftDesignationDmo">
+        <fieldMapping sourceField="AverageTransactionAmount__c" targetField="AverageTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CapitalPurpose__c" targetField="CapitalPurpose" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentOperationsPurpose__c" targetField="CurrentOperationsPurpose" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentYearTransactionCount__c" targetField="CurrentYearTransactionCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentYearTrxnAmount__c" targetField="CurrentYearTrxnAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FirstPaidTransactionDate__c" targetField="FirstPaidTransactionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestTransactionAmount__c" targetField="HighestTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsActive__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastPaidTransactionDate__c" targetField="LastPaidTransactionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastTwoYearTrxnAmount__c" targetField="LastTwoYearTrxnAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastTwoYearTrxnCount__c" targetField="LastTwoYearTrxnCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastYearTransactionCount__c" targetField="LastYearTransactionCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastYearTrxnAmount__c" targetField="LastYearTrxnAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LowestTransactionAmount__c" targetField="LowestTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTransactionAmount__c" targetField="TotalTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTransactionCount__c" targetField="TotalTransactionCount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

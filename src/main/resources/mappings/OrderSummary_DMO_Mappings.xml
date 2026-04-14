@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="OrderSummary">
+    <Dmo_Mapping dmoName="SalesOrderDmo">
+        <fieldMapping sourceField="OrderNumber__c" targetField="OrderNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalTaxAmount__c" targetField="TotalTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAmount__c" targetField="TotalAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProductAdjDistAmount__c" targetField="TotalProductAdjustmentDistAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="PoNumber__c" targetField="PurchaseOrderNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProductAmount__c" targetField="TotalProductAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjProductAmtWithTax__c" targetField="TotalWithTaxProductAdjDistAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjDistAmount__c" targetField="TotalAdjustmentAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="GrandTotalAmount__c" targetField="GrandTotalAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProductTaxAmount__c" targetField="TotalProductTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustedProductAmount__c" targetField="AdjustedTotalProductAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProductAmountWithTax__c" targetField="TotalWithTaxProductAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalDeliveryTaxAmount__c" targetField="TotalDeliveryTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustedDeliveryTaxAmount__c" targetField="TotalAdjustedDeliveryTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="AccountId__c" targetField="SoldToCustomerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalDeliveryAmount__c" targetField="TotalDeliveryAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerUserId" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalDeliveryAdjDistTaxAmount__c" targetField="TotalDeliveryAdjDistTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjDeliveryAmtWithTax__c" targetField="TotalWithTaxAdjDeliveryAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="SalesChannelId__c" targetField="SalesChannelId" isFilterApplied="false"/>
+        <fieldMapping sourceField="SalesStoreId__c" targetField="SalesStoreId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Status__c" targetField="SalesOrderStatusId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="BusinessModel__c" targetField="BusinessModel" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustedProductTaxAmount__c" targetField="AdjustedProductTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProductAdjDistTaxAmount__c" targetField="TotalProductAdjDistTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalDeliveryAmountWithTax__c" targetField="TotalWithTaxDeliveryAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalDeliveryAdjDistAmount__c" targetField="TotalDeliveryAdjustmentDistAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjustedDeliveryAmount__c" targetField="AdjustedTotalDeliveryAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAdjDistTaxAmount__c" targetField="TotalAdjustmentTaxAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="OrderedDate__c" targetField="FiledDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="BillToContactId__c" targetField="BillToContactId" isFilterApplied="false"/>
+        <fieldMapping sourceField="OriginalOrderId__c" targetField="OriginalOrderId" isFilterApplied="false"/>
+        <fieldMapping sourceField="AccountId__c" targetField="BillToAccountId" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="PoDate__c" targetField="PurchaseOrderDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProductAdjDistAmtWithTax__c" targetField="TotalWithTaxAdjProductAmount" isFilterApplied="false"/>
+        <fieldMapping sourceField="TaxLocaleType__c" targetField="TaxPolicy" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalDeliveryAdjDistAmtWithTax__c" targetField="TotalWithTaxDeliveryAdjDistAmount" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

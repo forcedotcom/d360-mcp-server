@@ -1,0 +1,10 @@
+# CODEOWNERS for d360-mcp-server
+#
+# Each line is a file pattern followed by one or more owners.
+# Owners are GitHub usernames or teams responsible for reviewing
+# changes to matching files.
+#
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo.
+* @salesforce/d360-mcp-server-admin

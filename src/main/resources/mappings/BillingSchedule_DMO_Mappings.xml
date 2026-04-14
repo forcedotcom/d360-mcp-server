@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="BillingSchedule">
+    <Dmo_Mapping dmoName="BillingScheduleDmo">
+        <fieldMapping sourceField="BillDayOfMonth__c" targetField="BillDayOfMonth" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BilledAmount__c" targetField="BilledAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BilledThroughPeriodCustom__c" targetField="BilledThroughPeriodDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingAccountId__c" targetField="BillToAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingMethod__c" targetField="BillingMethod" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingPeriodAmount__c" targetField="BillingPeriodAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingScheduleEndDateCustom__c" targetField="BillingScheduleEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingScheduleGroupId__c" targetField="BillingScheduleGroupId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingScheduleNumber__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingScheduleStartDateCustom__c" targetField="BillingScheduleStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingTerm__c" targetField="BillingTermNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingTermUnit__c" targetField="BillingTermUnit" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingTreatmentItemId__c" targetField="BillingTreatmentItemId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingType__c" targetField="BillingScheduleBillingType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationDateCustom__c" targetField="CancellationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Category__c" targetField="BillingScheduleCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CustomInvoiceGroupKey__c" targetField="CustomInvoiceGroupKey" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GroupingKey__c" targetField="GroupingKeyText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceGroupType__c" targetField="InvoiceGroupTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LineAmount__c" targetField="LineAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextBillingDateCustom__c" targetField="NextBillingDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextChargeFromDateCustom__c" targetField="NextChargeFromDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PendingAmount__c" targetField="PendingAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Quantity__c" targetField="Quantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Reference__c" targetField="ReferenceObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceEntityId__c" targetField="ReferenceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceEntityItemId__c" targetField="ReferenceItemObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceItem__c" targetField="ReferenceItemObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="BillingScheduleStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxTreatmentId__c" targetField="TaxTreatmentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAmount__c" targetField="TotalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="BillingScheduleType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitOfMeasureId__c" targetField="UnitOfMeasureId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitPrice__c" targetField="UnitPriceNumber" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

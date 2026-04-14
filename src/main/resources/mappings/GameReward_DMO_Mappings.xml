@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="GameReward">
+    <Dmo_Mapping dmoName="GameRewardDmo">
+        <fieldMapping sourceField="Color__c" targetField="ColorText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentRewardCount__c" targetField="CurrentRewardCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GameDefinitionId__c" targetField="GameDefinitionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ImageUrl__c" targetField="ImageUrl" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MaximumRewardCount__c" targetField="MaximumRewardCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RewardDefinitionId__c" targetField="RewardDefinitionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RewardType__c" targetField="RewardType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RewardValue__c" targetField="RewardValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WinProbability__c" targetField="WinProbabilityNumber" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

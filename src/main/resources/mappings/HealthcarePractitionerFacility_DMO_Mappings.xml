@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="HealthcarePractitionerFacility">
+    <Dmo_Mapping dmoName="HealthcarePractitionerFacilityDmo">
+        <fieldMapping sourceField="AvailabilityExceptions__c" targetField="AvailabilityExceptions" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactObject__c" targetField="PractitionerObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Effective_From_Date__c" targetField="AssignmentStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Effective_To_Date__c" targetField="AssignmentEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GenderRestriction__c" targetField="GenderRestriction" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_24x7_Service__c" targetField="Has24x7Service" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HealthcareFacilityId__c" targetField="HealthcareFacilityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HealthcareProviderId__c" targetField="HealthcareProviderId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestValidAge__c" targetField="HighestValidAge" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Initial_Start_Date__c" targetField="InitialStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Active__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Directory_Print__c" targetField="IsDirectoryPrint" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Primary_Care_Physician__c" targetField="IsPrimaryCarePhysician" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Primary_Facility__c" targetField="IsPrimaryFacility" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LowestValidAge__c" targetField="LowestValidAge" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OperatingHoursId__c" targetField="OperatingHoursId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PractitionerId__c" targetField="PractitionerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServiceTerritoryMemberId__c" targetField="ServiceTerritoryResourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystem__c" targetField="SourceSystem" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemIdentifier__c" targetField="SourceSystemIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SsaCountyCode__c" targetField="SsaCountyCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SourceSystemModified" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TerminationReason__c" targetField="TerminationReason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TerminationRequestedById__c" targetField="TerminationRequestedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Termination_Date__c" targetField="TerminationDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

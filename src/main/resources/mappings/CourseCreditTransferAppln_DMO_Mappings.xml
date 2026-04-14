@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CourseCreditTransferAppln">
+    <Dmo_Mapping dmoName="CourseCreditTransferApplnDmo">
+        <fieldMapping sourceField="ApprovedLearningEquivalencyId__c" targetField="RequestedLearningEquivalencyId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ApprovedLearningId__c" targetField="RequestedLearningId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CaseId__c" targetField="CaseId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningAcademicSeason__c" targetField="LearningAcademicSeasonText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningAcademicYearTransformed__c" targetField="LearningAcademicYearDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LearningDuration__c" targetField="LearningDurationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningDurationUnit__c" targetField="LearningDurationUnit" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningIdentifier__c" targetField="LearningIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningLetterGrade__c" targetField="LearningLetterGradeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningName__c" targetField="LearningName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningNumericGrade__c" targetField="LearningNumericGradeNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="CourseCreditTransferApplnName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Provider__c" targetField="ProviderName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestedLearningEquivalencyId__c" targetField="ApprovedLearningEquivalencyId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestedLearningId__c" targetField="ApprovedLearningId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SfdcOrganizationId__c" targetField="InternalOrganizationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

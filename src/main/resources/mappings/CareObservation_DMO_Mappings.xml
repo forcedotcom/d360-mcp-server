@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CareObservation">
+    <Dmo_Mapping dmoName="CareObservationDmo">
+        <fieldMapping sourceField="AdditionalCode1Id__c" targetField="AdditionalCode1Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AdditionalCode2Id__c" targetField="AdditionalCode2Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BaselineUnitId__c" targetField="BaselineUnitOfMeasureId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BodySiteId__c" targetField="BodySiteId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Category__c" targetField="CareObservationCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CodeId__c" targetField="ExpectedValueId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DerivationSourceIDObject__c" targetField="DerivationSourceObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DerivationSourceId__c" targetField="DerivationSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DeviceId__c" targetField="DeviceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveDateTime__c" targetField="EffectiveDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EncounterId__c" targetField="ClinicalEncounterId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDateTime__c" targetField="EndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IssuedDateTime__c" targetField="IssuedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LowerBaselineValue__c" targetField="LowerBaselineValue" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NumericValue__c" targetField="NumericValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservationEndTime__c" targetField="ObservationEndTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservationStartTime__c" targetField="ObservationStartTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservationStatus__c" targetField="ObservationStatusText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedSubjectId__c" targetField="ObservedSubjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedValueCodeId__c" targetField="ObservedValueCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedValueDenominator__c" targetField="ObservedValueDnmtrNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedValueNumerator__c" targetField="ObservedValueNmrtrNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedValueText__c" targetField="ObservedValueText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedValueType__c" targetField="ObservedValueType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObservedValueUnitId__c" targetField="ObservedValueUOMId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObserverIDObject__c" targetField="ObserverObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ObserverId__c" targetField="ObserverId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PatientSpecimenId__c" targetField="PatientSpecimenId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProcessingResult__c" targetField="ProcessingResultText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RelatedObservationId__c" targetField="RelatedCareObservationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystem__c" targetField="SourceSystem" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemIdentifier__c" targetField="SourceSystemIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemModified__c" targetField="SourceSystemModified" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitOfMeasureId__c" targetField="ObservedUnitOfMeasureId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UpperBaselineValue__c" targetField="UpperBaselineValueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

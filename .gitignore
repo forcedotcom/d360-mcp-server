@@ -1,0 +1,35 @@
+# Build output
+target/
+*.class
+/bin/
+/out/
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# Logs and crash dumps
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
+# OS
+.DS_Store
+
+# Editor backups
+*.swp
+*.bak
+
+# Local auth / env
+.env
+.env.local
+oauth_callback.json
+oauth_token.json
+oauth_error.json
+tmp_*.json
+
+# Agent workspace
+.claude

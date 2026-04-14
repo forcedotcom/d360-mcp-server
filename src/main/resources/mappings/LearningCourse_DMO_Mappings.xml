@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LearningCourse">
+    <Dmo_Mapping dmoName="LearningCourseDmo">
+        <fieldMapping sourceField="AcademicLevel__c" targetField="AcademicLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActiveFromDateOnly__c" targetField="ActiveFromDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Active_To_Date_Only__c" targetField="ActiveToDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CipCode__c" targetField="CipCodeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CourseLevelDescription__c" targetField="CourseLevelDescription" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CourseNumber__c" targetField="CourseNumberText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Duration__c" targetField="DurationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DurationUnit__c" targetField="DurationUnit" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FieldOfStudy__c" targetField="FieldOfStudy" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Active_Boolean__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningId__c" targetField="LearningId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderId__c" targetField="ProviderId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubjectAbbreviation__c" targetField="SubjectAbbreviationText" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

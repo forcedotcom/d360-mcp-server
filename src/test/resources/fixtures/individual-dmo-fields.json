@@ -1,0 +1,558 @@
+[
+  {
+    "name": "ssot__AdvancementGraduationDate__c",
+    "label": "Advancement Graduation Date"
+  },
+  {
+    "name": "ssot__Age__c",
+    "label": "Age"
+  },
+  {
+    "name": "ssot__AverageOrderAmount__c",
+    "label": "Average Order Amount"
+  },
+  {
+    "name": "ssot__BirthDate__c",
+    "label": "Birth Date"
+  },
+  {
+    "name": "ssot__BirthDateDay__c",
+    "label": "Birth Date Day"
+  },
+  {
+    "name": "ssot__BirthDateMonth__c",
+    "label": "Birth Date Month"
+  },
+  {
+    "name": "ssot__BirthDateYear__c",
+    "label": "Birth Date Year"
+  },
+  {
+    "name": "ssot__BirthPlace__c",
+    "label": "Birth Place"
+  },
+  {
+    "name": "ssot__HasOptedOutGeoTracking__c",
+    "label": "Block Geolocation Tracking"
+  },
+  {
+    "name": "ssot__ChildrenCount__c",
+    "label": "Children Count"
+  },
+  {
+    "name": "ssot__ConsumerCreditScore__c",
+    "label": "Consumer Credit Score"
+  },
+  {
+    "name": "ssot__ConsumerCreditScoreProviderName__c",
+    "label": "Consumer Credit Score Provider Name"
+  },
+  {
+    "name": "ssot__ConvictionsCount__c",
+    "label": "Convictions Count"
+  },
+  {
+    "name": "ssot__CreatedDate__c",
+    "label": "Created Date"
+  },
+  {
+    "name": "ssot__CreationEventId__c",
+    "label": "Creation Event"
+  },
+  {
+    "name": "ssot__CreationEventObject__c",
+    "label": "Creation Event Object"
+  },
+  {
+    "name": "ssot__CurrentEmployerName__c",
+    "label": "Current Employer Name"
+  },
+  {
+    "name": "ssot__DataSourceId__c",
+    "label": "Data Source"
+  },
+  {
+    "name": "ssot__DataSourceObjectId__c",
+    "label": "Data Source Object"
+  },
+  {
+    "name": "ssot__DeathDate__c",
+    "label": "Death Date"
+  },
+  {
+    "name": "ssot__DeathPlace__c",
+    "label": "Death Place"
+  },
+  {
+    "name": "ssot__IsDeceased__c",
+    "label": "Deceased"
+  },
+  {
+    "name": "ssot__DependentCount__c",
+    "label": "Dependent Count"
+  },
+  {
+    "name": "ssot__DoExtractMyDataUpdateDate__c",
+    "label": "Do Extract My Data Update Date"
+  },
+  {
+    "name": "ssot__DoForgetMeFromUpdateDate__c",
+    "label": "Do Forget Me Update Date"
+  },
+  {
+    "name": "ssot__DoNotMarketFromUpdateDate__c",
+    "label": "Do Not Market Update Date"
+  },
+  {
+    "name": "ssot__HasOptedOutProcessing__c",
+    "label": "Do Not Process"
+  },
+  {
+    "name": "ssot__DoNotProcessReasonId__c",
+    "label": "Do Not Process Reason"
+  },
+  {
+    "name": "ssot__DoNotProcessFromUpdateDate__c",
+    "label": "Do Not Process Update Date"
+  },
+  {
+    "name": "ssot__HasOptedOutProfiling__c",
+    "label": "Do Not Profile"
+  },
+  {
+    "name": "ssot__DoNotProfileFromUpdateDate__c",
+    "label": "Do Not Profile Update Date"
+  },
+  {
+    "name": "ssot__HasOptedOutSolicit__c",
+    "label": "Do Not Solicit"
+  },
+  {
+    "name": "ssot__HasOptedOutTracking__c",
+    "label": "Do Not Track"
+  },
+  {
+    "name": "ssot__DoNotTrackLocationUpdateDate__c",
+    "label": "Do Not Track Location Update Date"
+  },
+  {
+    "name": "ssot__DoNotTrackUpdateDate__c",
+    "label": "Do Not Track Update Date"
+  },
+  {
+    "name": "ssot__EducationalAdvancementType__c",
+    "label": "Educational Advancement Type"
+  },
+  {
+    "name": "ssot__EthnicityId__c",
+    "label": "Ethnicity"
+  },
+  {
+    "name": "ssot__SendIndividualData__c",
+    "label": "Export Individual&#39;s Data"
+  },
+  {
+    "name": "ssot__ExternalRecordId__c",
+    "label": "External Record Id"
+  },
+  {
+    "name": "ssot__ExternalSourceId__c",
+    "label": "External Source Id"
+  },
+  {
+    "name": "ssot__HasFerpaParentalDisclosure__c",
+    "label": "FERPA Parental Disclosure"
+  },
+  {
+    "name": "ssot__HasFerpaThrdPtyDisclosure__c",
+    "label": "FERPA Third-Party Disclosure"
+  },
+  {
+    "name": "ssot__FirstName__c",
+    "label": "First Name"
+  },
+  {
+    "name": "ssot__ShouldForget__c",
+    "label": "Forget This Individual"
+  },
+  {
+    "name": "ssot__GenderId__c",
+    "label": "Gender"
+  },
+  {
+    "name": "ssot__GenderIdentity__c",
+    "label": "Gender Identity"
+  },
+  {
+    "name": "ssot__GenerationalCohort__c",
+    "label": "Generational Cohort"
+  },
+  {
+    "name": "ssot__GlobalPartyId__c",
+    "label": "Global Party"
+  },
+  {
+    "name": "ssot__GraduationAchievement__c",
+    "label": "Graduation Achievement"
+  },
+  {
+    "name": "ssot__GraduationCohort__c",
+    "label": "Graduation Cohort"
+  },
+  {
+    "name": "ssot__HasAlcoholAbuseHistory__c",
+    "label": "Has Alcohol Abuse History"
+  },
+  {
+    "name": "ssot__HasDrugAbuseHistory__c",
+    "label": "Has Drug Abuse History"
+  },
+  {
+    "name": "ssot__HighestEducationLevelId__c",
+    "label": "Highest Education Level"
+  },
+  {
+    "name": "ssot__HospitalizationsLast5YearsCount__c",
+    "label": "Hospitalizations Last 5 Years Count"
+  },
+  {
+    "name": "ssot__Id__c",
+    "label": "Individual Id"
+  },
+  {
+    "name": "ssot__InfluencerRating__c",
+    "label": "Influencer Rating"
+  },
+  {
+    "name": "ssot__InternalOrganizationId__c",
+    "label": "Internal Organization"
+  },
+  {
+    "name": "ssot__IsAlcoholConsumer__c",
+    "label": "Is Alcohol Consumer"
+  },
+  {
+    "name": "ssot__IsAnonymous__c",
+    "label": "Is Anonymous"
+  },
+  {
+    "name": "ssot__IsDrugConsumer__c",
+    "label": "Is Drug Consumer"
+  },
+  {
+    "name": "ssot__IsFirstGenerationStudent__c",
+    "label": "Is First Generation Student"
+  },
+  {
+    "name": "ssot__IsGoodDriver__c",
+    "label": "Is Good Driver"
+  },
+  {
+    "name": "ssot__IsGoodStudent__c",
+    "label": "Is Good Student"
+  },
+  {
+    "name": "ssot__IsHighRiskHobby__c",
+    "label": "Is High Risk Hobby"
+  },
+  {
+    "name": "ssot__IsHighRiskOccupation__c",
+    "label": "Is High Risk Occupation"
+  },
+  {
+    "name": "ssot__IsHomeOwner__c",
+    "label": "Is Home Owner"
+  },
+  {
+    "name": "ssot__IsTobaccoConsume__c",
+    "label": "Is Tobacco Consumer"
+  },
+  {
+    "name": "ssot__IsUnknown__c",
+    "label": "Is Unknown"
+  },
+  {
+    "name": "ssot__LastModifiedDate__c",
+    "label": "Last Modified Date"
+  },
+  {
+    "name": "ssot__LastName__c",
+    "label": "Last Name"
+  },
+  {
+    "name": "ssot__LocaleId__c",
+    "label": "Locale"
+  },
+  {
+    "name": "ssot__LocationText__c",
+    "label": "Location"
+  },
+  {
+    "name": "ssot__MailingName__c",
+    "label": "Mailing Name"
+  },
+  {
+    "name": "ssot__MainDietaryHabitTypeId__c",
+    "label": "Main Dietary Habit Type"
+  },
+  {
+    "name": "ssot__MainDisabilityTypeId__c",
+    "label": "Main Disability Type"
+  },
+  {
+    "name": "ssot__MainLifeAttitudeTypeId__c",
+    "label": "Main Life Attitude Type"
+  },
+  {
+    "name": "ssot__MainLifeStyleTypeId__c",
+    "label": "Main Life Style Type"
+  },
+  {
+    "name": "ssot__MainPersonalValueTypeId__c",
+    "label": "Main Personal Value Type"
+  },
+  {
+    "name": "ssot__MainPersonalityTypeId__c",
+    "label": "Main Personality Type"
+  },
+  {
+    "name": "ssot__MajorCitationCount__c",
+    "label": "Major Citation Count"
+  },
+  {
+    "name": "ssot__MaritalStatusId__c",
+    "label": "Marital Status"
+  },
+  {
+    "name": "ssot__MiddleName__c",
+    "label": "Middle Name"
+  },
+  {
+    "name": "ssot__MilitaryBranch__c",
+    "label": "Military Branch"
+  },
+  {
+    "name": "ssot__MilitaryServiceId__c",
+    "label": "Military Service"
+  },
+  {
+    "name": "ssot__MilitaryStatusId__c",
+    "label": "Military Status"
+  },
+  {
+    "name": "ssot__MinorCitationCount__c",
+    "label": "Minor Citation Count"
+  },
+  {
+    "name": "ssot__MothersMaidenName__c",
+    "label": "Mothers Maiden Name"
+  },
+  {
+    "name": "ssot__NameSuffix__c",
+    "label": "Name Suffix"
+  },
+  {
+    "name": "ssot__NetWorth__c",
+    "label": "Net Worth"
+  },
+  {
+    "name": "ssot__NoMergeReasonId__c",
+    "label": "No Merge Reason"
+  },
+  {
+    "name": "ssot__CanStorePIIElsewhere__c",
+    "label": "OK To Store PII Data Elsewhere"
+  },
+  {
+    "name": "ssot__Occupation__c",
+    "label": "Occupation"
+  },
+  {
+    "name": "ssot__OccupationTypeId__c",
+    "label": "Occupation Type"
+  },
+  {
+    "name": "ssot__OfficialName__c",
+    "label": "Official Name"
+  },
+  {
+    "name": "ssot__OrderingName__c",
+    "label": "Ordering Name"
+  },
+  {
+    "name": "ssot__OriginCountryId__c",
+    "label": "Origin Country"
+  },
+  {
+    "name": "ssot__OverAgeNumber__c",
+    "label": "Over Age"
+  },
+  {
+    "name": "ssot__PartyId__c",
+    "label": "Party"
+  },
+  {
+    "name": "ssot__PartyTypeId__c",
+    "label": "Party Type"
+  },
+  {
+    "name": "ssot__PartyAdditionalNames__c",
+    "label": "PartyAdditionalNames relationship"
+  },
+  {
+    "name": "ssot__PartyRoles__c",
+    "label": "PartyRoles relationship"
+  },
+  {
+    "name": "ssot__PartyWebAddresses__c",
+    "label": "PartyWebAddresses relationship"
+  },
+  {
+    "name": "ssot__PersonHeight__c",
+    "label": "Person Height"
+  },
+  {
+    "name": "ssot__PersonHeightUnitofMeasureId__c",
+    "label": "Person Height Unit of Measure"
+  },
+  {
+    "name": "ssot__PersonName__c",
+    "label": "Person Name"
+  },
+  {
+    "name": "ssot__PersonWeight__c",
+    "label": "Person Weight"
+  },
+  {
+    "name": "ssot__PersonWeightUnitofMeasureId__c",
+    "label": "Person Weight Unit of Measure"
+  },
+  {
+    "name": "ssot__PersonEducations__c",
+    "label": "PersonEducations relationship"
+  },
+  {
+    "name": "ssot__PersonEmployments__c",
+    "label": "PersonEmployments relationship"
+  },
+  {
+    "name": "ssot__PersonLanguages__c",
+    "label": "PersonLanguages relationship"
+  },
+  {
+    "name": "ssot__PersonLifeEvents__c",
+    "label": "PersonLifeEvents relationship"
+  },
+  {
+    "name": "ssot__PhotoURL__c",
+    "label": "Photo URL"
+  },
+  {
+    "name": "ssot__DoesPreferSustainableProduct__c",
+    "label": "Prefer Sustainable Product"
+  },
+  {
+    "name": "ssot__PreferredName__c",
+    "label": "Preferred Name"
+  },
+  {
+    "name": "ssot__PrimaryAccountId__c",
+    "label": "Primary Account"
+  },
+  {
+    "name": "ssot__PrimaryAddressId__c",
+    "label": "Primary Address"
+  },
+  {
+    "name": "ssot__PrimaryCitizenshipCountryId__c",
+    "label": "Primary Citizenship Country"
+  },
+  {
+    "name": "ssot__PrimaryCitizenshipType__c",
+    "label": "Primary Citizenship Type"
+  },
+  {
+    "name": "ssot__PrimaryHobbyId__c",
+    "label": "Primary Hobby"
+  },
+  {
+    "name": "ssot__PrimaryHouseholdId__c",
+    "label": "Primary Household"
+  },
+  {
+    "name": "ssot__PrimaryLanguageId__c",
+    "label": "Primary Language"
+  },
+  {
+    "name": "ssot__Pronoun__c",
+    "label": "Pronoun"
+  },
+  {
+    "name": "ssot__Race__c",
+    "label": "Race"
+  },
+  {
+    "name": "ssot__ReligionId__c",
+    "label": "Religion"
+  },
+  {
+    "name": "ssot__ResidenceCaptureMethodId__c",
+    "label": "Residence Capture Method"
+  },
+  {
+    "name": "ssot__ResidenceCountryId__c",
+    "label": "Residence Country"
+  },
+  {
+    "name": "ssot__ResidenceCountryName__c",
+    "label": "Residence Country Name"
+  },
+  {
+    "name": "ssot__Salutation__c",
+    "label": "Salutation"
+  },
+  {
+    "name": "ssot__SecondLastName__c",
+    "label": "Second Last Name"
+  },
+  {
+    "name": "ssot__PersonLifeStageId__c",
+    "label": "Secondary Citizenship Country"
+  },
+  {
+    "name": "ssot__SecondaryCitizenshipCountryId__c",
+    "label": "Secondary Citizenship Country Id"
+  },
+  {
+    "name": "ssot__SecondaryCitizenshipType__c",
+    "label": "Secondary Citizenship Type"
+  },
+  {
+    "name": "ssot__SurgeriesLast5YearsCount__c",
+    "label": "Surgeries Last 5 Years Count"
+  },
+  {
+    "name": "ssot__TaxBracketRange__c",
+    "label": "Tax Bracket Range"
+  },
+  {
+    "name": "ssot__TitleName__c",
+    "label": "Title"
+  },
+  {
+    "name": "ssot__WebSiteURL__c",
+    "label": "Web Site URL"
+  },
+  {
+    "name": "ssot__YearlyIncome__c",
+    "label": "Yearly Income"
+  },
+  {
+    "name": "ssot__YearlyIncomeCurrencyId__c",
+    "label": "Yearly Income Currency"
+  },
+  {
+    "name": "ssot__YearlyIncomeRangeId__c",
+    "label": "Yearly Income Range"
+  }
+]

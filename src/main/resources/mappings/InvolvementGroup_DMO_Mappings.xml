@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="InvolvementGroup">
+    <Dmo_Mapping dmoName="InvolvementGroupDmo">
+        <fieldMapping sourceField="ActivitySeason__c" targetField="ActivitySeason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Category__c" targetField="Category" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CoachId__c" targetField="CoachId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FoundingDateTransformed__c" targetField="FoundingDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsSelfEnrollmentBoolean__c" targetField="IsSelfEnrollment" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsSponsoredBoolean__c" targetField="IsSponsored" isFilterApplied="false"/>
+        <fieldMapping sourceField="LeaderId__c" targetField="LeaderId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LeaderRole__c" targetField="LeaderRole" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LocationId__c" targetField="LocationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MaximumMemberCount__c" targetField="MaximumMemberCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Mode__c" targetField="Mode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="InvolvementGroupName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SfdcOrganizationId__c" targetField="InternalOrganizationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SupervisorId__c" targetField="SupervisorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="Type" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WebsiteUrl__c" targetField="WebsiteUrl" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LifeSciMarketableProduct">
+    <Dmo_Mapping dmoName="LifeScienceMarketableProductDmo">
+        <fieldMapping sourceField="Active__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BoxQuantityInner__c" targetField="BoxInnerQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BoxQuantityOuter__c" targetField="BoxOuterQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DefaultDistributionQuantity__c" targetField="DefaultDistributionQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DistributionMethod__c" targetField="AllowedDistributionMethod" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="End_Date__c" targetField="EndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Available_For_Sampling_Allocation__c" targetField="IsAvailableForSamplingAllocation" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Competitor_Product__c" targetField="IsCompetitorProduct" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Message_Required_for_Provider_Visit__c" targetField="IsMessageRequiredforProviderVisit" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Launch_Date__c" targetField="LaunchDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Manufacturer__c" targetField="ManufacturerName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MaxSampleOrderQuantity__c" targetField="MaxSampleOrderQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MinSampleOrderQuantity__c" targetField="MinSampleOrderQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NationalDrugCode__c" targetField="NationalDrugCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentBrandProductId__c" targetField="ParentBrandProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentIndicationId__c" targetField="ParentIndicationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentProductId__c" targetField="ParentProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentTherapeuticAreaId__c" targetField="ParentTherapeuticAreaId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductCode__c" targetField="ProductShortCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductId__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductMetadata__c" targetField="ProductMetadataText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductionCost__c" targetField="ProductionCostAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SignatureRequirementLevel__c" targetField="SignatureRequirementLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SortOrder__c" targetField="SortOrderNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Start_Date__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StateDstrLicenseCategory__c" targetField="StateDistributorLicenseCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TherapeuticArea__c" targetField="TherapeuticArea" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TherapeuticClass__c" targetField="TherapeuticClass" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="Type" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

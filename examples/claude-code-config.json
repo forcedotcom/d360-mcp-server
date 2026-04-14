@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "data360": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/absolute/path/to/data360-mcp-server-1.0.0.jar"
+      ],
+      "env": {
+        "DATA360_INSTANCE_URL": "https://your-instance.my.salesforce.com",
+        "DATA360_ACCESS_TOKEN": "YOUR_TOKEN"
+      }
+    }
+  }
+}

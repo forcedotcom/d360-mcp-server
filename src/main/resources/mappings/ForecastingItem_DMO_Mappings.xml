@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ForecastingItem">
+    <Dmo_Mapping dmoName="ForecastingItemDmo">
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastCategoryName__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingItemCategory__c" targetField="ForecastingItemCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingTypeId__c" targetField="ForecastingTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Territory2Id__c" targetField="SalesTerritoryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PeriodId__c" targetField="BusinessPeriodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductFamily__c" targetField="ProductFamily" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastingGroupItemId__c" targetField="ForecastingGroupItemId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_IsAmount_Boolean__c" targetField="IsAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_IsQuantity_Boolean__c" targetField="IsQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_HasAdjustment_Boolean__c" targetField="HasAdjustment" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_HasOwnerAdjustment_Boolean__c" targetField="HasOwnerAdjustment" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerOnlyQuantity__c" targetField="OwnerOnlyQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="QuantityWithoutAdjustments__c" targetField="WithoutAdjustmentsQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="QuantityWithoutManagerAdjustment__c" targetField="WithoutManagerAdjustmentQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="QuantityWithoutOwnerAdjustment__c" targetField="WithoutOwnerAdjustmentQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SystemModstamp" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_ForecastAmount_Currency__c" targetField="ForecastAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_AmountWithoutOwnerAdjustment_Currency__c" targetField="WithoutOwnerAdjustmentAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_AmountWithoutAdjustments_Currency__c" targetField="WithoutAdjustmentsAmt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_AmountWithoutManagerAdjustment_Currency__c" targetField="WithoutManagerAdjustmentAmt" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

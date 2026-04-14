@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="EducInstSearchableProfile">
+    <Dmo_Mapping dmoName="ContactPointDmo">
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="PartyId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="EducInstSearchableProfileDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="ProviderId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BusinessProfileId__c" targetField="BusinessProfileId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EducInstitutionOfferingId__c" targetField="EducInstitutionOfferingId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EducationalInstitutionFormat__c" targetField="EducationalInstitutionFormatText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EducationalInstitutionImageUrl__c" targetField="EducationalInstitutionImageUrl" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EducationalInstitutionName__c" targetField="EducationalInstitutionName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EducationalInstitutionType__c" targetField="EducationalInstitutionType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GradesOffered__c" targetField="GradesOfferedText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GradesOfferedSummary__c" targetField="GradesOfferedSummaryText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="AddressId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningAcademicLevel__c" targetField="LearningAcademicLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningCategory__c" targetField="LearningCategoryText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningFormat__c" targetField="LearningFormatText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningGrade__c" targetField="LearningGradeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningId__c" targetField="LearningId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningImageUrl__c" targetField="LearningImageUrl" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningProgramId__c" targetField="LearningProgramId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LearningProgramName__c" targetField="LearningProgramName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="EducInstSearchableProfileName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderId__c" targetField="AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderName__c" targetField="ProviderName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SfdcOrganizationId__c" targetField="InternalOrganizationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SupportProgramFormat__c" targetField="SupportProgramFormatText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SupportProgramId__c" targetField="SupportProgramId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SupportProgramImageUrl__c" targetField="SupportProgramImageUrl" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SupportProgramName__c" targetField="SupportProgramName" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ContactPointAddressDmo">
+        <fieldMapping sourceField="City__c" targetField="CityId" isFilterApplied="false"/>
+        <fieldMapping sourceField="City__c" targetField="CityName" isFilterApplied="false"/>
+        <fieldMapping sourceField="Country__c" targetField="CountryId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Country__c" targetField="CountryName" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="PartyId" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Longitude__c" targetField="GeoLongitude" isFilterApplied="false"/>
+        <fieldMapping sourceField="PostalCode__c" targetField="PostalCodeId" isFilterApplied="false"/>
+        <fieldMapping sourceField="PostalCode__c" targetField="PostalCodeText" isFilterApplied="false"/>
+        <fieldMapping sourceField="State__c" targetField="StateProvinceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="State__c" targetField="StateProvinceName" isFilterApplied="false"/>
+        <fieldMapping sourceField="Street__c" targetField="AddressLine1" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

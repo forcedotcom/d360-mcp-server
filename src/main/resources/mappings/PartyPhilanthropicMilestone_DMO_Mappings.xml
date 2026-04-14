@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="PartyPhilanthropicMilestone">
+    <Dmo_Mapping dmoName="PartyPhilanthropicMilestoneDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AssetLiquidationValue__c" targetField="AssetLiquidationValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BusinessOwnershipValue__c" targetField="BusinessOwnershipValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Date_Transformed__c" targetField="MilestoneDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExtendedSummary__c" targetField="DetailedSummaryText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GivingLevel__c" targetField="GivingLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationCohort__c" targetField="GraduationCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationStatus__c" targetField="GraduationStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Income__c" targetField="IncomeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherAssetsValue__c" targetField="OtherAssetsValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherNonprofitGiftAmount__c" targetField="OtherNonprofitGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherNonprofitGiftCount__c" targetField="OtherNonprofitGiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OverallRating__c" targetField="OverallRating" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PtyPhilanthropicAsmtCnt__c" targetField="PartyPhilanthropicAssessmentsCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PtyPhilanthropicIndCnt__c" targetField="PartyPhilanthropicIndicatorsCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PtyPhilanthropicOccrCnt__c" targetField="PartyPhilanthropicOccurrencesCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RealEstateValue__c" targetField="RealEstateValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResponsiblePersonId__c" targetField="ResponsiblePersonId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RetirementSavingsAmount__c" targetField="RetirementSavingsAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ShortSummary__c" targetField="ShortSummaryText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StockValue__c" targetField="StockValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StrengthsAndOpportunities__c" targetField="StrengthsAndOpportunitiesDescription" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WeaknessesAndDrawbacks__c" targetField="WeaknessesAndDrawbacksDescription" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WealthAmount__c" targetField="WealthAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastAssessmentDateTransformed__c" targetField="LastAssessmentDate" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

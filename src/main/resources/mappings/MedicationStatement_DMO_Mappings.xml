@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="MedicationStatement">
+    <Dmo_Mapping dmoName="PatientMedicationStatementDmo">
+        <fieldMapping sourceField="AssertionDateTime__c" targetField="AssertionDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CareObservationId__c" targetField="CareObservationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ClinicalEncounterId__c" targetField="ClinicalEncounterId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDateTime__c" targetField="EndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MedicationCodeId__c" targetField="MedicationCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MedicationId__c" targetField="MedicationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MedicationReasonCodeId__c" targetField="MedicationReasonCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MedicationReasonIDObject__c" targetField="MedicationReasonObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MedicationReasonId__c" targetField="MedicationReasonId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MedicationRequestId__c" targetField="PreviousPatientMedicationRequestId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentMedicationStatementId__c" targetField="ParentPatientMedicationStatementId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PatientId__c" targetField="PatientId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProcedureId__c" targetField="PatientMedicationProcedureId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDateTime__c" targetField="StartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatementSourceIDObject__c" targetField="StatementSourceObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatementSourceId__c" targetField="StatementSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatusReasonCodeId__c" targetField="StatusReasonCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

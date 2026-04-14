@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="UserServicePresence">
+    <Dmo_Mapping dmoName="AgentServicePresenceDmo">
+        <fieldMapping sourceField="AverageCapacity__c" targetField="AverageCapacity" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="AtCapacityDuration__c" targetField="AtCapacityDuration" isFilterApplied="false"/>
+        <fieldMapping sourceField="StatusEndDate__c" targetField="StatusEndDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="ServicePresenceStatusId__c" targetField="ServicePresenceStatusId" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsCurrentState__c" targetField="IsCurrentState" isFilterApplied="false"/>
+        <fieldMapping sourceField="IdleDuration__c" targetField="IdleDuration" isFilterApplied="false"/>
+        <fieldMapping sourceField="StatusStartDate__c" targetField="StatusStartDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="UserId__c" targetField="UserId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="StatusDuration__c" targetField="StatusDurationSeconds" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsAway__c" targetField="IsAway" isFilterApplied="false"/>
+        <fieldMapping sourceField="ConfiguredCapacity__c" targetField="ConfiguredCapacity" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

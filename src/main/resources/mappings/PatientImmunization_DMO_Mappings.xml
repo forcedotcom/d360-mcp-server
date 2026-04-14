@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="PatientImmunization">
+    <Dmo_Mapping dmoName="PatientImmunizationDmo">
+        <fieldMapping sourceField="CareObservationId__c" targetField="CareObservationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ClinicalEncounterId__c" targetField="ClinicalEncounterId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentDose__c" targetField="CurrentDoseQuantityText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DiagnosticSummaryId__c" targetField="DiagnosticSummaryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Dose__c" targetField="DoseNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DoseUnitId__c" targetField="DoseUnitId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpirationDate__c" targetField="ExpirationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FacilityId__c" targetField="HealthcareFacilityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HealthConditionId__c" targetField="PatientHealthConditionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ImmunizationRecommendation__c" targetField="ImmunizationRecommendation" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InformationSourceId__c" targetField="InformationSourceCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LotNumber__c" targetField="LotNumberText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Manufacturer__c" targetField="Manufacturer" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PatientId__c" targetField="PatientId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReasonCodeId__c" targetField="ReasonCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecommendedDoses__c" targetField="RecommendedDosesText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecommendingAuthority__c" targetField="RecommendingAuthorityText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecordCreationDateTime__c" targetField="RecordedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RouteId__c" targetField="RouteCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SiteId__c" targetField="SiteOfAdministrationCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="ImmunizationStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatusReasonCodeId__c" targetField="StatusReasonCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubpotencyReasonCodeId__c" targetField="SubpotencyReasonCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TargetDiseaseCodeId__c" targetField="TargetDiseaseCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VaccinationPeriod__c" targetField="VaccinationPeriodText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VaccineCodeId__c" targetField="VaccineCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

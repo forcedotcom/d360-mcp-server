@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Opportunity">
+    <Dmo_Mapping dmoName="OpportunityDmo">
+        <fieldMapping sourceField="IsClosed__c" targetField="IsClosed" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsWon__c" targetField="IsWon" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextStep__c" targetField="NextStep" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Amount__c" targetField="TotalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StageName__c" targetField="OpportunityStageId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="OpportunityName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LeadSource__c" targetField="LeadSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CloseDate__c" targetField="CloseDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Fmla_CloseDt_Date__c" targetField="CloseDt" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="OpportunityTypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastCategory__c" targetField="OpportunityForecastCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerUserId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AccountId__c" targetField="CustomerAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CampaignId__c" targetField="CampaignId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContractId__c" targetField="ContractId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpectedRevenue__c" targetField="ExpectedRevenueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ForecastCategoryName__c" targetField="OpportunityForecastCategoryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsPrivate__c" targetField="IsPrivate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastActivityDate__c" targetField="LastActivityDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastStageChangeDate__c" targetField="LastStageChangeDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Probability__c" targetField="Probability" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalOpportunityQuantity__c" targetField="TotalProductQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_Opportunity_Line_Item__c" targetField="HasOpportunityProduct" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

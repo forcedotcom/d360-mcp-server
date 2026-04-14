@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Q2">
+    <Dmo_Mapping dmoName="dlmDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId" isFilterApplied="false"/>
+        <fieldMapping sourceField="AssistantName__c" targetField="AssistantName" isFilterApplied="false"/>
+        <fieldMapping sourceField="AssistantPhone__c" targetField="AssistantPhone" isFilterApplied="false"/>
+        <fieldMapping sourceField="Birthdate__c" targetField="Birthdate" isFilterApplied="false"/>
+        <fieldMapping sourceField="BuyerAttributes__c" targetField="BuyerAttributes" isFilterApplied="false"/>
+        <fieldMapping sourceField="ContactSource__c" targetField="ContactSource" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObject" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSource" isFilterApplied="false"/>
+        <fieldMapping sourceField="DepartmentGroup__c" targetField="DepartmentGroup" isFilterApplied="false"/>
+        <fieldMapping sourceField="Department__c" targetField="Department" isFilterApplied="false"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false"/>
+        <fieldMapping sourceField="DoNotCall__c" targetField="DoNotCall" isFilterApplied="false"/>
+        <fieldMapping sourceField="EmailBouncedDate__c" targetField="EmailBouncedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="EmailBouncedReason__c" targetField="EmailBouncedReason" isFilterApplied="false"/>
+        <fieldMapping sourceField="Email__c" targetField="Email" isFilterApplied="false"/>
+        <fieldMapping sourceField="Fax__c" targetField="Fax" isFilterApplied="false"/>
+        <fieldMapping sourceField="FirstName__c" targetField="FirstName" isFilterApplied="false"/>
+        <fieldMapping sourceField="GenderIdentity__c" targetField="GenderIdentity" isFilterApplied="false"/>
+        <fieldMapping sourceField="HasOptedOutOfEmail__c" targetField="HasOptedOutOfEmail" isFilterApplied="false"/>
+        <fieldMapping sourceField="HasOptedOutOfFax__c" targetField="HasOptedOutOfFax" isFilterApplied="false"/>
+        <fieldMapping sourceField="HomePhone__c" targetField="HomePhone" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="IndividualId__c" targetField="IndividualId" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsDeleted__c" targetField="IsDeleted" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsEmailBounced__c" targetField="IsEmailBounced" isFilterApplied="false"/>
+        <fieldMapping sourceField="JigsawContactId__c" targetField="JigsawContactId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Jigsaw__c" targetField="Jigsaw" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastActivityDate__c" targetField="LastActivityDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastCURequestDate__c" targetField="LastCURequestDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastCUUpdateDate__c" targetField="LastCUUpdateDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastName__c" targetField="LastName" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastReferencedDate__c" targetField="LastReferencedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastViewedDate__c" targetField="LastViewedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="LeadSource__c" targetField="LeadSource" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingCity__c" targetField="MailingCity" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingCountry__c" targetField="MailingCountry" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingGeocodeAccuracy__c" targetField="MailingGeocodeAccuracy" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingLatitude__c" targetField="MailingLatitude" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingLongitude__c" targetField="MailingLongitude" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingPostalCode__c" targetField="MailingPostalCode" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingState__c" targetField="MailingState" isFilterApplied="false"/>
+        <fieldMapping sourceField="MailingStreet__c" targetField="MailingStreet" isFilterApplied="false"/>
+        <fieldMapping sourceField="MasterRecordId__c" targetField="MasterRecordId" isFilterApplied="false"/>
+        <fieldMapping sourceField="MobilePhone__c" targetField="MobilePhone" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherCity__c" targetField="OtherCity" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherCountry__c" targetField="OtherCountry" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherGeocodeAccuracy__c" targetField="OtherGeocodeAccuracy" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherLatitude__c" targetField="OtherLatitude" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherLongitude__c" targetField="OtherLongitude" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherPhone__c" targetField="OtherPhone" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherPostalCode__c" targetField="OtherPostalCode" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherState__c" targetField="OtherState" isFilterApplied="false"/>
+        <fieldMapping sourceField="OtherStreet__c" targetField="OtherStreet" isFilterApplied="false"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Phone__c" targetField="Phone" isFilterApplied="false"/>
+        <fieldMapping sourceField="PhotoUrl__c" targetField="PhotoUrl" isFilterApplied="false"/>
+        <fieldMapping sourceField="Pronouns__c" targetField="Pronouns" isFilterApplied="false"/>
+        <fieldMapping sourceField="ReportsToId__c" targetField="ReportsToId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Salutation__c" targetField="Salutation" isFilterApplied="false"/>
+        <fieldMapping sourceField="SfdcOrganizationId__c" targetField="SfdcOrganizationId" isFilterApplied="false"/>
+        <fieldMapping sourceField="SystemModstamp__c" targetField="SystemModstamp" isFilterApplied="false"/>
+        <fieldMapping sourceField="Title__c" targetField="Title" isFilterApplied="false"/>
+        <fieldMapping sourceField="TitleType__c" targetField="TitleType" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

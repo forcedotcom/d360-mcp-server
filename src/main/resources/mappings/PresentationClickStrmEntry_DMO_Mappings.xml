@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="PresentationClickStrmEntry">
+    <Dmo_Mapping dmoName="PresentationClickStreamEntryDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AccountLoginName__c" targetField="AccountLoginName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActualUsageDuration__c" targetField="ActualUsageDurationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AttendeeBrowser__c" targetField="AttendeeBrowserName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AttendeeDeviceOs__c" targetField="AttendeeDeviceOSName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AttendeeDeviceType__c" targetField="AttendeeDeviceTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContentName__c" targetField="ContentName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContentPageIdentifier__c" targetField="ContentPageIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContentReaction__c" targetField="ContentReactionNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContentUrl__c" targetField="ContentUrl" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MetricType__c" targetField="MetricType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PresentationFileContentName__c" targetField="PresentationFileName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PresentationId__c" targetField="PresentationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PresentationName__c" targetField="PresentationName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PresentationPageContentVerId__c" targetField="PresentationPageContentVerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PresentationPageId__c" targetField="PresentationPage" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PresentationVersion__c" targetField="PresentationVersionText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductGuidanceId__c" targetField="ProductGuidanceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductId__c" targetField="ProductReferenceRecordId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Product_Record_Object__c" targetField="ProductRecordObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderVisitDtlProductMsgId__c" targetField="ProviderVisitDtlProductMsgId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderVisitId__c" targetField="ProviderVisitId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderVisitPrdDetailingId__c" targetField="ProviderVisitPrdDetailingId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProviderVisitType__c" targetField="ProviderVisitType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemName__c" targetField="DataSourceName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UsageEndDateTime__c" targetField="UsageEndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UsageStartDateTime__c" targetField="UsageStartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VisitId__c" targetField="VisitId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

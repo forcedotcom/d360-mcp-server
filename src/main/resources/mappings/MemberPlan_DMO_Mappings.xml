@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="MemberPlan">
+    <Dmo_Mapping dmoName="MemberPlanDmo">
+        <fieldMapping sourceField="Affiliation__c" targetField="AffiliationServiceTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveFromDate__c" targetField="EffectiveFromDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveToDate__c" targetField="EffectiveToDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExternalIdentifier__c" targetField="ExternalIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GroupNumber__c" targetField="GroupNumberText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IssuerNumber__c" targetField="IssuerNumberText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Last_Verification_Date__c" targetField="LastVerificationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MemberId__c" targetField="MemberAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MemberNumber__c" targetField="MemberNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Notes__c" targetField="MemberPlanNoteText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PayerId__c" targetField="PayerAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PayerNetworkId__c" targetField="HealthcarePayerNetworkId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PlanId__c" targetField="PurchaserPlanId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrimaryCarePhysician__c" targetField="PrimaryCarePhysicianName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RelationshipToSubscriber__c" targetField="RelationshipToSubscriber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystem__c" targetField="SourceSystemName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceSystemModified__c" targetField="SourceSystemModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubscriberId__c" targetField="SubscriberId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VerificationStatus__c" targetField="VerificationStatus" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,134 @@
+[
+  {
+    "name": "KQ_CUSTOMER_ID",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "KQ_CUSTOMER_ID"
+  },
+  {
+    "name": "PLAN_TYPE",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "PLAN TYPE"
+  },
+  {
+    "name": "DEVICE_TYPE",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "DEVICE TYPE"
+  },
+  {
+    "name": "CUSTOMER_ID",
+    "dataType": "Text",
+    "isPrimaryKey": true,
+    "label": "CUSTOMER ID"
+  },
+  {
+    "name": "ARPU_INR",
+    "dataType": "Number",
+    "isPrimaryKey": false,
+    "label": "ARPU INR"
+  },
+  {
+    "name": "CONTRACT_DURATION_MONTHS",
+    "dataType": "Number",
+    "isPrimaryKey": false,
+    "label": "CONTRACT DURATION MONTHS"
+  },
+  {
+    "name": "InternalOrganization",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "Internal Organization"
+  },
+  {
+    "name": "FULL_NAME",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "FULL NAME"
+  },
+  {
+    "name": "PLAN_NAME",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "PLAN NAME"
+  },
+  {
+    "name": "DataSourceObject",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "Data Source Object"
+  },
+  {
+    "name": "TENURE_MONTHS",
+    "dataType": "Number",
+    "isPrimaryKey": false,
+    "label": "TENURE MONTHS"
+  },
+  {
+    "name": "IS_ACTIVE",
+    "dataType": "Number",
+    "isPrimaryKey": false,
+    "label": "IS ACTIVE"
+  },
+  {
+    "name": "ACQUISITION_CHANNEL",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "ACQUISITION CHANNEL"
+  },
+  {
+    "name": "GENDER",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "GENDER"
+  },
+  {
+    "name": "REGION",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "REGION"
+  },
+  {
+    "name": "CONTRACT_END_DATE",
+    "dataType": "Date",
+    "isPrimaryKey": false,
+    "label": "CONTRACT END DATE"
+  },
+  {
+    "name": "CUSTOMER_SEGMENT",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "CUSTOMER SEGMENT"
+  },
+  {
+    "name": "CONTRACT_START_DATE",
+    "dataType": "Date",
+    "isPrimaryKey": false,
+    "label": "CONTRACT START DATE"
+  },
+  {
+    "name": "AGE",
+    "dataType": "Number",
+    "isPrimaryKey": false,
+    "label": "AGE"
+  },
+  {
+    "name": "CITY",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "CITY"
+  },
+  {
+    "name": "DataSource",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "Data Source"
+  },
+  {
+    "name": "cdp_sys_SourceVersion",
+    "dataType": "Text",
+    "isPrimaryKey": false,
+    "label": "cdp_sys_SourceVersion"
+  }
+]

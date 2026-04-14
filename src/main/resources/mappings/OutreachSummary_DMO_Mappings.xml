@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="OutreachSummary">
+    <Dmo_Mapping dmoName="OutreachSummaryDmo">
+        <fieldMapping sourceField="AverageGiftAmount__c" targetField="AverageGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AverageOnetimeGiftAmount__c" targetField="AverageOnetimeGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AverageRecurringGiftAmount__c" targetField="AverageRecurringGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CampaignId__c" targetField="CampaignId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorCount__c" targetField="DonorCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftCount__c" targetField="GiftCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OnetimeDonorCount__c" targetField="OnetimeDonorCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutreachSourceCodeId__c" targetField="OutreachSourceCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RecurringDonorCount__c" targetField="RecurringDonorCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResponseRate__c" targetField="ResponseRate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalGiftTransactionAmount__c" targetField="TotalGiftTransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalOnetimeGiftAmount__c" targetField="TotalOnetimeGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalRecurringGiftAmount__c" targetField="TotalRecurringGiftAmount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Visit">
+    <Dmo_Mapping dmoName="VisitDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId"  />
+        <fieldMapping sourceField="ActualVisitEndTime__c" targetField="ActualVisitEndTime"  />
+        <fieldMapping sourceField="ActualVisitStartTime__c" targetField="ActualVisitStartTime"  />
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" />
+        <fieldMapping sourceField="ContextId__c" targetField="SourceContextRecordId"  />
+        <fieldMapping sourceField="ContextObject__c" targetField="SourceContextObject"  />
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id"  />
+        <fieldMapping sourceField="InstructionDescription__c" targetField="VisitNoteText"  />
+        <fieldMapping sourceField="Name__c" targetField="Name"  />
+        <fieldMapping sourceField="ParentVisitId__c" targetField="RelatedVisitId"  />
+        <fieldMapping sourceField="PlaceId__c" targetField="PlaceRecordId"  />
+        <fieldMapping sourceField="PlaceObject__c" targetField="PlaceRecordObject"  />
+        <fieldMapping sourceField="PlannedVisitEndTime__c" targetField="PlannedVisitEndTime"  />
+        <fieldMapping sourceField="PlannedVisitStartTime__c" targetField="PlannedVisitStartTime"  />
+        <fieldMapping sourceField="StatusRemarks__c" targetField="StatusReasonText"  />
+        <fieldMapping sourceField="Status__c" targetField="Status"  />
+        <fieldMapping sourceField="VisitTypeId__c" targetField="VisitTypeRecordId" />
+        <fieldMapping sourceField="VisitTypeObject__c" targetField="VisitTypeRecordObject" />
+        <fieldMapping sourceField="VisitPriority__c" targetField="Priority"  />
+        <fieldMapping sourceField="VisitorId__c" targetField="VisitorRecordId"  />
+        <fieldMapping sourceField="VisitorObject__c" targetField="VisitorRecordObject"  />
+    </Dmo_Mapping>
+</SObjectDmoMappings>

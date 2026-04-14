@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LoyaltyMemberCurrency">
+    <Dmo_Mapping dmoName="LoyaltyMemberCurrencyDmo">
+        <fieldMapping sourceField="BalanceBeforeReset__c" targetField="PointsBalanceBeforeResetNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExpirablePoints__c" targetField="ExpirablePointsNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastAccrualProcessedDate__c" targetField="LastAccrualProcessedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastExpirationProcessRunDate__c" targetField="LastExpirationProcessRunDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastResetDate__c" targetField="LastResetDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LoyaltyMemberId__c" targetField="LoyaltyProgramMemberId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextResetDate__c" targetField="NextResetDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PointsBalBeforeSecondLastReset__c" targetField="PointsBalBeforeSecondLastReset" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PointsBalance__c" targetField="PointsBalanceNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RedemStlPendFromDateTime__c" targetField="RedemStlPendFromDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPointsAccrued__c" targetField="TotalPointsAccruedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPointsExpired__c" targetField="TotalPointsExpiredNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPointsRedeemed__c" targetField="TotalPointsRedeemedNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastPointsAggregationDate__c" targetField="LastPointsAggregationDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalEscrowPointsAccrued__c" targetField="TotalEscrowAccruedPointsNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastEscrowProcessedDate__c" targetField="LastEscrowProcessedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

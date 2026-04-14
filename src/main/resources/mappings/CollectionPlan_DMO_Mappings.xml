@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CollectionPlan">
+    <Dmo_Mapping dmoName="CollectionPlanDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId"   />
+        <fieldMapping sourceField="ClosedDate_DateFormat__c" targetField="ClosedDate"/>
+        <fieldMapping sourceField="CollectionPlanReasonId__c" targetField="CollectionPlanReasonId"   />
+        <fieldMapping sourceField="CollectionPlanSegment__c" targetField="CollectionPlanSegment"   />
+        <fieldMapping sourceField="CurrentDueAmount__c" targetField="CurrentDueAmount"   />
+        <fieldMapping sourceField="DaysPastDue__c" targetField="DaysPastDueNumber"   />
+        <fieldMapping sourceField="DueDate_DateFormat__c" targetField="DueDate" />
+        <fieldMapping sourceField="FinancialAccountId__c" targetField="ReferenceContextId"   />
+        <fieldMapping sourceField="FirstCallDateTime__c" targetField="FirstCallDateTime"   />
+        <fieldMapping sourceField="FirstEmailDateTime__c" targetField="FirstEmailDateTime"   />
+        <fieldMapping sourceField="FirstSmsDateTime__c" targetField="FirstSMSDateTime"   />
+        <fieldMapping sourceField="Id__c" targetField="Id"   />
+        <fieldMapping sourceField="InitialDueAmount__c" targetField="InitialDueAmount"   />
+        <fieldMapping sourceField="Is_Closed__c" targetField="IsClosed" />
+        <fieldMapping sourceField="Name__c" targetField="Name"   />
+        <fieldMapping sourceField="PromiseToPayCount__c" targetField="PromiseToPayCount"   />
+        <fieldMapping sourceField="RiskScore__c" targetField="RiskScore"   />
+        <fieldMapping sourceField="Status__c" targetField="CollectionPlanStatus"   />
+        <fieldMapping sourceField="TotalFeesAmount__c" targetField="TotalFeesAmount"   />
+        <fieldMapping sourceField="TotalInterestAmount__c" targetField="TotalInterestAmount"   />
+        <fieldMapping sourceField="TotalPaymentsReceived__c" targetField="CollectedAmount"   />
+        <fieldMapping sourceField="TotalTaxAmount__c" targetField="TotalTaxAmount"   />
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Location">
+    <Dmo_Mapping dmoName="LocationDmo">
+        <fieldMapping sourceField="CloseDate__c" targetField="CloseDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ConstructionEndDate__c" targetField="ConstructionEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ConstructionStartDate__c" targetField="ConstructionStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+       <fieldMapping sourceField="ExternalReference__c" targetField="ExternalSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DrivingDirections__c" targetField="DrivingDirectionsText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsInventoryLocation__c" targetField="IsInventoryLocation" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsMobile__c" targetField="IsMobileLocation" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Latitude__c" targetField="Latitude" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LocationLevel__c" targetField="LocationHierarchyLevelNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LocationType__c" targetField="LocationType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Longitude__c" targetField="Longitude" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OpenDate__c" targetField="OpenDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentLocationId__c" targetField="ParentLocationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PossessionDate__c" targetField="PossessionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RemodelEndDate__c" targetField="RemodelEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RemodelStartDate__c" targetField="RemodelStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RootLocationId__c" targetField="RootLocationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TimeZone__c" targetField="TimeZone" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VisitorAddressId__c" targetField="VisitorAddressId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DefaultProcessingTime__c" targetField="DefaultProcessingTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DefaultProcessingTimeUnit__c" targetField="DefaultProcessingTimeUnit" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

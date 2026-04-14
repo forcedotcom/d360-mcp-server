@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="GiftCommitmentSchedule">
+    <Dmo_Mapping dmoName="GiftCommitmentScheduleDmo">
+        <fieldMapping sourceField="AdvancementType__c" targetField="AdvancementType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CampaignId__c" targetField="CampaignId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CommitmentUpdateReason__c" targetField="CommitmentUpdateReason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDate__c" targetField="EndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GenerationalCohort__c" targetField="GenerationalCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftCommitmentId__c" targetField="GiftCommitmentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationAchievement__c" targetField="GraduationAchievement" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationCohort__c" targetField="GraduationCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentMethod__c" targetField="PaymentMethodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDate__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionAmount__c" targetField="TransactionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionDay__c" targetField="TransactionDay" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionInterval__c" targetField="TransactionInterval" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionPeriod__c" targetField="TransactionPeriod" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="GiftCommittmentScheduleType" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

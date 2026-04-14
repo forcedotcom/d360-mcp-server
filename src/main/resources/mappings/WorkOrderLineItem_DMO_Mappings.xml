@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="WorkOrderLineItem">
+    <Dmo_Mapping dmoName="WorkOrderItemDmo">
+        <fieldMapping sourceField="AssetId__c" targetField="AssetId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Discount__c" targetField="DiscountPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DurationInMinutes__c" targetField="DurationInMinutes" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Duration__c" targetField="DurationQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EndDate__c" targetField="EndDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GeocodeAccuracy__c" targetField="GeocodeAccuracy" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsClosed__c" targetField="IsClosed" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LineItemNumber__c" targetField="WorkOrderLineItemNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ListPrice__c" targetField="ListPriceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LocationId__c" targetField="LocationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OrderId__c" targetField="SalesOrderId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParentWorkOrderLineItemId__c" targetField="ParentWorkOrderItemId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Priority__c" targetField="WorkOrderItemPriority" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Product2Id__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Quantity__c" targetField="Quantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RootWorkOrderLineItemId__c" targetField="RootWorkOrderItemId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServiceAppointmentCount__c" targetField="ServiceAppointmentCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StartDate__c" targetField="StartDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StatusCategory__c" targetField="WorkOrderStatusCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="WorkOrderStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Subject__c" targetField="SubjectText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Subtotal__c" targetField="SubTotalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPrice__c" targetField="TotalPriceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitPrice__c" targetField="UnitPriceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="WorkOrderId__c" targetField="WorkOrderId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PricebookEntryId__c" targetField="PricebookEntryId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

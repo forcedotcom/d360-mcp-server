@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ProviderVisit">
+    <Dmo_Mapping dmoName="ProviderVisitDmo">
+        <fieldMapping sourceField="AdditionalInformation__c" targetField="AdditionalInformationText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Adhoc_Provider_Visit__c" targetField="IsAdhocProviderVisit" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Backdated_Signature_Validation_Skipped__c" targetField="IsBackdatedSgnVldSkipped" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Backdated_Submit_Validation_Skipped__c" targetField="IsBackdatedSbmtVldSkipped" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BookingStatus__c" targetField="BookingStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BookingStatusReason__c" targetField="BookingStatusReason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Channel__c" targetField="ChannelType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ComplianceStatements__c" targetField="ComplianceStatementText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_Attachments__c" targetField="HasAttachments" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvitationEmailAddress__c" targetField="InvitationEmailAddress" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvitationEmailBouncedRsn__c" targetField="InvitationEmailBouncedReasonText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvitationEmailStatus__c" targetField="InvitationEmailStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Confirmed__c" targetField="IsConfirmed" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextProviderVisitObjective__c" targetField="NextProviderVisitObjectiveText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NextPrvdVisitObjectiveType__c" targetField="NextPrvdVisitObjectiveType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Offline_Mode_Signature__c" targetField="IsOfflineModeSignature" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Offline_Mode_Submit__c" targetField="IsOfflineModeSubmit" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="On_Submit_Geolocation__c" targetField="OnSubmitGeolocationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PhysicalFormIdentifier__c" targetField="PhysicalFormIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PreProviderVisitNotes__c" targetField="PreProviderVisitNotesText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProvVisitDlvrSampleCount__c" targetField="ProvVisitDlvrSampleCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProvVisitMktItemCount__c" targetField="ProvVisitMktItemCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProvVisitProdDtlCount__c" targetField="ProvVisitProdDtlCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProvVisitReqSampleCount__c" targetField="ProvVisitReqSampleCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Record_Owner__c" targetField="IsRecordOwner" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RemoteAttendanceStatus__c" targetField="RemoteAttendanceStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ShippingAddressId__c" targetField="ShippingAddressId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Signed_Away_From_Allowed_Distance__c" targetField="IsSignedAwayFrmAllowDstn" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubmitDelayReason__c" targetField="SubmitDelayReasonText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubmitDelayReasonType__c" targetField="SubmitDelayReasonType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubmitGeolcMissingReason__c" targetField="SubmitGeolcMissingReasonType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubmitGeolocationTimestamp__c" targetField="SubmitGeolocationTimestamp" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Submit_Away_From_Allowed_Distance__c" targetField="IsSubmitAwayFrmAllowDstn" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VisitId__c" targetField="VisitId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

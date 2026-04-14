@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Payment">
+    <Dmo_Mapping dmoName="CapturePaymentDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Amount__c" targetField="PaymentAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Balance__c" targetField="BalanceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationDate__c" targetField="CancellationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationEffectiveDate__c" targetField="CancellationEffectiveDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationGatewayDate__c" targetField="CancellationGatewayDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationGatewayRefNumber__c" targetField="CancellationGatewayRefNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationGatewayResultCode__c" targetField="CancellationGatewayResultCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationSfResultCode__c" targetField="CancellationInternalResultCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ClientContext__c" targetField="ClientContextText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Comments__c" targetField="CommentText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EffectiveDate__c" targetField="PaymentEffectiveDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Email__c" targetField="CustomerEmailAddress" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayDate__c" targetField="LatestGatewayDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayRefDetails__c" targetField="GatewayReferenceDetailsText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayRefNumber__c" targetField="LatestGatewayReferenceNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayResultCode__c" targetField="LatestGatewayResultCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayResultCodeDescription__c" targetField="LatestGatewayResultCodeDescText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="CapturePaymentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ImpactAmount__c" targetField="ImpactAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IpAddress__c" targetField="IPAddress" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastReferencedDate__c" targetField="LastReferencedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastViewedDate__c" targetField="LastViewedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LegalEntityAccountingPeriodId__c" targetField="LegalEntityAccountingPeriodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LegalEntityId__c" targetField="LegalEntityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MacAddress__c" targetField="MacAddress" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetApplied__c" targetField="NetAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetRefundApplied__c" targetField="NetRefundAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentMethodId__c" targetField="PaymentMethodObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentNumber__c" targetField="PaymentNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Phone__c" targetField="CustomerPhoneNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProcessingMode__c" targetField="AuthorizationProcessingMode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SfResultCode__c" targetField="LatestGatewayInternalResult" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="PaymentStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalApplied__c" targetField="TotalAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalRefundApplied__c" targetField="TotalRefundAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalRefundUnapplied__c" targetField="TotalRefundUnappliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalUnapplied__c" targetField="TotalUnappliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="CapturePaymentType" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

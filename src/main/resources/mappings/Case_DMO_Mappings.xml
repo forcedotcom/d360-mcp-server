@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Case">
+    <Dmo_Mapping dmoName="CaseDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AssetId__c" targetField="ExternalRecordId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BusinessHoursId__c" targetField="CaseSupportWorkHoursId" isFilterApplied="false"/>
+        <fieldMapping sourceField="CaseNumber__c" targetField="CaseNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="ClosedDate__c" targetField="ClosedDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="Comments__c" targetField="CaseComments" isFilterApplied="false"/>
+        <fieldMapping sourceField="ContactId__c" targetField="AccountContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="IndividualId" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsClosed__c" targetField="IsClosed" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsClosedOnCreate__c" targetField="IsClosedOnCreate" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsEscalated__c" targetField="IsEscalated" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Origin__c" targetField="CaseCreationChannelId" isFilterApplied="false"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="AssignedUserId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ParentId__c" targetField="ParentCaseId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Priority__c" targetField="CasePriorityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductId__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Reason__c" targetField="CaseClosureReasonId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Reason__c" targetField="ReasonType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="CaseStatusId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Subject__c" targetField="Subject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SuppliedName__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Type__c" targetField="CaseTypeId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

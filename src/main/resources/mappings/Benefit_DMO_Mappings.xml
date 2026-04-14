@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Benefit">
+    <Dmo_Mapping dmoName="ProgramBenefitDmo">
+        <fieldMapping sourceField="Id__c" targetField="Id"/>
+        <fieldMapping sourceField="BenefitManagerId__c" targetField="BenefitManagerId"/>
+        <fieldMapping sourceField="BenefitStatus__c" targetField="BenefitStatus"/>
+        <fieldMapping sourceField="BenefitTypeId__c" targetField="BenefitType"/>
+        <fieldMapping sourceField="CurrentYearAssignedQty__c" targetField="CurrentYearAssignedQty"/>
+        <fieldMapping sourceField="CurrentMonthDisbursedQty__c" targetField="CurrentMonthDisbursedQty"/>
+        <fieldMapping sourceField="CurrentYearDisbursedQty__c" targetField="CurrentYearDisbursedQty"/>
+        <fieldMapping sourceField="Description__c" targetField="Description"/>
+        <fieldMapping sourceField="EndDateTime__c" targetField="EndDateTime"/>
+        <fieldMapping sourceField="EnrollmentCount__c" targetField="EnrollmentCount"/>
+        <fieldMapping sourceField="GoalDefinitionId__c" targetField="GoalDefinitionId"/>
+        <fieldMapping sourceField="IsActive__c" targetField="IsActive"/>
+        <fieldMapping sourceField="MaxBenefitAmount__c" targetField="MaximumBenefitAmount"/>
+        <fieldMapping sourceField="MinBenefitAmount__c" targetField="MinimumBenefitAmount"/>
+        <fieldMapping sourceField="Name__c" targetField="Name"/>
+        <fieldMapping sourceField="PreviousMonthDisbursedQty__c" targetField="PreviousMonthDisbursedQty"/>
+        <fieldMapping sourceField="PreviousYearAssignedQty__c" targetField="PreviousYearAssignedQty"/>
+        <fieldMapping sourceField="PreviousYearDisbursedQty__c" targetField="PreviousYearDisbursedQty"/>
+        <fieldMapping sourceField="ProgramId__c" targetField="ProgramId"/>
+        <fieldMapping sourceField="StartDateTime__c" targetField="StartDateTime"/>
+        <fieldMapping sourceField="UnitId__c" targetField="UnitOfMeasureId"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="LoyaltyBenefitDmo">
+        <fieldMapping sourceField="BenefitTypeId__c" targetField="LoyaltyBenefitTypeId" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsActive__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsBenefitSelectionAllowed_boolean__c" targetField="IsBenefitSelectionAllowed" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="PrioritySequence__c" targetField="LoayaltyBenefitPriorityNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Value__c" targetField="LoyaltyBenefitValueText" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

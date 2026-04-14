@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Contact">
+    <Dmo_Mapping dmoName="ContactPointEmailDmo">
+        <fieldMapping sourceField="EmailBouncedDate__c" targetField="EmailLatestBounceDateTime"  />
+        <fieldMapping sourceField="EmailBouncedReason__c" targetField="EmailLatestBounceReasonText"  />
+        <fieldMapping sourceField="Email__c" targetField="EmailAddress"  />
+        <fieldMapping sourceField="Id__c" targetField="Id"  />
+        <fieldMapping sourceField="Id__c" targetField="PartyId"  />
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="IndividualDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="PrimaryAccountId"/>
+        <fieldMapping sourceField="Birthdate__c" targetField="BirthDate"  />
+        <fieldMapping sourceField="DeceasedDate__c" targetField="DeathDate"  />
+        <fieldMapping sourceField="FirstName__c" targetField="FirstName"  />
+        <fieldMapping sourceField="GenderIdentity__c" targetField="GenderIdentity"  />
+        <fieldMapping sourceField="Gender__c" targetField="GenderId"  />
+        <fieldMapping sourceField="Id__c" targetField="ExternalRecordId"/>
+        <fieldMapping sourceField="Id__c" targetField="Id"  />
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate"  />
+        <fieldMapping sourceField="LastName__c" targetField="LastName"  />
+        <fieldMapping sourceField="Name__c" targetField="PersonName"  />
+        <fieldMapping sourceField="PhotoUrl__c" targetField="PhotoURL"  />
+        <fieldMapping sourceField="Pronouns__c" targetField="Pronoun"  />
+        <fieldMapping sourceField="Salutation__c" targetField="Salutation"  />
+        <fieldMapping sourceField="SfdcOrganizationId__c" targetField="ExternalSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Title__c" targetField="TitleName"  />
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ContactPointAddressDmo">
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="PartyId"  />
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingCity__c" targetField="CityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingCountry__c" targetField="CountryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingLatitude__c" targetField="GeoLatitude"  />
+        <fieldMapping sourceField="MailingLongitude__c" targetField="GeoLongitude"  />
+        <fieldMapping sourceField="MailingPostalCode__c" targetField="PostalCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingState__c" targetField="StateProvinceId"  />
+        <fieldMapping sourceField="MailingStreet__c" targetField="AddressLine1"  />
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingCity__c" targetField="CityName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingCountry__c" targetField="CountryName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingPostalCode__c" targetField="PostalCodeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MailingState__c" targetField="StateProvinceName" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ContactPointPhoneDmo">
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate"  />
+        <fieldMapping sourceField="Id__c" targetField="Id"  />
+        <fieldMapping sourceField="Id__c" targetField="PartyId"  />
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate"  />
+        <fieldMapping sourceField="Phone__c" targetField="TelephoneNumber"  />
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="MobilePhone__c" targetField="ForPersonalUse" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Phone__c" targetField="ForBusinessUse" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="AccountContactDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId"  />
+        <fieldMapping sourceField="AssistantName__c" targetField="AssistantName"  />
+        <fieldMapping sourceField="AssistantPhone__c" targetField="AssistantPhone"  />
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Department__c" targetField="DepartmentName"  />
+        <fieldMapping sourceField="FirstName__c" targetField="FirstName"  />
+        <fieldMapping sourceField="GenderIdentity__c" targetField="Gender"  />
+        <fieldMapping sourceField="HomePhone__c" targetField="HomePhoneId"  />
+        <fieldMapping sourceField="Id__c" targetField="BusinessPhoneId"  />
+        <fieldMapping sourceField="Id__c" targetField="ContactEmailId"  />
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="IndividualId"  />
+        <fieldMapping sourceField="Id__c" targetField="MailingAddressId"  />
+        <fieldMapping sourceField="LastActivityDate__c" targetField="LastActivityDate"  />
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastName__c" targetField="LastName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MobilePhone__c" targetField="MobilePhoneId"  />
+        <fieldMapping sourceField="ReportsToId__c" targetField="ReportsToAccountContactId"  />
+        <fieldMapping sourceField="Title__c" targetField="Title" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="PersonName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="OwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

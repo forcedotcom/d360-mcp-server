@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="ApplicationReview">
+    <Dmo_Mapping dmoName="ApplicationReviewDmo">
+        <fieldMapping sourceField="AcademicTerm__c" targetField="AcademicTermId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ApplicationCategory__c" targetField="ApplicationCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ApplicationId__c" targetField="ApplicationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ApplicationRecommendation__c" targetField="ApplicationReviewRecommendation" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AssignedUserId__c" targetField="AssignedUserId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Assigned_Date_Transformed__c" targetField="AssignedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Comment__c" targetField="Comment" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Condition__c" targetField="Condition" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DisplayOrder__c" targetField="DisplayOrderCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Due_Date_Transformed__c" targetField="DueDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="End_Date_Transformed__c" targetField="EndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Required_Transformed__c" targetField="IsRequired" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Submitted_Transformed__c" targetField="IsSubmitted" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReviewedById__c" targetField="ReviewedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Score__c" targetField="Score" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Start_Date_Transformed__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="ApplicationReviewStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Submission_Date_Transformed__c" targetField="SubmissionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Title__c" targetField="Title" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InstitutionId__c" targetField="InstitutionId" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsAssignedToMeTransformed__c" targetField="IsAssignedToMe" isFilterApplied="false"/>
+        <fieldMapping sourceField="Type__c" targetField="Type" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

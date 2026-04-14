@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="VehicleDefinition">
+    <Dmo_Mapping dmoName="VehicleDefinitionDmo">
+        <fieldMapping sourceField="AccelerationTime__c" targetField="AccelerationTimeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AuxiliaryBatteryType__c" targetField="AuxiliaryBatteryTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BodyType__c" targetField="BodyTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DoorCount__c" targetField="DoorCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DoorStyleType__c" targetField="DoorStyleType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EmissionStandard__c" targetField="EmissionStandardTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EngineName__c" targetField="EngineName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FuelSource__c" targetField="FuelType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GeoCountryId__c" targetField="GeoCountry" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ModelCode__c" targetField="ModelCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductId__c" targetField="ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransmissionSystem__c" targetField="TransmissionType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VariantName__c" targetField="VariantName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VehicleClass__c" targetField="VehicleClassText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DrivetrainType__c" targetField="DrivetrainType" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

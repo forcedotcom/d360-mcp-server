@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CourseOfrPtcpActvtyGrd">
+    <Dmo_Mapping dmoName="CourseOfrPtcpActivityGradeDmo">
+        <fieldMapping sourceField="ActivityType__c" targetField="ActivityType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Comments__c" targetField="Comments" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CourseOfferingParticipantId__c" targetField="CourseOfferingParticipantId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CourseOfrgRubricCriterionId__c" targetField="CourseOfferingRubricId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Activity_In_Progress_Transformed__c" targetField="IsInProgress" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Activity_Late_Transformed__c" targetField="IsLate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Activity_Missing_Transformed__c" targetField="IsMissing" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Incomplete_Transformed__c" targetField="IsIncomplete" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LetterGrade__c" targetField="LetterGradeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MaximumMark__c" targetField="MaximumMarksNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PercentileRank__c" targetField="PercentileRankPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Score__c" targetField="ScoreNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ScoreStatus__c" targetField="ScoreStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Score_Date_Transformed__c" targetField="ScoreDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

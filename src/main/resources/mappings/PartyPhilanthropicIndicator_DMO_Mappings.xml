@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="PartyPhilanthropicIndicator">
+    <Dmo_Mapping dmoName="PartyPhilanthropicIndicatorDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AttributedUserId__c" targetField="AttributedUserId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ParticipantId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DateCollectedTransformed__c" targetField="DateCollected" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EstimatedValue__c" targetField="EstimatedValue" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Indicator__c" targetField="Indicator" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndicatorType__c" targetField="IndicatorType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OtherSource__c" targetField="OtherSource" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ParticipantId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PartyPhilanthropicOccurrenceId__c" targetField="PartyPhilanthropicOccurrenceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RelatedOrganizationId__c" targetField="RelatedOrganizationId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceId__c" targetField="SourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SourceType__c" targetField="SourceType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Summary__c" targetField="Summary" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CaseId__c" targetField="CaseId" isFilterApplied="false"/>
+        <fieldMapping sourceField="PartyPhilanthropicRsrchPrflId__c" targetField="PartyPhilanthropicRsrchPrflId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResearchHours__c" targetField="ResearchHours" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResearchEndDateTransformed__c" targetField="ResearchEndDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResearchSharedDateTransformed__c" targetField="ResearchSharedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResearchStartDateTransformed__c" targetField="ResearchStartDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="SourceObject__c" targetField="SourceObject" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

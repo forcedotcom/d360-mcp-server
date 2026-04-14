@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LoyaltyPgmMbrLinkedPtnr">
+    <Dmo_Mapping dmoName="LoyaltyPgmMemberLinkedPartnerDmo">
+        <fieldMapping sourceField="DataSource__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="LoyaltyProgramMemberId__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.LoyaltyProgramMemberId" isFilterApplied="false"/>
+        <fieldMapping sourceField="LoyaltyProgramPartnerId__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.LoyaltyProgramPartnerId" isFilterApplied="false"/>
+        <fieldMapping sourceField="LinkDate__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.LinkDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="UnlinkDate__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.UnlinkDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsActive_boolean__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.IsActive" isFilterApplied="false"/>
+        <fieldMapping sourceField="ExternalIdentifier__c" targetField="LoyaltyPgmMbrLinkedPtnrDmo.ExternalIdentifier" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

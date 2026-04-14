@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="SalesAgreement">
+    <Dmo_Mapping dmoName="SalesAgreementDmo">
+        <fieldMapping sourceField="AccountId__c" targetField="SalesAgreementDmo.AccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ActivatedDate__c" targetField="SalesAgreementDmo.ActivatedDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="ActualMarginPercentage__c" targetField="SalesAgreementDmo.ActualMarginPercent" isFilterApplied="false"/>
+        <fieldMapping sourceField="AgreementType__c" targetField="SalesAgreementDmo.SalesAgreementType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ApprovedById__c" targetField="SalesAgreementDmo.ApprovedByUserId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ApprovedDate__c" targetField="SalesAgreementDmo.ApprovedDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="CancellationDate__c" targetField="SalesAgreementDmo.CancellationDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CancellationReason__c" targetField="SalesAgreementDmo.CancellationReason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="SalesAgreementDmo.AccountContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="SalesAgreementDmo.CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="SalesAgreementDmo.DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="SalesAgreementDmo.DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="SalesAgreementDmo.Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsUserSpecifiesPlannedQuantity__c" targetField="SalesAgreementDmo.ShouldUserSpecPlnQuantity" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastActualsCalculatedDate__c" targetField="SalesAgreementDmo.LastActualsCalculatedDateTime" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="SalesAgreementDmo.SalesAgreementName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OwnerId__c" targetField="SalesAgreementDmo.OwnerId" isFilterApplied="false"/>
+        <fieldMapping sourceField="PlannedMarginPercentage__c" targetField="SalesAgreementDmo.PlannedMarginPercent" isFilterApplied="false"/>
+        <fieldMapping sourceField="PricebookId__c" targetField="SalesAgreementDmo.PriceBookId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductLevel__c" targetField="SalesAgreementDmo.SalesAgreementProductLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Renewed_From_Sales_Agreement__c" targetField="SalesAgreementDmo.RenewedFromAgreementId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Renewed_To_Sales_Agreement__c" targetField="SalesAgreementDmo.RenewedToAgreementId" isFilterApplied="false"/>
+        <fieldMapping sourceField="SA_End_Date__c" targetField="SalesAgreementDmo.EndDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="SA_Start_Date__c" targetField="SalesAgreementDmo.StartDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="ScheduleFrequency__c" targetField="SalesAgreementDmo.ScheduleFrequency" isFilterApplied="false"/>
+        <fieldMapping sourceField="StatusCode__c" targetField="SalesAgreementDmo.StatusCategory" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="SalesAgreementDmo.Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalActualAgreementAmountCurrency__c" targetField="SalesAgreementDmo.TotalActualAgreementAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalActualCostAmountCurrency__c" targetField="SalesAgreementDmo.TotalActualCostAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalActualMarginAmountCurrency__c" targetField="SalesAgreementDmo.TotalActualMarginAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalAgreementAmountCurrency__c" targetField="SalesAgreementDmo.TotalAgreementAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalPlannedCostAmountCurrency__c" targetField="SalesAgreementDmo.TotalPlannedCostAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalPlannedMarginAmountCurrency__c" targetField="SalesAgreementDmo.TotalPlannedMarginAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalProposedAgreementAmountCurrency__c" targetField="SalesAgreementDmo.TotalProposedAgreementAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="cdp_sys_record_currency__c" targetField="SalesAgreementDmo.cdp_sys_record_currency" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

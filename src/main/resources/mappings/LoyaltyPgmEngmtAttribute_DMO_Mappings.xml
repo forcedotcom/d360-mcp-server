@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LoyaltyPgmEngmtAttribute">
+    <Dmo_Mapping dmoName="LoyaltyProgramEngagementAttributeDmo">
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+        <fieldMapping sourceField="DefaultValue__c" targetField="DefaultValueText" isFilterApplied="false"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false"/>
+        <fieldMapping sourceField="EndDate__c" targetField="EndDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="LoyaltyProgramId__c" targetField="LoyaltyProgramId" isFilterApplied="false"/>
+        <fieldMapping sourceField="MaximumResetCountPerPeriod__c" targetField="MaximumResetCountPerPeriod" isFilterApplied="false"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResetValueOn__c" targetField="ResetValueOnText" isFilterApplied="false"/>
+        <fieldMapping sourceField="ShouldOverwriteAttrCurrVal__c" targetField="ShouldOverwriteAttributeCurrentValue" isFilterApplied="false"/>
+        <fieldMapping sourceField="StartDate__c" targetField="StartDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="Status__c" targetField="AttributeStatus" isFilterApplied="false"/>
+        <fieldMapping sourceField="TargetValue__c" targetField="TargetValueText" isFilterApplied="false"/>
+        <fieldMapping sourceField="ValueResetFrequency__c" targetField="ValueResetFrequency" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

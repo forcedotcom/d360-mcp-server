@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="CareRequestExtension">
+    <Dmo_Mapping dmoName="CareRequestDmo">
+        <fieldMapping sourceField="AmbulanceTransportReason__c" targetField="AmbulanceTransportReason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AmbulanceTransportType__c" targetField="AmbulanceTransportType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AppealEffectuationDateTime__c" targetField="AppealEffectuationDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AuthorizationRefIdentifier__c" targetField="AuthorizationReferenceIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CareRequestCaseId__c" targetField="CareRequestCaseId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CareRequestId__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DocumentAttachmentStatus__c" targetField="DocAttachmentStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndependentReviewDetermination__c" targetField="IndependentReviewDeterminationText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndependentReviewDeterminationDate__c" targetField="IndependentReviewDeterminationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndependentReviewSubmissionDate__c" targetField="IndependentReviewSubmissionDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NursingHomeResidentialStatus__c" targetField="NursingHomeResidentialStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PriorDischargeStatus__c" targetField="PriorDischargeStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceCaseType__c" targetField="ReferenceCaseRelationType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReopenDecisionDateTime__c" targetField="ReopenDecisionDateTimeTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReopenRequestOutcome__c" targetField="ReopenRequestOutcomeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReopenRequestType__c" targetField="ReopenRequestType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReopenedById__c" targetField="ReopenedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestExtensionReason__c" targetField="RequestExtensionReasonText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestExtnDecisionDateTime__c" targetField="ExtensionRequestReceivedDateTime" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestOutcome__c" targetField="RequestOutcomeType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestOutcomeDesc__c" targetField="RequestOutcomeDescText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestType__c" targetField="RequestType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ResolutionDescription__c" targetField="ResolutionDescriptionText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServiceLevel__c" targetField="ServiceLevelType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServiceType__c" targetField="ServiceTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServicingFacilityId__c" targetField="ServicingFacilityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubscriberId__c" targetField="HealthPlanSubscriberId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SubscriberMemberIdentifier__c" targetField="SubscriberMemberIdentifierText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UnitofMeasureId__c" targetField="UnitofMeasureId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ClaimDmo">
+        <fieldMapping sourceField="CareRequestId__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestOutcome__c" targetField="OutcomeType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestType__c" targetField="TypeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RequestingProviderId__c" targetField="AuthoredById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServicingProviderId__c" targetField="ResponsiblePartyId" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="ClaimParticipantDmo">
+        <fieldMapping sourceField="CareRequestId__c" targetField="ClaimId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServicingProviderId__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServicingProviderId__c" targetField="ParticipantId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ServicingProviderObjectType__c" targetField="ParticipantObject" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

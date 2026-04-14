@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="LearnerProfile">
+    <Dmo_Mapping dmoName="LearnerProfileDmo">
+        <fieldMapping sourceField="AcademicLevel__c" targetField="AcademicLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AcademicStanding__c" targetField="AcademicStanding" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AcademicTermEnrollmentId__c" targetField="AcademicTermEnrollmentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AdmitTerm__c" targetField="AdmitTerm" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="College__c" targetField="College" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Concentration__c" targetField="Concentration" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactProfileId__c" targetField="ContactProfileId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CumulativeGpa__c" targetField="CumulativeGpaNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Email__c" targetField="Email" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Enrolled_In_Career_Services_Tx__c" targetField="IsEnrolledInCareerServices" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EnrollmentReason__c" targetField="EnrollmentReason" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EnrollmentStatus__c" targetField="EnrollmentStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Expected_Graduation_Date_Transformed__c" targetField="ExpectedGraduationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Gender__c" targetField="Gender" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_Parental_Ferpa_Transformed__c" targetField="HasParentalFerpa" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Has_Third_Party_Ferpa_Transformed__c" targetField="HasThirdPartyFerpa" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InstructionMode__c" targetField="InstructionMode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Athlete_Transformed__c" targetField="IsAthlete" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Campus_Resident_Transformed__c" targetField="IsCampusResident" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Deceased_Transformed__c" targetField="IsDeceased" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Enrolled_In_Dual_Degree_Transformed__c" targetField="IsEnrolledInDualDegree" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_First_Generation_Student_Tx__c" targetField="IsFirstGenerationStudent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_International_Student_Transformed__c" targetField="IsInternationalStudent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Pell_Grant_Eligible_Transformed__c" targetField="IsPellGrantEligible" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Transfer_Student_Transformed__c" targetField="IsTransferStudent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MajorDeclarationTerm__c" targetField="MajorDeclarationTerm" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Major__c" targetField="Major" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MatriculationTerm__c" targetField="MatriculationTerm" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Minor__c" targetField="Minor" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrimaryAdvisorId__c" targetField="SecondaryAdvisorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PrimaryAdvisorName__c" targetField="PrimaryAdvisorName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Pronouns__c" targetField="Pronouns" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondConcentration__c" targetField="SecondConcentration" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondMajor__c" targetField="SecondMajor" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondMinor__c" targetField="SecondMinor" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondaryAdvisorId__c" targetField="PrimaryAdvisorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SecondaryAdvisorName__c" targetField="SecondaryAdvisorName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StudentIdNumber__c" targetField="StudentIdNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="StudyYearClassification__c" targetField="StudyYearClassification" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalUnitsCompleted__c" targetField="TotalUnitsCompleted" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="PersonEducation">
+    <Dmo_Mapping dmoName="PersonEducationDmo">
+        <fieldMapping sourceField="ClassRank__c" targetField="ClassRankText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ClassRankReportingFormat__c" targetField="ClassRankReportingFormat" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ClassRankWeightingType__c" targetField="ClassRankWeightingType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Comment__c" targetField="CommentText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="AccountContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CumulativeGpa__c" targetField="CumulativeGpaNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EducationLevel__c" targetField="EducationLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GpaScale__c" targetField="GpaScaleNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GpaWeightingType__c" targetField="GpaWeightingType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationClassSize__c" targetField="GraduationClassSizeCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Graduation_Date_Transformed__c" targetField="GraduationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IdentifierIssuer__c" targetField="IdentifierIssuerName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Identifier__c" targetField="Identifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IndividualId__c" targetField="IndividualId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Is_Active_Transformed__c" targetField="IsActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Start_Date_Transformed__c" targetField="StartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="PersonEducationStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VerificationStatus__c" targetField="PersonEducationVerificationStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Verified_Date_Transformed__c" targetField="VerifiedOnDate" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Invoice">
+    <Dmo_Mapping dmoName="InvoiceDmo">
+        <fieldMapping sourceField="AppType__c" targetField="InvoiceAppType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Balance__c" targetField="BalanceAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillToContactId__c" targetField="BillToContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="BillingAccountId__c" targetField="BillingAccountId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CorpCrcyCnvTotAmtWithTax__c" targetField="CorpCrcyCnvTotWithTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedById__c" targetField="CreatedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreationMode__c" targetField="CreationMode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DaysInvoiceOpen__c" targetField="DaysInvoiceOpenNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DaysInvoiceOverdue__c" targetField="DaysInvoiceOverdueNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DocumentNumber__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DueDateCustom__c" targetField="DueDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="FullSettlementDateCustom__c" targetField="FullSettlementDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GroupingKey__c" targetField="GroupingKeyText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceBatchRunId__c" targetField="InvoiceBatchRunId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceDateCustom__c" targetField="InvoiceDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceNumber__c" targetField="InvoiceNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InvoiceReference__c" targetField="InvoiceReferenceText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsBillingScheduleGroupSkipped__c" targetField="IsBillingScheduleGroupSkipped" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedById__c" targetField="LastModifiedById" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetCreditsApplied__c" targetField="NetCreditsAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NetPaymentsApplied__c" targetField="NetPaymentsAppliedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentTermId__c" targetField="PaymentTermId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PostedDateCustom__c" targetField="PostedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ReferenceEntityId__c" targetField="ReferenceEntityId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SettlementLevel__c" targetField="InvoiceSettlementLevel" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SettlementStatus__c" targetField="SettlementStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="InvoiceStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAdjustmentAmount__c" targetField="TotalAdjustmentAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAdjustmentAmountWithTax__c" targetField="TotalAdjustmentWithTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAdjustmentTaxAmount__c" targetField="TotalAdjustmentTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAmount__c" targetField="TotalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalAmountWithTax__c" targetField="TotalWithTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalChargeAmount__c" targetField="TotalChargeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalChargeAmountWithTax__c" targetField="TotalChargeWithTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalChargeTaxAmount__c" targetField="TotalChargeTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalConvertedNegAmount__c" targetField="TotalConvertedNegAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTaxAmount__c" targetField="TotalTaxAmount" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

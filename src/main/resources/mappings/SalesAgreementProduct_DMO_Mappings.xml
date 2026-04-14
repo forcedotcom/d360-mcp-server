@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="SalesAgreementProduct">
+    <Dmo_Mapping dmoName="SalesAgreementProductDmo">
+        <fieldMapping sourceField="ActualMarginPercentage__c" targetField="SalesAgreementProductDmo.ActualMarginPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CostPriceCurrency__c" targetField="SalesAgreementProductDmo.CostPriceAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="SalesAgreementProductDmo.DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="SalesAgreementProductDmo.DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DiscountPercentage__c" targetField="SalesAgreementProductDmo.DiscountPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="SalesAgreementProductDmo.Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InitialPlannedAmountCurrency__c" targetField="SalesAgreementProductDmo.InitialPlannedAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="InitialPlannedQtyValue__c" targetField="SalesAgreementProductDmo.InitialPlannedQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ListPriceCurrency__c" targetField="SalesAgreementProductDmo.ListPriceAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="PlannedMarginPercentage__c" targetField="SalesAgreementProductDmo.PlannedMarginPercent" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PricebookEntryId__c" targetField="SalesAgreementProductDmo.PriceBookEntryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductCategoryId__c" targetField="SalesAgreementProductDmo.ProductCategoryId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProductId__c" targetField="SalesAgreementProductDmo.ProductId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SalesAgreementId__c" targetField="SalesAgreementProductDmo.SalesAgreementId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SalesPriceCurrency__c" targetField="SalesAgreementProductDmo.SalesPriceAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalActualAmountCurrency__c" targetField="SalesAgreementProductDmo.TotalActualAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalActualCostAmountCurrency__c" targetField="SalesAgreementProductDmo.TotalActualCostAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalActualMarginAmountCurrency__c" targetField="SalesAgreementProductDmo.TotalActualMarginAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalActualQuantity__c" targetField="SalesAgreementProductDmo.TotalActualQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalActualShipmentQuantity__c" targetField="SalesAgreementProductDmo.TotalActualShipmentQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalForecastedQuantity__c" targetField="SalesAgreementProductDmo.TotalForecastedQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPlannedCostAmountCurrency__c" targetField="SalesAgreementProductDmo.TotalPlannedCostAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalPlannedMarginAmountCurrency__c" targetField="SalesAgreementProductDmo.TotalPlannedMarginAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalPlannedQuantity__c" targetField="SalesAgreementProductDmo.TotalPlannedQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalPlannedShipmentQuantity__c" targetField="SalesAgreementProductDmo.TotalPlannedShipmentQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalUnallocatedOrderQuantity__c" targetField="SalesAgreementProductDmo.TotalUnallocatedOrderQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalUnallocatedOrderRevenueCurrency__c" targetField="SalesAgreementProductDmo.TotalUnallocatedOrderRevenueAmt" isFilterApplied="false"/>
+        <fieldMapping sourceField="TotalUnallocatedPlannedQty__c" targetField="SalesAgreementProductDmo.TotalUnallocatedPlannedQuantity" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="cdp_sys_record_currency__c" targetField="SalesAgreementProductDmo.cdp_sys_record_currency" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

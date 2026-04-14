@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="GiftTransaction">
+    <Dmo_Mapping dmoName="GiftTransactionDmo">
+        <fieldMapping sourceField="AcknowledgementDate__c" targetField="AcknowledgementDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AcknowledgementStatus__c" targetField="AcknowledgementStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AdvancementType__c" targetField="AdvancementType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CampaignId__c" targetField="CampaignId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CheckDate__c" targetField="CheckDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ContactId__c" targetField="ContactId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentAmount__c" targetField="CurrentAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Description__c" targetField="Description" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorCoverAmount__c" targetField="DonorCoverAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorId__c" targetField="DonorId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayReference__c" targetField="GatewayReference" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GatewayTransactionFee__c" targetField="GatewayTransactionFeeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GenerationalCohort__c" targetField="GenerationalCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftCommitmentId__c" targetField="GiftCommitmentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GiftType__c" targetField="GiftType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationAchievement__c" targetField="GraduationAchievement" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GraduationCohort__c" targetField="GraduationCohort" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsFullyRefunded__c" targetField="IsFullyRefunded" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsPaid__c" targetField="IsPaid" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsPartiallyRefunded__c" targetField="IsPartiallyRefunded" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsWrittenOff__c" targetField="IsWrittenOff" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastGatewayErrorMessage__c" targetField="LastGatewayErrorMessage" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastGatewayProcessedDate__c" targetField="LastGatewayProcessedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastGatewayResponseCode__c" targetField="LastGatewayResponseCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="NonTaxDeductibleAmount__c" targetField="NonTaxDeductibleAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OriginalAmount__c" targetField="OriginalAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OutreachSourceCodeId__c" targetField="OutreachSourceCodeId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentIdentifier__c" targetField="PaymentIdentifier" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentInstrumentId__c" targetField="PaymentInstrumentId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="PaymentMethod__c" targetField="PaymentMethodId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProcessorReference__c" targetField="ProcessorReference" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ProcessorTransactionFee__c" targetField="ProcessorTransactionFeeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RefundedAmount__c" targetField="RefundedAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="GiftTransactionStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxDeductionAmount__c" targetField="TaxDeductionAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TaxReceiptStatus__c" targetField="TaxReceiptStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TotalTransactionFee__c" targetField="TotalTransactionFeeAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="TransactionDate__c" targetField="TransactionDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DonorGiftConceptId__c" targetField="DonorGiftConceptId" isFilterApplied="false"/>
+        <fieldMapping sourceField="GiftAgreementId__c" targetField="GiftAgreementId" isFilterApplied="false"/>
+        <fieldMapping sourceField="MatchingEmployerTransactionId__c" targetField="MatchingEmployerTransactionId" isFilterApplied="false"/>
+        <fieldMapping sourceField="PartyPhilanthropicRsrchPrflId__c" targetField="PartyPhilanthropicRsrchPrflId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>

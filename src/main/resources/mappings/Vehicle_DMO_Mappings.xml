@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="Vehicle">
+    <Dmo_Mapping dmoName="VehicleDmo">
+        <fieldMapping sourceField="AssetId__c" targetField="AssetId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="AverageMarketValue__c" targetField="AverageMarketValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ChassisNumber__c" targetField="ChassisNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ConditionType__c" targetField="ConditionType" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CurrentOwnerId__c" targetField="CurrentOwnerId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="CylinderCount__c" targetField="CylinderCount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="EngineNumber__c" targetField="EngineNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ExteriorColor__c" targetField="ExteriorColorText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="GearBoxType__c" targetField="GearBoxTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HeadUnitSecurityCode__c" targetField="HeadUnitSecurityCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="HighestMarketValue__c" targetField="HighestMarketValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IgnitionKeyCode__c" targetField="IgnitionKeyCode" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="InteriorColor__c" targetField="InteriorColorText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsRecallOpen__c" targetField="IsRecallOpen" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="IsTelematicsServiceActive__c" targetField="IsTelematicsServiceActive" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastOdometerReading__c" targetField="LastOdometerReadingNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LastServiceDate__c" targetField="LastServiceDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LatestResidualValueDate__c" targetField="ResidualAmountCalculationDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="LowestMarketValue__c" targetField="LowestMarketValueAmount" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ManufacturedDate__c" targetField="ManufacturedDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ManufacturerWarrantyEndDate__c" targetField="ManufacturerWarrantyEndDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ManufacturerWarrantyStartDt__c" targetField="ManufacturerWarrantyStartDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ManufacturingBatchNumber__c" targetField="ManufacturingBatchNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="ManufacturingPlantName__c" targetField="ManufacturingPlantName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MarketPriceDate__c" targetField="MarketPriceDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MarketPriceSource__c" targetField="MarketPriceSource" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="MarketPrice__c" targetField="MarketPrice" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Name__c" targetField="Name" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OdometerReadingDate__c" targetField="OdometerReadingDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="OdometerStatus__c" targetField="OdometerStatus" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="RegistrationValidityDate__c" targetField="RegistrationValidityDate" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="Status__c" targetField="Status" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="SteeringType__c" targetField="SteeringTypeText" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UpholsteryColor__c" targetField="UpholsteryColorName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="UpholsteryType__c" targetField="UpholsteryTypeName" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VehicleDefinitionId__c" targetField="VehicleDefinitionId" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VehicleIdentificationNumber__c" targetField="VehicleIdentificationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+        <fieldMapping sourceField="VehicleRegistrationNumber__c" targetField="RegistrationNumber" isFilterApplied="false" filterOperationType="Equal"/>
+    </Dmo_Mapping>
+    <Dmo_Mapping dmoName="StateProvinceDmo">
+        <fieldMapping sourceField="LocationState__c" targetField="ProvinceStateCode" isFilterApplied="false" filterOperationType="Equal" />
+    </Dmo_Mapping>
+</SObjectDmoMappings>

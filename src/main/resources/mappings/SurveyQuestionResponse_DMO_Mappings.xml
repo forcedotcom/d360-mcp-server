@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026, Salesforce, Inc.
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<SObjectDmoMappings sourceObjectName="SurveyQuestionResponse">
+    <Dmo_Mapping dmoName="SurveyQuestionResponseDmo">
+        <fieldMapping sourceField="DateValue__c" targetField="DateValue" isFilterApplied="false"/>
+        <fieldMapping sourceField="QuestionId__c" targetField="SurveyQuestionId" isFilterApplied="false"/>
+        <fieldMapping sourceField="CreatedDate__c" targetField="CreatedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSource__c" targetField="DataSourceId" isFilterApplied="false"/>
+        <fieldMapping sourceField="Rank__c" targetField="RankNumber" isFilterApplied="false"/>
+        <fieldMapping sourceField="DateTimeValue__c" targetField="DateTimeValue" isFilterApplied="false"/>
+        <fieldMapping sourceField="LastModifiedDate__c" targetField="LastModifiedDate" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResponseId__c" targetField="SurveyResponseId" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResponseValue__c" targetField="ResponseValue" isFilterApplied="false"/>
+        <fieldMapping sourceField="Datatype__c" targetField="Datatype" isFilterApplied="false"/>
+        <fieldMapping sourceField="IsTrueOrFalse__c" targetField="BooleanValue" isFilterApplied="false"/>
+        <fieldMapping sourceField="ResponseShortText__c" targetField="Name" isFilterApplied="false"/>
+        <fieldMapping sourceField="NumberValue__c" targetField="NumberValue" isFilterApplied="false"/>
+        <fieldMapping sourceField="Id__c" targetField="Id" isFilterApplied="false"/>
+        <fieldMapping sourceField="DataSourceObject__c" targetField="DataSourceObjectId" isFilterApplied="false"/>
+    </Dmo_Mapping>
+</SObjectDmoMappings>
