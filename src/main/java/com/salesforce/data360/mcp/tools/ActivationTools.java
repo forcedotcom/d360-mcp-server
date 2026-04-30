@@ -18,7 +18,6 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
-import com.salesforce.data360.mcp.model.request.activation.ActivationCreateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationTargetCreateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationTargetUpdateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationUpdateRequest;
@@ -28,7 +27,6 @@ import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

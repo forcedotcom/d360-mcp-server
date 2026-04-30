@@ -90,8 +90,6 @@ public class FamilyCatalog {
         s.put("Dataspace", "Isolated workspaces for data segregation. Most operations require a dataspace name.");
         s.put("DataTransform", "SQL-based data transformations run on a schedule or manually. Validate SQL before creating.");
         s.put("DataKit", "Pre-packaged data model templates. Deploy to quickly set up common schemas.");
-        s.put("Eventing", "Stream real-time events from web SDK, mobile SDK, IoT sensors, telemetry, clickstream, browsing activity, cart events, and any real-time data source into Data 360. Sub-second real-time ingestion.");
-        s.put("GDPR", "Data subject access and deletion requests for privacy compliance.");
         s.put("DataAction", "Trigger automated real-time actions, alerts, notifications, and workflows when data conditions are met. Send proactive notifications, service alerts, cart abandonment triggers, threshold-based actions. Requires a configured data action target.");
         s.put("SDM", "Semantic Data Models for BI queries and reporting. Create models, add data objects, define relationships, calculated dimensions, and metrics. Build business intelligence views over unified data.");
         s.put("Smart", "AI-assisted tools: auto-generate field mappings, recommend event date fields, preview field matches. Use instead of manual configuration.");
@@ -250,15 +248,6 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_datakit_component_status", "DataKit", "Get component deployment status.", "GET", "/ssot/data-kits/{id}/components/{cid}/deployment-status"));
         t.add(new ToolDef("d360_datakit_component_deps", "DataKit", "Get component dependencies.", "GET", "/ssot/data-kits/{id}/components/{cid}/dependencies"));
         t.add(new ToolDef("d360_datakit_components", "DataKit", "List DataKit components.", "GET", "/ssot/data-kits/{id}/components"));
-
-        // ── Eventing ───────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_event_publish", "Eventing", "Stream single event into Data 360.", "POST", "/a360/event"));
-        t.add(new ToolDef("d360_event_publish_batch", "Eventing", "Batch event streaming for better throughput.", "POST", "/a360/events"));
-
-        // ── GDPR ───────────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_gdpr_read", "GDPR", "Read individual data by ID/type.", "GET", "/cdp/gdpr/read/{id}/{type}"));
-        t.add(new ToolDef("d360_gdpr_bulk_read", "GDPR", "Bulk read. Format: id1:type,id2:type.", "GET", "/cdp/gdpr/bulkRead/{ids}"));
-        t.add(new ToolDef("d360_gdpr_request", "GDPR", "Trigger deletion/portability request.", "PUT", "/cdp/gdpr"));
 
         // ── DataAction ─────────────────────────────────────────────────────
         t.add(new ToolDef("d360_dataaction_list", "DataAction", "List data actions.", "GET", "/ssot/data-actions"));

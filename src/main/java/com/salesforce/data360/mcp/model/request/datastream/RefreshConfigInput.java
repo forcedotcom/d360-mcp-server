@@ -19,7 +19,6 @@ package com.salesforce.data360.mcp.model.request.datastream;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
-import java.util.List;
 import java.util.Map;
 
 /**

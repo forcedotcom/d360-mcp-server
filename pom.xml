@@ -70,12 +70,6 @@
             <artifactId>spring-ai-mcp-annotations</artifactId>
             <version>2.0.0-M4</version>
         </dependency>
-        <dependency>
-            <groupId>org.jspecify</groupId>
-            <artifactId>jspecify</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <!-- Optional: for vector/hybrid search -->
         <dependency>
             <groupId>org.springframework.ai</groupId>

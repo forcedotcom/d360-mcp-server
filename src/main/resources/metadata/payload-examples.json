@@ -1083,66 +1083,6 @@
       "upsertBehavior": "UPDATE_IF_EXISTS"
     }
   },
-  "d360_event_publish": {
-    "schema": "customer_purchase_event",
-    "payload": {
-      "customerId": "CUST_12345",
-      "purchaseAmount": 299.99,
-      "currency": "USD",
-      "productCategory": "Electronics",
-      "timestamp": "2026-03-28T15:30:00Z",
-      "orderId": "ORD_67890",
-      "paymentMethod": "credit_card"
-    },
-    "traceId": "trace-2026-03-28-001"
-  },
-  "d360_event_publish_batch": {
-    "schemas": [
-      {
-        "version": "1.0",
-        "name": "customer_purchase_event",
-        "fields": [
-          {
-            "type": "string",
-            "name": "customerId"
-          },
-          {
-            "type": "number",
-            "name": "purchaseAmount"
-          },
-          {
-            "type": "string",
-            "name": "currency"
-          },
-          {
-            "type": "datetime",
-            "name": "timestamp"
-          }
-        ]
-      }
-    ],
-    "events": [
-      {
-        "currency": "USD",
-        "timestamp": "2026-03-28T15:30:00Z",
-        "customerId": "CUST_12345",
-        "purchaseAmount": 299.99
-      },
-      {
-        "currency": "USD",
-        "timestamp": "2026-03-28T15:31:00Z",
-        "customerId": "CUST_54321",
-        "purchaseAmount": 149.99
-      },
-      {
-        "currency": "USD",
-        "timestamp": "2026-03-28T15:32:00Z",
-        "customerId": "CUST_99999",
-        "purchaseAmount": 599.99
-      }
-    ],
-    "schemaVersion": "1.0"
-  },
   "d360_dataaction_create": {
     "name": "Send Welcome Email",
     "description": "Send personalized welcome email to new customers",
