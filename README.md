@@ -6,6 +6,14 @@ Claude Code, Cursor, and any other host that speaks MCP over STDIO.
 
 Built on [Spring AI](https://spring.io/projects/spring-ai).
 
+## Developer Preview
+
+The Data 360 MCP server is provided as a developer preview running in a single user/org context per process. We strongly encourage use only via STDIO instead of making this server network-accessible.
+
+The generally available version of this MCP server is slated to be provided as a [hosted and managed Salesforce Platform MCP server, alongside other existing Product Integration MCP servers](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/servers-reference.html).
+
+During the developer preview please share feature requests, issues, success stories, or other feedback via github issues on this repo, the R&D team will be actively reviewing these on a regular basis. We're especially interested in feedback about how effective the fascade tools approach works across use cases and clients.
+
 ## How it works
 
 Data 360 exposes ~190 distinct REST operations. Rather than registering one MCP tool
@@ -96,7 +104,25 @@ export DATA360_INSTANCE_URL="https://your-instance.my.salesforce.com"
 export DATA360_ACCESS_TOKEN="your_access_token"
 ```
 
+If you're using the `sf` cli you can initialize these automatically and create a session for a specific org connection with a command like:
+
+```bash
+  eval "$(
+    sf org display --target-org target-org-alias --json \
+      | jq -r '.result | "export DATA360_INSTANCE_URL=\(.instanceUrl)\nexport DATA360_ACCESS_TOKEN=\(.accessToken)"'
+  )"
+  ```
+
+Replacing `target-org-alias` with the `sf` cli's alias for your connected org.
+
 **Client credentials (auto-refreshing):**
+
+This requires you to [create an External Client Application](https://help.salesforce.com/s/articleView?id=xcloud.create_a_local_external_client_app.htm&type=5) to obtain a client id and client secret to support OAuth based refreshing of credentials as needed. 
+
+- Enable OAuth, set https://login.salesforce.com (this is unused but required in this flow).
+- Add scopes: cdp_api, cdp_query_api, api.
+- Under Flow Enablement, Enable Client Credentials Flow.
+
 ```bash
 export DATA360_CLIENT_ID="your_client_id"
 export DATA360_CLIENT_SECRET="your_client_secret"
