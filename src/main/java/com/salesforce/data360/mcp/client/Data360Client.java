@@ -33,8 +33,8 @@ import java.util.function.Supplier;
  * Base URL: {instanceUrl}/services/data/v{apiVersion}
  *
  * <p>Callers pass paths relative to that base. SSOT endpoints begin with
- * {@code /ssot/...}; other Connect-surface endpoints (e.g. {@code /cdp/gdpr},
- * {@code /a360/events}, {@code /connect/search/metadata/results},
+ * {@code /ssot/...}; other Connect-surface endpoints (e.g.
+ * {@code /connect/search/metadata/results},
  * {@code /semantic-engine/gateway}) begin with their own prefixes.
  */
 public class Data360Client {

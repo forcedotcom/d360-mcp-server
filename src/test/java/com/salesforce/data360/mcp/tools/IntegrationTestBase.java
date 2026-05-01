@@ -102,8 +102,6 @@ public abstract class IntegrationTestBase {
             "d360_insights_query", "d360_insights_metadata",
             // Data Graph
             "d360_datagraph_query", "d360_datagraph_lookup", "d360_datagraph_metadata",
-            // GDPR
-            "d360_gdpr_read", "d360_gdpr_bulk_read",
             // Misc read-only helpers
             "d360_analyze_event_date"
     );
