@@ -21,7 +21,6 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 
 /**
@@ -44,8 +43,10 @@ public class RestClientConfig {
         );
     }
 
+    static final String SFORCE_CALL_OPTIONS = "Sforce-Call-Options";
+
     static RestClient.Builder restClientBuilder(String serverName, String serverVersion) {
         return RestClient.builder()
-            .defaultHeader(HttpHeaders.USER_AGENT, serverName + "/" + serverVersion);
+            .defaultHeader(SFORCE_CALL_OPTIONS, "client=" + serverName + "/" + serverVersion);
     }
 }

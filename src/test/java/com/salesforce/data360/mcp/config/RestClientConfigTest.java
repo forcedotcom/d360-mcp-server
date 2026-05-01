@@ -17,7 +17,6 @@
 package com.salesforce.data360.mcp.config;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
@@ -29,7 +28,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 public class RestClientConfigTest {
 
     @Test
-    public void restClientSendsUserAgentHeader() {
+    public void restClientSendsSforceCallOptionsHeader() {
         RestClient.Builder builder = RestClientConfig.restClientBuilder(
             "data360-mcp-server-oss", "1.0.0"
         );
@@ -37,7 +36,7 @@ public class RestClientConfigTest {
         RestClient client = builder.build();
 
         server.expect(requestTo("https://example.test/ping"))
-            .andExpect(header(HttpHeaders.USER_AGENT, "data360-mcp-server-oss/1.0.0"))
+            .andExpect(header(RestClientConfig.SFORCE_CALL_OPTIONS, "client=data360-mcp-server-oss/1.0.0"))
             .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
         client.get().uri("https://example.test/ping").retrieve().toBodilessEntity();
