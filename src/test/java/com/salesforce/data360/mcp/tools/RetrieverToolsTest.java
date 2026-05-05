@@ -71,7 +71,7 @@ class RetrieverToolsTest {
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers");
     }
 
     @Test
@@ -95,7 +95,7 @@ class RetrieverToolsTest {
     @Test
     void testListRetrievers_apiError() {
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(403, "Forbidden", "/machine-learning/retrievers"));
+            .thenThrow(new ApiException(403, "Forbidden", "/ssot/machine-learning/retrievers"));
 
         String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null);
 
@@ -134,13 +134,13 @@ class RetrieverToolsTest {
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever");
     }
 
     @Test
     void testGetRetriever_notFound() {
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(404, "Not found", "/machine-learning/retrievers/nonexistent"));
+            .thenThrow(new ApiException(404, "Not found", "/ssot/machine-learning/retrievers/nonexistent"));
 
         String result = retrieverTools.getRetriever("nonexistent");
 
@@ -184,7 +184,7 @@ class RetrieverToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers");
         assertThat(bodyCaptor.getValue()).containsEntry("label", "TestRetriever");
         assertThat(bodyCaptor.getValue()).containsEntry("description", "A test retriever");
         assertThat(bodyCaptor.getValue()).containsEntry("dataSourceType", "SearchIndex");
@@ -193,7 +193,7 @@ class RetrieverToolsTest {
     @Test
     void testCreateRetriever_apiError() {
         when(client.post(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(400, "Bad request", "/machine-learning/retrievers"));
+            .thenThrow(new ApiException(400, "Bad request", "/ssot/machine-learning/retrievers"));
 
         RetrieverCreateRequest request = new RetrieverCreateRequest();
         request.setLabel("Bad");
@@ -239,7 +239,7 @@ class RetrieverToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever");
         assertThat(bodyCaptor.getValue()).containsEntry("label", "Updated Label");
         assertThat(bodyCaptor.getValue()).containsEntry("description", "Updated description");
     }
@@ -247,7 +247,7 @@ class RetrieverToolsTest {
     @Test
     void testUpdateRetriever_apiError() {
         when(client.patch(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(404, "Not found", "/machine-learning/retrievers/nonexistent"));
+            .thenThrow(new ApiException(404, "Not found", "/ssot/machine-learning/retrievers/nonexistent"));
 
         RetrieverUpdateRequest request = new RetrieverUpdateRequest();
         request.setLabel("Test");
@@ -287,12 +287,12 @@ class RetrieverToolsTest {
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture());
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever");
     }
 
     @Test
     void testDeleteRetriever_apiError() {
-        doThrow(new ApiException(404, "Not found", "/machine-learning/retrievers/nonexistent"))
+        doThrow(new ApiException(404, "Not found", "/ssot/machine-learning/retrievers/nonexistent"))
             .when(client).delete(anyString());
 
         String result = retrieverTools.deleteRetriever("nonexistent");
@@ -332,7 +332,7 @@ class RetrieverToolsTest {
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever/configurations");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever/configurations");
     }
 
     @Test
@@ -351,7 +351,7 @@ class RetrieverToolsTest {
     @Test
     void testListRetrieverConfigurations_apiError() {
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(404, "Retriever not found", "/machine-learning/retrievers/bad/configurations"));
+            .thenThrow(new ApiException(404, "Retriever not found", "/ssot/machine-learning/retrievers/bad/configurations"));
 
         String result = retrieverTools.listRetrieverConfigurations("bad", null, null);
 
@@ -379,13 +379,13 @@ class RetrieverToolsTest {
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever/configurations/config_v1");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever/configurations/config_v1");
     }
 
     @Test
     void testGetRetrieverConfiguration_notFound() {
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(404, "Configuration not found", "/machine-learning/retrievers/MyRetriever/configurations/bad"));
+            .thenThrow(new ApiException(404, "Configuration not found", "/ssot/machine-learning/retrievers/MyRetriever/configurations/bad"));
 
         String result = retrieverTools.getRetrieverConfiguration("MyRetriever", "bad");
 
@@ -420,7 +420,7 @@ class RetrieverToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever/configurations");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever/configurations");
         assertThat(bodyCaptor.getValue()).containsEntry("queryType", "NoCode");
         assertThat(bodyCaptor.getValue()).containsEntry("isActive", true);
         assertThat(bodyCaptor.getValue()).containsEntry("numberOfResults", 5);
@@ -429,7 +429,7 @@ class RetrieverToolsTest {
     @Test
     void testCreateRetrieverConfiguration_apiError() {
         when(client.post(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(400, "Invalid configuration", "/machine-learning/retrievers/MyRetriever/configurations"));
+            .thenThrow(new ApiException(400, "Invalid configuration", "/ssot/machine-learning/retrievers/MyRetriever/configurations"));
 
         RetrieverConfigurationCreateRequest request = new RetrieverConfigurationCreateRequest();
         request.setQueryType("Invalid");
@@ -475,14 +475,14 @@ class RetrieverToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever/configurations/config_v1");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever/configurations/config_v1");
         assertThat(bodyCaptor.getValue()).containsEntry("isActive", true);
     }
 
     @Test
     void testUpdateRetrieverConfiguration_apiError() {
         when(client.patch(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(409, "Conflict", "/machine-learning/retrievers/MyRetriever/configurations/config_v1"));
+            .thenThrow(new ApiException(409, "Conflict", "/ssot/machine-learning/retrievers/MyRetriever/configurations/config_v1"));
 
         RetrieverConfigurationUpdateRequest request = new RetrieverConfigurationUpdateRequest();
         request.setIsActive(true);
@@ -509,12 +509,12 @@ class RetrieverToolsTest {
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture());
-        assertThat(pathCaptor.getValue()).isEqualTo("/machine-learning/retrievers/MyRetriever/configurations/config_v1");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/machine-learning/retrievers/MyRetriever/configurations/config_v1");
     }
 
     @Test
     void testDeleteRetrieverConfiguration_apiError() {
-        doThrow(new ApiException(404, "Not found", "/machine-learning/retrievers/MyRetriever/configurations/bad"))
+        doThrow(new ApiException(404, "Not found", "/ssot/machine-learning/retrievers/MyRetriever/configurations/bad"))
             .when(client).delete(anyString());
 
         String result = retrieverTools.deleteRetrieverConfiguration("MyRetriever", "bad");

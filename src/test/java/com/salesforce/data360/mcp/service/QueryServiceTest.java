@@ -71,7 +71,7 @@ class QueryServiceTest {
 
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/query-sql?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/query-sql?dataspace=default");
         assertThat(bodyCaptor.getValue()).containsEntry("sql", sql);
         assertThat(bodyCaptor.getValue()).containsEntry("rowLimit", rowLimit);
     }
@@ -101,7 +101,7 @@ class QueryServiceTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/query-sql/query-123", "dataspace=default", "waitTimeMs=5000");
+        assertThat(pathCaptor.getValue()).contains("/ssot/query-sql/query-123", "dataspace=default", "waitTimeMs=5000");
     }
 
     @Test
@@ -115,67 +115,6 @@ class QueryServiceTest {
 
         // Then
         assertThat(result).contains("error", "Invalid SQL", "400");
-    }
-
-    @Test
-    void queryAnsiSqlV2_requiresSqlOrNextBatchId() {
-        // When - pass both null
-        String result = queryService.queryAnsiSqlV2(null, null, "default");
-
-        // Then
-        assertThat(result).contains("error", "sql", "nextBatchId");
-        verifyNoInteractions(client);
-    }
-
-    @Test
-    void queryAnsiSqlV2_withSql() {
-        // Given
-        String sql = "SELECT * FROM Individual__dlm";
-        String dataspace = "default";
-
-        Map<String, Object> mockResponse = Map.of(
-            "data", Map.of("rows", java.util.List.of()),
-            "nextBatchId", "batch-123"
-        );
-
-        when(client.post(anyString(), any(), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        // When
-        String result = queryService.queryAnsiSqlV2(sql, null, dataspace);
-
-        // Then
-        assertThat(result).contains("nextBatchId");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).contains("/ssot/queryv2");
-    }
-
-    @Test
-    void queryAnsiSqlV2_withNextBatchId() {
-        // Given
-        String nextBatchId = "batch-123";
-        String dataspace = "default";
-
-        Map<String, Object> mockResponse = Map.of(
-            "data", Map.of("rows", java.util.List.of())
-        );
-
-        when(client.get(anyString(), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        // When
-        String result = queryService.queryAnsiSqlV2(null, nextBatchId, dataspace);
-
-        // Then
-        assertThat(result).contains("data");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).get(pathCaptor.capture(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).contains("/ssot/queryv2/batch-123");
     }
 
     @Test
@@ -201,7 +140,7 @@ class QueryServiceTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/query-sql/query-123/rows", "offset=0", "rowLimit=100");
+        assertThat(pathCaptor.getValue()).contains("/ssot/query-sql/query-123/rows", "offset=0", "rowLimit=100");
     }
 
     @Test
@@ -224,33 +163,7 @@ class QueryServiceTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/query-sql/query-123", "dataspace=default");
-    }
-
-    @Test
-    void queryAnsiSql_success() {
-        // Given
-        String sql = "SELECT * FROM Individual__dlm";
-        Integer batchSize = 50;
-        String dataspace = "default";
-
-        Map<String, Object> mockResponse = Map.of(
-            "data", java.util.List.of()
-        );
-
-        when(client.post(anyString(), any(), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        // When
-        String result = queryService.queryAnsiSql(sql, batchSize, null, null, dataspace);
-
-        // Then
-        assertThat(result).contains("data");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).contains("/query", "batchSize=50", "dataspace=default");
+        assertThat(pathCaptor.getValue()).contains("/ssot/query-sql/query-123", "dataspace=default");
     }
 
     @Test
@@ -275,7 +188,7 @@ class QueryServiceTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/profile/Individual");
+        assertThat(pathCaptor.getValue()).contains("/ssot/profile/Individual");
     }
 
     @Test
@@ -299,7 +212,7 @@ class QueryServiceTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/profile/metadata", "dataspace=default");
+        assertThat(pathCaptor.getValue()).contains("/ssot/profile/metadata", "dataspace=default");
     }
 
     @Test

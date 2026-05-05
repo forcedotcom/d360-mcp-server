@@ -51,7 +51,7 @@ public class QueryService {
             }
             if (adaptiveTimeout != null) body.put("adaptiveTimeout", adaptiveTimeout);
 
-            String path = buildQueryPath("/query-sql", dataspace, workloadName, null);
+            String path = buildQueryPath("/ssot/query-sql", dataspace, workloadName, null);
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (IllegalArgumentException | ApiException e) {
@@ -64,7 +64,7 @@ public class QueryService {
             Map<String, Object> params = new LinkedHashMap<>();
             if (waitTimeMs != null) params.put("waitTimeMs", waitTimeMs);
 
-            String path = buildQueryPath("/query-sql/" + ToolUtils.encodePath(queryId), dataspace, workloadName, params);
+            String path = buildQueryPath("/ssot/query-sql/" + ToolUtils.encodePath(queryId), dataspace, workloadName, params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -80,7 +80,7 @@ public class QueryService {
             if (rowLimit != null) params.put("rowLimit", rowLimit);
             if (omitSchema != null) params.put("omitSchema", omitSchema);
 
-            String path = buildQueryPath("/query-sql/" + ToolUtils.encodePath(queryId) + "/rows", dataspace, workloadName, params);
+            String path = buildQueryPath("/ssot/query-sql/" + ToolUtils.encodePath(queryId) + "/rows", dataspace, workloadName, params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -90,55 +90,9 @@ public class QueryService {
 
     public String cancelQuerySql(String queryId, String dataspace, String workloadName) {
         try {
-            String path = buildQueryPath("/query-sql/" + ToolUtils.encodePath(queryId), dataspace, workloadName, null);
+            String path = buildQueryPath("/ssot/query-sql/" + ToolUtils.encodePath(queryId), dataspace, workloadName, null);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
-        } catch (ApiException e) {
-            return ToolUtils.errorResponse(e);
-        }
-    }
-
-    public String queryAnsiSql(String sql, Integer batchSize, Integer offset,
-                               String orderby, String dataspace) {
-        try {
-            Map<String, Object> body = Map.of("sql", sql);
-
-            Map<String, Object> params = new LinkedHashMap<>();
-            if (batchSize != null) params.put("batchSize", batchSize);
-            if (offset != null) params.put("offset", offset);
-            if (orderby != null) params.put("orderby", orderby);
-
-            String path = buildQueryPath("/query", dataspace, null, params);
-            Map result = client.post(path, body, Map.class);
-            return JsonUtil.toJson(result);
-        } catch (ApiException e) {
-            return ToolUtils.errorResponse(e);
-        }
-    }
-
-    public String queryAnsiSqlV2(String sql, String nextBatchId, String dataspace) {
-        try {
-            boolean hasSql = sql != null && !sql.isBlank();
-            boolean hasNextBatchId = nextBatchId != null && !nextBatchId.isBlank();
-            if (!hasSql && !hasNextBatchId) {
-                return JsonUtil.toJson(Map.of(
-                    "error", "Either sql or nextBatchId must be provided."
-                ));
-            }
-
-            Map<String, Object> params = new LinkedHashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            if (hasNextBatchId) {
-                String path = ToolUtils.buildPath("/ssot/queryv2/" + ToolUtils.encodePath(nextBatchId), params);
-                Map result = client.get(path, Map.class);
-                return JsonUtil.toJson(result);
-            } else {
-                Map<String, Object> body = Map.of("sql", sql);
-                String path = ToolUtils.buildPath("/ssot/queryv2", params);
-                Map result = client.post(path, body, Map.class);
-                return JsonUtil.toJson(result);
-            }
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
@@ -149,12 +103,12 @@ public class QueryService {
                                Integer batchSize, String filters, Integer offset,
                                String orderby, String dataspace) {
         try {
-            StringBuilder pathBuilder = new StringBuilder("/profile/").append(ToolUtils.encodePath(dataModelName));
+            StringBuilder pathBuilder = new StringBuilder("/ssot/profile/").append(ToolUtils.encodePath(dataModelName));
 
             if (id != null) {
                 pathBuilder.append("/").append(ToolUtils.encodePath(id));
                 if (ciName != null) {
-                    pathBuilder.append("/ssot/calculated-insights/").append(ToolUtils.encodePath(ciName));
+                    pathBuilder.append("/calculated-insights/").append(ToolUtils.encodePath(ciName));
                 } else if (childDataModelName != null) {
                     pathBuilder.append("/").append(ToolUtils.encodePath(childDataModelName));
                 }
@@ -179,7 +133,7 @@ public class QueryService {
 
     public String getProfileMetadata(String dataModelName, String dataspace) {
         try {
-            StringBuilder pathBuilder = new StringBuilder("/profile/metadata");
+            StringBuilder pathBuilder = new StringBuilder("/ssot/profile/metadata");
             if (dataModelName != null) {
                 pathBuilder.append("/").append(ToolUtils.encodePath(dataModelName));
             }

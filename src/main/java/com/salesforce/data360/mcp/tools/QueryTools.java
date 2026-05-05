@@ -89,32 +89,6 @@ public class QueryTools {
     }
 
     @McpTool(
-        name = "d360_query",
-        description = "Execute ANSI SQL query against Data 360 (V1 legacy). Use d360_query_sql instead for new work."
-    )
-    public String queryAnsiSql(
-        @McpToolParam(description = "The ANSI SQL query to execute") String sql,
-        @McpToolParam(description = "Batch size for pagination", required = false) Integer batchSize,
-        @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
-        @McpToolParam(description = "Order by clause", required = false) String orderby,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        return queryService.queryAnsiSql(sql, batchSize, offset, orderby, dataspace);
-    }
-
-    @McpTool(
-        name = "d360_query_v2",
-        description = "Execute ANSI SQL V2 query or fetch next batch. Supports nextBatchId for pagination."
-    )
-    public String queryAnsiSqlV2(
-        @McpToolParam(description = "The ANSI SQL query to execute (optional if using nextBatchId)", required = false) String sql,
-        @McpToolParam(description = "Next batch ID for pagination (optional if using sql)", required = false) String nextBatchId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        return queryService.queryAnsiSqlV2(sql, nextBatchId, dataspace);
-    }
-
-    @McpTool(
         name = "d360_profile_query",
         description = "Query unified profile data. Supports searching by model name, ID, child models, and calculated insights on profiles."
     )
