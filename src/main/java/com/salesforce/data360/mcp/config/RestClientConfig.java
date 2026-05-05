@@ -36,17 +36,12 @@ public class RestClientConfig {
         AuthService authService,
         AppProperties properties
     ) {
+        String callOptions = "client=" + serverName + "/" + serverVersion;
         return new Data360Client(
-            restClientBuilder(serverName, serverVersion).build(),
+            RestClient.builder().build(),
             authService,
-            properties.getApiVersion()
+            properties.getApiVersion(),
+            callOptions
         );
-    }
-
-    static final String SFORCE_CALL_OPTIONS = "Sforce-Call-Options";
-
-    static RestClient.Builder restClientBuilder(String serverName, String serverVersion) {
-        return RestClient.builder()
-            .defaultHeader(SFORCE_CALL_OPTIONS, "client=" + serverName + "/" + serverVersion);
     }
 }

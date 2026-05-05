@@ -44,15 +44,26 @@ public class Data360Client {
     private final RestClient restClient;
     private final AuthService authService;
     private final String apiVersion;
+    private final String serverCallOptions;
 
-    public Data360Client(RestClient restClient, AuthService authService, String apiVersion) {
+    public Data360Client(RestClient restClient, AuthService authService, String apiVersion,
+                         String serverCallOptions) {
         this.restClient = restClient;
         this.authService = authService;
         this.apiVersion = apiVersion;
+        this.serverCallOptions = serverCallOptions;
     }
 
     private String baseUrl() {
         return authService.getInstanceUrl() + "/services/data/v" + apiVersion;
+    }
+
+    private String sforceCallOptions() {
+        String clientInfo = ClientContext.get();
+        if (clientInfo == null) {
+            return serverCallOptions;
+        }
+        return serverCallOptions + "/" + clientInfo;
     }
 
     public <T> T get(String path, Class<T> responseType) {
@@ -62,6 +73,7 @@ public class Data360Client {
             restClient.get()
                 .uri(URI.create(fullUrl))
                 .header("Authorization", "Bearer " + authService.getAccessToken())
+                .header("Sforce-Call-Options", sforceCallOptions())
                 .retrieve()
                 .body(responseType)
         );
@@ -75,6 +87,7 @@ public class Data360Client {
                 .uri(URI.create(fullUrl))
                 .header("Authorization", "Bearer " + authService.getAccessToken())
                 .header("Content-Type", "application/json")
+                .header("Sforce-Call-Options", sforceCallOptions())
                 .body(body)
                 .retrieve()
                 .body(responseType)
@@ -89,6 +102,7 @@ public class Data360Client {
                 .uri(URI.create(fullUrl))
                 .header("Authorization", "Bearer " + authService.getAccessToken())
                 .header("Content-Type", "application/json")
+                .header("Sforce-Call-Options", sforceCallOptions())
                 .body(body)
                 .retrieve()
                 .body(responseType)
@@ -103,6 +117,7 @@ public class Data360Client {
                 .uri(URI.create(fullUrl))
                 .header("Authorization", "Bearer " + authService.getAccessToken())
                 .header("Content-Type", "application/json")
+                .header("Sforce-Call-Options", sforceCallOptions())
                 .body(body)
                 .retrieve()
                 .body(responseType)
@@ -116,6 +131,7 @@ public class Data360Client {
             restClient.delete()
                 .uri(URI.create(fullUrl))
                 .header("Authorization", "Bearer " + authService.getAccessToken())
+                .header("Sforce-Call-Options", sforceCallOptions())
                 .retrieve()
                 .toBodilessEntity();
             return null;
@@ -129,6 +145,7 @@ public class Data360Client {
             restClient.delete()
                 .uri(URI.create(fullUrl))
                 .header("Authorization", "Bearer " + authService.getAccessToken())
+                .header("Sforce-Call-Options", sforceCallOptions())
                 .retrieve()
                 .body(responseType)
         );
