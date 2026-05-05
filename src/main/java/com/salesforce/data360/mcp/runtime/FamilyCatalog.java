@@ -111,7 +111,7 @@ public class FamilyCatalog {
         List<ToolDef> t = new ArrayList<>();
 
         // ── Query ──────────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_query_sql", "Query", "Execute SQL query. Preferred over V1/V2. Supports parameterized queries.", "POST", "/ssot/query-sql"));
+        t.add(new ToolDef("d360_query_sql", "Query", "Execute SQL query. Supports parameterized queries.", "POST", "/ssot/query-sql"));
         t.add(new ToolDef("d360_query_sql_status", "Query", "Poll for long-running query status.", "GET", "/ssot/query-sql/{queryId}"));
         t.add(new ToolDef("d360_query_sql_rows", "Query", "Fetch paginated rows from completed query.", "GET", "/ssot/query-sql/{queryId}/rows"));
         t.add(new ToolDef("d360_query_sql_cancel", "Query", "Cancel a running query.", "DELETE", "/ssot/query-sql/{queryId}"));
