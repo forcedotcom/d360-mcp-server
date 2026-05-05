@@ -29,6 +29,7 @@ public class AppProperties {
     private String clientId;
     private String clientSecret;
     private String authFlow;
+    private String sfOrgAlias;
     private String apiVersion = "66.0";
     private String searchStrategy = "keyword";
 
@@ -78,6 +79,14 @@ public class AppProperties {
 
     public void setAuthFlow(String authFlow) {
         this.authFlow = authFlow;
+    }
+
+    public String getSfOrgAlias() {
+        return sfOrgAlias;
+    }
+
+    public void setSfOrgAlias(String sfOrgAlias) {
+        this.sfOrgAlias = sfOrgAlias;
     }
 
     public String getApiVersion() {

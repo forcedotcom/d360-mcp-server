@@ -55,4 +55,5 @@ data360:
   client-id: ${DATA360_CLIENT_ID:}
   client-secret: ${DATA360_CLIENT_SECRET:}
   auth-flow: ${DATA360_AUTH_FLOW:access_token}
+  sf-org-alias: ${DATA360_SF_ORG_ALIAS:${SF_ORG_ALIAS:}}
   search-strategy: ${DATA360_SEARCH_STRATEGY:keyword}
