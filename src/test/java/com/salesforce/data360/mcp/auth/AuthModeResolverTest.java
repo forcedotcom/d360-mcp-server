@@ -87,6 +87,35 @@ public class AuthModeResolverTest {
     }
 
     @Test
+    public void returnsSfCliWhenOnlyOrgAliasSet() {
+        properties.setSfOrgAlias("sftutor");
+
+        assertThat(AuthModeResolver.determineAuthMode(properties))
+            .isEqualTo(AuthModeResolver.SF_CLI);
+    }
+
+    @Test
+    public void accessTokenTakesPriorityOverSfCli() {
+        properties.setAccessToken("tok");
+        properties.setInstanceUrl("https://myorg.salesforce.com");
+        properties.setSfOrgAlias("sftutor");
+
+        assertThat(AuthModeResolver.determineAuthMode(properties))
+            .isEqualTo(AuthModeResolver.ACCESS_TOKEN);
+    }
+
+    @Test
+    public void clientCredentialsTakesPriorityOverSfCli() {
+        properties.setAuthFlow("client_credentials");
+        properties.setClientId("cid");
+        properties.setClientSecret("csec");
+        properties.setSfOrgAlias("sftutor");
+
+        assertThat(AuthModeResolver.determineAuthMode(properties))
+            .isEqualTo(AuthModeResolver.CLIENT_CREDENTIALS);
+    }
+
+    @Test
     public void treatsBlankStringsAsNotSet() {
         properties.setAccessToken("   ");
         properties.setInstanceUrl("https://myorg.salesforce.com");

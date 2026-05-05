@@ -72,19 +72,23 @@ This produces `target/data360-mcp-server-1.0.0.jar`.
 
 ## Authentication
 
-The server auto-detects an auth flow from environment variables. Priority:
-`access_token` → `client_credentials`.
+The server auto-detects an auth flow from environment variables. Resolver priority:
+`access_token` → `client_credentials` → `sf_cli`. (The "Getting credentials"
+section below lists the options by convenience, which is the inverse order.)
 
 ### Getting credentials
 
 The server needs credentials for a Salesforce org with Data 360 enabled.
-You have two options, in order of convenience:
+You have three options, in order of convenience:
 
-1. **Access token** — the quickest way to try the server. Run `sf org login web`
-   (or the equivalent in your org tooling) and grab the access token from your
-   session. Tokens expire; for anything beyond experimentation, use the
-   option below.
-2. **External Client App with client credentials** — create an External Client
+1. **SF CLI alias** — if you already use `sf` to log into the org, just point
+   the server at that alias. The server shells out to
+   `sf org display --target-org <alias> --json` on demand and refreshes every
+   five minutes. No Connected App setup; no tokens to paste. See
+   [SF CLI auth](#sf-cli-auth-sfcli) below.
+2. **Access token** — paste a one-off access token. Quickest way to try the
+   server once, but tokens expire.
+3. **External Client App with client credentials** — create an External Client
    App in Setup, enable the Client Credentials flow, grant the `api`, `cdp_api` and
    `cdp_query_api` scopes, and use the resulting Consumer Key / Secret. The
    server will refresh tokens automatically. See
@@ -114,6 +118,25 @@ If you're using the `sf` cli you can initialize these automatically and create a
   ```
 
 Replacing `target-org-alias` with the `sf` cli's alias for your connected org.
+
+**SF CLI auth (`sf_cli`):**
+
+Requires the [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli)
+on PATH and an authenticated org:
+
+```bash
+sf org login web --alias myorg
+export SF_ORG_ALIAS="myorg"   # or DATA360_SF_ORG_ALIAS
+# Unset any leftover DATA360_ACCESS_TOKEN so the SF CLI path is selected.
+unset DATA360_ACCESS_TOKEN
+java -jar target/data360-mcp-server-1.0.0.jar
+```
+
+The server shells out to `sf org display --target-org <alias> --json` to
+obtain a token and instance URL, and caches the result for five minutes before
+re-asking `sf`. Works with any org the CLI is already authenticated against
+(scratch orgs, sandboxes, production). Precedence: if both `DATA360_ACCESS_TOKEN`
+and `SF_ORG_ALIAS` are set, the explicit access token wins.
 
 **Client credentials (auto-refreshing):**
 

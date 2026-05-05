@@ -113,6 +113,11 @@ public class AuthService {
                     properties.getClientSecret()
                 );
 
+            case AuthModeResolver.SF_CLI:
+                log.info("Initialized with sf_cli auth mode (org alias: {})",
+                    properties.getSfOrgAlias());
+                return new SfCliAuth(properties.getSfOrgAlias());
+
             case AuthModeResolver.ACCESS_TOKEN:
                 log.info("Initialized with access_token auth mode");
                 return null;

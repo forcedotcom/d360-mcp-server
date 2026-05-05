@@ -22,6 +22,7 @@ public final class AuthModeResolver {
 
     public static final String ACCESS_TOKEN = "access_token";
     public static final String CLIENT_CREDENTIALS = "client_credentials";
+    public static final String SF_CLI = "sf_cli";
     public static final String NONE = "none";
 
     private AuthModeResolver() {
@@ -35,6 +36,9 @@ public final class AuthModeResolver {
             && isNotBlank(properties.getClientId())
             && isNotBlank(properties.getClientSecret())) {
             return CLIENT_CREDENTIALS;
+        }
+        if (isNotBlank(properties.getSfOrgAlias())) {
+            return SF_CLI;
         }
         return NONE;
     }
