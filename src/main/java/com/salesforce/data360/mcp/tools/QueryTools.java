@@ -34,16 +34,28 @@ public class QueryTools {
 
     @McpTool(
         name = "d360_query_sql",
-        description = "Execute a Data 360 SQL query (V3 API - preferred). Returns metadata, status, and first chunk of data. Use d360_query_sql_rows to paginate."
+        description = "Execute a SQL query against Salesforce Data 360 (formerly Data Cloud) and return the results. "
+            + "Data 360 SQL is PostgreSQL-flavored but has its own dialect, supported functions, and constraints. "
+            + "For authoritative syntax, supported functions, and semantics, consult the Data 360 SQL Reference: "
+            + "https://developer.salesforce.com/docs/data/data-cloud-query-guide/references/dc-sql-reference/data-cloud-sql-context.html "
+            + "Returns metadata, status, and first chunk of data. Use d360_query_sql_rows to paginate."
     )
     public String querySql(
-        @McpToolParam(description = "The DC SQL query to execute") String sql,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace,
-        @McpToolParam(description = "Optional workload name", required = false) String workloadName,
-        @McpToolParam(description = "Max rows to return in first response", required = false) Integer rowLimit,
-        @McpToolParam(description = "Key-value map of query settings", required = false) Map<String, String> querySettings,
-        @McpToolParam(description = "JSON string of parameterized query values (array)", required = false) String sqlParameters,
-        @McpToolParam(description = "Adaptive timeout in milliseconds", required = false) Integer adaptiveTimeout
+        @McpToolParam(description = "A SQL query in the Data 360 SQL dialect (PostgreSQL-flavored). "
+            + "Always quote all identifiers and preserve their exact casing. "
+            + "Before writing a query, verify the tables and fields to use via d360_metadata_search "
+            + "(or, if unavailable, via d360_metadata_entities / d360_metadata). "
+            + "When in doubt about supported syntax or functions, refer to the Data 360 SQL Reference: "
+            + "https://developer.salesforce.com/docs/data/data-cloud-query-guide/references/dc-sql-reference/data-cloud-sql-context.html") String sql,
+        @McpToolParam(description = "The Data 360 dataspace to execute against. Defaults to 'default'.", required = false) String dataspace,
+        @McpToolParam(description = "Optional workload name for query resource management.", required = false) String workloadName,
+        @McpToolParam(description = "Max rows to return in the first response. Use d360_query_sql_rows to fetch additional pages.", required = false) Integer rowLimit,
+        @McpToolParam(description = "Optional Data 360 query settings, passed through as-is as 'querySettings' in the request body. "
+            + "Known settings include 'query_timeout' with a duration-suffixed value, e.g. {\"query_timeout\": \"1800000ms\"}. "
+            + "Leave unset to use Data 360 defaults.", required = false) Map<String, String> querySettings,
+        @McpToolParam(description = "JSON string of parameterized query values (array). "
+            + "Example: '[{\"name\":\"myParam\",\"value\":\"foo\"}]'. Reference parameters in the SQL as ':myParam'.", required = false) String sqlParameters,
+        @McpToolParam(description = "Adaptive timeout in milliseconds — how long the server waits before returning a partial/polling response.", required = false) Integer adaptiveTimeout
     ) {
         return queryService.querySql(sql, dataspace, workloadName, rowLimit, querySettings, sqlParameters, adaptiveTimeout);
     }
@@ -86,32 +98,6 @@ public class QueryTools {
         @McpToolParam(description = "Optional workload name", required = false) String workloadName
     ) {
         return queryService.cancelQuerySql(queryId, dataspace, workloadName);
-    }
-
-    @McpTool(
-        name = "d360_query",
-        description = "Execute ANSI SQL query against Data 360 (V1 legacy). Use d360_query_sql instead for new work."
-    )
-    public String queryAnsiSql(
-        @McpToolParam(description = "The ANSI SQL query to execute") String sql,
-        @McpToolParam(description = "Batch size for pagination", required = false) Integer batchSize,
-        @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
-        @McpToolParam(description = "Order by clause", required = false) String orderby,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        return queryService.queryAnsiSql(sql, batchSize, offset, orderby, dataspace);
-    }
-
-    @McpTool(
-        name = "d360_query_v2",
-        description = "Execute ANSI SQL V2 query or fetch next batch. Supports nextBatchId for pagination."
-    )
-    public String queryAnsiSqlV2(
-        @McpToolParam(description = "The ANSI SQL query to execute (optional if using nextBatchId)", required = false) String sql,
-        @McpToolParam(description = "Next batch ID for pagination (optional if using sql)", required = false) String nextBatchId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        return queryService.queryAnsiSqlV2(sql, nextBatchId, dataspace);
     }
 
     @McpTool(

@@ -76,14 +76,14 @@ class SearchIndexToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index");
     }
 
     @Test
     void testListSearchIndexes_errorHandling() {
         // Given
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(403, "User does not have permission to access", "/search-index"));
+            .thenThrow(new ApiException(403, "User does not have permission to access", "/ssot/search-index"));
 
         // When
         String result = searchIndexTools.listSearchIndexes();
@@ -155,7 +155,7 @@ class SearchIndexToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index");
         assertThat(bodyCaptor.getValue()).containsEntry("label", "Case_search_index");
         assertThat(bodyCaptor.getValue()).containsEntry("searchType", "VECTOR");
         assertThat(bodyCaptor.getValue()).containsEntry("sourceDmoDeveloperName", "ssot__Case__dlm");
@@ -165,7 +165,7 @@ class SearchIndexToolsTest {
     void testCreateSearchIndex_errorHandling() {
         // Given
         when(client.post(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(400, "Bad request", "/search-index"));
+            .thenThrow(new ApiException(400, "Bad request", "/ssot/search-index"));
 
         // When
         SearchIndexCreateRequest request = new SearchIndexCreateRequest();
@@ -201,14 +201,14 @@ class SearchIndexToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index/config");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index/config");
     }
 
     @Test
     void testGetSearchIndexConfig_errorHandling() {
         // Given
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(500, "Server error", "/search-index/config"));
+            .thenThrow(new ApiException(500, "Server error", "/ssot/search-index/config"));
 
         // When
         String result = searchIndexTools.getSearchIndexConfig();
@@ -243,14 +243,14 @@ class SearchIndexToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index/idx-123");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index/idx-123");
     }
 
     @Test
     void testGetSearchIndex_notFound() {
         // Given
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(422, "Unprocessable entity", "/search-index/nonexistent"));
+            .thenThrow(new ApiException(422, "Unprocessable entity", "/ssot/search-index/nonexistent"));
 
         // When
         String result = searchIndexTools.getSearchIndex("nonexistent");
@@ -281,14 +281,14 @@ class SearchIndexToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index/idx-123");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index/idx-123");
     }
 
     @Test
     void testDeleteSearchIndex_errorHandling() {
         // Given
         when(client.delete(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(403, "User does not have permission", "/search-index/idx-123"));
+            .thenThrow(new ApiException(403, "User does not have permission", "/ssot/search-index/idx-123"));
 
         // When
         String result = searchIndexTools.deleteSearchIndex("idx-123");
@@ -348,7 +348,7 @@ class SearchIndexToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index/idx-123");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index/idx-123");
         assertThat(bodyCaptor.getValue()).containsEntry("label", "Updated_search_index");
     }
 
@@ -356,7 +356,7 @@ class SearchIndexToolsTest {
     void testUpdateSearchIndex_errorHandling() {
         // Given
         when(client.patch(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(400, "Invalid request", "/search-index/idx-123"));
+            .thenThrow(new ApiException(400, "Invalid request", "/ssot/search-index/idx-123"));
 
         // When
         SearchIndexCreateRequest request = new SearchIndexCreateRequest();
@@ -411,7 +411,7 @@ class SearchIndexToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/search-index/idx-123/process-history?limit=50&offset=1");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/search-index/idx-123/process-history?limit=50&offset=1");
     }
 
     @Test
@@ -429,14 +429,14 @@ class SearchIndexToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/search-index/idx-123/process-history", "limit=10", "offset=20");
+        assertThat(pathCaptor.getValue()).contains("/ssot/search-index/idx-123/process-history", "limit=10", "offset=20");
     }
 
     @Test
     void testGetSearchIndexProcessHistory_errorHandling() {
         // Given
         when(client.get(anyString(), eq(Map.class)))
-            .thenThrow(new ApiException(404, "Not found", "/search-index/nonexistent/process-history"));
+            .thenThrow(new ApiException(404, "Not found", "/ssot/search-index/nonexistent/process-history"));
 
         // When
         String result = searchIndexTools.getSearchIndexProcessHistory("nonexistent", null, null);

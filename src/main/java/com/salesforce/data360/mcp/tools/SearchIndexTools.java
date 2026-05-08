@@ -50,7 +50,7 @@ public class SearchIndexTools {
     )
     public String listSearchIndexes() {
         try {
-            String path = "/search-index";
+            String path = "/ssot/search-index";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -75,7 +75,7 @@ public class SearchIndexTools {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            String path = "/search-index";
+            String path = "/ssot/search-index";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -92,7 +92,7 @@ public class SearchIndexTools {
     )
     public String getSearchIndexConfig() {
         try {
-            String path = "/search-index/config";
+            String path = "/ssot/search-index/config";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -111,7 +111,7 @@ public class SearchIndexTools {
         @McpToolParam(description = "ID or API Name of the search index") String searchIndexApiNameOrId
     ) {
         try {
-            String path = "/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId);
+            String path = "/ssot/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -130,7 +130,7 @@ public class SearchIndexTools {
         @McpToolParam(description = "ID or API Name of the search index") String searchIndexApiNameOrId
     ) {
         try {
-            String path = "/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId);
+            String path = "/ssot/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -157,7 +157,7 @@ public class SearchIndexTools {
             params.put("limit", limit != null ? limit : 50);
             params.put("offset", (offset != null && offset >= 1) ? offset : 1);
             String path = ToolUtils.buildPath(
-                "/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId) + "/process-history",
+                "/ssot/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId) + "/process-history",
                 params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
@@ -182,7 +182,7 @@ public class SearchIndexTools {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            String path = "/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId);
+            String path = "/ssot/search-index/" + ToolUtils.encodePath(searchIndexApiNameOrId);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {

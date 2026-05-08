@@ -39,7 +39,7 @@ import java.util.Map;
 @Component
 public class RetrieverTools {
 
-    private static final String BASE_PATH = "/machine-learning/retrievers";
+    private static final String BASE_PATH = "/ssot/machine-learning/retrievers";
 
     private final Data360Client client;
 

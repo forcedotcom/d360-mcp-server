@@ -95,7 +95,6 @@ public abstract class IntegrationTestBase {
             "d360_metadata", "d360_metadata_entities", "d360_metadata_search",
             // Query
             "d360_query_sql", "d360_query_sql_status", "d360_query_sql_rows",
-            "d360_query", "d360_query_v2",
             // Profile
             "d360_profile_query", "d360_profile_metadata",
             // Insights

@@ -111,12 +111,10 @@ public class FamilyCatalog {
         List<ToolDef> t = new ArrayList<>();
 
         // ── Query ──────────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_query_sql", "Query", "Execute SQL query. Preferred over V1/V2. Supports parameterized queries.", "POST", "/ssot/query-sql"));
+        t.add(new ToolDef("d360_query_sql", "Query", "Execute SQL query. Supports parameterized queries.", "POST", "/ssot/query-sql"));
         t.add(new ToolDef("d360_query_sql_status", "Query", "Poll for long-running query status.", "GET", "/ssot/query-sql/{queryId}"));
         t.add(new ToolDef("d360_query_sql_rows", "Query", "Fetch paginated rows from completed query.", "GET", "/ssot/query-sql/{queryId}/rows"));
         t.add(new ToolDef("d360_query_sql_cancel", "Query", "Cancel a running query.", "DELETE", "/ssot/query-sql/{queryId}"));
-        t.add(new ToolDef("d360_query", "Query", "Legacy V1 query. Use d360_query_sql instead.", "POST", "/ssot/query"));
-        t.add(new ToolDef("d360_query_v2", "Query", "V2 ANSI SQL query. Still prefer d360_query_sql.", "POST", "/ssot/queryv2"));
         t.add(new ToolDef("d360_metadata", "Query", "Get metadata for entity. ALWAYS use entityName filter.", "GET", "/ssot/metadata"));
         t.add(new ToolDef("d360_metadata_search", "Query", "Search metadata using natural language. Preferred for discovery.", "POST", "/connect/search/metadata/results"));
         t.add(new ToolDef("d360_metadata_entities", "Query", "List paginated metadata entities. entityType required.", "GET", "/ssot/metadata-entities"));
