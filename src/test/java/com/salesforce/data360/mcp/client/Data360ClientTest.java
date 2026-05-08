@@ -74,7 +74,8 @@ class Data360ClientTest {
         when(authService.getAccessToken()).thenReturn("test-access-token");
         when(authService.getInstanceUrl()).thenReturn("https://test.salesforce.com");
 
-        client = new Data360Client(restClient, authService, "66.0");
+        client = new Data360Client(restClient, authService, "66.0",
+            "client=data360-mcp-server-oss/1.0.0");
     }
 
     @Test
@@ -83,7 +84,7 @@ class Data360ClientTest {
         when(restClient.get()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(URI.create("https://test.salesforce.com/services/data/v66.0/dmos")))
             .thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.header("Authorization", "Bearer test-access-token"))
+        when(requestHeadersSpec.header(anyString(), anyString()))
             .thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
 
@@ -155,7 +156,7 @@ class Data360ClientTest {
         when(restClient.delete()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(URI.create("https://test.salesforce.com/services/data/v66.0/dmos/123")))
             .thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.header("Authorization", "Bearer test-access-token"))
+        when(requestHeadersSpec.header(anyString(), anyString()))
             .thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.toBodilessEntity()).thenReturn(null);
@@ -169,7 +170,7 @@ class Data360ClientTest {
         when(restClient.get()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(URI.create("https://test.salesforce.com/services/data/v66.0/invalid")))
             .thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.header("Authorization", "Bearer test-access-token"))
+        when(requestHeadersSpec.header(anyString(), anyString()))
             .thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.body(String.class))
@@ -199,7 +200,7 @@ class Data360ClientTest {
         when(restClient.get()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(URI.create("https://test.salesforce.com/services/data/v66.0/error")))
             .thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.header("Authorization", "Bearer test-access-token"))
+        when(requestHeadersSpec.header(anyString(), anyString()))
             .thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.body(String.class))
@@ -227,7 +228,7 @@ class Data360ClientTest {
         when(restClient.get()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(URI.create("https://test.salesforce.com/services/data/v66.0/timeout")))
             .thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.header("Authorization", "Bearer test-access-token"))
+        when(requestHeadersSpec.header(anyString(), anyString()))
             .thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.body(String.class))

@@ -17,6 +17,7 @@
 package com.salesforce.data360.mcp.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.salesforce.data360.mcp.client.ClientContext;
 import com.salesforce.data360.mcp.runtime.FamilyCatalog;
 import com.salesforce.data360.mcp.runtime.HybridSearchStrategy;
 import com.salesforce.data360.mcp.runtime.KeywordSearchStrategy;
@@ -84,6 +85,12 @@ public class Data360RuntimeConfiguration {
 
             specs.add(new McpServerFeatures.SyncToolSpecification(tool,
                 (exchange, request) -> {
+                    if (exchange != null) {
+                        McpSchema.Implementation clientInfo = exchange.getClientInfo();
+                        if (clientInfo != null) {
+                            ClientContext.set(clientInfo.name() + "/" + clientInfo.version());
+                        }
+                    }
                     try {
                         Object result = registry.invokeForResult(toolName, request.arguments());
                         String json = result == null ? "{}"
@@ -94,6 +101,8 @@ public class Data360RuntimeConfiguration {
                         String msg = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
                         return new McpSchema.CallToolResult(
                             List.of(new McpSchema.TextContent("Error: " + msg)), true, null, null);
+                    } finally {
+                        ClientContext.clear();
                     }
                 }));
         }
