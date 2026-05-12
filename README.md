@@ -54,7 +54,52 @@ Under the hood, 187 operations are organized into 21 tool families:
 | Eventing | 2 | Single + batch event publish |
 | GDPR | 3 | Data subject read / delete requests |
 
-## Requirements
+## Quick start (one command)
+
+The installer checks for Java 17+ and Maven (installs them if missing),
+clones the repo, builds the server JAR, prompts for your Salesforce
+credentials, and configures your MCP client (Claude Desktop, Claude Code,
+or Cursor):
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/forcedotcom/d360-mcp-server/refs/heads/main/install.sh | bash
+```
+
+That's it. The script handles everything — including installing Java, Maven,
+and Git if you don't have them.
+
+If you already cloned the repo and want to build the current checkout, run:
+
+```bash
+./install.sh
+```
+
+### Windows (PowerShell)
+
+Install [Python 3.9+](https://www.python.org/downloads/windows/) first (the
+installer uses only the Python standard library). Then:
+
+```powershell
+irm https://raw.githubusercontent.com/forcedotcom/d360-mcp-server/refs/heads/main/install.py -OutFile install.py
+python install.py
+```
+
+The Python installer auto-installs Git, Java 17, and Maven via `winget`
+(falls back to Chocolatey if present). You may see a UAC prompt.
+
+### Cross-platform alternative
+
+A Python installer is also available on macOS and Linux:
+
+```bash
+python3 install.py
+```
+
+## Requirements (manual setup)
+
+If you prefer to set things up yourself:
 
 - Java 17+
 - Maven 3.9+
@@ -242,6 +287,27 @@ mvn test
 ```
 
 The test suite covers core tool dispatch, services, and request/response behavior.
+
+## Uninstall
+
+If you used the installer, use its uninstall command to remove the installed
+JAR and the `"data360"` entries it added to supported MCP clients:
+
+```bash
+./install.sh uninstall
+```
+
+On Windows, run:
+
+```powershell
+python install.py uninstall
+```
+
+Manual cleanup is also possible: remove `~/.data360-mcp-server`, then remove
+the `"data360"` entry from your MCP client config file:
+- Claude Desktop: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `~/.config/Claude/claude_desktop_config.json` (Linux)
+- Claude Code: `~/.claude.json`
+- Cursor: `~/.cursor/mcp.json`
 
 ## Contributing
 
