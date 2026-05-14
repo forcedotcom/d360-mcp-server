@@ -366,4 +366,107 @@ public class MetadataTools {
         }
     }
 
+    // ============================================================
+    // Connection Schema Discovery
+    // ============================================================
+
+    @McpTool(
+        name = "d360_connection_db_schemas_list",
+        description = "List database schemas available in a connection (e.g., Snowflake schemas). "
+            + "Pass database name and other connector-specific properties via advancedAttributes (e.g., {\"database\":\"MY_DB\"})."
+    )
+    public String listConnectionDbSchemas(
+        @McpToolParam(description = "The connection ID") String connectionId,
+        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\"})") String advancedAttributes,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            Map<String, Object> attrs = ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes");
+            Map<String, Object> body = new HashMap<>();
+            body.put("advancedAttributes", attrs);
+
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+
+            String path = ToolUtils.buildPath(
+                "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/database-schemas",
+                params
+            );
+            Map result = client.post(path, body, Map.class);
+            return JsonUtil.toJson(result);
+        } catch (IllegalArgumentException | ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
+    @McpTool(
+        name = "d360_connection_objects_list",
+        description = "List objects/tables available in a connection. For DB connections, pass database and schema "
+            + "via advancedAttributes (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})."
+    )
+    public String listConnectionObjects(
+        @McpToolParam(description = "The connection ID") String connectionId,
+        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})", required = false) String advancedAttributes,
+        @McpToolParam(description = "JSON object of filter criteria for narrowing the result set", required = false) String filters,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            Map<String, Object> body = new HashMap<>();
+            if (advancedAttributes != null && !advancedAttributes.isEmpty()) {
+                body.put("advancedAttributes", ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes"));
+            }
+            if (filters != null && !filters.isEmpty()) {
+                body.put("filters", ToolUtils.parseJson(filters, Map.class, "filters"));
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+
+            String path = ToolUtils.buildPath(
+                "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/objects",
+                params
+            );
+            Map result = client.post(path, body, Map.class);
+            return JsonUtil.toJson(result);
+        } catch (IllegalArgumentException | ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
+    @McpTool(
+        name = "d360_connection_object_fields_describe",
+        description = "Describe field-level schema (names, types, primary keys) of an object in a connection. "
+            + "Use d360_connection_objects_list first to discover the resourceName."
+    )
+    public String describeConnectionObjectFields(
+        @McpToolParam(description = "The connection ID") String connectionId,
+        @McpToolParam(description = "The object/table name (from d360_connection_objects_list)") String resourceName,
+        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})", required = false) String advancedAttributes,
+        @McpToolParam(description = "JSON object of filter criteria for narrowing the field set", required = false) String filters,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            Map<String, Object> body = new HashMap<>();
+            if (advancedAttributes != null && !advancedAttributes.isEmpty()) {
+                body.put("advancedAttributes", ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes"));
+            }
+            if (filters != null && !filters.isEmpty()) {
+                body.put("filters", ToolUtils.parseJson(filters, Map.class, "filters"));
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+
+            String path = ToolUtils.buildPath(
+                "/ssot/connections/" + ToolUtils.encodePath(connectionId)
+                    + "/objects/" + ToolUtils.encodePath(resourceName) + "/fields",
+                params
+            );
+            Map result = client.post(path, body, Map.class);
+            return JsonUtil.toJson(result);
+        } catch (IllegalArgumentException | ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
 }

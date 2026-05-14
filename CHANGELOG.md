@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Connection schema discovery tools: `d360_connection_db_schemas_list`,
+  `d360_connection_objects_list`, and `d360_connection_object_fields_describe`
+  for browsing databases, schemas, tables, and field-level metadata of a
+  connection (e.g., Snowflake).
+
 ### Fixed
 
 - `d360_query_sql`, `d360_query_sql_status`, `d360_query_sql_rows`, and

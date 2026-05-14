@@ -41,7 +41,7 @@ Under the hood, 187 operations are organized into 21 tool families:
 | Calculated Insights | 10 | CI CRUD, run, validate, query |
 | Segment | 6 | Segment CRUD + publish |
 | Dataspace | 8 | Dataspace + member management |
-| Connection | 11 | Connector metadata, connection CRUD, Snowflake connections |
+| Connection | 14 | Connector metadata, connection CRUD, Snowflake connections, schema/object/field discovery |
 | Query | 16 | SQL, profile, datagraph, and metadata queries |
 | Activation | 10 | Activation + target CRUD |
 | SDM | 38 | Semantic Data Models — dimensions, measures, relationships, queries |

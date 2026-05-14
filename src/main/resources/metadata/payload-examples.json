@@ -1131,5 +1131,21 @@
         "type": "SDM"
       }
     ]
+  },
+  "d360_connection_db_schemas_list": {
+    "connectionId": "9cgaj0000012O5hAAE",
+    "advancedAttributes": "{\"database\":\"SNOWFLAKE_SAMPLE_DATA\"}",
+    "_note": "advancedAttributes is a JSON string; for Snowflake pass the database name. Returns schemas under that database. Use d360_snowflake_connection_list (or d360_connection_list) to find the connectionId."
+  },
+  "d360_connection_objects_list": {
+    "connectionId": "9cgaj0000012O5hAAE",
+    "advancedAttributes": "{\"database\":\"SNOWFLAKE_SAMPLE_DATA\",\"schema\":\"TPCH_SF1\"}",
+    "_note": "Lists tables/objects in a connection. For DB connectors (e.g., Snowflake) scope by database+schema in advancedAttributes — omitting them can return very large result sets. Omit advancedAttributes for non-DB connectors (e.g., Salesforce)."
+  },
+  "d360_connection_object_fields_describe": {
+    "connectionId": "9cgaj0000012O5hAAE",
+    "resourceName": "CUSTOMER",
+    "advancedAttributes": "{\"database\":\"SNOWFLAKE_SAMPLE_DATA\",\"schema\":\"TPCH_SF1\"}",
+    "_note": "Describes column-level schema (names, types, primary keys) of a single object. Discover resourceName via d360_connection_objects_list first."
   }
 }

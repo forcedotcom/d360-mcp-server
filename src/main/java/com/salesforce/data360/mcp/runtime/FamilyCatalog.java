@@ -172,6 +172,9 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_connection_endpoints", "Connection", "List pre-configured endpoints.", "GET", "/ssot/connection-endpoints"));
         t.add(new ToolDef("d360_snowflake_connection_list", "Connection", "List Data 360 connections for a connector type. Use connectorType=SNOWFLAKE for Snowflake.", "GET", "/connections"));
         t.add(new ToolDef("d360_connection_create_snowflake", "Connection", "Create a Snowflake connection with KeyPair auth. Provide private key content directly.", "POST", "/connections"));
+        t.add(new ToolDef("d360_connection_db_schemas_list", "Connection", "List database schemas available in a connection (e.g., Snowflake schemas). Pass database name in advancedAttributes.", "POST", "/ssot/connections/{id}/database-schemas"));
+        t.add(new ToolDef("d360_connection_objects_list", "Connection", "List objects/tables available in a connection. Use database/schema in advancedAttributes for DB connections.", "POST", "/ssot/connections/{id}/objects"));
+        t.add(new ToolDef("d360_connection_object_fields_describe", "Connection", "Describe field-level schema (names, types, primary keys) of an object in a connection.", "POST", "/ssot/connections/{id}/objects/{resourceName}/fields"));
 
         // ── Segment ────────────────────────────────────────────────────────
         t.add(new ToolDef("d360_segment_list", "Segment", "List all segments.", "GET", "/ssot/segments"));
