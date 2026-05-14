@@ -178,8 +178,9 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_segment_get", "Segment", "Get segment by ID. Check segmentStatus for ACTIVE.", "GET", "/ssot/segments/{id}"));
         t.add(new ToolDef("d360_segment_create", "Segment", "Create segment. Requires ACTIVE CIs first.", "POST", "/ssot/segments"));
         t.add(new ToolDef("d360_segment_update", "Segment", "Update segment metadata. Cannot change SQL via PATCH.", "PATCH", "/ssot/segments/{id}"));
-        t.add(new ToolDef("d360_segment_delete", "Segment", "Delete segment. Irreversible.", "DELETE", "/ssot/segments/{id}"));
+        t.add(new ToolDef("d360_segment_delete", "Segment", "Delete segment by API name (developer name). Irreversible.", "DELETE", "/ssot/segments/{apiName}"));
         t.add(new ToolDef("d360_segment_publish", "Segment", "Trigger segment calculation.", "POST", "/ssot/segments/{id}/actions/publish"));
+        t.add(new ToolDef("d360_segment_deactivate", "Segment", "Deactivate a segment by API name (developer name). Inverse of publish.", "POST", "/ssot/segments/{apiName}/actions/deactivate"));
 
         // ── CalculatedInsights ─────────────────────────────────────────────
         t.add(new ToolDef("d360_ci_list", "CalculatedInsights", "List all CIs. Check status for ACTIVE.", "GET", "/ssot/calculated-insights"));

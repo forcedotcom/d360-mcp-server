@@ -72,6 +72,8 @@ public class ReadOnlyIntegrationTest extends IntegrationTestBase {
         assertThrows(IllegalArgumentException.class,
                 () -> assertSafeTool("d360_segment_publish"));
         assertThrows(IllegalArgumentException.class,
+                () -> assertSafeTool("d360_segment_deactivate"));
+        assertThrows(IllegalArgumentException.class,
                 () -> assertSafeTool("d360_ci_enable"));
         assertThrows(IllegalArgumentException.class,
                 () -> assertSafeTool("d360_ci_run"));
