@@ -181,14 +181,14 @@ class SegmentToolsTest {
     @Test
     void testDeleteSegment_success() {
         // Given
-        String segmentId = "seg-123";
+        String segmentApiName = "High_Value_Customers__seg";
         Map<String, Object> mockResponse = Map.of("success", true);
 
         when(client.delete(anyString(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
-        String result = segmentTools.deleteSegment(segmentId, DEFAULT_DATASPACE);
+        String result = segmentTools.deleteSegment(segmentApiName, DEFAULT_DATASPACE);
 
         // Then
         assertThat(result).contains("success");
@@ -196,7 +196,31 @@ class SegmentToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/seg-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/High_Value_Customers__seg?dataspace=default");
+    }
+
+    @Test
+    void testDeactivateSegment_success() {
+        // Given
+        String segmentApiName = "High_Value_Customers__seg";
+        Map<String, Object> mockResponse = Map.of(
+            "id", "seg-123",
+            "segmentStatus", "INACTIVE"
+        );
+
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        // When
+        String result = segmentTools.deactivateSegment(segmentApiName, DEFAULT_DATASPACE);
+
+        // Then
+        assertThat(result).contains("INACTIVE");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/High_Value_Customers__seg/actions/deactivate?dataspace=default");
     }
 
     @Test

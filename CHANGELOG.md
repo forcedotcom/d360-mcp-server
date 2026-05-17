@@ -7,8 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `d360_segment_deactivate` tool — inverse of `d360_segment_publish`. Calls
+  `POST /ssot/segments/{segmentApiName}/actions/deactivate`.
+  ([#9](https://github.com/forcedotcom/d360-mcp-server/issues/9))
+
 ### Fixed
 
+- `d360_segment_delete` now uses the segment API name (developer name) in the
+  path; the underlying endpoint is `DELETE /ssot/segments/{segmentApiName}`.
+  ([#8](https://github.com/forcedotcom/d360-mcp-server/issues/8))
 - `d360_query_sql`, `d360_query_sql_status`, `d360_query_sql_rows`, and
   `d360_query_sql_cancel` now call `/services/data/vNN.0/ssot/query-sql*`
   instead of `/services/data/vNN.0/query-sql*`. The previous paths returned

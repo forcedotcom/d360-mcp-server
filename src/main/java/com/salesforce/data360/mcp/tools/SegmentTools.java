@@ -129,19 +129,20 @@ public class SegmentTools {
     }
 
     /**
-     * Delete a segment.
-     * This operation is irreversible and deactivates the segment.
+     * Delete a segment by API name.
+     * The path requires the segment API name (developer name), not the ID.
+     * Irreversible.
      */
     @McpTool(
         name = "d360_segment_delete",
-        description = "Delete a segment."
+        description = "Delete a segment by API name (developer name). Irreversible."
     )
     public String deleteSegment(
-        @McpToolParam(description = "The segment ID to delete") String segmentId,
+        @McpToolParam(description = "The segment API name (developer name)") String segmentApiName,
         @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/segments/" + ToolUtils.encodePath(segmentId), dataspace);
+            String path = ToolUtils.buildPath("/ssot/segments/" + ToolUtils.encodePath(segmentApiName), dataspace);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -163,6 +164,26 @@ public class SegmentTools {
     ) {
         try {
             String path = ToolUtils.buildPath("/ssot/segments/" + ToolUtils.encodePath(segmentId) + "/actions/publish", dataspace);
+            Map result = client.post(path, Map.of(), Map.class);
+            return JsonUtil.toJson(result);
+        } catch (ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
+    /**
+     * Deactivate a segment by API name. Inverse of publish.
+     */
+    @McpTool(
+        name = "d360_segment_deactivate",
+        description = "Deactivate a segment by API name (developer name). Inverse of publish."
+    )
+    public String deactivateSegment(
+        @McpToolParam(description = "The segment API name (developer name)") String segmentApiName,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            String path = ToolUtils.buildPath("/ssot/segments/" + ToolUtils.encodePath(segmentApiName) + "/actions/deactivate", dataspace);
             Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
