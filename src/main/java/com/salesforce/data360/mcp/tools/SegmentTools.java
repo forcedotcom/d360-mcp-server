@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.segment.SegmentCreateRequest;
 import com.salesforce.data360.mcp.model.request.segment.SegmentUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -44,6 +45,7 @@ public class SegmentTools {
     /**
      * List all segments in the organization.
      */
+    @ApiEndpoint(path = "/ssot/segments", verb = "GET")
     @McpTool(
         name = "d360_segment_list",
         description = "List all segments."
@@ -64,6 +66,7 @@ public class SegmentTools {
      * Get a specific segment by ID.
      * Returns segment definition, status, and configuration.
      */
+    @ApiEndpoint(path = "/ssot/segments/{id}", verb = "GET")
     @McpTool(
         name = "d360_segment_get",
         description = "Get a segment by ID."
@@ -85,6 +88,7 @@ public class SegmentTools {
      * Create a new segment.
      * Requires displayName, segmentOnApiName, segmentType, and other configuration.
      */
+    @ApiEndpoint(path = "/ssot/segments", verb = "POST")
     @McpTool(
         name = "d360_segment_create",
         description = "Create a new segment. DEPENDENCY: All CIs referenced in segment filters must be in ACTIVE status before creation. To create UI-type segments via API, use this pattern: { displayName, segmentOnApiName, segmentType: 'Ui', segmentCreationFlow: 'Datakit', publishScheduleStartDateTime, publishScheduleEndDate, includeDbt.models.models[].sql }. Key rules: segmentType must be 'Ui' with segmentCreationFlow 'Datakit', SQL goes in includeDbt.models.models[].sql (nested models wrapper), publishSchedule values: NoRefresh, One, Two, Four, Six, Twelve, TwentyFour, dataSpace goes as query param (dataspace tool parameter), NOT in the body"
@@ -108,6 +112,7 @@ public class SegmentTools {
      * Update an existing segment.
      * Can update displayName, publishSchedule, and other metadata.
      */
+    @ApiEndpoint(path = "/ssot/segments/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_segment_update",
         description = "Update a segment."
@@ -133,6 +138,7 @@ public class SegmentTools {
      * The path requires the segment API name (developer name), not the ID.
      * Irreversible.
      */
+    @ApiEndpoint(path = "/ssot/segments/{apiName}", verb = "DELETE")
     @McpTool(
         name = "d360_segment_delete",
         description = "Delete a segment by API name (developer name). Irreversible."
@@ -154,6 +160,7 @@ public class SegmentTools {
      * Publish/activate a segment.
      * Triggers segment calculation and activation.
      */
+    @ApiEndpoint(path = "/ssot/segments/{id}/actions/publish", verb = "POST")
     @McpTool(
         name = "d360_segment_publish",
         description = "Publish/activate a segment."
@@ -174,6 +181,7 @@ public class SegmentTools {
     /**
      * Deactivate a segment by API name. Inverse of publish.
      */
+    @ApiEndpoint(path = "/ssot/segments/{apiName}/actions/deactivate", verb = "POST")
     @McpTool(
         name = "d360_segment_deactivate",
         description = "Deactivate a segment by API name (developer name). Inverse of publish."

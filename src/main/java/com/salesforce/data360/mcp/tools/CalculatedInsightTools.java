@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightCreateRequest;
 import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -55,6 +56,7 @@ public class CalculatedInsightTools {
      * List all Calculated Insights.
      * Returns a list of all CI definitions in the org.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights", verb = "GET")
     @McpTool(
         name = "d360_ci_list",
         description = "List all calculated insights."
@@ -78,6 +80,7 @@ public class CalculatedInsightTools {
      * Get a specific Calculated Insight by name.
      * Returns the full CI definition including expression, dimensions, measures, and status.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}", verb = "GET")
     @McpTool(
         name = "d360_ci_get",
         description = "Get a calculated insight by name."
@@ -103,6 +106,7 @@ public class CalculatedInsightTools {
      * Required fields: apiName (must end with __cio), displayName, definitionType, publishScheduleInterval, expression.
      * The API auto-derives dimensions/measures from the expression - do not include them.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights", verb = "POST")
     @McpTool(
         name = "d360_ci_create",
         description = "Create a calculated insight. Required body fields: apiName (must end with __cio), displayName, definitionType ('CALCULATED_METRIC'), publishScheduleInterval ('SYSTEM_MANAGED'), expression (CI SQL). CI SQL rules: columns must use table.column format (e.g. ssot__Individual__dlm.ssot__Id__c), GROUP BY must use fully qualified names (not aliases), COUNT(DISTINCT) is not supported (use APPROX_COUNT_DISTINCT), subqueries are not supported, CAST(... AS FLOAT) is not supported (compute raw counts instead), CURRENT_DATE - INTERVAL is not supported (no date arithmetic). Do NOT include dimensions/measures arrays — the API derives them from the expression."
@@ -148,6 +152,7 @@ public class CalculatedInsightTools {
      * Update an existing Calculated Insight.
      * Supports partial updates via PATCH. Only include fields you want to change.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}", verb = "PATCH")
     @McpTool(
         name = "d360_ci_update",
         description = "Update a calculated insight."
@@ -175,6 +180,7 @@ public class CalculatedInsightTools {
      * Delete a Calculated Insight.
      * Removes the CI definition and stops future runs. Does not delete historical data.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}", verb = "DELETE")
     @McpTool(
         name = "d360_ci_delete",
         description = "Delete a calculated insight."
@@ -199,6 +205,7 @@ public class CalculatedInsightTools {
      * Run a Calculated Insight manually.
      * Triggers an immediate execution of the CI. Returns a job/run ID to check status.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}/actions/run", verb = "POST")
     @McpTool(
         name = "d360_ci_run",
         description = "Trigger a run of a calculated insight."
@@ -223,6 +230,7 @@ public class CalculatedInsightTools {
      * Get the run status of a Calculated Insight.
      * Returns the current execution status, progress, and completion info.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}/actions/run", verb = "GET")
     @McpTool(
         name = "d360_ci_run_status",
         description = "Get the status of a CI run."
@@ -247,6 +255,7 @@ public class CalculatedInsightTools {
      * Query Calculated Insight results.
      * Returns the computed metrics with dimensions, measures, filters, and pagination.
      */
+    @ApiEndpoint(path = "/ssot/insight/calculated-insights/{ciName}", verb = "GET")
     @McpTool(
         name = "d360_insights_query",
         description = "Query calculated insight data with dimensions, measures, filters, and time granularity."
@@ -284,6 +293,7 @@ public class CalculatedInsightTools {
     /**
      * Enable a calculated insight.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}/actions/enable", verb = "POST")
     @McpTool(
         name = "d360_ci_enable",
         description = "Enable a calculated insight."
@@ -307,6 +317,7 @@ public class CalculatedInsightTools {
     /**
      * Disable a calculated insight.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}/actions/disable", verb = "POST")
     @McpTool(
         name = "d360_ci_disable",
         description = "Disable a calculated insight."
@@ -330,6 +341,7 @@ public class CalculatedInsightTools {
     /**
      * Validate a calculated insight.
      */
+    @ApiEndpoint(path = "/ssot/calculated-insights/actions/validate", verb = "POST")
     @McpTool(
         name = "d360_ci_validate",
         description = "Validate a calculated insight."
@@ -353,6 +365,7 @@ public class CalculatedInsightTools {
      * Get metadata for Calculated Insights.
      * Lists all CIs or details for a specific one, including available dimensions and measures.
      */
+    @ApiEndpoint(path = "/ssot/insight/metadata", verb = "GET")
     @McpTool(
         name = "d360_insights_metadata",
         description = "Get metadata for calculated insights. Lists all CIs or details for a specific one."

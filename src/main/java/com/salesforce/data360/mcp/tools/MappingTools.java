@@ -21,6 +21,7 @@ import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.mapping.FieldMappingAddRequest;
 import com.salesforce.data360.mcp.model.request.mapping.MappingCreateRequest;
 import com.salesforce.data360.mcp.model.request.mapping.MappingUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -47,6 +48,7 @@ public class MappingTools {
      * List DMO mappings by DMO developer name or source CRM object name.
      * At least one of dmoDeveloperName or sourceObjectName must be provided.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings", verb = "GET")
     @McpTool(
         name = "d360_dmo_mapping_list",
         description = "List DMO mappings filtered by DMO developer name or CRM source object name. "
@@ -81,6 +83,7 @@ public class MappingTools {
      * Get a specific DMO mapping.
      * Use this to inspect the field-level mapping between a DLO and DMO.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings/{mappingName}", verb = "GET")
     @McpTool(
         name = "d360_dmo_mapping_get",
         description = "Get a specific DMO mapping."
@@ -105,6 +108,7 @@ public class MappingTools {
      * Create a new DMO mapping.
      * PREREQUISITE: Call d360_dlo_get first to get source field API names, and d360_dmo_get for target field API names.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings", verb = "POST")
     @McpTool(
         name = "d360_dmo_mapping_create",
         description = "Create a single DMO mapping (one source-to-DMO mapping per call). "
@@ -136,6 +140,7 @@ public class MappingTools {
      * Update an existing DMO mapping.
      * Use this to add, remove, or change field mappings between a DLO and DMO.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings/{mappingName}", verb = "PATCH")
     @McpTool(
         name = "d360_dmo_mapping_update",
         description = "Update an existing DMO mapping."
@@ -163,6 +168,7 @@ public class MappingTools {
      * Delete a DMO mapping.
      * Use this to remove a DLO-to-DMO field mapping. The data stream and DMO still exist but data will no longer flow into the target DMO from that source.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings/{mappingName}", verb = "DELETE")
     @McpTool(
         name = "d360_dmo_mapping_delete",
         description = "Delete a DMO mapping."
@@ -187,6 +193,7 @@ public class MappingTools {
      * Add field mappings to an existing object mapping.
      * Use this to add new DLO-to-DMO field-level mappings without recreating the entire object mapping.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings/{mappingName}/field-mappings", verb = "PATCH")
     @McpTool(
         name = "d360_dmo_field_mapping_add",
         description = "Add field mappings to an existing object mapping between a DLO and DMO."
@@ -214,6 +221,7 @@ public class MappingTools {
      * Delete a single field mapping from an object mapping.
      * Use this to remove an individual field-level mapping without deleting the entire object mapping.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings/{mappingName}/field-mappings/{fieldMappingName}", verb = "DELETE")
     @McpTool(
         name = "d360_dmo_field_mapping_delete",
         description = "Delete a single field mapping from an existing object mapping."

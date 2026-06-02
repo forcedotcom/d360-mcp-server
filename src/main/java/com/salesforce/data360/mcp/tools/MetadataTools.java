@@ -18,6 +18,7 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -46,6 +47,7 @@ public class MetadataTools {
      * Search Data 360 metadata using natural language.
      * PREFERRED way to discover entities. The apiName in results maps to entityName in d360_metadata.
      */
+    @ApiEndpoint(path = "/connect/search/metadata/results", verb = "POST")
     @McpTool(
         name = "d360_metadata_search",
         description = "PREFERRED way to discover Data 360 metadata. Search using natural language instead of listing all entities. The apiName in results maps to entityName in d360_metadata."
@@ -92,6 +94,7 @@ public class MetadataTools {
      * Get full metadata (including fields) for a specific Data 360 entity.
      * IMPORTANT: Always provide entityName to avoid massive responses. Use d360_metadata_search first.
      */
+    @ApiEndpoint(path = "/ssot/metadata", verb = "GET")
     @McpTool(
         name = "d360_metadata",
         description = "Get full metadata (including fields) for a specific Data 360 entity. IMPORTANT: Always provide entityName to avoid massive responses. "
@@ -123,6 +126,7 @@ public class MetadataTools {
      * List paginated metadata entities by category and type.
      * PREFER d360_metadata_search over this tool for discovery.
      */
+    @ApiEndpoint(path = "/ssot/metadata-entities", verb = "GET")
     @McpTool(
         name = "d360_metadata_entities",
         description = "List paginated metadata entities by category and type. PREFER d360_metadata_search over this tool. "
@@ -164,6 +168,7 @@ public class MetadataTools {
     // Connections CRUD
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/connections", verb = "GET")
     @McpTool(
         name = "d360_connection_list",
         description = "List all data connections."
@@ -185,6 +190,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connections/{id}", verb = "GET")
     @McpTool(
         name = "d360_connection_get",
         description = "Get a specific connection."
@@ -207,6 +213,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connections", verb = "POST")
     @McpTool(
         name = "d360_connection_create",
         description = "Create a new data connection. The 'connectorType' parameter is a query param (passed separately). "
@@ -233,6 +240,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connections/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_connection_update",
         description = "Update an existing connection."
@@ -258,6 +266,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connections/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_connection_delete",
         description = "Delete a connection."
@@ -280,6 +289,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connections/actions/test", verb = "POST")
     @McpTool(
         name = "d360_connection_test",
         description = "Test a connection configuration."
@@ -304,6 +314,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connection-endpoints", verb = "GET")
     @McpTool(
         name = "d360_connection_endpoints",
         description = "List available connection endpoints for Data 360 integrations."
@@ -327,6 +338,7 @@ public class MetadataTools {
     // Connectors
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/connectors", verb = "GET")
     @McpTool(
         name = "d360_connector_list",
         description = "List available connector types."
@@ -346,6 +358,7 @@ public class MetadataTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/connectors/{type}", verb = "GET")
     @McpTool(
         name = "d360_connector_metadata",
         description = "Get metadata/schema for a specific connector type."
@@ -362,6 +375,112 @@ public class MetadataTools {
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
+    // ============================================================
+    // Connection Schema Discovery
+    // ============================================================
+
+    @ApiEndpoint(path = "/ssot/connections/{id}/database-schemas", verb = "POST")
+    @McpTool(
+        name = "d360_connection_db_schemas_list",
+        description = "List database schemas available in a connection (e.g., Snowflake schemas). "
+            + "Pass database name and other connector-specific properties via advancedAttributes (e.g., {\"database\":\"MY_DB\"})."
+    )
+    public String listConnectionDbSchemas(
+        @McpToolParam(description = "The connection ID") String connectionId,
+        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\"})") String advancedAttributes,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            Map<String, Object> attrs = ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes");
+            Map<String, Object> body = new HashMap<>();
+            body.put("advancedAttributes", attrs);
+
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+
+            String path = ToolUtils.buildPath(
+                "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/database-schemas",
+                params
+            );
+            Map result = client.post(path, body, Map.class);
+            return JsonUtil.toJson(result);
+        } catch (IllegalArgumentException | ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
+    @ApiEndpoint(path = "/ssot/connections/{id}/objects", verb = "POST")
+    @McpTool(
+        name = "d360_connection_objects_list",
+        description = "List objects/tables available in a connection. For DB connections, pass database and schema "
+            + "via advancedAttributes (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})."
+    )
+    public String listConnectionObjects(
+        @McpToolParam(description = "The connection ID") String connectionId,
+        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})", required = false) String advancedAttributes,
+        @McpToolParam(description = "JSON object of filter criteria for narrowing the result set", required = false) String filters,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            Map<String, Object> body = new HashMap<>();
+            if (advancedAttributes != null && !advancedAttributes.isEmpty()) {
+                body.put("advancedAttributes", ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes"));
+            }
+            if (filters != null && !filters.isEmpty()) {
+                body.put("filters", ToolUtils.parseJson(filters, Map.class, "filters"));
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+
+            String path = ToolUtils.buildPath(
+                "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/objects",
+                params
+            );
+            Map result = client.post(path, body, Map.class);
+            return JsonUtil.toJson(result);
+        } catch (IllegalArgumentException | ApiException e) {
+            return ToolUtils.errorResponse(e);
+        }
+    }
+
+    @ApiEndpoint(path = "/ssot/connections/{id}/objects/{resourceName}/fields", verb = "POST")
+    @McpTool(
+        name = "d360_connection_object_fields_describe",
+        description = "Describe field-level schema (names, types, primary keys) of an object in a connection. "
+            + "Use d360_connection_objects_list first to discover the resourceName."
+    )
+    public String describeConnectionObjectFields(
+        @McpToolParam(description = "The connection ID") String connectionId,
+        @McpToolParam(description = "The object/table name (from d360_connection_objects_list)") String resourceName,
+        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})", required = false) String advancedAttributes,
+        @McpToolParam(description = "JSON object of filter criteria for narrowing the field set", required = false) String filters,
+        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+    ) {
+        try {
+            Map<String, Object> body = new HashMap<>();
+            if (advancedAttributes != null && !advancedAttributes.isEmpty()) {
+                body.put("advancedAttributes", ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes"));
+            }
+            if (filters != null && !filters.isEmpty()) {
+                body.put("filters", ToolUtils.parseJson(filters, Map.class, "filters"));
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+
+            String path = ToolUtils.buildPath(
+                "/ssot/connections/" + ToolUtils.encodePath(connectionId)
+                    + "/objects/" + ToolUtils.encodePath(resourceName) + "/fields",
+                params
+            );
+            Map result = client.post(path, body, Map.class);
+            return JsonUtil.toJson(result);
+        } catch (IllegalArgumentException | ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }

@@ -365,4 +365,132 @@ class MetadataToolsTest {
 
         assertThat(result).contains("error", "500");
     }
+
+    // ============================================================
+    // Connection Schema Discovery Tests
+    // ============================================================
+
+    @Test
+    void testListConnectionDbSchemas_buildsCorrectPathAndBody() {
+        Map<String, Object> mockResponse = Map.of("databaseSchemas", List.of("PUBLIC", "ANALYTICS"));
+        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
+
+        String result = metadataTools.listConnectionDbSchemas(
+            "CONN_ID",
+            "{\"database\":\"MY_DB\"}",
+            null
+        );
+
+        assertThat(result).contains("PUBLIC", "ANALYTICS");
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections/CONN_ID/database-schemas");
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsOnlyKeys("advancedAttributes");
+        assertThat((Map) body.get("advancedAttributes")).containsEntry("database", "MY_DB");
+    }
+
+    @Test
+    void testListConnectionDbSchemas_withDataspace() {
+        Map<String, Object> mockResponse = Map.of("databaseSchemas", List.of());
+        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
+
+        metadataTools.listConnectionDbSchemas("CONN_ID", "{\"database\":\"DB\"}", DEFAULT_DATASPACE);
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections/CONN_ID/database-schemas?dataspace=default");
+    }
+
+    @Test
+    void testListConnectionDbSchemas_invalidJsonReturnsError() {
+        String result = metadataTools.listConnectionDbSchemas("CONN_ID", "not json", null);
+
+        assertThat(result).contains("error", "Invalid JSON advancedAttributes");
+    }
+
+    @Test
+    void testListConnectionObjects_omitsUnsetKeys() {
+        Map<String, Object> mockResponse = Map.of(
+            "objects", List.of(Map.of("name", "ORDERS", "label", "Orders"))
+        );
+        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
+
+        String result = metadataTools.listConnectionObjects(
+            "CONN_ID",
+            "{\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"}",
+            null,
+            null
+        );
+
+        assertThat(result).contains("ORDERS");
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections/CONN_ID/objects");
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsOnlyKeys("advancedAttributes");
+        assertThat((Map) body.get("advancedAttributes")).containsEntry("schema", "PUBLIC");
+    }
+
+    @Test
+    void testListConnectionObjects_withFilters() {
+        Map<String, Object> mockResponse = Map.of("objects", List.of());
+        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
+
+        metadataTools.listConnectionObjects(
+            "CONN_ID",
+            "{\"database\":\"DB\"}",
+            "{\"namePrefix\":\"ORD\"}",
+            null
+        );
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsKeys("advancedAttributes", "filters");
+        assertThat((Map) body.get("filters")).containsEntry("namePrefix", "ORD");
+    }
+
+    @Test
+    void testDescribeConnectionObjectFields_encodesResourceName() {
+        Map<String, Object> mockResponse = Map.of(
+            "fields", List.of(Map.of("name", "ID", "type", "Number")),
+            "primaryKeys", List.of("ID")
+        );
+        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
+
+        String result = metadataTools.describeConnectionObjectFields(
+            "CONN_ID",
+            "MY.TABLE",
+            "{\"database\":\"DB\",\"schema\":\"PUBLIC\"}",
+            "{\"includeSystem\":false}",
+            null
+        );
+
+        assertThat(result).contains("primaryKeys", "ID");
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections/CONN_ID/objects/MY.TABLE/fields");
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsKeys("advancedAttributes", "filters");
+    }
+
+    @Test
+    void testDescribeConnectionObjectFields_minimalParams() {
+        Map<String, Object> mockResponse = Map.of("fields", List.of());
+        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
+
+        metadataTools.describeConnectionObjectFields("CONN_ID", "ORDERS", null, null, null);
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+        assertThat(bodyCaptor.getValue()).isEmpty();
+    }
 }

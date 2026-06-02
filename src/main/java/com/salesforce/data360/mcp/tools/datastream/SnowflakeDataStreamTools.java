@@ -17,6 +17,7 @@
 package com.salesforce.data360.mcp.tools.datastream;
 
 import com.salesforce.data360.mcp.client.Data360Client;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
@@ -40,6 +41,7 @@ public class SnowflakeDataStreamTools extends AbstractConnectorDataStreamTools {
         super(client);
     }
 
+    @ApiEndpoint(path = "/ssot/data-streams", verb = "POST")
     @McpTool(
         name = "d360_datastream_create_snowflake",
         description = "Create a Snowflake-backed data stream using an existing Snowflake connection. "

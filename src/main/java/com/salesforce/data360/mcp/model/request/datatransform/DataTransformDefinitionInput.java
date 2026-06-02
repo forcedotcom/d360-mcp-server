@@ -19,6 +19,7 @@ package com.salesforce.data360.mcp.model.request.datatransform;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +48,12 @@ public class DataTransformDefinitionInput {
 
     @McpToolParam(description = "Target DMO name", required = false)
     private String targetDmo;
+
+    @McpToolParam(description = "DCSQL manifest with nodes structure (for DCSQL transforms)", required = false)
+    private Map<String, Object> manifest;
+
+    @McpToolParam(description = "Output data objects for DLO auto-creation (enriched after validation)", required = false)
+    private List<Map<String, Object>> outputDataObjects;
 
     public String getType() {
         return type;
@@ -102,5 +109,21 @@ public class DataTransformDefinitionInput {
 
     public void setTargetDmo(String targetDmo) {
         this.targetDmo = targetDmo;
+    }
+
+    public Map<String, Object> getManifest() {
+        return manifest;
+    }
+
+    public void setManifest(Map<String, Object> manifest) {
+        this.manifest = manifest;
+    }
+
+    public List<Map<String, Object>> getOutputDataObjects() {
+        return outputDataObjects;
+    }
+
+    public void setOutputDataObjects(List<Map<String, Object>> outputDataObjects) {
+        this.outputDataObjects = outputDataObjects;
     }
 }

@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.dlo.DloCreateRequest;
 import com.salesforce.data360.mcp.model.request.dlo.DloPatchRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -47,6 +48,7 @@ public class DloTools {
      * List all Data Lake Objects (DLOs) - raw ingested data sources.
      * Essential for discovering DLO names and field API names before creating mappings.
      */
+    @ApiEndpoint(path = "/ssot/data-lake-objects", verb = "GET")
     @McpTool(
         name = "d360_dlo_list",
         description = "List all Data Lake Objects (DLOs) - raw ingested data sources. Essential for discovering DLO names and field API names before creating mappings. Filter by category (Profile, Engagement, Other) to narrow results."
@@ -72,6 +74,7 @@ public class DloTools {
      * Get ONE DLO with all field definitions by API name.
      * PREREQUISITE for creating mappings - returns exact field API names needed for sourceFieldName values.
      */
+    @ApiEndpoint(path = "/ssot/data-lake-objects/{dloName}", verb = "GET")
     @McpTool(
         name = "d360_dlo_get",
         description = "Get ONE DLO with all field definitions by API name. PREREQUISITE for creating mappings - returns exact field API names needed for sourceFieldName values. Pair with d360_dmo_get for target field names."
@@ -96,6 +99,7 @@ public class DloTools {
      * Create a new Data Lake Object.
      * Typically created automatically via data stream ingestion, but can be created manually for custom use cases.
      */
+    @ApiEndpoint(path = "/ssot/data-lake-objects", verb = "POST")
     @McpTool(
         name = "d360_dlo_create",
         description = "Create a new Data Lake Object. Typically created automatically via data stream ingestion, but can be created manually for custom use cases. Specify fields, types, and category."
@@ -122,6 +126,7 @@ public class DloTools {
      * Update an existing Data Lake Object.
      * Use this to modify a DLO's schema - add or change fields, update labels, or adjust field types.
      */
+    @ApiEndpoint(path = "/ssot/data-lake-objects/{dloName}", verb = "PATCH")
     @McpTool(
         name = "d360_dlo_update",
         description = "Update an existing Data Lake Object. Use this to modify a DLO's schema - add or change fields, update labels, or adjust field types."
@@ -149,6 +154,7 @@ public class DloTools {
      * Delete a Data Lake Object.
      * Use this to remove a DLO and its data from the data lake. Ensure no mappings or data streams reference it before deleting.
      */
+    @ApiEndpoint(path = "/ssot/data-lake-objects/{dloName}", verb = "DELETE")
     @McpTool(
         name = "d360_dlo_delete",
         description = "Delete a Data Lake Object. Use this to remove a DLO and its data from the data lake. Ensure no mappings or data streams reference it before deleting."

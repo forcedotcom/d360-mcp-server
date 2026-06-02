@@ -18,6 +18,7 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -43,6 +44,7 @@ public class SnowflakeConnectionTools {
         this.client = client;
     }
 
+    @ApiEndpoint(path = "/ssot/connections", verb = "GET")
     @McpTool(
         name = "d360_snowflake_connection_list",
         description = "List Data 360 connections for a connector type. Use connectorType=SNOWFLAKE to list Snowflake connections."
@@ -79,6 +81,7 @@ public class SnowflakeConnectionTools {
      * Create a Snowflake connection using the already-authenticated Data 360 token.
      * The private key must be provided as content, not a filesystem path.
      */
+    @ApiEndpoint(path = "/ssot/connections", verb = "POST")
     @McpTool(
         name = "d360_connection_create_snowflake",
         description = "Create a Snowflake connection in Data 360 using the existing authenticated Data 360 token. Provide the private key content directly, not a file path."

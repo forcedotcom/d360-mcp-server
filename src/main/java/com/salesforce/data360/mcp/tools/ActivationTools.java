@@ -21,6 +21,7 @@ import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.activation.ActivationTargetCreateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationTargetUpdateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -50,6 +51,7 @@ public class ActivationTools {
      * List all activations in the organization.
      * Activations connect segments to destinations.
      */
+    @ApiEndpoint(path = "/ssot/activations", verb = "GET")
     @McpTool(
         name = "d360_activation_list",
         description = "List all activations."
@@ -70,6 +72,7 @@ public class ActivationTools {
      * Get a specific activation by ID.
      * Returns activation details, status, and configuration.
      */
+    @ApiEndpoint(path = "/ssot/activations/{id}", verb = "GET")
     @McpTool(
         name = "d360_activation_get",
         description = "Get an activation."
@@ -92,6 +95,7 @@ public class ActivationTools {
      * Connects a segment to a destination (activation target).
      * Accepts raw JSON body to support the complex nested activation API structure.
      */
+    @ApiEndpoint(path = "/ssot/activations", verb = "POST")
     @McpTool(
         name = "d360_activation_create",
         description = "Create an activation. Required fields: name, refreshType (INCREMENTAL or Full), dataSpaceName, "
@@ -118,6 +122,7 @@ public class ActivationTools {
      * Update an existing activation.
      * Can update refreshType, filters, and other configuration.
      */
+    @ApiEndpoint(path = "/ssot/activations/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_activation_update",
         description = "Update an activation."
@@ -141,6 +146,7 @@ public class ActivationTools {
      * Delete an activation.
      * Stops sending segment data to the target.
      */
+    @ApiEndpoint(path = "/ssot/activations/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_activation_delete",
         description = "Delete an activation."
@@ -166,6 +172,7 @@ public class ActivationTools {
      * List all activation targets in the organization.
      * Activation targets are destinations for segment data.
      */
+    @ApiEndpoint(path = "/ssot/activation-targets", verb = "GET")
     @McpTool(
         name = "d360_activation_target_list",
         description = "List activation targets."
@@ -186,6 +193,7 @@ public class ActivationTools {
      * Get a specific activation target by ID.
      * Returns target configuration and available fields.
      */
+    @ApiEndpoint(path = "/ssot/activation-targets/{id}", verb = "GET")
     @McpTool(
         name = "d360_activation_target_get",
         description = "Get an activation target."
@@ -207,6 +215,7 @@ public class ActivationTools {
      * Create a new activation target.
      * Defines a destination for segment activation.
      */
+    @ApiEndpoint(path = "/ssot/activation-targets", verb = "POST")
     @McpTool(
         name = "d360_activation_target_create",
         description = "Create an activation target."
@@ -229,6 +238,7 @@ public class ActivationTools {
      * Update an existing activation target.
      * Can update name, dataSpaceName, and other settings.
      */
+    @ApiEndpoint(path = "/ssot/activation-targets/{id}", verb = "PUT")
     @McpTool(
         name = "d360_activation_target_update",
         description = "Update an activation target."
@@ -252,6 +262,7 @@ public class ActivationTools {
      * Delete an activation target.
      * Breaks activations using this target.
      */
+    @ApiEndpoint(path = "/ssot/activation-targets/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_activation_target_delete",
         description = "Delete an activation target."

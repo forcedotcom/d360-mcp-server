@@ -9,12 +9,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `d360_datastream_create_third_party_connectors` tool — creates DCF data
+  streams from third-party connectors (e.g. Airtable, HubSpot, Marketo,
+  Google Ads). Calls `POST /ssot/data-streams`. Plus payload examples.
+- `d360_transform_prepare` tool — validates a transform definition and
+  enriches it with output schema. Recommended before `d360_transform_create`.
+  Calls `POST /ssot/data-transforms-validation`.
+- Payload examples for `BATCH` + `DCSQL` and `STREAMING` + `SQL` data
+  transforms, covering both `d360_transform_prepare` and
+  `d360_transform_create`.
 - `d360_segment_deactivate` tool — inverse of `d360_segment_publish`. Calls
   `POST /ssot/segments/{segmentApiName}/actions/deactivate`.
   ([#9](https://github.com/forcedotcom/d360-mcp-server/issues/9))
 
+### Changed
+
+- New `@ApiEndpoint` annotation on every tool method declares its HTTP
+  method and path. A drift-check test (`ToolMetadataDriftTest`) fails the
+  build if a tool's annotation disagrees with the matching `FamilyCatalog`
+  entry, keeping `search` and `payload_examples` results in lock-step with
+  the actual implementations. Contributors adding new tools must annotate
+  them — see `CONTRIBUTING.md` for the convention.
+- JaCoCo coverage is now produced by `mvn test`
+  (`target/site/jacoco/jacoco.xml`) for local coverage checks.
+
 ### Fixed
 
+- `d360_transform_create` — fixed transform-creation failures and clarified
+  the supported pairings: `BATCH` + `DCSQL` (manifest-based) and
+  `STREAMING` + `SQL` (expression-based).
+- `FamilyCatalog` — corrected 12 endpoint paths that disagreed with the
+  actual tool implementations, so `search` and `payload_examples` return
+  accurate routing hints.
+- `SearchIndex` family — `FamilyCatalog` listed `/ssot/search-indexes`
+  (plural) and a nested `/{id}/config`; `SearchIndexTools` actually calls
+  `/ssot/search-index` (singular) with a top-level `/ssot/search-index/config`.
+  Catalog now matches the tool.
 - `d360_segment_delete` now uses the segment API name (developer name) in the
   path; the underlying endpoint is `DELETE /ssot/segments/{segmentApiName}`.
   ([#8](https://github.com/forcedotcom/d360-mcp-server/issues/8))

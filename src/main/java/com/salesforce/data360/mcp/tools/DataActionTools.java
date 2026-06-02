@@ -21,6 +21,7 @@ import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.dataaction.DataActionCreateRequest;
 import com.salesforce.data360.mcp.model.request.dataaction.DataActionTargetCreateRequest;
 import com.salesforce.data360.mcp.model.request.dataaction.DataActionTargetUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -46,6 +47,7 @@ public class DataActionTools {
      * List all data actions.
      * Use this to discover existing data actions that share Data 360 data with external systems.
      */
+    @ApiEndpoint(path = "/ssot/data-actions", verb = "GET")
     @McpTool(
         name = "d360_dataaction_list",
         description = "List all data actions."
@@ -66,6 +68,7 @@ public class DataActionTools {
      * Get a data action.
      * Use this to inspect a data action's full configuration — trigger conditions, payload schema, target, and execution history.
      */
+    @ApiEndpoint(path = "/ssot/data-actions/{id}", verb = "GET")
     @McpTool(
         name = "d360_dataaction_get",
         description = "Get a data action."
@@ -87,6 +90,7 @@ public class DataActionTools {
      * Create a data action.
      * Use this to define a new action that sends data from Data 360 to an external system.
      */
+    @ApiEndpoint(path = "/ssot/data-actions", verb = "POST")
     @McpTool(
         name = "d360_dataaction_create",
         description = "Create a data action."
@@ -109,6 +113,7 @@ public class DataActionTools {
      * List destinations for EVENT-TRIGGERED data shares.
      * These targets receive real-time data action payloads. NOT for segment audience pushes.
      */
+    @ApiEndpoint(path = "/ssot/data-action-targets", verb = "GET")
     @McpTool(
         name = "d360_dataaction_target_list",
         description = "List data action targets."
@@ -129,6 +134,7 @@ public class DataActionTools {
      * Get one DATA ACTION target's configuration.
      * These targets receive event-triggered payloads. NOT for activation targets.
      */
+    @ApiEndpoint(path = "/ssot/data-action-targets/{id}", verb = "GET")
     @McpTool(
         name = "d360_dataaction_target_get",
         description = "Get a data action target."
@@ -150,6 +156,7 @@ public class DataActionTools {
      * Create a destination for EVENT-TRIGGERED data shares.
      * Use to register webhooks, APIs, or S3 buckets that receive real-time payloads.
      */
+    @ApiEndpoint(path = "/ssot/data-action-targets", verb = "POST")
     @McpTool(
         name = "d360_dataaction_target_create",
         description = "Create a data action target."
@@ -172,6 +179,7 @@ public class DataActionTools {
      * Update a DATA ACTION target's endpoint URL, credentials, or payload config.
      * NOT for activation targets.
      */
+    @ApiEndpoint(path = "/ssot/data-action-targets/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_dataaction_target_update",
         description = "Update a data action target."
@@ -195,6 +203,7 @@ public class DataActionTools {
      * Delete a DATA ACTION target.
      * Ensure no data actions reference it first. NOT for activation targets.
      */
+    @ApiEndpoint(path = "/ssot/data-action-targets/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_dataaction_target_delete",
         description = "Delete a data action target."

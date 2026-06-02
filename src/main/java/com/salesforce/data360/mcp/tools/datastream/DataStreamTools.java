@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.datastream.DataStreamCreateRequest;
 import com.salesforce.data360.mcp.model.request.datastream.DataStreamPatchRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -44,6 +45,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * List all Data Streams.
      * Returns a list of data stream configurations in the org.
      */
+    @ApiEndpoint(path = "/ssot/data-streams", verb = "GET")
     @McpTool(
         name = "d360_datastream_list",
         description = "List all data streams (ingestion pipelines)."
@@ -69,6 +71,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * Get a specific Data Stream by ID.
      * Returns the full configuration including source object, target DMO, and field mappings.
      */
+    @ApiEndpoint(path = "/ssot/data-streams/{id}", verb = "GET")
     @McpTool(
         name = "d360_datastream_get",
         description = "Get details of a specific data stream."
@@ -93,6 +96,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * Create a new Data Stream.
      * Required fields: name, label, datasource, datastreamType.
      */
+    @ApiEndpoint(path = "/ssot/data-streams", verb = "POST")
     @McpTool(
         name = "d360_datastream_create",
         description = "Create a new data stream (generic). "
@@ -111,6 +115,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * Update an existing Data Stream.
      * Supports partial updates via PATCH. Only include fields you want to change.
      */
+    @ApiEndpoint(path = "/ssot/data-streams/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_datastream_update",
         description = "Update a data stream. "
@@ -142,6 +147,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * Delete a Data Stream.
      * Removes the data stream configuration. Does not delete the target DMO or data.
      */
+    @ApiEndpoint(path = "/ssot/data-streams/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_datastream_delete",
         description = "Delete a data stream."
@@ -168,6 +174,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * Run a Data Stream manually.
      * Triggers an immediate refresh of the data stream. Use for testing or manual syncs.
      */
+    @ApiEndpoint(path = "/ssot/data-streams/{id}/run", verb = "POST")
     @McpTool(
         name = "d360_datastream_run",
         description = "Trigger a data stream ingestion run. "

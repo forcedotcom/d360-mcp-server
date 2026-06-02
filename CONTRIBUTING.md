@@ -46,6 +46,22 @@ mvn clean package -DskipTests
 - Make sure tests pass before requesting review.
 - Avoid mixing unrelated refactors with functional changes.
 
+## Adding or modifying an MCP tool
+
+`ToolMetadataDriftTest` (under `src/test/java/.../runtime/`) enforces that every `@McpTool` method has a corresponding row in `FamilyCatalog`, and that every catalog row has a backing method. No orphans, no ghosts. It also enforces that every `@McpTool` method declares an `@ApiEndpoint`, and that the declared path and verb match the corresponding `FamilyCatalog` row. The test runs as part of `mvn install`, so failures show up locally.
+
+Every `@McpTool` method also carries an `@ApiEndpoint` annotation declaring the Connect API path and HTTP verb the method calls:
+
+```java
+@ApiEndpoint(path = "/ssot/segments/{id}", verb = "PATCH")
+```
+
+Always include `@ApiEndpoint` alongside `@McpTool` when adding a new tool. The path and verb you declare must match the corresponding row in `FamilyCatalog.java`. Tools that have no single deterministic API path (composed flows or local helpers) are listed in `NO_ENDPOINT_TOOLS` inside `ToolMetadataDriftTest` and skip the annotation.
+
+Every new write tool (POST/PUT/PATCH) must also ship with at least one entry in `src/main/resources/metadata/payload-examples.json`, keyed by tool name. Agents rely on these examples to construct valid request bodies. A snapshot of pre-existing write tools without examples is captured in `KNOWN_MISSING_PAYLOAD_EXAMPLES` inside `ToolMetadataDriftTest`; that set may only shrink. Backfilling an example for a snapshotted tool requires removing the name from the set in the same PR.
+
+`@McpTool(description = "...")` text affects how LLMs select tools. If you significantly change a description, flag it in the PR description so reviewers know downstream tool-selection behavior may change.
+
 ## Contributor License Agreement
 
 In order for Salesforce to accept your contribution, you must sign the Salesforce Contributor License Agreement (CLA). You only need to do this once for Salesforce open source projects.

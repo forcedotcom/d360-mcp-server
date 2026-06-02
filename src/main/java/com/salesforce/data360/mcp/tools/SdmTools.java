@@ -32,6 +32,7 @@ import com.salesforce.data360.mcp.model.request.sdm.SdmModelUpdateRequest;
 import com.salesforce.data360.mcp.model.request.sdm.SdmRelationshipCreateRequest;
 import com.salesforce.data360.mcp.model.request.sdm.SdmRelationshipUpdateRequest;
 import com.salesforce.data360.mcp.model.request.sdm.SdmSemanticQueryRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -60,6 +61,7 @@ public class SdmTools {
     // Model CRUD
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models", verb = "GET")
     @McpTool(
         name = "d360_sdm_list",
         description = "List all semantic data models."
@@ -76,6 +78,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}", verb = "GET")
     @McpTool(
         name = "d360_sdm_get",
         description = "Get a semantic data model by API name or ID."
@@ -93,6 +96,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models", verb = "POST")
     @McpTool(
         name = "d360_sdm_create",
         description = "Create a semantic data model shell. Body: { apiName, label, description, dataspace (REQUIRED in body) }. Then add data objects, relationships, calc dims/measures via separate tools. DEPENDENCY: All CIs/DMOs must exist before adding as data objects."
@@ -111,6 +115,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_update",
         description = "Update a semantic data model."
@@ -130,6 +135,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_delete",
         description = "Delete a semantic data model."
@@ -147,6 +153,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/clone", verb = "POST")
     @McpTool(
         name = "d360_sdm_clone",
         description = "Clone a semantic data model."
@@ -166,6 +173,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/validate", verb = "POST")
     @McpTool(
         name = "d360_sdm_validate",
         description = "Validate a semantic data model."
@@ -183,6 +191,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/dependencies", verb = "GET")
     @McpTool(
         name = "d360_sdm_dependencies",
         description = "Get dependencies of a semantic model."
@@ -204,6 +213,7 @@ public class SdmTools {
     // Data Objects (tables within a model)
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects", verb = "POST")
     @McpTool(
         name = "d360_sdm_data_object_create",
         description = "Add a data object to a semantic model. Required body: { dataObjectName, label, dataObjectType, shouldIncludeAllFields }. dataObjectType values: 'Dmo' for DMOs, 'Dlo' for DLOs, 'Cio' for Calculated Insights (NOT 'CalculatedInsight'). Use shouldIncludeAllFields: true to auto-include all fields as dimensions/measurements."
@@ -223,6 +233,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects", verb = "GET")
     @McpTool(
         name = "d360_sdm_data_objects_list",
         description = "List data objects in a semantic model."
@@ -240,6 +251,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_data_object_get",
         description = "Get a data object from a semantic model."
@@ -258,6 +270,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_data_object_update",
         description = "Update a data object in a semantic model."
@@ -278,6 +291,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_data_object_delete",
         description = "Delete a data object from a semantic model."
@@ -300,6 +314,7 @@ public class SdmTools {
     // Dimensions & Measurements
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}/dimensions", verb = "GET")
     @McpTool(
         name = "d360_sdm_dimensions_list",
         description = "List dimensions for a data object in a semantic model."
@@ -318,6 +333,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}/measurements", verb = "GET")
     @McpTool(
         name = "d360_sdm_measurements_list",
         description = "List measurements for a data object in a semantic model."
@@ -340,6 +356,7 @@ public class SdmTools {
     // Calculated Dimensions
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_dims_list",
         description = "List calculated dimensions in a semantic model."
@@ -357,6 +374,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions", verb = "POST")
     @McpTool(
         name = "d360_sdm_calc_dim_create",
         description = "Create a calculated dimension in a semantic model. Body: { label, expression, dataType: 'Text'|'Number'|'DateTime' }. Formula syntax uses [DataObject].[Field] references (NOT {field}). Use IF/ELSEIF/ELSE/END for conditionals (not CASE WHEN). Example: IF [MyObj].[field1] > 10 THEN 'High' ELSE 'Low' END"
@@ -376,6 +394,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_dim_get",
         description = "Get a calculated dimension from a semantic model."
@@ -394,6 +413,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_calc_dim_update",
         description = "Update a calculated dimension in a semantic model."
@@ -414,6 +434,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_calc_dim_delete",
         description = "Delete a calculated dimension from a semantic model."
@@ -436,6 +457,7 @@ public class SdmTools {
     // Calculated Measurements
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_measures_list",
         description = "List calculated measurements in a semantic model."
@@ -453,6 +475,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements", verb = "POST")
     @McpTool(
         name = "d360_sdm_calc_measure_create",
         description = "Create a calculated measurement in a semantic model. Body: { label, expression, dataType: 'Number', aggregationType: 'UserAgg' }. IMPORTANT: aggregationType 'UserAgg' is REQUIRED for any formula containing aggregation functions (SUM, COUNT, AVG, etc.). Formula syntax uses [DataObject].[Field] references. Use IIF(condition, true_val, false_val) for inline conditionals."
@@ -472,6 +495,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_measure_get",
         description = "Get a calculated measurement from a semantic model."
@@ -490,6 +514,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_calc_measure_update",
         description = "Update a calculated measurement in a semantic model."
@@ -510,6 +535,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_calc_measure_delete",
         description = "Delete a calculated measurement from a semantic model."
@@ -532,6 +558,7 @@ public class SdmTools {
     // Metrics
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics", verb = "GET")
     @McpTool(
         name = "d360_sdm_metrics_list",
         description = "List metrics in a semantic model."
@@ -549,6 +576,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_metric_get",
         description = "Get a metric from a semantic model."
@@ -567,6 +595,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics", verb = "POST")
     @McpTool(
         name = "d360_sdm_metric_create",
         description = "Create a metric in a semantic model."
@@ -587,6 +616,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_metric_update",
         description = "Update a metric in a semantic model."
@@ -610,6 +640,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_metric_delete",
         description = "Delete a metric from a semantic model."
@@ -632,6 +663,7 @@ public class SdmTools {
     // Relationships
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships", verb = "POST")
     @McpTool(
         name = "d360_sdm_relationship_create",
         description = "Create a relationship between data objects in a semantic model. Body format: { label, leftSemanticDefinitionApiName, rightSemanticDefinitionApiName, criteria: [{joinOperator: 'Equals', leftFieldType: 'TableField', leftSemanticFieldApiName, rightFieldType: 'TableField', rightSemanticFieldApiName}], cardinality: 'OneToMany|ManyToOne|OneToOne|ManyToMany', joinType: 'Auto' }. Use the semantic field apiNames from d360_sdm_data_objects_list (e.g. 'Individual_Id18'), NOT the underlying DMO field names."
@@ -654,6 +686,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships", verb = "GET")
     @McpTool(
         name = "d360_sdm_relationships_list",
         description = "List relationships in a semantic model."
@@ -671,6 +704,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_relationship_get",
         description = "Get a relationship from a semantic model."
@@ -689,6 +723,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_relationship_update",
         description = "Update a relationship in a semantic model."
@@ -712,6 +747,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_relationship_delete",
         description = "Delete a relationship from a semantic model."
@@ -734,6 +770,7 @@ public class SdmTools {
     // Formula Metadata & Permissions
     // ============================================================
 
+    @ApiEndpoint(path = "/ssot/semantic/models/formula-metadata", verb = "GET")
     @McpTool(
         name = "d360_sdm_formula_metadata",
         description = "Get supported formula metadata for semantic models."
@@ -753,6 +790,7 @@ public class SdmTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/semantic/permissions", verb = "GET")
     @McpTool(
         name = "d360_sdm_permissions",
         description = "Get semantic model permissions."
@@ -770,6 +808,7 @@ public class SdmTools {
     // Semantic Query (non-SSOT surface: /semantic-engine/gateway)
     // ============================================================
 
+    @ApiEndpoint(path = "/semantic-engine/gateway", verb = "POST")
     @McpTool(
         name = "d360_sdm_query",
         description = "Execute a semantic query against a semantic data model. The body must follow this structure: { semanticModelId, structuredSemanticQuery: { fields: [{expression, alias, rowGrouping?, semanticAggregationMethod?}, ...], options: {limitOptions: {limit: 10}} } }. For regular fields: use tableField with tableName (e.g. 'Norm_Geography' in table 'AccountRevenue'). For calculated dimensions/measurements: use semanticField with just name (e.g. {semanticField: {name: 'Cluster_Size_Tier'}}) — these are model-level, NOT on a specific table."

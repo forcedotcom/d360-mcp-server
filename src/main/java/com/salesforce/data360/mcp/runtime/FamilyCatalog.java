@@ -37,16 +37,22 @@ public class FamilyCatalog {
     /** Individual tool info exposed to the agent via payload_examples. */
     public record ToolInfo(String name, String family, String description, String tips) {}
 
+    /** Connect API endpoint a tool calls. {@code null} verb/path means the tool has no single deterministic endpoint. */
+    public record Endpoint(String verb, String path) {}
+
     private final List<FamilyEntry> families;
     private final Map<String, ToolInfo> toolIndex;
+    private final Map<String, Endpoint> endpointIndex;
 
     public FamilyCatalog() {
         Map<String, String> summaries = buildFamilySummaries();
         List<ToolDef> allTools = buildAllTools();
 
         this.toolIndex = new LinkedHashMap<>();
+        this.endpointIndex = new LinkedHashMap<>();
         for (ToolDef def : allTools) {
             toolIndex.put(def.name, new ToolInfo(def.name, def.family, def.description, def.tips));
+            endpointIndex.put(def.name, new Endpoint(def.httpMethod, def.apiPath));
         }
 
         // Group into families
@@ -72,6 +78,8 @@ public class FamilyCatalog {
     public ToolInfo getToolInfo(String toolName) { return toolIndex.get(toolName); }
 
     public List<String> getAllToolNames() { return List.copyOf(toolIndex.keySet()); }
+
+    public Endpoint getEndpoint(String toolName) { return endpointIndex.get(toolName); }
 
     // ── Family Summaries (tuned for 89% search coverage) ───────────────────
 
@@ -111,7 +119,7 @@ public class FamilyCatalog {
         List<ToolDef> t = new ArrayList<>();
 
         // ── Query ──────────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_query_sql", "Query", "Execute SQL query. Supports parameterized queries.", "POST", "/ssot/query-sql"));
+        t.add(new ToolDef("d360_query_sql", "Query", "Execute SQL query. Preferred over V1/V2. Supports parameterized queries.", "POST", "/ssot/query-sql"));
         t.add(new ToolDef("d360_query_sql_status", "Query", "Poll for long-running query status.", "GET", "/ssot/query-sql/{queryId}"));
         t.add(new ToolDef("d360_query_sql_rows", "Query", "Fetch paginated rows from completed query.", "GET", "/ssot/query-sql/{queryId}/rows"));
         t.add(new ToolDef("d360_query_sql_cancel", "Query", "Cancel a running query.", "DELETE", "/ssot/query-sql/{queryId}"));
@@ -159,6 +167,7 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_datastream_create_sfdc", "DataStreams", "Create Salesforce CRM data stream. Auto-populates source fields.", "POST", "/ssot/data-streams"));
         t.add(new ToolDef("d360_datastream_create_aws_s3", "DataStreams", "Create AWS S3 data stream.", "POST", "/ssot/data-streams"));
         t.add(new ToolDef("d360_datastream_create_snowflake", "DataStreams", "Create Snowflake-backed data stream. Builds sourceFields, mappings, and advancedAttributes (database/schema/object) from field definitions.", "POST", "/ssot/data-streams"));
+        t.add(new ToolDef("d360_datastream_create_third_party_connectors", "DataStreams", "Create data stream for third-party connectors (Airtable, HubSpot, Marketo, Google Ads, etc). Builds full payload from simple field definitions.", "POST", "/ssot/data-streams"));
 
         // ── Connection ─────────────────────────────────────────────────────
         t.add(new ToolDef("d360_connection_list", "Connection", "List connections. connectorType REQUIRED.", "GET", "/ssot/connections"));
@@ -170,8 +179,11 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_connector_list", "Connection", "Discover supported connector types.", "GET", "/ssot/connectors"));
         t.add(new ToolDef("d360_connector_metadata", "Connection", "Get required/optional fields for connector type.", "GET", "/ssot/connectors/{type}"));
         t.add(new ToolDef("d360_connection_endpoints", "Connection", "List pre-configured endpoints.", "GET", "/ssot/connection-endpoints"));
-        t.add(new ToolDef("d360_snowflake_connection_list", "Connection", "List Data 360 connections for a connector type. Use connectorType=SNOWFLAKE for Snowflake.", "GET", "/connections"));
-        t.add(new ToolDef("d360_connection_create_snowflake", "Connection", "Create a Snowflake connection with KeyPair auth. Provide private key content directly.", "POST", "/connections"));
+        t.add(new ToolDef("d360_snowflake_connection_list", "Connection", "List Data 360 connections for a connector type. Use connectorType=SNOWFLAKE for Snowflake.", "GET", "/ssot/connections"));
+        t.add(new ToolDef("d360_connection_create_snowflake", "Connection", "Create a Snowflake connection with KeyPair auth. Provide private key content directly.", "POST", "/ssot/connections"));
+        t.add(new ToolDef("d360_connection_db_schemas_list", "Connection", "List database schemas available in a connection (e.g., Snowflake schemas). Pass database name in advancedAttributes.", "POST", "/ssot/connections/{id}/database-schemas"));
+        t.add(new ToolDef("d360_connection_objects_list", "Connection", "List objects/tables available in a connection. Use database/schema in advancedAttributes for DB connections.", "POST", "/ssot/connections/{id}/objects"));
+        t.add(new ToolDef("d360_connection_object_fields_describe", "Connection", "Describe field-level schema (names, types, primary keys) of an object in a connection.", "POST", "/ssot/connections/{id}/objects/{resourceName}/fields"));
 
         // ── Segment ────────────────────────────────────────────────────────
         t.add(new ToolDef("d360_segment_list", "Segment", "List all segments.", "GET", "/ssot/segments"));
@@ -230,10 +242,11 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_transform_list", "DataTransform", "List data transforms.", "GET", "/ssot/data-transforms"));
         t.add(new ToolDef("d360_transform_get", "DataTransform", "Get transform details.", "GET", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_create", "DataTransform", "Create transform. Schedule runs separately.", "POST", "/ssot/data-transforms"));
+        t.add(new ToolDef("d360_transform_prepare", "DataTransform", "Validate + enrich with output schema. RECOMMENDED before create.", "POST", "/ssot/data-transforms-validation"));
         t.add(new ToolDef("d360_transform_update", "DataTransform", "Update transform.", "PATCH", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_delete", "DataTransform", "Delete transform.", "DELETE", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_run", "DataTransform", "Execute transform manually.", "POST", "/ssot/data-transforms/{id}/actions/run"));
-        t.add(new ToolDef("d360_transform_validate", "DataTransform", "Validate SQL syntax/semantics.", "POST", "/ssot/data-transforms-validation"));
+        t.add(new ToolDef("d360_transform_validate", "DataTransform", "Quick SQL validation (simple). Use prepare for full validation.", "POST", "/ssot/data-transforms-validation"));
         t.add(new ToolDef("d360_transform_schedule_get", "DataTransform", "Get transform schedule.", "GET", "/ssot/data-transforms/{id}/schedule"));
         t.add(new ToolDef("d360_transform_schedule_set", "DataTransform", "Set transform schedule.", "PUT", "/ssot/data-transforms/{id}/schedule"));
 
@@ -309,25 +322,25 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_standard_mapping_create", "StandardMappings", "Create ALL standard mappings for a source object in one call.", "POST", "/ssot/data-model-object-mappings"));
 
         // ── SearchIndex ────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_search_index_list", "SearchIndex", "List search indexes.", "GET", "/ssot/search-indexes"));
-        t.add(new ToolDef("d360_search_index_get", "SearchIndex", "Get search index details.", "GET", "/ssot/search-indexes/{id}"));
-        t.add(new ToolDef("d360_search_index_create", "SearchIndex", "Create search index.", "POST", "/ssot/search-indexes"));
-        t.add(new ToolDef("d360_search_index_update", "SearchIndex", "Update search index.", "PATCH", "/ssot/search-indexes/{id}"));
-        t.add(new ToolDef("d360_search_index_delete", "SearchIndex", "Delete search index.", "DELETE", "/ssot/search-indexes/{id}"));
-        t.add(new ToolDef("d360_search_index_config", "SearchIndex", "Get search index configuration.", "GET", "/ssot/search-indexes/{id}/config"));
-        t.add(new ToolDef("d360_search_index_process_history", "SearchIndex", "Get search index processing history.", "GET", "/ssot/search-indexes/{id}/process-history"));
+        t.add(new ToolDef("d360_search_index_list", "SearchIndex", "List search indexes.", "GET", "/ssot/search-index"));
+        t.add(new ToolDef("d360_search_index_get", "SearchIndex", "Get search index details.", "GET", "/ssot/search-index/{id}"));
+        t.add(new ToolDef("d360_search_index_create", "SearchIndex", "Create search index.", "POST", "/ssot/search-index"));
+        t.add(new ToolDef("d360_search_index_update", "SearchIndex", "Update search index.", "PATCH", "/ssot/search-index/{id}"));
+        t.add(new ToolDef("d360_search_index_delete", "SearchIndex", "Delete search index.", "DELETE", "/ssot/search-index/{id}"));
+        t.add(new ToolDef("d360_search_index_config", "SearchIndex", "Get search index configuration.", "GET", "/ssot/search-index/config"));
+        t.add(new ToolDef("d360_search_index_process_history", "SearchIndex", "Get search index processing history.", "GET", "/ssot/search-index/{id}/process-history"));
 
         // ── Retriever ──────────────────────────────────────────────────────
-        t.add(new ToolDef("d360_retriever_list", "Retriever", "List retrievers.", "GET", "/machine-learning/retrievers"));
-        t.add(new ToolDef("d360_retriever_get", "Retriever", "Get retriever.", "GET", "/machine-learning/retrievers/{id}"));
-        t.add(new ToolDef("d360_retriever_create", "Retriever", "Create retriever.", "POST", "/machine-learning/retrievers"));
-        t.add(new ToolDef("d360_retriever_update", "Retriever", "Update retriever.", "PATCH", "/machine-learning/retrievers/{id}"));
-        t.add(new ToolDef("d360_retriever_delete", "Retriever", "Delete retriever.", "DELETE", "/machine-learning/retrievers/{id}"));
-        t.add(new ToolDef("d360_retriever_config_list", "Retriever", "List retriever configurations.", "GET", "/machine-learning/retrievers/{id}/configs"));
-        t.add(new ToolDef("d360_retriever_config_get", "Retriever", "Get retriever configuration.", "GET", "/machine-learning/retrievers/{id}/configs/{configId}"));
-        t.add(new ToolDef("d360_retriever_config_create", "Retriever", "Create retriever configuration.", "POST", "/machine-learning/retrievers/{id}/configs"));
-        t.add(new ToolDef("d360_retriever_config_update", "Retriever", "Update retriever configuration.", "PATCH", "/machine-learning/retrievers/{id}/configs/{configId}"));
-        t.add(new ToolDef("d360_retriever_config_delete", "Retriever", "Delete retriever configuration.", "DELETE", "/machine-learning/retrievers/{id}/configs/{configId}"));
+        t.add(new ToolDef("d360_retriever_list", "Retriever", "List retrievers.", "GET", "/ssot/machine-learning/retrievers"));
+        t.add(new ToolDef("d360_retriever_get", "Retriever", "Get retriever.", "GET", "/ssot/machine-learning/retrievers/{id}"));
+        t.add(new ToolDef("d360_retriever_create", "Retriever", "Create retriever.", "POST", "/ssot/machine-learning/retrievers"));
+        t.add(new ToolDef("d360_retriever_update", "Retriever", "Update retriever.", "PATCH", "/ssot/machine-learning/retrievers/{id}"));
+        t.add(new ToolDef("d360_retriever_delete", "Retriever", "Delete retriever.", "DELETE", "/ssot/machine-learning/retrievers/{id}"));
+        t.add(new ToolDef("d360_retriever_config_list", "Retriever", "List retriever configurations.", "GET", "/ssot/machine-learning/retrievers/{id}/configurations"));
+        t.add(new ToolDef("d360_retriever_config_get", "Retriever", "Get retriever configuration.", "GET", "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}"));
+        t.add(new ToolDef("d360_retriever_config_create", "Retriever", "Create retriever configuration.", "POST", "/ssot/machine-learning/retrievers/{id}/configurations"));
+        t.add(new ToolDef("d360_retriever_config_update", "Retriever", "Update retriever configuration.", "PATCH", "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}"));
+        t.add(new ToolDef("d360_retriever_config_delete", "Retriever", "Delete retriever configuration.", "DELETE", "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}"));
 
         return t;
     }

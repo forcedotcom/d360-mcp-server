@@ -351,4 +351,303 @@ class DataTransformToolsTest {
         // Then
         assertThat(result).contains("error", "Internal Server Error", "500");
     }
+
+    @Test
+    void testGetDataTransform_errorHandling() {
+        // Given
+        when(client.get(anyString(), eq(Map.class)))
+            .thenThrow(new ApiException(404, "Transform not found", "/ssot/data-transforms/invalid-id"));
+
+        // When
+        String result = dataTransformTools.getDataTransform("invalid-id", null);
+
+        // Then
+        assertThat(result).contains("error", "Transform not found", "404");
+    }
+
+    @Test
+    void testCreateDataTransform_errorHandling() {
+        // Given
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenThrow(new ApiException(400, "Invalid request", "/ssot/data-transforms"));
+
+        DataTransformCreateRequest request = new DataTransformCreateRequest();
+        request.setName("test");
+
+        // When
+        String result = dataTransformTools.createDataTransform(request, null);
+
+        // Then
+        assertThat(result).contains("error", "Invalid request", "400");
+    }
+
+    @Test
+    void testUpdateDataTransform_errorHandling() {
+        // Given
+        when(client.patch(anyString(), any(), eq(Map.class)))
+            .thenThrow(new ApiException(404, "Transform not found", "/ssot/data-transforms/missing"));
+
+        DataTransformUpdateRequest request = new DataTransformUpdateRequest();
+        request.setDescription("Updated");
+
+        // When
+        String result = dataTransformTools.updateDataTransform("missing", request, null);
+
+        // Then
+        assertThat(result).contains("error", "Transform not found", "404");
+    }
+
+    @Test
+    void testDeleteDataTransform_errorHandling() {
+        // Given
+        when(client.delete(anyString(), eq(Map.class)))
+            .thenThrow(new ApiException(403, "Forbidden", "/ssot/data-transforms/protected"));
+
+        // When
+        String result = dataTransformTools.deleteDataTransform("protected", null);
+
+        // Then
+        assertThat(result).contains("error", "Forbidden", "403");
+    }
+
+    @Test
+    void testRunDataTransform_errorHandling() {
+        // Given
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenThrow(new ApiException(409, "Transform already running", "/ssot/data-transforms/123/actions/run"));
+
+        // When
+        String result = dataTransformTools.runDataTransform("123", null);
+
+        // Then
+        assertThat(result).contains("error", "Transform already running", "409");
+    }
+
+    @Test
+    void testValidateDataTransform_errorHandling() {
+        // Given
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenThrow(new ApiException(400, "Invalid SQL", "/ssot/data-transforms-validation"));
+
+        DataTransformValidateRequest request = new DataTransformValidateRequest();
+        request.setSql("INVALID SQL");
+
+        // When
+        String result = dataTransformTools.validateDataTransform(request, null);
+
+        // Then
+        assertThat(result).contains("error", "Invalid SQL", "400");
+    }
+
+    @Test
+    void testGetDataTransformSchedule_errorHandling() {
+        // Given
+        when(client.get(anyString(), eq(Map.class)))
+            .thenThrow(new ApiException(404, "Schedule not found", "/ssot/data-transforms/123/schedule"));
+
+        // When
+        String result = dataTransformTools.getDataTransformSchedule("123", null);
+
+        // Then
+        assertThat(result).contains("error", "Schedule not found", "404");
+    }
+
+    @Test
+    void testSetDataTransformSchedule_errorHandling() {
+        // Given
+        when(client.put(anyString(), any(), eq(Map.class)))
+            .thenThrow(new ApiException(400, "Invalid schedule", "/ssot/data-transforms/123/schedule"));
+
+        DataTransformScheduleRequest request = new DataTransformScheduleRequest();
+        request.setFrequency("INVALID");
+
+        // When
+        String result = dataTransformTools.setDataTransformSchedule("123", request, null);
+
+        // Then
+        assertThat(result).contains("error", "Invalid schedule", "400");
+    }
+
+    @Test
+    void testGetDataTransform_withDataspace() {
+        // Given
+        String transformId = "transform-456";
+        String dataspace = "custom_space";
+        Map<String, Object> mockResponse = Map.of(
+            "id", transformId,
+            "name", "CustomTransform"
+        );
+
+        when(client.get(anyString(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        // When
+        String result = dataTransformTools.getDataTransform(transformId, dataspace);
+
+        // Then
+        assertThat(result).contains(transformId, "CustomTransform");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).get(pathCaptor.capture(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=custom_space");
+    }
+
+    @Test
+    void testCreateDataTransform_withDataspace() {
+        // Given
+        String dataspace = "prod_space";
+        Map<String, Object> mockResponse = Map.of("id", "new-transform");
+
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        DataTransformCreateRequest request = new DataTransformCreateRequest();
+        request.setName("test");
+        request.setLabel("Test");
+        request.setType("batch");
+
+        // When
+        String result = dataTransformTools.createDataTransform(request, dataspace);
+
+        // Then
+        assertThat(result).contains("new-transform");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=prod_space");
+    }
+
+    @Test
+    void testUpdateDataTransform_withDataspace() {
+        // Given
+        String transformId = "transform-789";
+        String dataspace = "test_space";
+        Map<String, Object> mockResponse = Map.of("id", transformId);
+
+        when(client.patch(anyString(), any(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        DataTransformUpdateRequest request = new DataTransformUpdateRequest();
+        request.setDescription("Updated");
+
+        // When
+        String result = dataTransformTools.updateDataTransform(transformId, request, dataspace);
+
+        // Then
+        assertThat(result).contains(transformId);
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).patch(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=test_space");
+    }
+
+    @Test
+    void testDeleteDataTransform_withDataspace() {
+        // Given
+        String transformId = "transform-delete";
+        String dataspace = "cleanup_space";
+        Map<String, Object> mockResponse = Map.of("success", true);
+
+        when(client.delete(anyString(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        // When
+        String result = dataTransformTools.deleteDataTransform(transformId, dataspace);
+
+        // Then
+        assertThat(result).contains("success");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).delete(pathCaptor.capture(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=cleanup_space");
+    }
+
+    @Test
+    void testRunDataTransform_withDataspace() {
+        // Given
+        String transformId = "transform-run";
+        String dataspace = "exec_space";
+        Map<String, Object> mockResponse = Map.of("jobId", "job-123");
+
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        // When
+        String result = dataTransformTools.runDataTransform(transformId, dataspace);
+
+        // Then
+        assertThat(result).contains("job-123");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=exec_space");
+    }
+
+    @Test
+    void testValidateDataTransform_withDataspace() {
+        // Given
+        String dataspace = "validate_space";
+        Map<String, Object> mockResponse = Map.of("valid", true);
+
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        DataTransformValidateRequest request = new DataTransformValidateRequest();
+        request.setSql("SELECT 1");
+
+        // When
+        String result = dataTransformTools.validateDataTransform(request, dataspace);
+
+        // Then
+        assertThat(result).contains("valid");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=validate_space");
+    }
+
+    @Test
+    void testGetDataTransformSchedule_withDataspace() {
+        // Given
+        String transformId = "transform-sched";
+        String dataspace = "schedule_space";
+        Map<String, Object> mockResponse = Map.of("frequency", "DAILY");
+
+        when(client.get(anyString(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        // When
+        String result = dataTransformTools.getDataTransformSchedule(transformId, dataspace);
+
+        // Then
+        assertThat(result).contains("DAILY");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).get(pathCaptor.capture(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=schedule_space");
+    }
+
+    @Test
+    void testSetDataTransformSchedule_withDataspace() {
+        // Given
+        String transformId = "transform-set-sched";
+        String dataspace = "sched_space";
+        Map<String, Object> mockResponse = Map.of("frequency", "WEEKLY");
+
+        when(client.put(anyString(), any(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        DataTransformScheduleRequest request = new DataTransformScheduleRequest();
+        request.setFrequency("WEEKLY");
+
+        // When
+        String result = dataTransformTools.setDataTransformSchedule(transformId, request, dataspace);
+
+        // Then
+        assertThat(result).contains("WEEKLY");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).put(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("dataspace=sched_space");
+    }
 }

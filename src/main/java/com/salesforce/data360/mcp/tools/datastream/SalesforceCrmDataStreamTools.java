@@ -21,6 +21,7 @@ import com.salesforce.data360.mcp.model.request.datastream.ConnectorInput;
 import com.salesforce.data360.mcp.model.request.datastream.DataLakeObjectInput;
 import com.salesforce.data360.mcp.model.request.datastream.DataSpaceInput;
 import com.salesforce.data360.mcp.model.request.datastream.DataStreamCreateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
@@ -51,6 +52,7 @@ public class SalesforceCrmDataStreamTools extends AbstractConnectorDataStreamToo
     /**
      * Create a data stream that ingests from a Salesforce CRM object.
      */
+    @ApiEndpoint(path = "/ssot/data-streams", verb = "POST")
     @McpTool(
             name = "d360_datastream_create_sfdc",
             description = "Create a data stream from a Salesforce CRM object. "
