@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.dmo.DmoCreateRequest;
 import com.salesforce.data360.mcp.model.request.dmo.DmoUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -46,6 +47,7 @@ public class DmoTools {
      * List all Data Model Objects (DMOs).
      * Use this to discover all DMOs in the org. Filter by category to narrow results.
      */
+    @ApiEndpoint(path = "/ssot/data-model-objects", verb = "GET")
     @McpTool(
         name = "d360_dmo_list",
         description = "List all Data Model Objects (DMOs). Filter by category to narrow results. "
@@ -80,6 +82,7 @@ public class DmoTools {
      * Get a specific Data Model Object by name with all field definitions.
      * Use this to get full schema of a DMO including all fields and their types.
      */
+    @ApiEndpoint(path = "/ssot/data-model-objects/{dmoName}", verb = "GET")
     @McpTool(
         name = "d360_dmo_get",
         description = "Get a specific Data Model Object by name with all field definitions. "
@@ -106,6 +109,7 @@ public class DmoTools {
      * Create a new Data Model Object.
      * Use this to define a custom DMO when standard objects don't cover your data model.
      */
+    @ApiEndpoint(path = "/ssot/data-model-objects", verb = "POST")
     @McpTool(
         name = "d360_dmo_create",
         description = "Create a new Data Model Object. "
@@ -137,6 +141,7 @@ public class DmoTools {
      * Update an existing Data Model Object.
      * Use this to modify a DMO's label or add/update field definitions.
      */
+    @ApiEndpoint(path = "/ssot/data-model-objects/{dmoName}", verb = "PATCH")
     @McpTool(
         name = "d360_dmo_update",
         description = "Update an existing Data Model Object."
@@ -164,6 +169,7 @@ public class DmoTools {
      * Delete a Data Model Object.
      * Use this to remove a custom DMO. Ensure no data streams, mappings, CIs, or segments reference it before deleting.
      */
+    @ApiEndpoint(path = "/ssot/data-model-objects/{dmoName}", verb = "DELETE")
     @McpTool(
         name = "d360_dmo_delete",
         description = "Delete a Data Model Object."

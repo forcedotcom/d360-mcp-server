@@ -22,18 +22,14 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 /**
  * Request body for updating a data transform.
  * All fields are optional.
+ *
+ * <p>Note: While this class extends DataTransformBaseRequest, all inherited fields
+ * (label, name, type, definition) are optional for update operations, allowing
+ * partial updates. The MCP framework should treat all fields as optional for PATCH
+ * operations.</p>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DataTransformUpdateRequest {
-
-    @McpToolParam(description = "Label of the data transform", required = false)
-    private String label;
-
-    @McpToolParam(description = "API name of the data transform", required = false)
-    private String name;
-
-    @McpToolParam(description = "Type: BATCH or STREAMING", required = false)
-    private String type;
+public class DataTransformUpdateRequest extends DataTransformBaseRequest {
 
     @McpToolParam(description = "Creation type: Custom or System", required = false)
     private String creationType;
@@ -41,41 +37,8 @@ public class DataTransformUpdateRequest {
     @McpToolParam(description = "Currency ISO code", required = false)
     private String currencyIsoCode;
 
-    @McpToolParam(description = "Transform definition", required = false)
-    private DataTransformDefinitionInput definition;
-
-    @McpToolParam(description = "Description", required = false)
-    private String description;
-
     @McpToolParam(description = "Primary source", required = false)
     private String primarySource;
-
-    @McpToolParam(description = "Data space name", required = false)
-    private String dataSpaceName;
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getCreationType() {
         return creationType;
@@ -93,35 +56,11 @@ public class DataTransformUpdateRequest {
         this.currencyIsoCode = currencyIsoCode;
     }
 
-    public DataTransformDefinitionInput getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(DataTransformDefinitionInput definition) {
-        this.definition = definition;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getPrimarySource() {
         return primarySource;
     }
 
     public void setPrimarySource(String primarySource) {
         this.primarySource = primarySource;
-    }
-
-    public String getDataSpaceName() {
-        return dataSpaceName;
-    }
-
-    public void setDataSpaceName(String dataSpaceName) {
-        this.dataSpaceName = dataSpaceName;
     }
 }

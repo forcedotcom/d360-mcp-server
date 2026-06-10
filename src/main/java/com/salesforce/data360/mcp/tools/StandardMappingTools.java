@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.mapping.FieldMappingInput;
 import com.salesforce.data360.mcp.model.request.mapping.MappingCreateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.service.MappingLookupService;
 import com.salesforce.data360.mcp.service.MappingLookupService.DmoMapping;
 import com.salesforce.data360.mcp.service.MappingLookupService.FieldMapping;
@@ -100,6 +101,7 @@ public class StandardMappingTools {
      * Create all standard DLO-to-DMO mappings for a source object in one call.
      * Looks up the standard mapping definitions and calls the Data 360 API for each target DMO.
      */
+    @ApiEndpoint(path = "/ssot/data-model-object-mappings", verb = "POST")
     @McpTool(
         name = "d360_standard_mapping_create",
         description = "Create all standard DLO-to-DMO mappings for a source object in one call. "

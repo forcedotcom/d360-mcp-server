@@ -19,6 +19,7 @@ package com.salesforce.data360.mcp.tools;
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.searchindex.SearchIndexCreateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -44,6 +45,7 @@ public class SearchIndexTools {
     /**
      * Get all search index definition details.
      */
+    @ApiEndpoint(path = "/ssot/search-index", verb = "GET")
     @McpTool(
         name = "d360_search_index_list",
         description = "Get all search index definition details."
@@ -61,6 +63,7 @@ public class SearchIndexTools {
     /**
      * Create a search index (semantic search) for unstructured data.
      */
+    @ApiEndpoint(path = "/ssot/search-index", verb = "POST")
     @McpTool(
         name = "d360_search_index_create",
         description = "Create a search index (semantic search) for unstructured data. "
@@ -86,6 +89,7 @@ public class SearchIndexTools {
     /**
      * Get search index configuration.
      */
+    @ApiEndpoint(path = "/ssot/search-index/config", verb = "GET")
     @McpTool(
         name = "d360_search_index_config",
         description = "Get the search index configuration."
@@ -103,6 +107,7 @@ public class SearchIndexTools {
     /**
      * Get a specific search index definition by ID or API name.
      */
+    @ApiEndpoint(path = "/ssot/search-index/{id}", verb = "GET")
     @McpTool(
         name = "d360_search_index_get",
         description = "Get information about a specific search index definition record."
@@ -122,6 +127,7 @@ public class SearchIndexTools {
     /**
      * Delete a search index definition.
      */
+    @ApiEndpoint(path = "/ssot/search-index/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_search_index_delete",
         description = "Delete a search index definition."
@@ -141,6 +147,7 @@ public class SearchIndexTools {
     /**
      * Get process history for a search index.
      */
+    @ApiEndpoint(path = "/ssot/search-index/{id}/process-history", verb = "GET")
     @McpTool(
         name = "d360_search_index_process_history",
         description = "Get the process run history for a specific search index. Returns a list of process history records with status, timestamps, and details. "
@@ -169,6 +176,7 @@ public class SearchIndexTools {
     /**
      * Update an existing search index (semantic search) record.
      */
+    @ApiEndpoint(path = "/ssot/search-index/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_search_index_update",
         description = "Update an existing search index (semantic search) record. "

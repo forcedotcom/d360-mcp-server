@@ -22,6 +22,7 @@ import com.salesforce.data360.mcp.model.request.identityresolution.IdentityResol
 import com.salesforce.data360.mcp.model.request.identityresolution.IdentityResolutionFullUpdateRequest;
 import com.salesforce.data360.mcp.model.request.identityresolution.IdentityResolutionPatchRequest;
 import com.salesforce.data360.mcp.model.request.identityresolution.IdentityResolutionRunRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -47,6 +48,7 @@ public class IdentityResolutionTools {
      * List all identity resolution rulesets.
      * Discover identity resolution configurations.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions", verb = "GET")
     @McpTool(
         name = "d360_ir_list",
         description = "List all identity resolution rulesets."
@@ -67,6 +69,7 @@ public class IdentityResolutionTools {
      * Get an identity resolution ruleset.
      * Get full ruleset definition.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}", verb = "GET")
     @McpTool(
         name = "d360_ir_get",
         description = "Get an identity resolution ruleset."
@@ -88,6 +91,7 @@ public class IdentityResolutionTools {
      * Create an identity resolution ruleset.
      * Defines how individuals are matched across sources. Rules execute in priority order.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions", verb = "POST")
     @McpTool(
         name = "d360_ir_create",
         description = "Create an identity resolution ruleset."
@@ -110,6 +114,7 @@ public class IdentityResolutionTools {
      * Update an identity resolution ruleset.
      * Partial updates. Changes apply after republish.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_ir_update",
         description = "Update an identity resolution ruleset."
@@ -133,6 +138,7 @@ public class IdentityResolutionTools {
      * Full replacement of an identity resolution ruleset.
      * Replaces entire ruleset. More destructive than PATCH.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}", verb = "PUT")
     @McpTool(
         name = "d360_ir_full_update",
         description = "Full replacement of an identity resolution ruleset."
@@ -156,6 +162,7 @@ public class IdentityResolutionTools {
      * Delete an identity resolution ruleset.
      * Deletes ruleset. Active resolutions may be affected.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_ir_delete",
         description = "Delete an identity resolution ruleset."
@@ -177,6 +184,7 @@ public class IdentityResolutionTools {
      * Publish identity resolution config.
      * Activates ruleset for identity resolution.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}/actions/publish", verb = "POST")
     @McpTool(
         name = "d360_ir_publish",
         description = "Publish identity resolution config."
@@ -198,6 +206,7 @@ public class IdentityResolutionTools {
      * Run identity resolution.
      * Trigger immediate identity resolution matching.
      */
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}/actions/run-now", verb = "POST")
     @McpTool(
         name = "d360_ir_run",
         description = "Run identity resolution."

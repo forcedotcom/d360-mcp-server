@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.datakit.DataKitPatchRequest;
 import com.salesforce.data360.mcp.model.request.datakit.DataKitUndeployRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -45,6 +46,7 @@ public class DataKitTools {
      * List all data kits in the org.
      * Discover all installed and managed data kits.
      */
+    @ApiEndpoint(path = "/ssot/data-kits", verb = "GET")
     @McpTool(
         name = "d360_datakit_list",
         description = "List all data kits (packages)."
@@ -65,6 +67,7 @@ public class DataKitTools {
      * Get a specific data kit by ID.
      * Returns datakit metadata, version info, and status.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/{id}", verb = "GET")
     @McpTool(
         name = "d360_datakit_get",
         description = "Get a data kit by ID."
@@ -86,6 +89,7 @@ public class DataKitTools {
      * Get the manifest for a data kit.
      * Returns detailed manifest showing all components and dependencies.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/{id}/manifest", verb = "GET")
     @McpTool(
         name = "d360_datakit_manifest",
         description = "Get a data kit's manifest."
@@ -107,6 +111,7 @@ public class DataKitTools {
      * Deploy a data kit or update components.
      * Deploy or update datakit components (DMOs, mappings, transforms, etc.).
      */
+    @ApiEndpoint(path = "/ssot/data-kits/update-components", verb = "POST")
     @McpTool(
         name = "d360_datakit_deploy",
         description = "Deploy a data kit."
@@ -129,6 +134,7 @@ public class DataKitTools {
      * Undeploy a data kit.
      * Remove all components from a datakit.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/{id}/undeploy", verb = "POST")
     @McpTool(
         name = "d360_datakit_undeploy",
         description = "Undeploy a data kit."
@@ -152,6 +158,7 @@ public class DataKitTools {
      * Get the deployment status for a datakit deployment job.
      * Check deployment progress and results by job ID.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/deployment-jobs/{jobId}", verb = "GET")
     @McpTool(
         name = "d360_datakit_deploy_status",
         description = "Get deployment job status."
@@ -173,6 +180,7 @@ public class DataKitTools {
      * Get the deployment status for a specific datakit component.
      * Check individual component deployment status.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/{id}/components/{cid}/deployment-status", verb = "GET")
     @McpTool(
         name = "d360_datakit_component_status",
         description = "Get component status within a data kit."
@@ -195,6 +203,7 @@ public class DataKitTools {
      * List all components in a data kit.
      * Get list of all components (DMOs, mappings, etc.) in a datakit.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/{id}/components", verb = "GET")
     @McpTool(
         name = "d360_datakit_components",
         description = "List all components in a data kit. Get list of all components (DMOs, mappings, etc.) in a datakit."
@@ -216,6 +225,7 @@ public class DataKitTools {
      * Get dependencies for a specific datakit component.
      * See what other components this one depends on.
      */
+    @ApiEndpoint(path = "/ssot/data-kits/{id}/components/{cid}/dependencies", verb = "GET")
     @McpTool(
         name = "d360_datakit_component_deps",
         description = "Get component dependencies."

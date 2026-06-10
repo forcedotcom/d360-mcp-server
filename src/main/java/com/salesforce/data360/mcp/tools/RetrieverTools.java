@@ -23,6 +23,7 @@ import com.salesforce.data360.mcp.model.request.retriever.RetrieverConfiguration
 import com.salesforce.data360.mcp.model.request.retriever.RetrieverConfigurationUpdateRequest;
 import com.salesforce.data360.mcp.model.request.retriever.RetrieverCreateRequest;
 import com.salesforce.data360.mcp.model.request.retriever.RetrieverUpdateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -49,6 +50,7 @@ public class RetrieverTools {
 
     // ── Retriever CRUD ──────────────────────────────────────────────────
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers", verb = "GET")
     @McpTool(
         name = "d360_retriever_list",
         description = "List all RAG retrievers. Supports filtering by sourceDmo, isActive, isDefault, queryType (NoCode/ProCode/Ensemble), and search keyword. "
@@ -85,6 +87,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}", verb = "GET")
     @McpTool(
         name = "d360_retriever_get",
         description = "Get a specific RAG retriever by ID or API name. Returns the retriever with its latest and active configurations, "
@@ -103,6 +106,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers", verb = "POST")
     @McpTool(
         name = "d360_retriever_create",
         description = "Create a new RAG retriever. "
@@ -124,6 +128,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_retriever_update",
         description = "Update an existing RAG retriever's label or description."
@@ -142,6 +147,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_retriever_delete",
         description = "Delete a RAG retriever and all its configurations."
@@ -160,6 +166,7 @@ public class RetrieverTools {
 
     // ── Retriever Configuration CRUD ────────────────────────────────────
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}/configurations", verb = "GET")
     @McpTool(
         name = "d360_retriever_config_list",
         description = "List all configurations (versions) for a specific retriever."
@@ -183,6 +190,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}", verb = "GET")
     @McpTool(
         name = "d360_retriever_config_get",
         description = "Get a specific configuration (version) for a retriever. Returns detailed configuration including queryType, output fields, "
@@ -203,6 +211,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}/configurations", verb = "POST")
     @McpTool(
         name = "d360_retriever_config_create",
         description = "Create a new configuration (version) for a retriever. "
@@ -227,6 +236,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}", verb = "PATCH")
     @McpTool(
         name = "d360_retriever_config_update",
         description = "Update a retriever configuration. Currently supports setting the configuration as active or inactive. "
@@ -248,6 +258,7 @@ public class RetrieverTools {
         }
     }
 
+    @ApiEndpoint(path = "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}", verb = "DELETE")
     @McpTool(
         name = "d360_retriever_config_delete",
         description = "Delete a specific configuration (version) from a retriever."

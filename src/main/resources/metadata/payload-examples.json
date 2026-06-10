@@ -196,14 +196,363 @@
     "configurationType": "individual",
     "rulesetId": "sufx",
     "doesRunAutomatically": false,
-    "_note": "configurationType REQUIRED: 'individual' or 'account'. matchMethodType values: exact, exactnormalized, fuzzy, fuzzyhigh, fuzzylow. reconciliationRules ruleType values: lastupdated (requires LastModifiedDate mapped), mostfrequent, sourcesequence. IMPORTANT: every reconciliationRule MUST include ruleType \u2014 omitting it causes a server 500. For lastupdated, the DMO must have ssot__LastModifiedDate__c mapped; use sourcesequence if not.",
+    "_note": "configurationType REQUIRED: 'individual' or 'account'. matchMethodType values: exact, exactnormalized, fuzzy, fuzzyhigh, fuzzylow. reconciliationRules ruleType values: lastupdated (requires LastModifiedDate mapped), mostfrequent, sourcesequence. IMPORTANT: every reconciliationRule MUST include ruleType — omitting it causes a server 500. For lastupdated, the DMO must have ssot__LastModifiedDate__c mapped; use sourcesequence if not.",
     "label": "Email and Name Matching"
   },
+  "d360_transform_prepare": {
+    "_note": "Simple DCSQL batch transform for validation (single node). For complex multi-node examples, see d360_transform_prepare_dcsql_batch. For streaming, see d360_transform_prepare_sql_streaming.",
+    "name": "account_summary",
+    "label": "Account Summary",
+    "description": "Simple single-node batch transform that filters and enriches account data",
+    "type": "batch",
+    "definition": {
+      "type": "DCSQL",
+      "version": "1.0",
+      "manifest": {
+        "nodes": {
+          "account_summary_output": {
+            "name": "account_summary_output",
+            "relation_name": "Account_Summary__dll",
+            "config": {
+              "materialized": "table",
+              "writeMode": "OVERWRITE"
+            },
+            "compiled_code": "SELECT \"Id__c\", \"Name__c\", \"Industry__c\", \"AnnualRevenue__c\", \"NumberOfEmployees__c\", \"Type__c\", \"Rating__c\", \"CreatedDate__c\" FROM \"Account__dlm\" WHERE \"AnnualRevenue__c\" > 1000000"
+          }
+        }
+      }
+    }
+  },
+  "d360_transform_prepare_dcsql_batch": {
+    "_note": "Advanced DCSQL with window functions and rank-based filtering for top performers analysis",
+    "name": "top_sales_performers",
+    "label": "Top Sales Performers by Region",
+    "description": "Identifies top-performing sales reps with rankings and percentile calculations",
+    "type": "batch",
+    "definition": {
+      "type": "DCSQL",
+      "version": "1.0",
+      "manifest": {
+        "nodes": {
+          "sales_with_metrics": {
+            "name": "sales_with_metrics",
+            "compiled_code": "SELECT \"OwnerId__c\", \"Owner_Region__c\", COUNT(*) as \"DealCount__c\", SUM(\"Amount__c\") as \"TotalRevenue__c\", AVG(\"Amount__c\") as \"AvgDealSize__c\", MAX(\"CloseDate__c\") as \"LastWinDate__c\" FROM \"Opportunity__dlm\" WHERE \"IsWon__c\" = true AND \"CloseDate__c\" >= DATEADD(quarter, -1, CURRENT_DATE) GROUP BY \"OwnerId__c\", \"Owner_Region__c\"",
+            "config": {
+              "materialized": "ephemeral"
+            }
+          },
+          "ranked_performers": {
+            "name": "ranked_performers",
+            "relation_name": "Top_Sales_Performers__dll",
+            "config": {
+              "materialized": "table",
+              "writeMode": "OVERWRITE"
+            },
+            "compiled_code": "SELECT \"OwnerId__c\", \"Owner_Region__c\", \"DealCount__c\", \"TotalRevenue__c\", \"AvgDealSize__c\", \"LastWinDate__c\", ROW_NUMBER() OVER (PARTITION BY \"Owner_Region__c\" ORDER BY \"TotalRevenue__c\" DESC) as \"RegionRank__c\", PERCENT_RANK() OVER (PARTITION BY \"Owner_Region__c\" ORDER BY \"TotalRevenue__c\") as \"RegionPercentile__c\", ROW_NUMBER() OVER (ORDER BY \"TotalRevenue__c\" DESC) as \"GlobalRank__c\", CASE WHEN PERCENT_RANK() OVER (PARTITION BY \"Owner_Region__c\" ORDER BY \"TotalRevenue__c\") >= 0.9 THEN 'Top 10%' WHEN PERCENT_RANK() OVER (PARTITION BY \"Owner_Region__c\" ORDER BY \"TotalRevenue__c\") >= 0.75 THEN 'Top 25%' WHEN PERCENT_RANK() OVER (PARTITION BY \"Owner_Region__c\" ORDER BY \"TotalRevenue__c\") >= 0.50 THEN 'Top 50%' ELSE 'Below Average' END as \"PerformanceTier__c\" FROM sales_with_metrics WHERE \"DealCount__c\" >= 3",
+            "depends_on": {
+              "nodes": [
+                "sales_with_metrics"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "d360_transform_prepare_sql_streaming": {
+    "_note": "Real-time lead enrichment with INNER JOIN. Streaming SQL supports: INNER JOIN, CASE/COALESCE, string/date functions, row-by-row transformations. Does NOT support: LEFT/RIGHT/FULL OUTER JOIN, aggregations (COUNT, SUM, AVG), window functions (ROW_NUMBER, RANK), GROUP BY, subqueries.",
+    "name": "realtime_lead_account_enrichment",
+    "label": "Real-Time Lead with Account Enrichment",
+    "description": "Enriches incoming leads with account data via INNER JOIN plus calculated scores and routing",
+    "type": "streaming",
+    "definition": {
+      "type": "SQL",
+      "version": "63.0",
+      "expression": "SELECT l.\"Id__c\", l.\"Email__c\", l.\"FirstName__c\", l.\"LastName__c\", l.\"Company__c\", l.\"Title__c\", l.\"LeadSource__c\", l.\"Phone__c\", l.\"CreatedDate__c\", a.\"Id__c\" as \"AccountId__c\", a.\"Name__c\" as \"AccountName__c\", a.\"Industry__c\" as \"AccountIndustry__c\", a.\"AnnualRevenue__c\" as \"AccountRevenue__c\", a.\"NumberOfEmployees__c\" as \"AccountEmployees__c\", a.\"Type__c\" as \"AccountType__c\", a.\"Rating__c\" as \"AccountRating__c\", CASE WHEN l.\"Title__c\" ILIKE '%VP%' OR l.\"Title__c\" ILIKE '%Vice President%' THEN 'VP' WHEN l.\"Title__c\" ILIKE '%Director%' THEN 'Director' WHEN l.\"Title__c\" ILIKE '%Manager%' THEN 'Manager' WHEN l.\"Title__c\" ILIKE '%CEO%' OR l.\"Title__c\" ILIKE '%Chief%' OR l.\"Title__c\" ILIKE '%President%' THEN 'C-Level' ELSE 'Individual Contributor' END as \"Seniority__c\", CASE WHEN l.\"Title__c\" ILIKE '%VP%' OR l.\"Title__c\" ILIKE '%Chief%' OR l.\"Title__c\" ILIKE '%President%' OR l.\"Title__c\" ILIKE '%Director%' THEN 30 WHEN l.\"Title__c\" ILIKE '%Manager%' THEN 20 ELSE 10 END + CASE WHEN a.\"AnnualRevenue__c\" > 50000000 THEN 25 WHEN a.\"AnnualRevenue__c\" > 10000000 THEN 20 WHEN a.\"AnnualRevenue__c\" > 1000000 THEN 10 ELSE 5 END + CASE WHEN a.\"NumberOfEmployees__c\" > 1000 THEN 20 WHEN a.\"NumberOfEmployees__c\" > 500 THEN 15 WHEN a.\"NumberOfEmployees__c\" > 100 THEN 10 ELSE 5 END + CASE WHEN l.\"LeadSource__c\" = 'Referral' THEN 20 WHEN l.\"LeadSource__c\" = 'Partner' THEN 15 WHEN l.\"LeadSource__c\" = 'Event' THEN 10 WHEN l.\"LeadSource__c\" = 'Web' THEN 5 ELSE 0 END + CASE WHEN a.\"Rating__c\" = 'Hot' THEN 15 WHEN a.\"Rating__c\" = 'Warm' THEN 10 ELSE 5 END as \"CompositeScore__c\", CASE WHEN (CASE WHEN l.\"Title__c\" ILIKE '%VP%' OR l.\"Title__c\" ILIKE '%Chief%' OR l.\"Title__c\" ILIKE '%President%' OR l.\"Title__c\" ILIKE '%Director%' THEN 30 WHEN l.\"Title__c\" ILIKE '%Manager%' THEN 20 ELSE 10 END + CASE WHEN a.\"AnnualRevenue__c\" > 50000000 THEN 25 WHEN a.\"AnnualRevenue__c\" > 10000000 THEN 20 WHEN a.\"AnnualRevenue__c\" > 1000000 THEN 10 ELSE 5 END + CASE WHEN a.\"NumberOfEmployees__c\" > 1000 THEN 20 WHEN a.\"NumberOfEmployees__c\" > 500 THEN 15 WHEN a.\"NumberOfEmployees__c\" > 100 THEN 10 ELSE 5 END + CASE WHEN l.\"LeadSource__c\" = 'Referral' THEN 20 WHEN l.\"LeadSource__c\" = 'Partner' THEN 15 WHEN l.\"LeadSource__c\" = 'Event' THEN 10 WHEN l.\"LeadSource__c\" = 'Web' THEN 5 ELSE 0 END + CASE WHEN a.\"Rating__c\" = 'Hot' THEN 15 WHEN a.\"Rating__c\" = 'Warm' THEN 10 ELSE 5 END) >= 80 THEN 'Hot' WHEN (CASE WHEN l.\"Title__c\" ILIKE '%VP%' OR l.\"Title__c\" ILIKE '%Chief%' OR l.\"Title__c\" ILIKE '%President%' OR l.\"Title__c\" ILIKE '%Director%' THEN 30 WHEN l.\"Title__c\" ILIKE '%Manager%' THEN 20 ELSE 10 END + CASE WHEN a.\"AnnualRevenue__c\" > 50000000 THEN 25 WHEN a.\"AnnualRevenue__c\" > 10000000 THEN 20 WHEN a.\"AnnualRevenue__c\" > 1000000 THEN 10 ELSE 5 END + CASE WHEN a.\"NumberOfEmployees__c\" > 1000 THEN 20 WHEN a.\"NumberOfEmployees__c\" > 500 THEN 15 WHEN a.\"NumberOfEmployees__c\" > 100 THEN 10 ELSE 5 END + CASE WHEN l.\"LeadSource__c\" = 'Referral' THEN 20 WHEN l.\"LeadSource__c\" = 'Partner' THEN 15 WHEN l.\"LeadSource__c\" = 'Event' THEN 10 WHEN l.\"LeadSource__c\" = 'Web' THEN 5 ELSE 0 END + CASE WHEN a.\"Rating__c\" = 'Hot' THEN 15 WHEN a.\"Rating__c\" = 'Warm' THEN 10 ELSE 5 END) >= 60 THEN 'Warm' ELSE 'Cold' END as \"Priority__c\", CASE WHEN a.\"AnnualRevenue__c\" > 100000000 AND (l.\"Title__c\" ILIKE '%VP%' OR l.\"Title__c\" ILIKE '%Chief%' OR l.\"Title__c\" ILIKE '%President%') THEN 'Strategic_Accounts' WHEN a.\"AnnualRevenue__c\" > 50000000 OR a.\"NumberOfEmployees__c\" > 1000 THEN 'Enterprise_Sales' WHEN a.\"AnnualRevenue__c\" > 10000000 OR a.\"NumberOfEmployees__c\" > 500 THEN 'Commercial_Sales' WHEN a.\"AnnualRevenue__c\" > 1000000 OR a.\"NumberOfEmployees__c\" > 50 THEN 'Mid_Market_Sales' ELSE 'SMB_Sales' END as \"OwnerQueue__c\", CASE WHEN a.\"Type__c\" = 'Customer' THEN 'Existing_Customer_Expansion' WHEN a.\"Type__c\" = 'Partner' THEN 'Partner_Led_Opportunity' WHEN a.\"Type__c\" = 'Competitor' THEN 'Competitive_Displacement' ELSE 'New_Business' END as \"OpportunityType__c\", CASE WHEN l.\"Email__c\" IS NOT NULL AND l.\"Phone__c\" IS NOT NULL AND a.\"Industry__c\" IS NOT NULL THEN 'Complete' WHEN l.\"Email__c\" IS NULL OR l.\"Phone__c\" IS NULL THEN 'Missing_Contact_Info' WHEN a.\"Industry__c\" IS NULL THEN 'Missing_Firmographic' ELSE 'Partial' END as \"DataQuality__c\", COALESCE(a.\"Name__c\", l.\"Company__c\", 'Unknown') as \"CompanyNormalized__c\", UPPER(CONCAT(LEFT(l.\"FirstName__c\", 1), LEFT(l.\"LastName__c\", 1))) as \"Initials__c\", CURRENT_TIMESTAMP as \"EnrichedTimestamp__c\" FROM \"Lead__dll\" l INNER JOIN \"Account__dlm\" a ON LOWER(TRIM(l.\"Company__c\")) = LOWER(TRIM(a.\"Name__c\"))",
+      "targetDlo": "Lead_Account_Enriched__dll"
+    }
+  },
+  "d360_transform_create_dcsql_batch": {
+    "_note": "Complete create payload with enriched outputDataObjects (after running d360_transform_prepare). Shows isPrimaryKey designation and full field metadata.",
+    "name": "customer_360_enrichment",
+    "label": "Customer 360 Enrichment",
+    "description": "Aggregates customer data from accounts, opportunities, cases, and activities into a unified view",
+    "type": "batch",
+    "definition": {
+      "type": "DCSQL",
+      "version": "1.0",
+      "manifest": {
+        "nodes": {
+          "account_base": {
+            "name": "account_base",
+            "compiled_code": "SELECT \"Id__c\", \"Name__c\", \"Industry__c\", \"AnnualRevenue__c\", \"CreatedDate__c\" FROM \"Account__dlm\"",
+            "config": {
+              "materialized": "ephemeral"
+            }
+          },
+          "opportunity_metrics": {
+            "name": "opportunity_metrics",
+            "compiled_code": "SELECT \"AccountId__c\", COUNT(*) as \"OpportunityCount__c\", SUM(\"Amount__c\") as \"TotalPipeline__c\", AVG(\"Amount__c\") as \"AvgDealSize__c\", MAX(\"CloseDate__c\") as \"LastOpportunityDate__c\" FROM \"Opportunity__dlm\" WHERE \"IsClosed__c\" = false GROUP BY \"AccountId__c\"",
+            "config": {
+              "materialized": "ephemeral"
+            }
+          },
+          "case_metrics": {
+            "name": "case_metrics",
+            "compiled_code": "SELECT \"AccountId__c\", COUNT(*) as \"OpenCaseCount__c\", COUNT(CASE WHEN \"Priority__c\" = 'High' THEN 1 END) as \"HighPriorityCases__c\", AVG(DATEDIFF(day, \"CreatedDate__c\", COALESCE(\"ClosedDate__c\", CURRENT_DATE))) as \"AvgCaseResolutionDays__c\" FROM \"Case__dlm\" GROUP BY \"AccountId__c\"",
+            "config": {
+              "materialized": "ephemeral"
+            }
+          },
+          "activity_summary": {
+            "name": "activity_summary",
+            "compiled_code": "SELECT \"AccountId__c\", COUNT(*) as \"ActivityCount__c\", MAX(\"ActivityDate__c\") as \"LastActivityDate__c\", COUNT(CASE WHEN \"ActivityType__c\" = 'Email' THEN 1 END) as \"EmailCount__c\", COUNT(CASE WHEN \"ActivityType__c\" = 'Meeting' THEN 1 END) as \"MeetingCount__c\" FROM \"Activity__dlm\" WHERE \"ActivityDate__c\" >= DATEADD(month, -6, CURRENT_DATE) GROUP BY \"AccountId__c\"",
+            "config": {
+              "materialized": "ephemeral"
+            }
+          },
+          "customer_360_enriched": {
+            "name": "customer_360_enriched",
+            "relation_name": "Customer_360_Enriched__dll",
+            "config": {
+              "materialized": "table",
+              "writeMode": "OVERWRITE"
+            },
+            "compiled_code": "SELECT a.\"Id__c\", a.\"Name__c\", a.\"Industry__c\", a.\"AnnualRevenue__c\", COALESCE(o.\"OpportunityCount__c\", 0) as \"OpportunityCount__c\", COALESCE(o.\"TotalPipeline__c\", 0) as \"TotalPipeline__c\", COALESCE(o.\"AvgDealSize__c\", 0) as \"AvgDealSize__c\", o.\"LastOpportunityDate__c\", COALESCE(c.\"OpenCaseCount__c\", 0) as \"OpenCaseCount__c\", COALESCE(c.\"HighPriorityCases__c\", 0) as \"HighPriorityCases__c\", c.\"AvgCaseResolutionDays__c\", COALESCE(act.\"ActivityCount__c\", 0) as \"RecentActivityCount__c\", act.\"LastActivityDate__c\", COALESCE(act.\"EmailCount__c\", 0) as \"EmailCount__c\", COALESCE(act.\"MeetingCount__c\", 0) as \"MeetingCount__c\", CASE WHEN COALESCE(act.\"ActivityCount__c\", 0) >= 10 AND COALESCE(o.\"TotalPipeline__c\", 0) > 100000 THEN 'High' WHEN COALESCE(act.\"ActivityCount__c\", 0) >= 5 OR COALESCE(o.\"TotalPipeline__c\", 0) > 50000 THEN 'Medium' ELSE 'Low' END as \"EngagementScore__c\", CURRENT_TIMESTAMP as \"EnrichmentTimestamp__c\" FROM account_base a LEFT JOIN opportunity_metrics o ON a.\"Id__c\" = o.\"AccountId__c\" LEFT JOIN case_metrics c ON a.\"Id__c\" = c.\"AccountId__c\" LEFT JOIN activity_summary act ON a.\"Id__c\" = act.\"AccountId__c\"",
+            "depends_on": {
+              "nodes": [
+                "account_base",
+                "opportunity_metrics",
+                "case_metrics",
+                "activity_summary"
+              ]
+            }
+          }
+        }
+      },
+      "outputDataObjects": [
+        {
+          "name": "Customer_360_Enriched__dll",
+          "label": "Customer 360 Enriched",
+          "category": "Profile",
+          "type": "dataLakeObject",
+          "fields": [
+            {
+              "name": "Id__c",
+              "label": "Account ID",
+              "type": "Text",
+              "isPrimaryKey": true
+            },
+            {
+              "name": "Name__c",
+              "label": "Account Name",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "Industry__c",
+              "label": "Industry",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "AnnualRevenue__c",
+              "label": "Annual Revenue",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "OpportunityCount__c",
+              "label": "Opportunity Count",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "TotalPipeline__c",
+              "label": "Total Pipeline",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "AvgDealSize__c",
+              "label": "Average Deal Size",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "LastOpportunityDate__c",
+              "label": "Last Opportunity Date",
+              "type": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "OpenCaseCount__c",
+              "label": "Open Case Count",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "HighPriorityCases__c",
+              "label": "High Priority Cases",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "AvgCaseResolutionDays__c",
+              "label": "Avg Case Resolution Days",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "RecentActivityCount__c",
+              "label": "Recent Activity Count",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "LastActivityDate__c",
+              "label": "Last Activity Date",
+              "type": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "EmailCount__c",
+              "label": "Email Count",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "MeetingCount__c",
+              "label": "Meeting Count",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "EngagementScore__c",
+              "label": "Engagement Score",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "EnrichmentTimestamp__c",
+              "label": "Enrichment Timestamp",
+              "type": "DateTime",
+              "isPrimaryKey": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "d360_transform_create_sql_streaming": {
+    "name": "streaming_transform",
+    "label": "streaming transform",
+    "type": "streaming",
+    "definition": {
+      "type": "SQL",
+      "version": "63.0",
+      "expression": "SELECT Account_Home__dll.Id__c as Id__c FROM Account_Home__dll",
+      "targetDlo": "Account_Home_Target__dll",
+      "outputDataObjects": [
+        {
+          "category": "Profile",
+          "fields": [
+            {
+              "isPrimaryKey": true,
+              "label": "ID",
+              "name": "Id__c",
+              "type": "Text"
+            }
+          ],
+          "label": "Account Home Target",
+          "name": "Account_Home_Target__dll",
+          "type": "dataLakeObject"
+        }
+      ]
+    },
+    "_note": "Streaming SQL transform with outputDataObjects. Use for real-time row-by-row transformations."
+  },
   "d360_transform_create": {
-    "name": "Account Enrichment",
-    "description": "Enrich account data with aggregated pipeline and customer counts",
-    "targetDmo": "Account__dlm",
-    "sql": "SELECT\n  Account__dlm.ssot__Id__c,\n  Account__dlm.Name__c,\n  Account__dlm.Industry__c,\n  SUM(Opportunity__dlm.Amount__c) as total_pipeline,\n  COUNT(DISTINCT Opportunity__dlm.ssot__Id__c) as open_opportunities,\n  COUNT(DISTINCT Contact__dlm.ssot__Id__c) as contact_count,\n  MAX(Activity__dlm.LastActivityDate__c) as last_activity_date\nFROM Account__dlm\nLEFT JOIN Opportunity__dlm\n  ON Account__dlm.ssot__Id__c = Opportunity__dlm.AccountId__c\n  AND Opportunity__dlm.IsClosed__c = false\nLEFT JOIN Contact__dlm\n  ON Account__dlm.ssot__Id__c = Contact__dlm.AccountId__c\nLEFT JOIN Activity__dlm\n  ON Account__dlm.ssot__Id__c = Activity__dlm.AccountId__c\nGROUP BY\n  Account__dlm.ssot__Id__c,\n  Account__dlm.Name__c,\n  Account__dlm.Industry__c\n"
+    "_note": "Simple DCSQL batch transform (single node). For complex multi-node examples, see d360_transform_create_dcsql_batch. For streaming, see d360_transform_create_sql_streaming.",
+    "name": "account_summary",
+    "label": "Account Summary",
+    "description": "Simple single-node batch transform that filters and enriches account data",
+    "type": "batch",
+    "definition": {
+      "type": "DCSQL",
+      "version": "1.0",
+      "manifest": {
+        "nodes": {
+          "account_summary_output": {
+            "name": "account_summary_output",
+            "relation_name": "Account_Summary__dll",
+            "config": {
+              "materialized": "table",
+              "writeMode": "OVERWRITE"
+            },
+            "compiled_code": "SELECT \"Id__c\", \"Name__c\", \"Industry__c\", \"AnnualRevenue__c\", \"NumberOfEmployees__c\", \"Type__c\", \"Rating__c\", \"CreatedDate__c\" FROM \"Account__dlm\" WHERE \"AnnualRevenue__c\" > 1000000"
+          }
+        }
+      },
+      "outputDataObjects": [
+        {
+          "name": "Account_Summary__dll",
+          "label": "Account Summary",
+          "category": "Profile",
+          "type": "dataLakeObject",
+          "fields": [
+            {
+              "name": "Id__c",
+              "label": "Account ID",
+              "type": "Text",
+              "isPrimaryKey": true
+            },
+            {
+              "name": "Name__c",
+              "label": "Account Name",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "Industry__c",
+              "label": "Industry",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "AnnualRevenue__c",
+              "label": "Annual Revenue",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "NumberOfEmployees__c",
+              "label": "Number of Employees",
+              "type": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "Type__c",
+              "label": "Account Type",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "Rating__c",
+              "label": "Account Rating",
+              "type": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "CreatedDate__c",
+              "label": "Created Date",
+              "type": "DateTime",
+              "isPrimaryKey": false
+            }
+          ]
+        }
+      ]
+    }
   },
   "d360_activation_create": {
     "name": "Send High Value Customers to Salesforce",
@@ -384,7 +733,7 @@
         "targetFieldDeveloperName": "ssot__Website__c"
       }
     ],
-    "_note": "IMPORTANT: dataspace query param is REQUIRED (pass via 'dataspace' tool parameter). DLO field names include __c suffix (e.g., Id__c not Id). Use d360_dlo_get to get exact field names. For custom DMOs, you must create the DMO with explicit dataSpaceName first \u2014 otherwise the mapping API returns 'DMO not found'. System fields (DataSource__c, DataSourceObject__c, KQ_*) are auto-added."
+    "_note": "IMPORTANT: dataspace query param is REQUIRED (pass via 'dataspace' tool parameter). DLO field names include __c suffix (e.g., Id__c not Id). Use d360_dlo_get to get exact field names. For custom DMOs, you must create the DMO with explicit dataSpaceName first — otherwise the mapping API returns 'DMO not found'. System fields (DataSource__c, DataSourceObject__c, KQ_*) are auto-added."
   },
   "d360_dmo_mapping_create_contact": {
     "sourceEntityDeveloperName": "Contact_Home__dll",
@@ -576,7 +925,7 @@
       "shouldFetchImmediately": false,
       "shouldTreatMissingFilesAsFailures": false
     },
-    "_note": "CRITICAL: Engagement streams MUST set eventDateColumn to an immutable date field (like CreatedDate). Do NOT use LastModifiedDate \u2014 it changes on updates and breaks time-series partitioning. Use d360_smart_datastream to auto-select the best field."
+    "_note": "CRITICAL: Engagement streams MUST set eventDateColumn to an immutable date field (like CreatedDate). Do NOT use LastModifiedDate — it changes on updates and breaks time-series partitioning. Use d360_smart_datastream to auto-select the best field."
   },
   "d360_datastream_create_csv": {
     "advancedAttributes": {
@@ -1131,5 +1480,56 @@
         "type": "SDM"
       }
     ]
+  },
+  "d360_datastream_create_third_party_connectors": {
+    "connectionName": "airtable_dev_account_conn",
+    "datasource": "Airtable_airtable_dev_account_conn",
+    "objectName": "Tasks",
+    "fields": [
+      {
+        "name": "Internal_Id",
+        "dataType": "Text",
+        "isPrimaryKey": true
+      },
+      {
+        "name": "CreatedTime",
+        "dataType": "DateTime",
+        "isPrimaryKey": false,
+        "format": "MM/dd/yyyy HH:mm:ss.SSS"
+      },
+      {
+        "name": "Task",
+        "dataType": "Text",
+        "isPrimaryKey": false
+      },
+      {
+        "name": "Status",
+        "dataType": "Text",
+        "isPrimaryKey": false
+      },
+      {
+        "name": "Duration",
+        "dataType": "Number",
+        "isPrimaryKey": false
+      }
+    ],
+    "category": "Profile",
+    "_note": "Third-party connectors (Airtable, HubSpot, Marketo, Google Ads, etc.) use datastreamType CONNECTORSFRAMEWORK and connectorType DataConnector. The tool auto-generates data stream name as '{objectName}_{connectionName}', DLO name with __dll suffix, sourceFields, mappings, and dataLakeObjectInfo from the field definitions. Field dataType values from d360_connection_object_fields_describe (VARCHAR→Text, FLOAT→Number, TIMESTAMP→DateTime) are normalized automatically. Use the 'format' property on fields when d360_connection_object_fields_describe returns a format (e.g. DateTime fields)."
+  },
+  "d360_connection_db_schemas_list": {
+    "connectionId": "9cgaj0000012O5hAAE",
+    "advancedAttributes": "{\"database\":\"SNOWFLAKE_SAMPLE_DATA\"}",
+    "_note": "advancedAttributes is a JSON string; for Snowflake pass the database name. Returns schemas under that database. Use d360_snowflake_connection_list (or d360_connection_list) to find the connectionId."
+  },
+  "d360_connection_objects_list": {
+    "connectionId": "9cgaj0000012O5hAAE",
+    "advancedAttributes": "{\"database\":\"SNOWFLAKE_SAMPLE_DATA\",\"schema\":\"TPCH_SF1\"}",
+    "_note": "Lists tables/objects in a connection. For DB connectors (e.g., Snowflake) scope by database+schema in advancedAttributes — omitting them can return very large result sets. Omit advancedAttributes for non-DB connectors (e.g., Salesforce)."
+  },
+  "d360_connection_object_fields_describe": {
+    "connectionId": "9cgaj0000012O5hAAE",
+    "resourceName": "CUSTOMER",
+    "advancedAttributes": "{\"database\":\"SNOWFLAKE_SAMPLE_DATA\",\"schema\":\"TPCH_SF1\"}",
+    "_note": "Describes column-level schema (names, types, primary keys) of a single object. Discover resourceName via d360_connection_objects_list first."
   }
 }

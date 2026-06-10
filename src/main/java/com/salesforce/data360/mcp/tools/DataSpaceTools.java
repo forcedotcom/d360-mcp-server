@@ -21,6 +21,7 @@ import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.dataspace.DataSpaceCreateRequest;
 import com.salesforce.data360.mcp.model.request.dataspace.DataSpaceMemberRequest;
 import com.salesforce.data360.mcp.model.request.dataspace.DataSpacePatchRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 import org.springframework.ai.mcp.annotation.McpTool;
@@ -46,6 +47,7 @@ public class DataSpaceTools {
      * List all data spaces.
      * Discover all dataspaces in the org.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces", verb = "GET")
     @McpTool(
         name = "d360_dataspace_list",
         description = "List all data spaces."
@@ -63,6 +65,7 @@ public class DataSpaceTools {
      * Get a data space.
      * Get dataspace configuration and members.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}", verb = "GET")
     @McpTool(
         name = "d360_dataspace_get",
         description = "Get a data space."
@@ -82,6 +85,7 @@ public class DataSpaceTools {
      * Create a data space.
      * Creates isolated workspace. Tools from other dataspaces must reference it explicitly.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces", verb = "POST")
     @McpTool(
         name = "d360_dataspace_create",
         description = "Create a data space."
@@ -102,6 +106,7 @@ public class DataSpaceTools {
      * Update a data space.
      * Update metadata.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}", verb = "PATCH")
     @McpTool(
         name = "d360_dataspace_update",
         description = "Update a data space."
@@ -123,6 +128,7 @@ public class DataSpaceTools {
      * Delete a data space.
      * Deletes dataspace and all contents. Irreversible.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}", verb = "DELETE")
     @McpTool(
         name = "d360_dataspace_delete",
         description = "Delete a data space."
@@ -142,6 +148,7 @@ public class DataSpaceTools {
      * List data space members.
      * See who has access to this dataspace.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members", verb = "GET")
     @McpTool(
         name = "d360_dataspace_member_list",
         description = "List data space members."
@@ -161,6 +168,7 @@ public class DataSpaceTools {
      * Add a member to a data space.
      * Grant dataspace access to a user with specified role.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members", verb = "POST")
     @McpTool(
         name = "d360_dataspace_member_add",
         description = "Add a member to a data space."
@@ -182,6 +190,7 @@ public class DataSpaceTools {
      * Remove a member from a data space.
      * Revoke dataspace access from a user.
      */
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members/{memberId}", verb = "DELETE")
     @McpTool(
         name = "d360_dataspace_member_remove",
         description = "Remove a member from a data space."

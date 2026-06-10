@@ -23,58 +23,16 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
  * Request body for creating a data transform.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DataTransformCreateRequest {
+public class DataTransformCreateRequest extends DataTransformBaseRequest {
 
-    @McpToolParam(description = "Label of the data transform")
-    private String label;
-
-    @McpToolParam(description = "API name of the data transform")
-    private String name;
-
-    @McpToolParam(description = "Type: BATCH or STREAMING")
-    private String type;
-
-    @McpToolParam(description = "Creation type: Custom or System")
+    @McpToolParam(description = "Creation type: Custom or System", required = false)
     private String creationType;
 
-    @McpToolParam(description = "Currency ISO code")
+    @McpToolParam(description = "Currency ISO code", required = false)
     private String currencyIsoCode;
 
-    @McpToolParam(description = "Transform definition")
-    private DataTransformDefinitionInput definition;
-
-    @McpToolParam(description = "Description")
-    private String description;
-
-    @McpToolParam(description = "Primary source")
+    @McpToolParam(description = "Primary source", required = false)
     private String primarySource;
-
-    @McpToolParam(description = "Data space name", required = false)
-    private String dataSpaceName;
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getCreationType() {
         return creationType;
@@ -92,35 +50,11 @@ public class DataTransformCreateRequest {
         this.currencyIsoCode = currencyIsoCode;
     }
 
-    public DataTransformDefinitionInput getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(DataTransformDefinitionInput definition) {
-        this.definition = definition;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getPrimarySource() {
         return primarySource;
     }
 
     public void setPrimarySource(String primarySource) {
         this.primarySource = primarySource;
-    }
-
-    public String getDataSpaceName() {
-        return dataSpaceName;
-    }
-
-    public void setDataSpaceName(String dataSpaceName) {
-        this.dataSpaceName = dataSpaceName;
     }
 }

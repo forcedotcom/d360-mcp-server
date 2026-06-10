@@ -19,6 +19,7 @@ package com.salesforce.data360.mcp.tools.datastream;
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.request.datastream.ConnectorInput;
 import com.salesforce.data360.mcp.model.request.datastream.DataStreamCreateRequest;
+import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,7 @@ public class AwsS3DataStreamTools extends AbstractConnectorDataStreamTools {
     /**
      * Create a data stream that ingests from an AWS S3 bucket.
      */
+    @ApiEndpoint(path = "/ssot/data-streams", verb = "POST")
     @McpTool(
             name = "d360_datastream_create_aws_s3",
             description = "Create a data stream from an AWS S3 file. "
