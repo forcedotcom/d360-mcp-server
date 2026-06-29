@@ -19,6 +19,7 @@ package com.salesforce.data360.mcp.tools;
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.datatransform.DataTransformCreateRequest;
+import com.salesforce.data360.mcp.model.request.datatransform.DataTransformRunRequest;
 import com.salesforce.data360.mcp.model.request.datatransform.DataTransformPrepareRequest;
 import com.salesforce.data360.mcp.model.request.datatransform.DataTransformScheduleRequest;
 import com.salesforce.data360.mcp.model.request.datatransform.DataTransformUpdateRequest;
@@ -30,6 +31,8 @@ import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -89,10 +92,18 @@ public class DataTransformTools {
         description = "List all data transforms."
     )
     public String listDataTransforms(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter group", required = false) String filterGroup,
+        @McpToolParam(description = "Maximum number of results", required = false) Integer limit,
+        @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Order by clause", required = false) String orderBy
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-transforms", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            if (limit != null) params.put("limit", limit);
+            if (offset != null) params.put("offset", offset);
+            if (orderBy != null) params.put("orderBy", orderBy);
+            String path = ToolUtils.buildPath("/ssot/data-transforms", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -110,11 +121,13 @@ public class DataTransformTools {
         description = "Get a data transform."
     )
     public String getDataTransform(
-        @McpToolParam(description = "The transform ID") String transformId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The transform ID or name") String transformIdOrName,
+        @McpToolParam(description = "Filter group", required = false) String filterGroup
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformId), dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformIdOrName), params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -138,14 +151,12 @@ public class DataTransformTools {
                 "Supports both BATCH+DCSQL and STREAMING+SQL transforms."
     )
     public String prepareDataTransform(
-        @McpToolParam(description = "Data transform preparation request body") DataTransformPrepareRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Data transform preparation request body") DataTransformPrepareRequest request
     ) {
         try {
             // Step 1: Validate the transform definition
             Map<String, Object> validationBody = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-transforms-validation", dataspace);
-            Map<String, Object> validationResponse = client.post(path, validationBody, Map.class);
+            Map<String, Object> validationResponse = client.post("/ssot/data-transforms-validation", validationBody, Map.class);
 
             // Step 2: Check for validation errors
             List<Object> issues = (List<Object>) validationResponse.get(ISSUES);
@@ -232,8 +243,9 @@ public class DataTransformTools {
             }
 
             // Step 7: Add validation for DMO transforms
-            if (DATA_MODEL_OBJECT.equals(outputType) && (dataspace == null || dataspace.trim().isEmpty())) {
-                suggestions.put("warning", "DMO transforms require a dataspace. Please provide dataspace parameter.");
+            String dataSpaceName = request.getDataSpaceName();
+            if (DATA_MODEL_OBJECT.equals(outputType) && (dataSpaceName == null || dataSpaceName.trim().isEmpty())) {
+                suggestions.put("warning", "DMO transforms require a dataspace. Please set dataSpaceName on the request body.");
             }
 
             // Step 8: Return result with suggestions
@@ -271,12 +283,16 @@ public class DataTransformTools {
     )
     public String createDataTransform(
         @McpToolParam(description = "Data transform creation request body") DataTransformCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter group", required = false) String filterGroup,
+        @McpToolParam(description = "RequestedBy identifier", required = false) String requestedBy
     ) {
         try {
             // Create the transform - the API will validate completeness
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-transforms", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            if (requestedBy != null) params.put("requestedBy", requestedBy);
+            String path = ToolUtils.buildPath("/ssot/data-transforms", params);
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -549,20 +565,24 @@ public class DataTransformTools {
      * Update an existing data transform.
      * Can update description, SQL, and other properties.
      */
-    @ApiEndpoint(path = "/ssot/data-transforms/{id}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/data-transforms/{id}", verb = "PUT")
     @McpTool(
         name = "d360_transform_update",
         description = "Update a data transform."
     )
     public String updateDataTransform(
-        @McpToolParam(description = "The transform ID") String transformId,
+        @McpToolParam(description = "The transform ID or name") String transformIdOrName,
         @McpToolParam(description = "Data transform update request body") DataTransformUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace query parameter", required = false) String dataspace
+        @McpToolParam(description = "Filter group", required = false) String filterGroup,
+        @McpToolParam(description = "RequestedBy identifier", required = false) String requestedBy
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            Map<String, Object> params = new HashMap<>();
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            if (requestedBy != null) params.put("requestedBy", requestedBy);
+            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformIdOrName), params);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -579,11 +599,13 @@ public class DataTransformTools {
         description = "Delete a data transform."
     )
     public String deleteDataTransform(
-        @McpToolParam(description = "The transform ID") String transformId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The transform ID or name") String transformIdOrName,
+        @McpToolParam(description = "RequestedBy identifier", required = false) String requestedBy
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformId), dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (requestedBy != null) params.put("requestedBy", requestedBy);
+            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformIdOrName), params);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -601,12 +623,16 @@ public class DataTransformTools {
         description = "Run a data transform."
     )
     public String runDataTransform(
-        @McpToolParam(description = "The transform ID") String transformId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The transform ID or name") String transformIdOrName,
+        @McpToolParam(description = "RequestedBy identifier", required = false) String requestedBy,
+        @McpToolParam(description = "Run request body") DataTransformRunRequest request
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformId) + "/actions/run", dataspace);
-            Map result = client.post(path, Map.of(), Map.class);
+            Map<String, Object> params = new HashMap<>();
+            if (requestedBy != null) params.put("requestedBy", requestedBy);
+            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformIdOrName) + "/actions/run", params);
+            Map<String, Object> body = request != null ? JsonUtil.toMap(request) : Map.of();
+            Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -614,23 +640,22 @@ public class DataTransformTools {
     }
 
     /**
-     * Quick SQL validation for streaming transforms.
-     * For batch transforms or full validation with schema enrichment, use d360_transform_prepare instead.
+     * Validate a data transform before creation.
+     * Body is a full DataTransformInputRepresentation (same shape as create);
+     * for validation with schema enrichment, use d360_transform_prepare instead.
      */
     @ApiEndpoint(path = "/ssot/data-transforms-validation", verb = "POST")
     @McpTool(
         name = "d360_transform_validate",
-        description = "Quick SQL validation. Pass raw SQL string to check syntax.\n" +
-                "Use case: Quick validation of streaming SQL expressions.\n" +
-                "For full transform validation with schema enrichment, use d360_transform_prepare."
+        description = "Validate a data transform before creation. Body matches the create payload (name, label, type, definition, etc.).\n" +
+                "For validation with schema enrichment for downstream creation, use d360_transform_prepare."
     )
     public String validateDataTransform(
-        @McpToolParam(description = "Data transform validation request body with SQL") DataTransformValidateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Data transform validation request body") DataTransformValidateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-transforms-validation", dataspace);
+            String path = "/ssot/data-transforms-validation";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -648,11 +673,10 @@ public class DataTransformTools {
         description = "Get transform schedule."
     )
     public String getDataTransformSchedule(
-        @McpToolParam(description = "The transform ID") String transformId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The transform ID or name") String transformIdOrName
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformId) + "/schedule", dataspace);
+            String path = "/ssot/data-transforms/" + ToolUtils.encodePath(transformIdOrName) + "/schedule";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -670,13 +694,15 @@ public class DataTransformTools {
         description = "Set transform schedule."
     )
     public String setDataTransformSchedule(
-        @McpToolParam(description = "The transform ID") String transformId,
+        @McpToolParam(description = "The transform ID or name") String transformIdOrName,
         @McpToolParam(description = "Data transform schedule request body") DataTransformScheduleRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "RequestedBy identifier", required = false) String requestedBy
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformId) + "/schedule", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (requestedBy != null) params.put("requestedBy", requestedBy);
+            String path = ToolUtils.buildPath("/ssot/data-transforms/" + ToolUtils.encodePath(transformIdOrName) + "/schedule", params);
             Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {

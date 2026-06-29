@@ -20,15 +20,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * dbt model input for SQL-based segments.
+ * Mirrors {@code CdpSegmentDbtModelInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SegmentDbtModelInput {
 
-    @McpToolParam(description = "Model name")
+    @McpToolParam(description = "DBT Model Name", required = false)
     private String name;
 
-    @McpToolParam(description = "SQL query for the model")
+    @McpToolParam(description = "DBT SQL", required = false)
     private String sql;
 
     public String getName() {

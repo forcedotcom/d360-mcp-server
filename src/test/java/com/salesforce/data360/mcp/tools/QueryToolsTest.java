@@ -50,7 +50,7 @@ class QueryToolsTest {
     void testQuerySql_success() {
         // Given
         String sql = "SELECT * FROM Individual__dlm";
-        Integer rowLimit = 100;
+        Long rowLimit = 100L;
         String dataspace = DEFAULT_DATASPACE;
 
         Map<String, Object> mockResponse = Map.of(
@@ -86,7 +86,7 @@ class QueryToolsTest {
         String sql = "SELECT * FROM Individual__dlm";
         String dataspace = DEFAULT_DATASPACE;
         String workloadName = "myWorkload";
-        Integer rowLimit = 50;
+        Long rowLimit = 50L;
         Map<String, String> querySettings = Map.of("timeout", "30000");
         String sqlParameters = "[{\"name\":\"param1\",\"value\":\"value1\"}]";
         Integer adaptiveTimeout = 60000;
@@ -162,8 +162,8 @@ class QueryToolsTest {
     void testQuerySqlRows_success() {
         // Given
         String queryId = "query-123";
-        Integer offset = 0;
-        Integer rowLimit = 100;
+        Long offset = 0L;
+        Long rowLimit = 100L;
 
         Map<String, Object> mockResponse = Map.of(
             "data", Map.of("rows", java.util.List.of())
@@ -221,7 +221,7 @@ class QueryToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = queryTools.queryProfile(dataModelName, null, null, null, null, null, null, null, null, null, dataspace);
+        String result = queryTools.queryProfile(dataModelName, null, null, null, null, null, null, null, null, null, dataspace, null, null, null);
 
         // Then
         assertThat(result).contains("data");
@@ -246,7 +246,7 @@ class QueryToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = queryTools.queryProfile(dataModelName, id, null, null, null, null, null, null, null, null, null);
+        String result = queryTools.queryProfile(dataModelName, id, null, null, null, null, null, null, null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains(id);
@@ -310,7 +310,7 @@ class QueryToolsTest {
         Map<String, Object> mockResponse = Map.of("data", Map.of("id", "rec-1"));
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = queryTools.queryDataGraph("MyGraph", "rec-1", null, null);
+        String result = queryTools.queryDataGraph("MyGraph", "rec-1", null, null, null, null);
 
         assertThat(result).contains("rec-1");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -323,7 +323,7 @@ class QueryToolsTest {
         Map<String, Object> mockResponse = Map.of("data", Map.of("id", "rec-1"));
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = queryTools.queryDataGraph("MyGraph", "rec-1", null, true);
+        String result = queryTools.queryDataGraph("MyGraph", "rec-1", null, true, null, null);
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
@@ -335,7 +335,7 @@ class QueryToolsTest {
         Map<String, Object> mockResponse = Map.of("results", java.util.List.of());
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = queryTools.lookupDataGraph("MyGraph", "email@test.com", null, null);
+        String result = queryTools.lookupDataGraph("MyGraph", "email@test.com", null, null, null, null);
 
         assertThat(result).contains("results");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);

@@ -54,13 +54,15 @@ public class DloTools {
         description = "List all Data Lake Objects (DLOs) - raw ingested data sources. Essential for discovering DLO names and field API names before creating mappings. Filter by category (Profile, Engagement, Other) to narrow results."
     )
     public String listDataLakeObjects(
-        @McpToolParam(description = "Filter by category: Profile, Engagement, Other", required = false) String category,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Maximum number of results to return", required = false) Integer limit,
+        @McpToolParam(description = "Number of results to skip", required = false) Integer offset,
+        @McpToolParam(description = "Field name to order results by", required = false) String orderBy
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (category != null) params.put("category", category);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (limit != null) params.put("limit", limit);
+            if (offset != null) params.put("offset", offset);
+            if (orderBy != null) params.put("orderBy", orderBy);
 
             String path = ToolUtils.buildPath("/ssot/data-lake-objects", params);
             Map result = client.get(path, Map.class);
@@ -80,14 +82,10 @@ public class DloTools {
         description = "Get ONE DLO with all field definitions by API name. PREREQUISITE for creating mappings - returns exact field API names needed for sourceFieldName values. Pair with d360_dmo_get for target field names."
     )
     public String getDataLakeObject(
-        @McpToolParam(description = "DLO API name (e.g., 'Account_00D000000000000__dll')") String dloName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The DLO record ID or developer name (e.g., 'Account_00D000000000000__dll')") String dloIdOrName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-lake-objects/" + ToolUtils.encodePath(dloName), params);
+            String path = "/ssot/data-lake-objects/" + ToolUtils.encodePath(dloIdOrName);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -105,16 +103,12 @@ public class DloTools {
         description = "Create a new Data Lake Object. Typically created automatically via data stream ingestion, but can be created manually for custom use cases. Specify fields, types, and category."
     )
     public String createDataLakeObject(
-        @McpToolParam(description = "DLO creation request body") DloCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "DLO creation request body") DloCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-lake-objects", params);
+            String path = "/ssot/data-lake-objects";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -132,17 +126,13 @@ public class DloTools {
         description = "Update an existing Data Lake Object. Use this to modify a DLO's schema - add or change fields, update labels, or adjust field types."
     )
     public String updateDataLakeObject(
-        @McpToolParam(description = "DLO API name") String dloName,
-        @McpToolParam(description = "DLO update request body") DloPatchRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The DLO record ID or developer name") String dloIdOrName,
+        @McpToolParam(description = "DLO update request body") DloPatchRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-lake-objects/" + ToolUtils.encodePath(dloName), params);
+            String path = "/ssot/data-lake-objects/" + ToolUtils.encodePath(dloIdOrName);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -160,14 +150,10 @@ public class DloTools {
         description = "Delete a Data Lake Object. Use this to remove a DLO and its data from the data lake. Ensure no mappings or data streams reference it before deleting."
     )
     public String deleteDataLakeObject(
-        @McpToolParam(description = "DLO API name") String dloName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The DLO record ID or developer name") String dloIdOrName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-lake-objects/" + ToolUtils.encodePath(dloName), params);
+            String path = "/ssot/data-lake-objects/" + ToolUtils.encodePath(dloIdOrName);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {

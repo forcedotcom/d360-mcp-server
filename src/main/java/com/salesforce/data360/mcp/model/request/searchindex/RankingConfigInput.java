@@ -19,27 +19,59 @@ package com.salesforce.data360.mcp.model.request.searchindex;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
+import java.util.List;
+
 /**
- * Ranking field configuration for hybrid search.
+ * Mirrors {@code SearchRankingFieldInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RankingConfigInput {
 
-    @McpToolParam(description = "Developer name of the DMO", required = false)
-    private String dmoDeveloperName;
+    @McpToolParam(description = "Alias of the field", required = false)
+    private String aliasName;
 
-    @McpToolParam(description = "Developer name of the DMO field", required = false)
-    private String dmoFieldDeveloperName;
+    @McpToolParam(description = "Developer Name of the rank field", required = false)
+    private String developerName;
 
-    @McpToolParam(description = "Sort order", required = false)
-    private String sortOrder;
+    @McpToolParam(description = "Rank type. RankType enum.", required = false)
+    private String rankType;
 
-    public String getDmoDeveloperName() { return dmoDeveloperName; }
-    public void setDmoDeveloperName(String dmoDeveloperName) { this.dmoDeveloperName = dmoDeveloperName; }
+    @McpToolParam(description = "Related DMO developer name", required = false)
+    private String relatedDmoDeveloperName;
 
-    public String getDmoFieldDeveloperName() { return dmoFieldDeveloperName; }
-    public void setDmoFieldDeveloperName(String dmoFieldDeveloperName) { this.dmoFieldDeveloperName = dmoFieldDeveloperName; }
+    @McpToolParam(description = "Related DMO field developer name", required = false)
+    private String relatedDmoFieldDeveloperName;
 
-    public String getSortOrder() { return sortOrder; }
-    public void setSortOrder(String sortOrder) { this.sortOrder = sortOrder; }
+    @McpToolParam(description = "Related DMO field name", required = false)
+    private String relatedDmoFieldName;
+
+    @McpToolParam(description = "Related DMO name", required = false)
+    private String relatedDmoName;
+
+    @McpToolParam(description = "Field relationship paths", required = false)
+    private List<SourceTargetRelationshipInput> relationships;
+
+    public String getAliasName() { return aliasName; }
+    public void setAliasName(String aliasName) { this.aliasName = aliasName; }
+
+    public String getDeveloperName() { return developerName; }
+    public void setDeveloperName(String developerName) { this.developerName = developerName; }
+
+    public String getRankType() { return rankType; }
+    public void setRankType(String rankType) { this.rankType = rankType; }
+
+    public String getRelatedDmoDeveloperName() { return relatedDmoDeveloperName; }
+    public void setRelatedDmoDeveloperName(String relatedDmoDeveloperName) { this.relatedDmoDeveloperName = relatedDmoDeveloperName; }
+
+    public String getRelatedDmoFieldDeveloperName() { return relatedDmoFieldDeveloperName; }
+    public void setRelatedDmoFieldDeveloperName(String relatedDmoFieldDeveloperName) { this.relatedDmoFieldDeveloperName = relatedDmoFieldDeveloperName; }
+
+    public String getRelatedDmoFieldName() { return relatedDmoFieldName; }
+    public void setRelatedDmoFieldName(String relatedDmoFieldName) { this.relatedDmoFieldName = relatedDmoFieldName; }
+
+    public String getRelatedDmoName() { return relatedDmoName; }
+    public void setRelatedDmoName(String relatedDmoName) { this.relatedDmoName = relatedDmoName; }
+
+    public List<SourceTargetRelationshipInput> getRelationships() { return relationships; }
+    public void setRelationships(List<SourceTargetRelationshipInput> relationships) { this.relationships = relationships; }
 }

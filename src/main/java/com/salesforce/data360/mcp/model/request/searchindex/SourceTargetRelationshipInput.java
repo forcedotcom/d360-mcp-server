@@ -20,22 +20,34 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Describes a join relationship between a source and target DMO field.
+ * Mirrors {@code SourceTargetRelationshipInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SourceTargetRelationshipInput {
 
-    @McpToolParam(description = "Developer name of the source DMO")
+    @McpToolParam(description = "Source DMO developer name", required = false)
     private String sourceDmoDeveloperName;
 
-    @McpToolParam(description = "Developer name of the source DMO field")
+    @McpToolParam(description = "Source DMO field developer name", required = false)
     private String sourceDmoFieldDeveloperName;
 
-    @McpToolParam(description = "Developer name of the target DMO")
+    @McpToolParam(description = "Source DMO label", required = false)
+    private String sourceDmoLabel;
+
+    @McpToolParam(description = "Source DMO field label", required = false)
+    private String sourceFieldLabel;
+
+    @McpToolParam(description = "Target DMO developer name", required = false)
     private String targetDmoDeveloperName;
 
-    @McpToolParam(description = "Developer name of the target DMO field")
+    @McpToolParam(description = "Target DMO field developer name", required = false)
     private String targetDmoFieldDeveloperName;
+
+    @McpToolParam(description = "Target DMO label", required = false)
+    private String targetDmoLabel;
+
+    @McpToolParam(description = "Target DMO field label", required = false)
+    private String targetFieldLabel;
 
     public String getSourceDmoDeveloperName() { return sourceDmoDeveloperName; }
     public void setSourceDmoDeveloperName(String sourceDmoDeveloperName) { this.sourceDmoDeveloperName = sourceDmoDeveloperName; }
@@ -43,9 +55,21 @@ public class SourceTargetRelationshipInput {
     public String getSourceDmoFieldDeveloperName() { return sourceDmoFieldDeveloperName; }
     public void setSourceDmoFieldDeveloperName(String sourceDmoFieldDeveloperName) { this.sourceDmoFieldDeveloperName = sourceDmoFieldDeveloperName; }
 
+    public String getSourceDmoLabel() { return sourceDmoLabel; }
+    public void setSourceDmoLabel(String sourceDmoLabel) { this.sourceDmoLabel = sourceDmoLabel; }
+
+    public String getSourceFieldLabel() { return sourceFieldLabel; }
+    public void setSourceFieldLabel(String sourceFieldLabel) { this.sourceFieldLabel = sourceFieldLabel; }
+
     public String getTargetDmoDeveloperName() { return targetDmoDeveloperName; }
     public void setTargetDmoDeveloperName(String targetDmoDeveloperName) { this.targetDmoDeveloperName = targetDmoDeveloperName; }
 
     public String getTargetDmoFieldDeveloperName() { return targetDmoFieldDeveloperName; }
     public void setTargetDmoFieldDeveloperName(String targetDmoFieldDeveloperName) { this.targetDmoFieldDeveloperName = targetDmoFieldDeveloperName; }
+
+    public String getTargetDmoLabel() { return targetDmoLabel; }
+    public void setTargetDmoLabel(String targetDmoLabel) { this.targetDmoLabel = targetDmoLabel; }
+
+    public String getTargetFieldLabel() { return targetFieldLabel; }
+    public void setTargetFieldLabel(String targetFieldLabel) { this.targetFieldLabel = targetFieldLabel; }
 }

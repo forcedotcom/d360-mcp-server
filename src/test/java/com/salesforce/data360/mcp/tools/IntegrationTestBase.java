@@ -73,7 +73,7 @@ public abstract class IntegrationTestBase {
             // Data Space
             "d360_dataspace_list", "d360_dataspace_get", "d360_dataspace_member_list",
             // Connection
-            "d360_connection_list", "d360_connection_get", "d360_connection_endpoints",
+            "d360_connection_list", "d360_connection_get",
             // Data Transform
             "d360_transform_list", "d360_transform_get", "d360_transform_schedule_get",
             // DataKit

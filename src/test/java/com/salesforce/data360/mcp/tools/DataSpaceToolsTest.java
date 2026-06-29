@@ -59,7 +59,7 @@ class DataSpaceToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataSpaceTools.listDataSpaces();
+        String result = dataSpaceTools.listDataSpaces(null, null, null);
 
         // Then
         assertThat(result).contains("marketing_dataspace", "Marketing data");
@@ -152,27 +152,6 @@ class DataSpaceToolsTest {
     }
 
     @Test
-    void testDeleteDataSpace_success() {
-        // Given
-        String dataSpaceName = "test_dataspace";
-        Map<String, Object> mockResponse = Map.of("success", true);
-
-        when(client.delete(anyString(), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        // When
-        String result = dataSpaceTools.deleteDataSpace(dataSpaceName);
-
-        // Then
-        assertThat(result).contains("success");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).delete(pathCaptor.capture(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-spaces/test_dataspace");
-    }
-
-    @Test
     void testListDataSpaceMembers_success() {
         // Given
         String dataSpaceName = "marketing_dataspace";
@@ -186,7 +165,7 @@ class DataSpaceToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataSpaceTools.listDataSpaceMembers(dataSpaceName);
+        String result = dataSpaceTools.listDataSpaceMembers(dataSpaceName, null, null, null);
 
         // Then
         assertThat(result).contains("user-123", "ADMIN");
@@ -230,14 +209,14 @@ class DataSpaceToolsTest {
     void testRemoveDataSpaceMember_success() {
         // Given
         String dataSpaceName = "marketing_dataspace";
-        String memberId = "user-789";
+        String memberNames = "user-789";
         Map<String, Object> mockResponse = Map.of("success", true);
 
         when(client.delete(anyString(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
-        String result = dataSpaceTools.removeDataSpaceMember(dataSpaceName, memberId);
+        String result = dataSpaceTools.removeDataSpaceMember(dataSpaceName, memberNames);
 
         // Then
         assertThat(result).contains("success");
@@ -245,7 +224,7 @@ class DataSpaceToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-spaces/marketing_dataspace/members/user-789");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-spaces/marketing_dataspace/members?memberNames=user-789");
     }
 
     @Test

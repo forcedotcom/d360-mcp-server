@@ -20,12 +20,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Einstein GPT criteria for segments.
+ * Mirrors {@code CdpSegmentEinsteinGptSegmentsUIInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SegmentEinsteinGptInput {
 
-    @McpToolParam(description = "Include criteria for Einstein GPT segment", required = false)
+    @McpToolParam(description = "Inlcude criteria for an Einstein Gpt Segments UI segment.", required = false)
     private String includeCriteria;
 
     public String getIncludeCriteria() {

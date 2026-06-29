@@ -22,22 +22,31 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 import java.util.List;
 
 /**
- * Field-level chunking configuration for a specific DMO field.
+ * Mirrors {@code FieldLevelConfigurationInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FieldLevelConfigInput {
 
-    @McpToolParam(description = "Developer name of the source DMO (e.g., ssot__Case__dlm)")
+    @McpToolParam(description = "Chunking strategy configuration with id and userValues", required = false)
+    private ConfigInput config;
+
+    @McpToolParam(description = "Source DMO developer name (e.g., ssot__Case__dlm)", required = false)
     private String sourceDmoDeveloperName;
 
-    @McpToolParam(description = "Developer name of the source DMO field (e.g., ssot__Subject__c)")
+    @McpToolParam(description = "Source DMO field developer name (e.g., ssot__Subject__c)", required = false)
     private String sourceDmoFieldDeveloperName;
 
-    @McpToolParam(description = "List of decorator names", required = false)
-    private List<String> decorators;
+    @McpToolParam(description = "Source DMO field name", required = false)
+    private String sourceDmoFieldName;
 
-    @McpToolParam(description = "Chunking strategy configuration with id and userValues")
-    private ConfigInput config;
+    @McpToolParam(description = "Source DMO name", required = false)
+    private String sourceDmoName;
+
+    @McpToolParam(description = "Chunk Config version", required = false)
+    private String version;
+
+    public ConfigInput getConfig() { return config; }
+    public void setConfig(ConfigInput config) { this.config = config; }
 
     public String getSourceDmoDeveloperName() { return sourceDmoDeveloperName; }
     public void setSourceDmoDeveloperName(String sourceDmoDeveloperName) { this.sourceDmoDeveloperName = sourceDmoDeveloperName; }
@@ -45,9 +54,12 @@ public class FieldLevelConfigInput {
     public String getSourceDmoFieldDeveloperName() { return sourceDmoFieldDeveloperName; }
     public void setSourceDmoFieldDeveloperName(String sourceDmoFieldDeveloperName) { this.sourceDmoFieldDeveloperName = sourceDmoFieldDeveloperName; }
 
-    public List<String> getDecorators() { return decorators; }
-    public void setDecorators(List<String> decorators) { this.decorators = decorators; }
+    public String getSourceDmoFieldName() { return sourceDmoFieldName; }
+    public void setSourceDmoFieldName(String sourceDmoFieldName) { this.sourceDmoFieldName = sourceDmoFieldName; }
 
-    public ConfigInput getConfig() { return config; }
-    public void setConfig(ConfigInput config) { this.config = config; }
+    public String getSourceDmoName() { return sourceDmoName; }
+    public void setSourceDmoName(String sourceDmoName) { this.sourceDmoName = sourceDmoName; }
+
+    public String getVersion() { return version; }
+    public void setVersion(String version) { this.version = version; }
 }

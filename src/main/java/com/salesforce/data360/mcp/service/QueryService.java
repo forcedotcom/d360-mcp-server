@@ -36,7 +36,7 @@ public class QueryService {
     }
 
     public String querySql(String sql, String dataspace, String workloadName,
-                           Integer rowLimit, Map<String, String> querySettings,
+                           Long rowLimit, Map<String, String> querySettings,
                            String sqlParameters, Integer adaptiveTimeout) {
         try {
             Map<String, Object> body = new LinkedHashMap<>();
@@ -44,10 +44,7 @@ public class QueryService {
             if (rowLimit != null) body.put("rowLimit", rowLimit);
             if (querySettings != null) body.put("querySettings", querySettings);
             if (sqlParameters != null) {
-                Map<String, Object> sqlParamsWrapper = Map.of(
-                    "sqlParameters", ToolUtils.parseJson(sqlParameters, List.class, "sqlParameters")
-                );
-                body.put("sqlParameters", sqlParamsWrapper);
+                body.put("sqlParameters", ToolUtils.parseJson(sqlParameters, List.class, "sqlParameters"));
             }
             if (adaptiveTimeout != null) body.put("adaptiveTimeout", adaptiveTimeout);
 
@@ -72,7 +69,7 @@ public class QueryService {
         }
     }
 
-    public String querySqlRows(String queryId, Integer offset, Integer rowLimit,
+    public String querySqlRows(String queryId, Long offset, Long rowLimit,
                                Boolean omitSchema, String dataspace, String workloadName) {
         try {
             Map<String, Object> params = new LinkedHashMap<>();
@@ -101,7 +98,8 @@ public class QueryService {
     public String queryProfile(String dataModelName, String id, String childDataModelName,
                                String ciName, String searchKey, String fields,
                                Integer batchSize, String filters, Integer offset,
-                               String orderby, String dataspace) {
+                               String orderby, String dataspace,
+                               String dimensions, String measures, String timeGranularity) {
         try {
             StringBuilder pathBuilder = new StringBuilder("/ssot/profile/").append(ToolUtils.encodePath(dataModelName));
 
@@ -114,6 +112,10 @@ public class QueryService {
                 }
             }
 
+            boolean isCollection = id == null;
+            boolean isCalculatedInsight = id != null && ciName != null;
+            boolean acceptsAggregationParams = isCollection || isCalculatedInsight;
+
             Map<String, Object> params = new LinkedHashMap<>();
             if (searchKey != null) params.put("searchKey", searchKey);
             if (fields != null) params.put("fields", fields);
@@ -122,6 +124,11 @@ public class QueryService {
             if (offset != null) params.put("offset", offset);
             if (orderby != null) params.put("orderby", orderby);
             if (dataspace != null) params.put("dataspace", dataspace);
+            if (acceptsAggregationParams) {
+                if (dimensions != null) params.put("dimensions", dimensions);
+                if (measures != null) params.put("measures", measures);
+                if (timeGranularity != null) params.put("timeGranularity", timeGranularity);
+            }
 
             String path = ToolUtils.buildPath(pathBuilder.toString(), params);
             Map result = client.get(path, Map.class);
@@ -150,11 +157,14 @@ public class QueryService {
     }
 
     public String queryDataGraph(String dataGraphEntityName, String id,
-                                 String dataspace, Boolean live) {
+                                 String dataspace, Boolean live,
+                                 String projectedFields, String projectedFilters) {
         try {
             Map<String, Object> params = new LinkedHashMap<>();
             if (dataspace != null) params.put("dataspace", dataspace);
             if (live != null) params.put("live", live);
+            if (projectedFields != null) params.put("projectedFields", projectedFields);
+            if (projectedFilters != null) params.put("projectedFilters", projectedFilters);
 
             String path = ToolUtils.buildPath(
                 "/ssot/data-graphs/data/" + ToolUtils.encodePath(dataGraphEntityName) + "/" + ToolUtils.encodePath(id),
@@ -168,12 +178,15 @@ public class QueryService {
     }
 
     public String lookupDataGraph(String dataGraphEntityName, String lookupKeys,
-                                  String dataspace, Boolean noCache) {
+                                  String dataspace, Boolean noCache,
+                                  String projectedFields, String projectedFilters) {
         try {
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("lookupKeys", lookupKeys);
             if (dataspace != null) params.put("dataspace", dataspace);
             if (noCache != null) params.put("noCache", noCache);
+            if (projectedFields != null) params.put("projectedFields", projectedFields);
+            if (projectedFilters != null) params.put("projectedFilters", projectedFilters);
 
             String path = ToolUtils.buildPath(
                 "/ssot/data-graphs/data/" + ToolUtils.encodePath(dataGraphEntityName),

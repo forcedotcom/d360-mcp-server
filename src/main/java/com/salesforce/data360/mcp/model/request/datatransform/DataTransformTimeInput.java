@@ -20,18 +20,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Time configuration for data transform schedules.
+ * Mirrors {@code CdpTimeInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataTransformTimeInput {
 
-    @McpToolParam(description = "Hour (0-23)")
+    @McpToolParam(description = "Hour (0-23).", required = false)
     private Integer hour;
 
-    @McpToolParam(description = "Minute (0-59)")
+    @McpToolParam(description = "Minute (0-59).", required = false)
     private Integer minute;
 
-    @McpToolParam(description = "Time zone (e.g., 'America/Los_Angeles')")
+    @McpToolParam(description = "Time zone (e.g., 'America/Los_Angeles').", required = false)
     private String timeZone;
 
     public Integer getHour() {

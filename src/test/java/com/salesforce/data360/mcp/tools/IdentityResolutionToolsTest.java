@@ -52,7 +52,6 @@ class IdentityResolutionToolsTest {
     @Test
     void testListIdentityResolutions_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "data", java.util.List.of(
                 Map.of("id", "ir-123", "name", "Email Matching")
@@ -63,30 +62,10 @@ class IdentityResolutionToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = identityResolutionTools.listIdentityResolutions(dataspace);
-
-        // Then
-        assertThat(result).contains("ir-123", "Email Matching");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).get(pathCaptor.capture(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions?dataspace=default");
-    }
-
-    @Test
-    void testListIdentityResolutions_noDataspace() {
-        // Given
-        Map<String, Object> mockResponse = Map.of("data", java.util.List.of());
-
-        when(client.get(anyString(), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        // When
         String result = identityResolutionTools.listIdentityResolutions(null);
 
         // Then
-        assertThat(result).contains("data");
+        assertThat(result).contains("ir-123", "Email Matching");
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
@@ -95,10 +74,29 @@ class IdentityResolutionToolsTest {
     }
 
     @Test
+    void testListIdentityResolutions_withFilterGroup() {
+        // Given
+        Map<String, Object> mockResponse = Map.of("data", java.util.List.of());
+
+        when(client.get(anyString(), eq(Map.class)))
+            .thenReturn(mockResponse);
+
+        // When
+        String result = identityResolutionTools.listIdentityResolutions("myFilterGroup");
+
+        // Then
+        assertThat(result).contains("data");
+
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).get(pathCaptor.capture(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions?filterGroup=myFilterGroup");
+    }
+
+    @Test
     void testGetIdentityResolution_success() {
         // Given
         String identityResolutionId = "ir-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", identityResolutionId,
             "name", "Email and Phone Matching",
@@ -109,7 +107,7 @@ class IdentityResolutionToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = identityResolutionTools.getIdentityResolution(identityResolutionId, dataspace);
+        String result = identityResolutionTools.getIdentityResolution(identityResolutionId, null);
 
         // Then
         assertThat(result).contains(identityResolutionId, "Email and Phone Matching");
@@ -117,13 +115,12 @@ class IdentityResolutionToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123");
     }
 
     @Test
     void testCreateIdentityResolution_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("id", "ir-456", "label", "Email Matching");
 
         when(client.post(anyString(), any(), eq(Map.class)))
@@ -135,7 +132,7 @@ class IdentityResolutionToolsTest {
         request.setConfigurationType("STANDARD");
         request.setReconciliationRules(java.util.List.of());
 
-        String result = identityResolutionTools.createIdentityResolution(request, dataspace);
+        String result = identityResolutionTools.createIdentityResolution(request);
 
         // Then
         assertThat(result).contains("ir-456", "Email Matching");
@@ -144,7 +141,7 @@ class IdentityResolutionToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions");
         assertThat(bodyCaptor.getValue()).containsEntry("label", "Email Matching");
         assertThat(bodyCaptor.getValue()).containsEntry("configurationType", "STANDARD");
     }
@@ -153,7 +150,6 @@ class IdentityResolutionToolsTest {
     void testUpdateIdentityResolution_success() {
         // Given
         String identityResolutionId = "ir-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("id", identityResolutionId);
 
         when(client.patch(anyString(), any(), eq(Map.class)))
@@ -163,7 +159,7 @@ class IdentityResolutionToolsTest {
         IdentityResolutionPatchRequest request = new IdentityResolutionPatchRequest();
         request.setDescription("Updated description");
 
-        String result = identityResolutionTools.updateIdentityResolution(identityResolutionId, request, dataspace);
+        String result = identityResolutionTools.updateIdentityResolution(identityResolutionId, request);
 
         // Then
         assertThat(result).contains(identityResolutionId);
@@ -172,7 +168,7 @@ class IdentityResolutionToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123");
         assertThat(bodyCaptor.getValue()).containsEntry("description", "Updated description");
     }
 
@@ -180,10 +176,9 @@ class IdentityResolutionToolsTest {
     void testFullUpdateIdentityResolution_success() {
         // Given
         String identityResolutionId = "ir-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("id", identityResolutionId);
 
-        when(client.put(anyString(), any(), eq(Map.class)))
+        when(client.patch(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
@@ -192,16 +187,16 @@ class IdentityResolutionToolsTest {
         request.setConfigurationType("STANDARD");
         request.setReconciliationRules(java.util.List.of());
 
-        String result = identityResolutionTools.fullUpdateIdentityResolution(identityResolutionId, request, dataspace);
+        String result = identityResolutionTools.fullUpdateIdentityResolution(identityResolutionId, request);
 
         // Then
         assertThat(result).contains(identityResolutionId);
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
-        verify(client).put(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+        verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123");
         assertThat(bodyCaptor.getValue()).containsEntry("label", "Updated Name");
         assertThat(bodyCaptor.getValue()).containsEntry("configurationType", "STANDARD");
     }
@@ -210,14 +205,13 @@ class IdentityResolutionToolsTest {
     void testDeleteIdentityResolution_success() {
         // Given
         String identityResolutionId = "ir-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("success", true);
 
         when(client.delete(anyString(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
-        String result = identityResolutionTools.deleteIdentityResolution(identityResolutionId, dataspace);
+        String result = identityResolutionTools.deleteIdentityResolution(identityResolutionId);
 
         // Then
         assertThat(result).contains("success");
@@ -225,21 +219,20 @@ class IdentityResolutionToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123");
     }
 
     @Test
     void testPublishIdentityResolution_success() {
         // Given
         String identityResolutionId = "ir-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("status", "PUBLISHED");
 
         when(client.post(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
-        String result = identityResolutionTools.publishIdentityResolution(identityResolutionId, dataspace);
+        String result = identityResolutionTools.publishIdentityResolution(identityResolutionId);
 
         // Then
         assertThat(result).contains("PUBLISHED");
@@ -247,14 +240,13 @@ class IdentityResolutionToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123/actions/publish?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123/actions/publish");
     }
 
     @Test
     void testRunIdentityResolution_success() {
         // Given
         String identityResolutionId = "ir-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("jobId", "job-789", "status", "RUNNING");
 
         when(client.post(anyString(), any(), eq(Map.class)))
@@ -265,7 +257,7 @@ class IdentityResolutionToolsTest {
         request.setCallingApp("myApp");
         request.setCallingAppInfo("info");
 
-        String result = identityResolutionTools.runIdentityResolution(identityResolutionId, request, dataspace);
+        String result = identityResolutionTools.runIdentityResolution(identityResolutionId, request);
 
         // Then
         assertThat(result).contains("job-789", "RUNNING");
@@ -274,7 +266,7 @@ class IdentityResolutionToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123/actions/run-now?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/identity-resolutions/ir-123/actions/run-now");
         assertThat(bodyCaptor.getValue()).containsEntry("callingApp", "myApp");
         assertThat(bodyCaptor.getValue()).containsEntry("callingAppInfo", "info");
     }
@@ -291,7 +283,7 @@ class IdentityResolutionToolsTest {
         // When
         IdentityResolutionRunRequest request = new IdentityResolutionRunRequest();
 
-        String result = identityResolutionTools.runIdentityResolution(identityResolutionId, request, null);
+        String result = identityResolutionTools.runIdentityResolution(identityResolutionId, request);
 
         // Then
         assertThat(result).contains("job-789");

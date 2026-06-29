@@ -260,6 +260,26 @@ class ToolCallbackRegistryTest {
     }
 
     @Test
+    void invoke_runPredictionJob_emptyAssetRef_rejectedBeforeApiCall() {
+        com.salesforce.data360.mcp.tools.machinelearning.predictionjob.PredictionJobDefTools predictionJobTools =
+                new com.salesforce.data360.mcp.tools.machinelearning.predictionjob.PredictionJobDefTools(client);
+        when(context.getBeanDefinitionNames()).thenReturn(new String[]{"predictionJobTools"});
+        when(context.getType("predictionJobTools"))
+                .thenReturn((Class) com.salesforce.data360.mcp.tools.machinelearning.predictionjob.PredictionJobDefTools.class);
+        when(context.getBean("predictionJobTools")).thenReturn(predictionJobTools);
+
+        registry = new ToolCallbackRegistry(context, objectMapper, validator);
+
+        String paramsJson = "{\"predictionJobDef\":{}}";
+
+        assertThatThrownBy(() -> registry.invoke("d360_prediction_job_run", paramsJson))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("id or name");
+
+        verifyNoInteractions(client);
+    }
+
+    @Test
     void getSchema_withNestedObject_generatesNestedSchema() {
         // Given
         SchemaTestBean testBean = new SchemaTestBean();

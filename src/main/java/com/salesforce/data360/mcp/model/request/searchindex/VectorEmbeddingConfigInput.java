@@ -20,19 +20,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Vector embedding model and index configuration.
+ * Mirrors {@code VectorEmbeddingConfigInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VectorEmbeddingConfigInput {
 
-    @McpToolParam(description = "Embedding model configuration (e.g., id: e5_large_v2 with dimension and max_token_limit userValues)")
+    @McpToolParam(description = "Embedding model that creates embeddings (e.g., id: e5_large_v2 with userValues like dimension and max_token_limit)", required = false)
     private ConfigInput embeddingModel;
 
-    @McpToolParam(description = "Index configuration (e.g., id: HNSW with hnswEfConstruction and M userValues)")
+    @McpToolParam(description = "Index type used in indexing of vectors (e.g., HNSW, FLAT)", required = false)
     private ConfigInput index;
 
-    @McpToolParam(description = "Similarity metric: COSINE, DOT_PRODUCT, or EUCLIDEAN")
+    @McpToolParam(description = "Similarity metric used to calculate distance between vectors (e.g., COSINE, DOT_PRODUCT, EUCLIDEAN)", required = false)
     private String similarityMetric;
+
+    @McpToolParam(description = "Version of the record", required = false)
+    private String version;
 
     public ConfigInput getEmbeddingModel() { return embeddingModel; }
     public void setEmbeddingModel(ConfigInput embeddingModel) { this.embeddingModel = embeddingModel; }
@@ -42,4 +45,7 @@ public class VectorEmbeddingConfigInput {
 
     public String getSimilarityMetric() { return similarityMetric; }
     public void setSimilarityMetric(String similarityMetric) { this.similarityMetric = similarityMetric; }
+
+    public String getVersion() { return version; }
+    public void setVersion(String version) { this.version = version; }
 }

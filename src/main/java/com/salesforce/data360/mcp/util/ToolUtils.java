@@ -44,6 +44,9 @@ public final class ToolUtils {
             String encoded = URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8);
             queryParams.add(entry.getKey() + "=" + encoded);
         }
+        if (queryParams.isEmpty()) {
+            return basePath;
+        }
         return basePath + "?" + String.join("&", queryParams);
     }
 

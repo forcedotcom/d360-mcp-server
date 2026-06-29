@@ -17,13 +17,20 @@
 package com.salesforce.data360.mcp.model.request.activation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.ai.mcp.annotation.McpToolParam;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
 
 /**
- * Request to create an activation.
+ * Request body for creating a Connect API activation (POST /ssot/activations).
+ *
+ * <p>Cross-field rules enforced by the API:
+ * <ul>
+ *   <li>Provide exactly one of {@code activationTargetName} or {@code dataExportDefinitionId}.</li>
+ *   <li>Provide exactly one of {@code segmentApiName} or {@code marketSegmentId}.</li>
+ *   <li>{@code sourceDmoName} is required when {@code activationType == "API_TRIGGERED"}.</li>
+ * </ul>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivationCreateRequest {
@@ -33,75 +40,84 @@ public class ActivationCreateRequest {
     private String name;
 
     @NotBlank
-    @McpToolParam(description = "Refresh type (e.g., FULL, INCREMENTAL)")
+    @McpToolParam(description = "Activation Refresh Type (FULL_REFRESH/INCREMENTAL)")
     private String refreshType;
 
     @NotBlank
-    @McpToolParam(description = "Data space name")
+    @McpToolParam(description = "Dataspace name of Activation")
     private String dataSpaceName;
 
-    @McpToolParam(description = "Limit value")
-    private Integer limitValue;
-
-    @McpToolParam(description = "Curated entity configuration")
-    private CuratedEntityInput curatedEntity;
-
-    @McpToolParam(description = "Activation target subject configuration")
-    private ActivationTargetSubjectConfigInput activationTargetSubjectConfig;
-
-    @McpToolParam(description = "Attribute limiting expression configuration")
-    private AttributeLimitingExpressionConfigInput attributeLimitingExpressionConfig;
-
-    @McpToolParam(description = "Array of data source configurations")
-    private List<ActivationDataSourceConfigInput> dataSourcesConfig;
-
-    @McpToolParam(description = "Name of the activation target", required = false)
-    private String activationTargetName;
-
-    @McpToolParam(description = "API name of the segment to activate", required = false)
-    private String segmentApiName;
-
-    @McpToolParam(description = "Description", required = false)
+    @McpToolParam(description = "Description of the activation", required = false)
     private String description;
 
-    @McpToolParam(description = "Customer file source: FirstAndThirdParty, FirstParty, ThirdParty", required = false)
-    private String customerFileSource;
+    @McpToolParam(description = "Activation type: Segment or ApiTriggered. Defaults to Segment when unspecified", required = false)
+    private String activationType;
 
-    @McpToolParam(description = "Whether to exclude deletes", required = false)
-    private Boolean shouldExcludeDeletes;
+    @McpToolParam(description = "Activation template Id", required = false)
+    private String activationTemplateId;
 
-    @McpToolParam(description = "Whether to exclude updates", required = false)
-    private Boolean shouldExcludeUpdates;
+    @McpToolParam(description = "Platform name.", required = false)
+    private String platformName;
 
-    @McpToolParam(description = "Attributes config", required = false)
-    private List<AttributesConfigInput> attributesConfig;
+    @McpToolParam(description = "Name for the activation target. Either activationTargetName or dataExportDefinitionId must be present.", required = false)
+    private String activationTargetName;
 
-    @McpToolParam(description = "Contact points config", required = false)
-    private List<ContactPointConfigInput> contactPointsConfig;
-
-    @McpToolParam(description = "Direct DMO filters config", required = false)
-    private List<DMOFilterConfigInput> directDmoFiltersConfig;
-
-    @McpToolParam(description = "Related DMO filters config", required = false)
-    private List<DMOFilterConfigInput> relatedDmoFiltersConfig;
-
-    @McpToolParam(description = "Static data config", required = false)
-    private List<StaticDataConfigInput> staticDataConfig;
-
-    @McpToolParam(description = "Activation mapping schema", required = false)
-    private String activationMappingSchema;
-
-    @McpToolParam(description = "Data export definition ID", required = false)
+    @McpToolParam(description = "Activation target ID for the activation. Either activationTargetName or dataExportDefinitionId must be present.", required = false)
     private String dataExportDefinitionId;
 
-    @McpToolParam(description = "Market segment ID", required = false)
+    @McpToolParam(description = "Developer name of the segment. Either marketSegmentId or segmentApiName must be present. Exclude this property for ApiTriggered activation types.", required = false)
+    private String segmentApiName;
+
+    @McpToolParam(description = "Segment ID of the segment the activation needs to be created against. Either marketSegmentId or segmentApiName must be present. Exclude this property for ApiTriggered activation types.", required = false)
     private String marketSegmentId;
 
-    @McpToolParam(description = "ID (inherited)", required = false)
-    private String id;
+    @McpToolParam(description = "Name (developer/api name) of the source DMO. Required when activationType is ApiTriggered.", required = false)
+    private String sourceDmoName;
 
-    @McpToolParam(description = "Namespace (inherited)", required = false)
-    private String namespace;
+    @McpToolParam(description = "Activation Target Subject Config", required = false)
+    private ActivationTargetSubjectConfigInput activationTargetSubjectConfig;
+
+    @McpToolParam(description = "Curated entity", required = false)
+    private CuratedEntityInput curatedEntity;
+
+    @McpToolParam(description = "Limit Value", required = false)
+    private Integer limitValue;
+
+    @McpToolParam(description = "Customer file source. One of FirstAndThirdParty, FirstParty, ThirdParty.", required = false)
+    private String customerFileSource;
+
+    @McpToolParam(description = "Type of identifier to use for activation audience matching, such as PII or ANON.", required = false)
+    private String activationMappingSchema;
+
+    @McpToolParam(description = "Exclude records removed since the last refresh.", required = false)
+    private Boolean shouldExcludeDeletes;
+
+    @McpToolParam(description = "Exclude records modified since the last refresh.", required = false)
+    private Boolean shouldExcludeUpdates;
+
+    @McpToolParam(description = "Additional attributes for the activation.", required = false)
+    private List<AttributesConfigInput> attributesConfig;
+
+    @McpToolParam(description = "Contact points configuration", required = false)
+    private List<ContactPointConfigInput> contactPointsConfig;
+
+    @McpToolParam(description = "Direct DMO filters configuration", required = false)
+    private List<DMOFilterConfigInput> directDmoFiltersConfig;
+
+    @McpToolParam(description = "Related DMO filters configuration.", required = false)
+    private List<DMOFilterConfigInput> relatedDmoFiltersConfig;
+
+    @McpToolParam(description = "Attribute limiting expression input configuration", required = false)
+    private List<AttributeLimitingExpressionInput> attributeLimitingExpressionConfig;
+
+    @McpToolParam(description = "Identity Match Boost Provider Configuration", required = false)
+    private List<IdentityMatchBoostProviderInput> identityProviderConfig;
+
+    @McpToolParam(description = "Activation Data Sources Configuration", required = false)
+    private List<ActivationDataSourceConfigInput> dataSourcesConfig;
+
+    @McpToolParam(description = "Configuration of static data, which adds metadata or campaign details in the output. For example, campaignId or campaignName.", required = false)
+    private List<StaticDataInput> staticDataConfig;
 
     public String getName() {
         return name;
@@ -127,44 +143,36 @@ public class ActivationCreateRequest {
         this.dataSpaceName = dataSpaceName;
     }
 
-    public Integer getLimitValue() {
-        return limitValue;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLimitValue(Integer limitValue) {
-        this.limitValue = limitValue;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public CuratedEntityInput getCuratedEntity() {
-        return curatedEntity;
+    public String getActivationType() {
+        return activationType;
     }
 
-    public void setCuratedEntity(CuratedEntityInput curatedEntity) {
-        this.curatedEntity = curatedEntity;
+    public void setActivationType(String activationType) {
+        this.activationType = activationType;
     }
 
-    public ActivationTargetSubjectConfigInput getActivationTargetSubjectConfig() {
-        return activationTargetSubjectConfig;
+    public String getActivationTemplateId() {
+        return activationTemplateId;
     }
 
-    public void setActivationTargetSubjectConfig(ActivationTargetSubjectConfigInput activationTargetSubjectConfig) {
-        this.activationTargetSubjectConfig = activationTargetSubjectConfig;
+    public void setActivationTemplateId(String activationTemplateId) {
+        this.activationTemplateId = activationTemplateId;
     }
 
-    public AttributeLimitingExpressionConfigInput getAttributeLimitingExpressionConfig() {
-        return attributeLimitingExpressionConfig;
+    public String getPlatformName() {
+        return platformName;
     }
 
-    public void setAttributeLimitingExpressionConfig(AttributeLimitingExpressionConfigInput attributeLimitingExpressionConfig) {
-        this.attributeLimitingExpressionConfig = attributeLimitingExpressionConfig;
-    }
-
-    public List<ActivationDataSourceConfigInput> getDataSourcesConfig() {
-        return dataSourcesConfig;
-    }
-
-    public void setDataSourcesConfig(List<ActivationDataSourceConfigInput> dataSourcesConfig) {
-        this.dataSourcesConfig = dataSourcesConfig;
+    public void setPlatformName(String platformName) {
+        this.platformName = platformName;
     }
 
     public String getActivationTargetName() {
@@ -175,6 +183,14 @@ public class ActivationCreateRequest {
         this.activationTargetName = activationTargetName;
     }
 
+    public String getDataExportDefinitionId() {
+        return dataExportDefinitionId;
+    }
+
+    public void setDataExportDefinitionId(String dataExportDefinitionId) {
+        this.dataExportDefinitionId = dataExportDefinitionId;
+    }
+
     public String getSegmentApiName() {
         return segmentApiName;
     }
@@ -183,12 +199,44 @@ public class ActivationCreateRequest {
         this.segmentApiName = segmentApiName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMarketSegmentId() {
+        return marketSegmentId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMarketSegmentId(String marketSegmentId) {
+        this.marketSegmentId = marketSegmentId;
+    }
+
+    public String getSourceDmoName() {
+        return sourceDmoName;
+    }
+
+    public void setSourceDmoName(String sourceDmoName) {
+        this.sourceDmoName = sourceDmoName;
+    }
+
+    public ActivationTargetSubjectConfigInput getActivationTargetSubjectConfig() {
+        return activationTargetSubjectConfig;
+    }
+
+    public void setActivationTargetSubjectConfig(ActivationTargetSubjectConfigInput activationTargetSubjectConfig) {
+        this.activationTargetSubjectConfig = activationTargetSubjectConfig;
+    }
+
+    public CuratedEntityInput getCuratedEntity() {
+        return curatedEntity;
+    }
+
+    public void setCuratedEntity(CuratedEntityInput curatedEntity) {
+        this.curatedEntity = curatedEntity;
+    }
+
+    public Integer getLimitValue() {
+        return limitValue;
+    }
+
+    public void setLimitValue(Integer limitValue) {
+        this.limitValue = limitValue;
     }
 
     public String getCustomerFileSource() {
@@ -197,6 +245,14 @@ public class ActivationCreateRequest {
 
     public void setCustomerFileSource(String customerFileSource) {
         this.customerFileSource = customerFileSource;
+    }
+
+    public String getActivationMappingSchema() {
+        return activationMappingSchema;
+    }
+
+    public void setActivationMappingSchema(String activationMappingSchema) {
+        this.activationMappingSchema = activationMappingSchema;
     }
 
     public Boolean getShouldExcludeDeletes() {
@@ -247,51 +303,35 @@ public class ActivationCreateRequest {
         this.relatedDmoFiltersConfig = relatedDmoFiltersConfig;
     }
 
-    public List<StaticDataConfigInput> getStaticDataConfig() {
+    public List<AttributeLimitingExpressionInput> getAttributeLimitingExpressionConfig() {
+        return attributeLimitingExpressionConfig;
+    }
+
+    public void setAttributeLimitingExpressionConfig(List<AttributeLimitingExpressionInput> attributeLimitingExpressionConfig) {
+        this.attributeLimitingExpressionConfig = attributeLimitingExpressionConfig;
+    }
+
+    public List<IdentityMatchBoostProviderInput> getIdentityProviderConfig() {
+        return identityProviderConfig;
+    }
+
+    public void setIdentityProviderConfig(List<IdentityMatchBoostProviderInput> identityProviderConfig) {
+        this.identityProviderConfig = identityProviderConfig;
+    }
+
+    public List<ActivationDataSourceConfigInput> getDataSourcesConfig() {
+        return dataSourcesConfig;
+    }
+
+    public void setDataSourcesConfig(List<ActivationDataSourceConfigInput> dataSourcesConfig) {
+        this.dataSourcesConfig = dataSourcesConfig;
+    }
+
+    public List<StaticDataInput> getStaticDataConfig() {
         return staticDataConfig;
     }
 
-    public void setStaticDataConfig(List<StaticDataConfigInput> staticDataConfig) {
+    public void setStaticDataConfig(List<StaticDataInput> staticDataConfig) {
         this.staticDataConfig = staticDataConfig;
-    }
-
-    public String getActivationMappingSchema() {
-        return activationMappingSchema;
-    }
-
-    public void setActivationMappingSchema(String activationMappingSchema) {
-        this.activationMappingSchema = activationMappingSchema;
-    }
-
-    public String getDataExportDefinitionId() {
-        return dataExportDefinitionId;
-    }
-
-    public void setDataExportDefinitionId(String dataExportDefinitionId) {
-        this.dataExportDefinitionId = dataExportDefinitionId;
-    }
-
-    public String getMarketSegmentId() {
-        return marketSegmentId;
-    }
-
-    public void setMarketSegmentId(String marketSegmentId) {
-        this.marketSegmentId = marketSegmentId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
     }
 }

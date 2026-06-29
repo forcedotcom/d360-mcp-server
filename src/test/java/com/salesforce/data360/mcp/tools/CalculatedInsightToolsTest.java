@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightCreateRequest;
 import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightUpdateRequest;
+import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightValidateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,7 +63,7 @@ class CalculatedInsightToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = calculatedInsightTools.listCalculatedInsights(null);
+        String result = calculatedInsightTools.listCalculatedInsights(null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains("TotalRevenue__cio", "CustomerCount__cio");
@@ -87,7 +88,7 @@ class CalculatedInsightToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = calculatedInsightTools.getCalculatedInsight(ciName, null);
+        String result = calculatedInsightTools.getCalculatedInsight(ciName);
 
         // Then
         assertThat(result).contains("TotalRevenue__cio", "Total Revenue", "CALCULATED_METRIC");
@@ -226,7 +227,7 @@ class CalculatedInsightToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = calculatedInsightTools.runCalculatedInsight(ciName, null);
+        String result = calculatedInsightTools.runCalculatedInsight(ciName);
 
         // Then
         assertThat(result).contains("job-789", "running");
@@ -246,18 +247,18 @@ class CalculatedInsightToolsTest {
             "progress", 100
         );
 
-        when(client.get(anyString(), eq(Map.class)))
+        when(client.post(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
-        String result = calculatedInsightTools.getCalculatedInsightRunStatus(ciName, null);
+        String result = calculatedInsightTools.getCalculatedInsightRunStatus(ciName);
 
         // Then
         assertThat(result).contains("job-789", "completed", "100");
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).get(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/calculated-insights/" + ciName + "/actions/run");
+        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/calculated-insights/" + ciName + "/actions/refresh-status");
     }
 
     @Test
@@ -371,7 +372,7 @@ class CalculatedInsightToolsTest {
             .thenThrow(new ApiException(500, "Internal server error", "/ssot/calculated-insights"));
 
         // When
-        String result = calculatedInsightTools.listCalculatedInsights(null);
+        String result = calculatedInsightTools.listCalculatedInsights(null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains("error", "Internal server error", "500");
@@ -384,14 +385,14 @@ class CalculatedInsightToolsTest {
             .thenThrow(new ApiException(404, "CI not found", "/ssot/calculated-insights/NonExistent__cio"));
 
         // When
-        String result = calculatedInsightTools.getCalculatedInsight("NonExistent__cio", null);
+        String result = calculatedInsightTools.getCalculatedInsight("NonExistent__cio");
 
         // Then
         assertThat(result).contains("error", "CI not found", "404");
     }
 
     @Test
-    void testCreateCalculatedInsight_withDataspace() {
+    void testCreateCalculatedInsight_withShouldCommitTransaction() {
         // Given
         Map<String, Object> mockResponse = Map.of("id", "ci-456");
 
@@ -408,12 +409,12 @@ class CalculatedInsightToolsTest {
         request.setExpression("SELECT 1");
         request.setPublishScheduleInterval("SYSTEM_MANAGED");
 
-        String result = calculatedInsightTools.createCalculatedInsight(request, "custom-dataspace");
+        String result = calculatedInsightTools.createCalculatedInsight(request, true);
 
         // Then
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).post(pathCaptor.capture(), any(Map.class), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("dataspace=custom-dataspace");
+        assertThat(pathCaptor.getValue()).contains("shouldCommitTransaction=true");
     }
 
     @Test
@@ -442,7 +443,7 @@ class CalculatedInsightToolsTest {
         Map<String, Object> mockResponse = Map.of("status", "enabled");
         when(client.post(anyString(), any(Map.class), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = calculatedInsightTools.enableCalculatedInsight("MyMetric__cio", null);
+        String result = calculatedInsightTools.enableCalculatedInsight("MyMetric__cio");
 
         assertThat(result).contains("enabled");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -455,7 +456,7 @@ class CalculatedInsightToolsTest {
         Map<String, Object> mockResponse = Map.of("status", "disabled");
         when(client.post(anyString(), any(Map.class), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = calculatedInsightTools.disableCalculatedInsight("MyMetric__cio", null);
+        String result = calculatedInsightTools.disableCalculatedInsight("MyMetric__cio");
 
         assertThat(result).contains("disabled");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -468,7 +469,9 @@ class CalculatedInsightToolsTest {
         Map<String, Object> mockResponse = Map.of("valid", true);
         when(client.post(anyString(), any(Map.class), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = calculatedInsightTools.validateCalculatedInsight(null);
+        CalculatedInsightValidateRequest request = new CalculatedInsightValidateRequest();
+        request.setExpression("SELECT SUM(amount) FROM Orders__dlm");
+        String result = calculatedInsightTools.validateCalculatedInsight(request);
 
         assertThat(result).contains("valid");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -481,7 +484,7 @@ class CalculatedInsightToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenThrow(new ApiException(404, "CI not found", "/ssot/calculated-insights/NonExistent__cio/actions/enable"));
 
-        String result = calculatedInsightTools.enableCalculatedInsight("NonExistent__cio", null);
+        String result = calculatedInsightTools.enableCalculatedInsight("NonExistent__cio");
 
         assertThat(result).contains("error", "404");
     }

@@ -18,7 +18,7 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
-import com.salesforce.data360.mcp.model.request.datakit.DataKitPatchRequest;
+import com.salesforce.data360.mcp.model.request.datakit.DataKitDeployRequest;
 import com.salesforce.data360.mcp.model.request.datakit.DataKitUndeployRequest;
 import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
@@ -27,6 +27,7 @@ import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,10 +53,12 @@ public class DataKitTools {
         description = "List all data kits (packages)."
     )
     public String listDataKits(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter by namespace", required = false) String namespace
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (namespace != null) params.put("namespace", namespace);
+            String path = ToolUtils.buildPath("/ssot/data-kits", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -73,11 +76,13 @@ public class DataKitTools {
         description = "Get a data kit by ID."
     )
     public String getDataKit(
-        @McpToolParam(description = "The data kit ID") String dataKitId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data kit developer name") String dataKitDevName,
+        @McpToolParam(description = "Filter by FBDK accessible in LOB flag", required = false) Boolean fbdkAccessibleInLob
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitId), dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (fbdkAccessibleInLob != null) params.put("fbdkAccessibleInLob", fbdkAccessibleInLob);
+            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitDevName), params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -89,17 +94,16 @@ public class DataKitTools {
      * Get the manifest for a data kit.
      * Returns detailed manifest showing all components and dependencies.
      */
-    @ApiEndpoint(path = "/ssot/data-kits/{id}/manifest", verb = "GET")
+    @ApiEndpoint(path = "/ssot/datakit/{id}/manifest", verb = "GET")
     @McpTool(
         name = "d360_datakit_manifest",
         description = "Get a data kit's manifest."
     )
     public String getDataKitManifest(
-        @McpToolParam(description = "The data kit ID") String dataKitId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data kit developer name") String dataKitDevName
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitId) + "/manifest", dataspace);
+            String path = "/ssot/datakit/" + ToolUtils.encodePath(dataKitDevName) + "/manifest";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -108,21 +112,27 @@ public class DataKitTools {
     }
 
     /**
-     * Deploy a data kit or update components.
-     * Deploy or update datakit components (DMOs, mappings, transforms, etc.).
+     * Deploy a data kit by developer name.
      */
-    @ApiEndpoint(path = "/ssot/data-kits/update-components", verb = "POST")
+    @ApiEndpoint(path = "/ssot/data-kits/{dataKitDevName}", verb = "POST")
     @McpTool(
         name = "d360_datakit_deploy",
         description = "Deploy a data kit."
     )
     public String deployDataKit(
-        @McpToolParam(description = "Data kit component update request body") DataKitPatchRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data kit developer name") String dataKitDevName,
+        @McpToolParam(description = "Data kit deploy request body") DataKitDeployRequest request,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Enable async deployment mode", required = false) Boolean asyncMode,
+        @McpToolParam(description = "Filter by FBDK accessible in LOB flag", required = false) Boolean fbdkAccessibleInLob
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-kits/update-components", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+            if (asyncMode != null) params.put("asyncMode", asyncMode);
+            if (fbdkAccessibleInLob != null) params.put("fbdkAccessibleInLob", fbdkAccessibleInLob);
+            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitDevName), params);
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -140,13 +150,17 @@ public class DataKitTools {
         description = "Undeploy a data kit."
     )
     public String undeployDataKit(
-        @McpToolParam(description = "The data kit ID") String dataKitId,
+        @McpToolParam(description = "The data kit developer name") String dataKitDevName,
         @McpToolParam(description = "Data kit undeploy request body") DataKitUndeployRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Enable async undeploy mode", required = false) Boolean asyncMode
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitId) + "/undeploy", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+            if (asyncMode != null) params.put("asyncMode", asyncMode);
+            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitDevName) + "/undeploy", params);
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -164,11 +178,10 @@ public class DataKitTools {
         description = "Get deployment job status."
     )
     public String getDataKitDeploymentStatus(
-        @McpToolParam(description = "The deployment job ID") String jobId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The deployment job ID") String jobId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits/deployment-jobs/" + ToolUtils.encodePath(jobId), dataspace);
+            String path = "/ssot/data-kits/deployment-jobs/" + ToolUtils.encodePath(jobId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -186,12 +199,12 @@ public class DataKitTools {
         description = "Get component status within a data kit."
     )
     public String getDataKitComponentStatus(
-        @McpToolParam(description = "The data kit ID") String dataKitId,
-        @McpToolParam(description = "The component ID") String componentId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data kit developer name") String dataKitDevName,
+        @McpToolParam(description = "The component name") String componentName,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitId) + "/components/" + ToolUtils.encodePath(componentId) + "/deployment-status", dataspace);
+            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitDevName) + "/components/" + ToolUtils.encodePath(componentName) + "/deployment-status", dataspace);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -200,20 +213,26 @@ public class DataKitTools {
     }
 
     /**
-     * List all components in a data kit.
-     * Get list of all components (DMOs, mappings, etc.) in a datakit.
+     * List components available in the org for inclusion in data kits.
      */
-    @ApiEndpoint(path = "/ssot/data-kits/{id}/components", verb = "GET")
+    @ApiEndpoint(path = "/ssot/data-kits/available-components", verb = "GET")
     @McpTool(
         name = "d360_datakit_components",
-        description = "List all components in a data kit. Get list of all components (DMOs, mappings, etc.) in a datakit."
+        description = "List components available in the org for inclusion in data kits."
     )
     public String listDataKitComponents(
-        @McpToolParam(description = "The data kit ID") String dataKitId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter by component type", required = false) String componentType,
+        @McpToolParam(description = "Filter by data kit developer name", required = false) String dataKitDevName,
+        @McpToolParam(description = "Maximum number of results to return", required = false) Integer limit,
+        @McpToolParam(description = "Number of results to skip", required = false) Integer offset
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitId) + "/components", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (componentType != null) params.put("componentType", componentType);
+            if (dataKitDevName != null) params.put("dataKitDevName", dataKitDevName);
+            if (limit != null) params.put("limit", limit);
+            if (offset != null) params.put("offset", offset);
+            String path = ToolUtils.buildPath("/ssot/data-kits/available-components", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -231,12 +250,16 @@ public class DataKitTools {
         description = "Get component dependencies."
     )
     public String getDataKitComponentDependencies(
-        @McpToolParam(description = "The data kit ID") String dataKitId,
-        @McpToolParam(description = "The component ID") String componentId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data kit developer name") String dataKitDevName,
+        @McpToolParam(description = "The component name") String componentName,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Filter by component type", required = false) String componentType
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitId) + "/components/" + ToolUtils.encodePath(componentId) + "/dependencies", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (dataspace != null) params.put("dataspace", dataspace);
+            if (componentType != null) params.put("componentType", componentType);
+            String path = ToolUtils.buildPath("/ssot/data-kits/" + ToolUtils.encodePath(dataKitDevName) + "/components/" + ToolUtils.encodePath(componentName) + "/dependencies", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {

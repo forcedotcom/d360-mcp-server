@@ -18,6 +18,17 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionCreateRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionDbSchemaCollectionRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionFieldCollectionRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionObjectCollectionRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionTestRequest;
+import com.salesforce.data360.mcp.model.request.metadata.DataConnectionParameterInput;
+import com.salesforce.data360.mcp.model.request.metadata.PrismMetadataSearchFilterInputRepresentation;
+import com.salesforce.data360.mcp.model.request.metadata.PrismMetadataSearchInputRepresentation;
+import com.salesforce.data360.mcp.model.request.metadata.PrismMetadataSearchPaginationInputRepresentation;
+import com.salesforce.data360.mcp.model.request.metadata.ResourceFilterByPropertyInput;
+import com.salesforce.data360.mcp.model.request.metadata.ResourceFiltersInput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,8 +69,11 @@ class MetadataToolsTest {
         );
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
+        PrismMetadataSearchInputRepresentation request = new PrismMetadataSearchInputRepresentation();
+        request.setQuery("Individual");
+
         // When
-        String result = metadataTools.searchMetadata("Individual", null, null, null, null);
+        String result = metadataTools.searchMetadata(request);
 
         // Then
         assertThat(result).contains("Individual__dlm");
@@ -70,7 +84,8 @@ class MetadataToolsTest {
         assertThat(pathCaptor.getValue()).isEqualTo("/connect/search/metadata/results");
         Map<String, Object> body = bodyCaptor.getValue();
         assertThat(body.get("query")).isEqualTo("Individual");
-        assertThat(((Map) body.get("pagination")).get("limit")).isEqualTo(10);
+        assertThat(body).doesNotContainKey("pagination");
+        assertThat(body).doesNotContainKey("filters");
     }
 
     @Test
@@ -79,14 +94,25 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("data", List.of(), "totalRecords", 0);
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
+        PrismMetadataSearchPaginationInputRepresentation pagination =
+            new PrismMetadataSearchPaginationInputRepresentation();
+        pagination.setLimit(20);
+
+        PrismMetadataSearchFilterInputRepresentation typeFilter = new PrismMetadataSearchFilterInputRepresentation();
+        typeFilter.setField("metadataType");
+        typeFilter.setValues(List.of("DataModelObject"));
+
+        PrismMetadataSearchFilterInputRepresentation tagsFilter = new PrismMetadataSearchFilterInputRepresentation();
+        tagsFilter.setField("tags");
+        tagsFilter.setValues(List.of("crm"));
+
+        PrismMetadataSearchInputRepresentation request = new PrismMetadataSearchInputRepresentation();
+        request.setQuery("Account");
+        request.setPagination(pagination);
+        request.setFilters(List.of(typeFilter, tagsFilter));
+
         // When
-        String result = metadataTools.searchMetadata(
-            "Account",
-            20,
-            10,
-            "[\"DataModelObject\"]",
-            "[\"crm\"]"
-        );
+        metadataTools.searchMetadata(request);
 
         // Then
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
@@ -95,7 +121,6 @@ class MetadataToolsTest {
         Map<String, Object> body = bodyCaptor.getValue();
         assertThat(body.get("query")).isEqualTo("Account");
         assertThat(((Map) body.get("pagination")).get("limit")).isEqualTo(20);
-        assertThat(((Map) body.get("pagination")).get("offset")).isEqualTo(10);
 
         List<Map<String, Object>> filters = (List<Map<String, Object>>) body.get("filters");
         assertThat(filters).hasSize(2);
@@ -109,8 +134,11 @@ class MetadataToolsTest {
         when(client.post(anyString(), any(), eq(Map.class)))
             .thenThrow(new ApiException(500, "Internal Server Error", "/connect/search/metadata/results"));
 
+        PrismMetadataSearchInputRepresentation request = new PrismMetadataSearchInputRepresentation();
+        request.setQuery("test");
+
         // When
-        String result = metadataTools.searchMetadata("test", null, null, null, null);
+        String result = metadataTools.searchMetadata(request);
 
         // Then
         assertThat(result).contains("error", "500", "Internal Server Error");
@@ -266,7 +294,7 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("data", List.of(Map.of("id", "conn-1")));
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.listConnections("SALESFORCE", null);
+        String result = metadataTools.listConnections("SALESFORCE", null, null, null, null, null, null, null);
 
         assertThat(result).contains("conn-1");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -279,13 +307,12 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("id", "conn-1", "name", "My Connection");
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.getConnection("conn-1", "SALESFORCE", null);
+        String result = metadataTools.getConnection("conn-1", null);
 
         assertThat(result).contains("My Connection");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("/ssot/connections/conn-1");
-        assertThat(pathCaptor.getValue()).contains("connectorType=SALESFORCE");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections/conn-1");
     }
 
     @Test
@@ -293,10 +320,20 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("id", "conn-new");
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.createConnection("{\"name\":\"New Conn\"}", "SALESFORCE", null);
+        ConnectionCreateRequest request = new ConnectionCreateRequest();
+        request.setName("New Conn");
+        request.setConnectorType("SALESFORCE");
+        String result = metadataTools.createConnection(request);
 
         assertThat(result).contains("conn-new");
-        verify(client).post(anyString(), any(), eq(Map.class));
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections");
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsEntry("connectorType", "SALESFORCE");
+        assertThat(body).containsEntry("name", "New Conn");
     }
 
     @Test
@@ -304,10 +341,11 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("success", true);
         when(client.delete(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.deleteConnection("conn-1", "SALESFORCE", null);
+        String result = metadataTools.deleteConnection("conn-1");
 
         assertThat(result).contains("success");
         verify(client).delete(anyString(), eq(Map.class));
+
     }
 
     @Test
@@ -315,23 +353,24 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("status", "connected");
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.testConnection("{\"credentials\":{}}", "SALESFORCE", null);
+        DataConnectionParameterInput cred = new DataConnectionParameterInput();
+        cred.setParamName("clientId");
+        cred.setValue("abc");
+        ConnectionTestRequest request = new ConnectionTestRequest();
+        request.setConnectorType("SALESFORCE");
+        request.setCredentials(List.of(cred));
+        String result = metadataTools.testConnection(request);
 
         assertThat(result).contains("connected");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
         assertThat(pathCaptor.getValue()).contains("/ssot/connections/actions/test");
-    }
-
-    @Test
-    void testListConnectionEndpoints_success() {
-        Map<String, Object> mockResponse = Map.of("endpoints", List.of("ep-1"));
-        when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
-
-        String result = metadataTools.listConnectionEndpoints(null);
-
-        assertThat(result).contains("ep-1");
-        verify(client).get("/ssot/connection-endpoints", Map.class);
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsEntry("connectorType", "SALESFORCE");
+        List<Map<String, Object>> creds = (List<Map<String, Object>>) body.get("credentials");
+        assertThat(creds).hasSize(1);
+        assertThat(creds.get(0)).containsEntry("paramName", "clientId").containsEntry("value", "abc");
     }
 
     @Test
@@ -339,7 +378,7 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("connectors", List.of("SALESFORCE", "REST_API"));
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.listConnectors(null);
+        String result = metadataTools.listConnectors(null, null, null);
 
         assertThat(result).contains("SALESFORCE");
         verify(client).get("/ssot/connectors", Map.class);
@@ -350,7 +389,7 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("type", "SALESFORCE", "fields", List.of("clientId"));
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.getConnectorMetadata("SALESFORCE", null);
+        String result = metadataTools.getConnectorMetadata("SALESFORCE");
 
         assertThat(result).contains("SALESFORCE", "clientId");
         verify(client).get("/ssot/connectors/SALESFORCE", Map.class);
@@ -361,7 +400,7 @@ class MetadataToolsTest {
         when(client.get(anyString(), eq(Map.class)))
             .thenThrow(new ApiException(500, "Internal Error", "/ssot/connections"));
 
-        String result = metadataTools.listConnections("SALESFORCE", null);
+        String result = metadataTools.listConnections("SALESFORCE", null, null, null, null, null, null, null);
 
         assertThat(result).contains("error", "500");
     }
@@ -375,11 +414,9 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("databaseSchemas", List.of("PUBLIC", "ANALYTICS"));
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.listConnectionDbSchemas(
-            "CONN_ID",
-            "{\"database\":\"MY_DB\"}",
-            null
-        );
+        ConnectionDbSchemaCollectionRequest request = new ConnectionDbSchemaCollectionRequest();
+        request.setAdvancedAttributes(Map.of("database", "MY_DB"));
+        String result = metadataTools.listConnectionDbSchemas("CONN_ID", request);
 
         assertThat(result).contains("PUBLIC", "ANALYTICS");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -393,37 +430,15 @@ class MetadataToolsTest {
     }
 
     @Test
-    void testListConnectionDbSchemas_withDataspace() {
-        Map<String, Object> mockResponse = Map.of("databaseSchemas", List.of());
-        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
-
-        metadataTools.listConnectionDbSchemas("CONN_ID", "{\"database\":\"DB\"}", DEFAULT_DATASPACE);
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/connections/CONN_ID/database-schemas?dataspace=default");
-    }
-
-    @Test
-    void testListConnectionDbSchemas_invalidJsonReturnsError() {
-        String result = metadataTools.listConnectionDbSchemas("CONN_ID", "not json", null);
-
-        assertThat(result).contains("error", "Invalid JSON advancedAttributes");
-    }
-
-    @Test
     void testListConnectionObjects_omitsUnsetKeys() {
         Map<String, Object> mockResponse = Map.of(
             "objects", List.of(Map.of("name", "ORDERS", "label", "Orders"))
         );
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.listConnectionObjects(
-            "CONN_ID",
-            "{\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"}",
-            null,
-            null
-        );
+        ConnectionObjectCollectionRequest request = new ConnectionObjectCollectionRequest();
+        request.setAdvancedAttributes(Map.of("database", "MY_DB", "schema", "PUBLIC"));
+        String result = metadataTools.listConnectionObjects("CONN_ID", request);
 
         assertThat(result).contains("ORDERS");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -441,19 +456,26 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("objects", List.of());
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        metadataTools.listConnectionObjects(
-            "CONN_ID",
-            "{\"database\":\"DB\"}",
-            "{\"namePrefix\":\"ORD\"}",
-            null
-        );
+        ResourceFilterByPropertyInput byProp = new ResourceFilterByPropertyInput();
+        byProp.setFilterOperator("EQUALS");
+        byProp.setValues(List.of("ORD"));
+        ResourceFiltersInput filters = new ResourceFiltersInput();
+        filters.setFiltersByProperty(List.of(byProp));
+        ConnectionObjectCollectionRequest request = new ConnectionObjectCollectionRequest();
+        request.setAdvancedAttributes(Map.of("database", "DB"));
+        request.setFilters(filters);
+
+        metadataTools.listConnectionObjects("CONN_ID", request);
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
 
         Map<String, Object> body = bodyCaptor.getValue();
         assertThat(body).containsKeys("advancedAttributes", "filters");
-        assertThat((Map) body.get("filters")).containsEntry("namePrefix", "ORD");
+        Map<String, Object> filtersMap = (Map<String, Object>) body.get("filters");
+        List<Map<String, Object>> byPropList = (List<Map<String, Object>>) filtersMap.get("filtersByProperty");
+        assertThat(byPropList).hasSize(1);
+        assertThat(byPropList.get(0)).containsEntry("filterOperator", "EQUALS");
     }
 
     @Test
@@ -464,13 +486,13 @@ class MetadataToolsTest {
         );
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = metadataTools.describeConnectionObjectFields(
-            "CONN_ID",
-            "MY.TABLE",
-            "{\"database\":\"DB\",\"schema\":\"PUBLIC\"}",
-            "{\"includeSystem\":false}",
-            null
-        );
+        ResourceFiltersInput filters = new ResourceFiltersInput();
+        filters.setFiltersByProperty(List.of());
+        ConnectionFieldCollectionRequest request = new ConnectionFieldCollectionRequest();
+        request.setAdvancedAttributes(Map.of("database", "DB", "schema", "PUBLIC"));
+        request.setFilters(filters);
+
+        String result = metadataTools.describeConnectionObjectFields("CONN_ID", "MY.TABLE", request);
 
         assertThat(result).contains("primaryKeys", "ID");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -487,7 +509,8 @@ class MetadataToolsTest {
         Map<String, Object> mockResponse = Map.of("fields", List.of());
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        metadataTools.describeConnectionObjectFields("CONN_ID", "ORDERS", null, null, null);
+        metadataTools.describeConnectionObjectFields(
+            "CONN_ID", "ORDERS", new ConnectionFieldCollectionRequest());
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));

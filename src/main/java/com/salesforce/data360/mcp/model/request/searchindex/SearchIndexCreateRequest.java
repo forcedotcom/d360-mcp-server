@@ -69,14 +69,38 @@ public class SearchIndexCreateRequest {
     @McpToolParam(description = "Label of semantic search record")
     private String label;
 
+    @McpToolParam(description = "Parsing configurations for document processing. "
+        + "Valid ids: system_default, parse_documents_using_llm, docling_parsing.", required = false)
+    private List<ProcessingConfigInput> parsingConfigurations;
+
+    @McpToolParam(description = "Post-processing configurations. "
+        + "Get valid ids from d360_search_index_config.", required = false)
+    private List<ProcessingConfigInput> postProcessingConfigurations;
+
+    @McpToolParam(description = "Pre-processing configurations. "
+        + "Valid ids: system_default, pre_process_infographics_using_llm.", required = false)
+    private List<ProcessingConfigInput> preProcessingConfigurations;
+
     @McpToolParam(description = "Processing type: NEAR_REALTIME or REALTIME", required = false)
     private String processingType;
 
     @McpToolParam(description = "List of ranking configurations for hybrid search", required = false)
     private List<RankingConfigInput> rankingConfigurations;
 
+    @McpToolParam(description = "Rule configuration with label, priority rules with conditions, and sorting rules", required = false)
+    private RuleConfigInput ruleConfiguration;
+
     @McpToolParam(description = "Type of the search index: HYBRID or VECTOR")
     private String searchType;
+
+    @McpToolParam(description = "Semantic search ranking configurations for hybrid search with retrieval types and weights", required = false)
+    private List<SemanticSearchRankingConfigInput> semanticSearchRankingConfigurations;
+
+    @McpToolParam(description = "Source application that created this search index", required = false)
+    private String sourceApp;
+
+    @McpToolParam(description = "Developer name of the source application", required = false)
+    private String sourceAppDeveloperName;
 
     @McpToolParam(description = "Developer name of the source DMO (e.g., loanAgreement__dlm)")
     private String sourceDmoDeveloperName;
@@ -84,11 +108,11 @@ public class SearchIndexCreateRequest {
     @McpToolParam(description = "Transcribe output DMO developer name", required = false)
     private String transcribeDmoDeveloperName;
 
-    @McpToolParam(description = "Transcribe output DMO name", required = false)
-    private String transcribeDmoName;
-
     @McpToolParam(description = "Transcribe output DMO ID", required = false)
     private String transcribeDmoId;
+
+    @McpToolParam(description = "Transcribe output DMO name", required = false)
+    private String transcribeDmoName;
 
     @McpToolParam(description = "Transform configurations (e.g., transcription). "
         + "Get valid config ids from d360_search_index_config.")
@@ -107,32 +131,6 @@ public class SearchIndexCreateRequest {
     @McpToolParam(description = "Vector embedding configuration with embeddingModel, index, and similarityMetric. "
         + "Get valid ids from d360_search_index_config.")
     private VectorEmbeddingConfigInput vectorEmbeddingConfiguration;
-
-    @McpToolParam(description = "Parsing configurations for document processing. "
-        + "Valid ids: system_default, parse_documents_using_llm, docling_parsing.", required = false)
-    private List<ProcessingConfigInput> parsingConfigurations;
-
-    @McpToolParam(description = "Pre-processing configurations. "
-        + "Valid ids: system_default, pre_process_infographics_using_llm.", required = false)
-    private List<ProcessingConfigInput> preProcessingConfigurations;
-
-    @McpToolParam(description = "Post-processing configurations. "
-        + "Get valid ids from d360_search_index_config.", required = false)
-    private List<ProcessingConfigInput> postProcessingConfigurations;
-
-    @McpToolParam(description = "Semantic search ranking configurations for hybrid search with retrieval types and weights", required = false)
-    private List<SemanticSearchRankingConfigInput> semanticSearchRankingConfigurations;
-
-    @McpToolParam(description = "Rule configuration with label, priority rules with conditions, and sorting rules", required = false)
-    private RuleConfigInput ruleConfiguration;
-
-    @McpToolParam(description = "Source application that created this search index", required = false)
-    private String sourceApp;
-
-    @McpToolParam(description = "Developer name of the source application", required = false)
-    private String sourceAppDeveloperName;
-
-    // Getters and setters
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -170,14 +168,35 @@ public class SearchIndexCreateRequest {
     public String getLabel() { return label; }
     public void setLabel(String label) { this.label = label; }
 
+    public List<ProcessingConfigInput> getParsingConfigurations() { return parsingConfigurations; }
+    public void setParsingConfigurations(List<ProcessingConfigInput> parsingConfigurations) { this.parsingConfigurations = parsingConfigurations; }
+
+    public List<ProcessingConfigInput> getPostProcessingConfigurations() { return postProcessingConfigurations; }
+    public void setPostProcessingConfigurations(List<ProcessingConfigInput> postProcessingConfigurations) { this.postProcessingConfigurations = postProcessingConfigurations; }
+
+    public List<ProcessingConfigInput> getPreProcessingConfigurations() { return preProcessingConfigurations; }
+    public void setPreProcessingConfigurations(List<ProcessingConfigInput> preProcessingConfigurations) { this.preProcessingConfigurations = preProcessingConfigurations; }
+
     public String getProcessingType() { return processingType; }
     public void setProcessingType(String processingType) { this.processingType = processingType; }
 
     public List<RankingConfigInput> getRankingConfigurations() { return rankingConfigurations; }
     public void setRankingConfigurations(List<RankingConfigInput> rankingConfigurations) { this.rankingConfigurations = rankingConfigurations; }
 
+    public RuleConfigInput getRuleConfiguration() { return ruleConfiguration; }
+    public void setRuleConfiguration(RuleConfigInput ruleConfiguration) { this.ruleConfiguration = ruleConfiguration; }
+
     public String getSearchType() { return searchType; }
     public void setSearchType(String searchType) { this.searchType = searchType; }
+
+    public List<SemanticSearchRankingConfigInput> getSemanticSearchRankingConfigurations() { return semanticSearchRankingConfigurations; }
+    public void setSemanticSearchRankingConfigurations(List<SemanticSearchRankingConfigInput> semanticSearchRankingConfigurations) { this.semanticSearchRankingConfigurations = semanticSearchRankingConfigurations; }
+
+    public String getSourceApp() { return sourceApp; }
+    public void setSourceApp(String sourceApp) { this.sourceApp = sourceApp; }
+
+    public String getSourceAppDeveloperName() { return sourceAppDeveloperName; }
+    public void setSourceAppDeveloperName(String sourceAppDeveloperName) { this.sourceAppDeveloperName = sourceAppDeveloperName; }
 
     public String getSourceDmoDeveloperName() { return sourceDmoDeveloperName; }
     public void setSourceDmoDeveloperName(String sourceDmoDeveloperName) { this.sourceDmoDeveloperName = sourceDmoDeveloperName; }
@@ -185,11 +204,11 @@ public class SearchIndexCreateRequest {
     public String getTranscribeDmoDeveloperName() { return transcribeDmoDeveloperName; }
     public void setTranscribeDmoDeveloperName(String transcribeDmoDeveloperName) { this.transcribeDmoDeveloperName = transcribeDmoDeveloperName; }
 
-    public String getTranscribeDmoName() { return transcribeDmoName; }
-    public void setTranscribeDmoName(String transcribeDmoName) { this.transcribeDmoName = transcribeDmoName; }
-
     public String getTranscribeDmoId() { return transcribeDmoId; }
     public void setTranscribeDmoId(String transcribeDmoId) { this.transcribeDmoId = transcribeDmoId; }
+
+    public String getTranscribeDmoName() { return transcribeDmoName; }
+    public void setTranscribeDmoName(String transcribeDmoName) { this.transcribeDmoName = transcribeDmoName; }
 
     public List<TransformConfigInput> getTransformConfigurations() { return transformConfigurations; }
     public void setTransformConfigurations(List<TransformConfigInput> transformConfigurations) { this.transformConfigurations = transformConfigurations; }
@@ -205,25 +224,4 @@ public class SearchIndexCreateRequest {
 
     public VectorEmbeddingConfigInput getVectorEmbeddingConfiguration() { return vectorEmbeddingConfiguration; }
     public void setVectorEmbeddingConfiguration(VectorEmbeddingConfigInput vectorEmbeddingConfiguration) { this.vectorEmbeddingConfiguration = vectorEmbeddingConfiguration; }
-
-    public List<ProcessingConfigInput> getParsingConfigurations() { return parsingConfigurations; }
-    public void setParsingConfigurations(List<ProcessingConfigInput> parsingConfigurations) { this.parsingConfigurations = parsingConfigurations; }
-
-    public List<ProcessingConfigInput> getPreProcessingConfigurations() { return preProcessingConfigurations; }
-    public void setPreProcessingConfigurations(List<ProcessingConfigInput> preProcessingConfigurations) { this.preProcessingConfigurations = preProcessingConfigurations; }
-
-    public List<ProcessingConfigInput> getPostProcessingConfigurations() { return postProcessingConfigurations; }
-    public void setPostProcessingConfigurations(List<ProcessingConfigInput> postProcessingConfigurations) { this.postProcessingConfigurations = postProcessingConfigurations; }
-
-    public List<SemanticSearchRankingConfigInput> getSemanticSearchRankingConfigurations() { return semanticSearchRankingConfigurations; }
-    public void setSemanticSearchRankingConfigurations(List<SemanticSearchRankingConfigInput> semanticSearchRankingConfigurations) { this.semanticSearchRankingConfigurations = semanticSearchRankingConfigurations; }
-
-    public RuleConfigInput getRuleConfiguration() { return ruleConfiguration; }
-    public void setRuleConfiguration(RuleConfigInput ruleConfiguration) { this.ruleConfiguration = ruleConfiguration; }
-
-    public String getSourceApp() { return sourceApp; }
-    public void setSourceApp(String sourceApp) { this.sourceApp = sourceApp; }
-
-    public String getSourceAppDeveloperName() { return sourceAppDeveloperName; }
-    public void setSourceAppDeveloperName(String sourceAppDeveloperName) { this.sourceAppDeveloperName = sourceAppDeveloperName; }
 }

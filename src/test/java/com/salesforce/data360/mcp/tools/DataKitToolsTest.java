@@ -18,8 +18,8 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
-import com.salesforce.data360.mcp.model.request.datakit.DataKitComponentInput;
-import com.salesforce.data360.mcp.model.request.datakit.DataKitPatchRequest;
+import com.salesforce.data360.mcp.model.request.datakit.DataKitDeployComponentDetails;
+import com.salesforce.data360.mcp.model.request.datakit.DataKitDeployRequest;
 import com.salesforce.data360.mcp.model.request.datakit.DataKitUndeployComponentDetails;
 import com.salesforce.data360.mcp.model.request.datakit.DataKitUndeployRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +53,6 @@ class DataKitToolsTest {
     @Test
     void testListDataKits_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "data", java.util.List.of(
                 Map.of("id", "datakit-123", "name", "MyDataKit")
@@ -64,7 +63,7 @@ class DataKitToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataKitTools.listDataKits(dataspace);
+        String result = dataKitTools.listDataKits("myNamespace");
 
         // Then
         assertThat(result).contains("datakit-123", "MyDataKit");
@@ -72,11 +71,11 @@ class DataKitToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits", "dataspace=default");
+        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits", "namespace=myNamespace");
     }
 
     @Test
-    void testListDataKits_noDataspace() {
+    void testListDataKits_noNamespace() {
         // Given
         Map<String, Object> mockResponse = Map.of("data", java.util.List.of());
 
@@ -99,7 +98,6 @@ class DataKitToolsTest {
     void testGetDataKit_success() {
         // Given
         String dataKitId = "datakit-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", dataKitId,
             "name", "MyDataKit",
@@ -110,7 +108,7 @@ class DataKitToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataKitTools.getDataKit(dataKitId, dataspace);
+        String result = dataKitTools.getDataKit(dataKitId, null);
 
         // Then
         assertThat(result).contains(dataKitId, "MyDataKit");
@@ -118,14 +116,13 @@ class DataKitToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits/datakit-123", "dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-kits/datakit-123");
     }
 
     @Test
     void testGetDataKitManifest_success() {
         // Given
         String dataKitId = "datakit-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "components", java.util.List.of(
                 Map.of("id", "comp-1", "type", "DMO")
@@ -136,7 +133,7 @@ class DataKitToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataKitTools.getDataKitManifest(dataKitId, dataspace);
+        String result = dataKitTools.getDataKitManifest(dataKitId);
 
         // Then
         assertThat(result).contains("components", "comp-1");
@@ -144,12 +141,13 @@ class DataKitToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits/datakit-123/manifest");
+        assertThat(pathCaptor.getValue()).contains("/ssot/datakit/datakit-123/manifest");
     }
 
     @Test
     void testDeployDataKit_success() {
         // Given
+        String dataKitDevName = "my_datakit";
         String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "jobId", "job-456",
@@ -159,15 +157,15 @@ class DataKitToolsTest {
         when(client.post(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        DataKitComponentInput component = new DataKitComponentInput();
-        component.setType("DMO");
-        component.setInfo(Map.of("id", "comp-1"));
+        DataKitDeployComponentDetails component = new DataKitDeployComponentDetails();
+        component.setType("CalculatedInsight");
+        component.setConfig(Map.of("name", "comp-1"));
 
-        DataKitPatchRequest request = new DataKitPatchRequest();
+        DataKitDeployRequest request = new DataKitDeployRequest();
         request.setComponents(List.of(component));
 
         // When
-        String result = dataKitTools.deployDataKit(request, dataspace);
+        String result = dataKitTools.deployDataKit(dataKitDevName, request, dataspace, null, null);
 
         // Then
         assertThat(result).contains("job-456", "IN_PROGRESS");
@@ -176,7 +174,7 @@ class DataKitToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits/update-components", "dataspace=default");
+        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits/my_datakit", "dataspace=default");
         assertThat(bodyCaptor.getValue()).containsKey("components");
     }
 
@@ -201,7 +199,7 @@ class DataKitToolsTest {
         request.setComponents(List.of(component));
 
         // When
-        String result = dataKitTools.undeployDataKit(dataKitId, request, dataspace);
+        String result = dataKitTools.undeployDataKit(dataKitId, request, dataspace, null);
 
         // Then
         assertThat(result).contains("job-789");
@@ -216,7 +214,6 @@ class DataKitToolsTest {
     void testGetDataKitDeploymentStatus_success() {
         // Given
         String jobId = "job-456";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "jobId", jobId,
             "status", "COMPLETED",
@@ -227,7 +224,7 @@ class DataKitToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataKitTools.getDataKitDeploymentStatus(jobId, dataspace);
+        String result = dataKitTools.getDataKitDeploymentStatus(jobId);
 
         // Then
         assertThat(result).contains("COMPLETED", "100");
@@ -267,8 +264,6 @@ class DataKitToolsTest {
     @Test
     void testListDataKitComponents_success() {
         // Given
-        String dataKitId = "datakit-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "components", java.util.List.of(
                 Map.of("id", "comp-1", "type", "DMO")
@@ -279,7 +274,7 @@ class DataKitToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataKitTools.listDataKitComponents(dataKitId, dataspace);
+        String result = dataKitTools.listDataKitComponents(null, null, null, null);
 
         // Then
         assertThat(result).contains("components", "comp-1");
@@ -287,7 +282,7 @@ class DataKitToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits/datakit-123/components");
+        assertThat(pathCaptor.getValue()).contains("/ssot/data-kits/available-components");
     }
 
     @Test
@@ -306,7 +301,7 @@ class DataKitToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataKitTools.getDataKitComponentDependencies(dataKitId, componentId, dataspace);
+        String result = dataKitTools.getDataKitComponentDependencies(dataKitId, componentId, dataspace, null);
 
         // Then
         assertThat(result).contains("dependencies", "comp-2");

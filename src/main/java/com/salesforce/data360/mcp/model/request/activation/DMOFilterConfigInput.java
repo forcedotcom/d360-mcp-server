@@ -20,23 +20,98 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * DMO filter configuration for activation.
- * Contains deeply nested filter objects.
+ * Mirrors ConnectApi.DMOFilterInput.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DMOFilterConfigInput {
 
-    @McpToolParam(description = "Array of DMO filter objects. Each filter has: entityName (string), entityFilter (array), entityFilterType (string), inheritedFilter (array), inheritedFilterType (string), queryPathConfigForActivateOnToContainer (array), queryPathConfigFromContainerToEntity (array)", required = false)
-    private List<Map<String, Object>> filters;
+    @McpToolParam(description = "Entity Filter", required = false)
+    private ComparisonInput entityFilter;
 
-    public List<Map<String, Object>> getFilters() {
-        return filters;
+    @McpToolParam(description = "Entity Filter type", required = false)
+    private String entityFilterType;
+
+    @McpToolParam(description = "Entity Name", required = false)
+    private String entityName;
+
+    @McpToolParam(description = "Limit", required = false)
+    private DmoFilterLimitInput filterLimit;
+
+    @McpToolParam(description = "Inherited Filter", required = false)
+    private ComparisonInput inheritedFilter;
+
+    @McpToolParam(description = "inherited filter type", required = false)
+    private String inheritedFilterType;
+
+    @McpToolParam(description = "Path From Activate On To Container", required = false)
+    private List<QueryPathInputConfig> queryPathConfigForActivateOnToContainer;
+
+    @McpToolParam(description = "Path From Container To Entity", required = false)
+    private List<QueryPathInputConfig> queryPathConfigFromContainerToEntity;
+
+    public ComparisonInput getEntityFilter() {
+        return entityFilter;
     }
 
-    public void setFilters(List<Map<String, Object>> filters) {
-        this.filters = filters;
+    public void setEntityFilter(ComparisonInput entityFilter) {
+        this.entityFilter = entityFilter;
+    }
+
+    public String getEntityFilterType() {
+        return entityFilterType;
+    }
+
+    public void setEntityFilterType(String entityFilterType) {
+        this.entityFilterType = entityFilterType;
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
+
+    public DmoFilterLimitInput getFilterLimit() {
+        return filterLimit;
+    }
+
+    public void setFilterLimit(DmoFilterLimitInput filterLimit) {
+        this.filterLimit = filterLimit;
+    }
+
+    public ComparisonInput getInheritedFilter() {
+        return inheritedFilter;
+    }
+
+    public void setInheritedFilter(ComparisonInput inheritedFilter) {
+        this.inheritedFilter = inheritedFilter;
+    }
+
+    public String getInheritedFilterType() {
+        return inheritedFilterType;
+    }
+
+    public void setInheritedFilterType(String inheritedFilterType) {
+        this.inheritedFilterType = inheritedFilterType;
+    }
+
+    public List<QueryPathInputConfig> getQueryPathConfigForActivateOnToContainer() {
+        return queryPathConfigForActivateOnToContainer;
+    }
+
+    public void setQueryPathConfigForActivateOnToContainer(List<QueryPathInputConfig> queryPathConfigForActivateOnToContainer) {
+        this.queryPathConfigForActivateOnToContainer = queryPathConfigForActivateOnToContainer;
+    }
+
+    public List<QueryPathInputConfig> getQueryPathConfigFromContainerToEntity() {
+        return queryPathConfigFromContainerToEntity;
+    }
+
+    public void setQueryPathConfigFromContainerToEntity(List<QueryPathInputConfig> queryPathConfigFromContainerToEntity) {
+        this.queryPathConfigFromContainerToEntity = queryPathConfigFromContainerToEntity;
     }
 }

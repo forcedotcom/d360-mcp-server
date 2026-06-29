@@ -20,20 +20,44 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Semantic search ranking configuration with retrieval types and weights.
+ * Mirrors {@code DataSmntcSearchRankConfigDetailsInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SemanticSearchRankingConfigInput {
 
-    @McpToolParam(description = "Retrieval type", required = false)
+    @McpToolParam(description = "Configuration type. ConfigurationType enum.", required = false)
+    private String configurationType;
+
+    @McpToolParam(description = "Developer name of the semantic search ranking configuration field", required = false)
+    private String developerName;
+
+    @McpToolParam(description = "Ranking function. RankingFunction enum.", required = false)
+    private String rankingFunction;
+
+    @McpToolParam(description = "Retrieval type. RetrievalType enum.", required = false)
     private String retrievalType;
 
-    @McpToolParam(description = "Weight for this retrieval type", required = false)
-    private String weight;
+    @McpToolParam(description = "Retrieval weight", required = false)
+    private String retrievalWeight;
+
+    @McpToolParam(description = "Transformation function", required = false)
+    private String transformationFunction;
+
+    public String getConfigurationType() { return configurationType; }
+    public void setConfigurationType(String configurationType) { this.configurationType = configurationType; }
+
+    public String getDeveloperName() { return developerName; }
+    public void setDeveloperName(String developerName) { this.developerName = developerName; }
+
+    public String getRankingFunction() { return rankingFunction; }
+    public void setRankingFunction(String rankingFunction) { this.rankingFunction = rankingFunction; }
 
     public String getRetrievalType() { return retrievalType; }
     public void setRetrievalType(String retrievalType) { this.retrievalType = retrievalType; }
 
-    public String getWeight() { return weight; }
-    public void setWeight(String weight) { this.weight = weight; }
+    public String getRetrievalWeight() { return retrievalWeight; }
+    public void setRetrievalWeight(String retrievalWeight) { this.retrievalWeight = retrievalWeight; }
+
+    public String getTransformationFunction() { return transformationFunction; }
+    public void setTransformationFunction(String transformationFunction) { this.transformationFunction = transformationFunction; }
 }

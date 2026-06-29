@@ -113,7 +113,29 @@ public class ToolMetadataDriftTest {
         "d360_sdm_relationship_update",
         "d360_sdm_relationships_list",
         "d360_sdm_update",
-        "d360_sdm_validate"
+        "d360_sdm_validate",
+        // P13N family — /personalization/... lives in p13n-connect-api, not cdp-connect-api
+        "d360_p13n_engagement_signals_list",
+        "d360_p13n_org_info_get",
+        "d360_p13n_mobile_preview_create",
+        "d360_p13n_experience_config_list",
+        "d360_p13n_experience_config_get",
+        "d360_p13n_experience_config_create",
+        "d360_p13n_experience_config_update",
+        "d360_p13n_experience_config_delete",
+        "d360_p13n_transformer_list",
+        "d360_p13n_transformer_get",
+        "d360_p13n_transformer_create",
+        "d360_p13n_transformer_update",
+        "d360_p13n_transformer_delete",
+        "d360_p13n_schema_create",
+        "d360_p13n_schema_get",
+        "d360_p13n_schema_update",
+        "d360_p13n_schema_delete",
+        "d360_p13n_point_create",
+        "d360_p13n_point_get",
+        "d360_p13n_point_update",
+        "d360_p13n_point_delete"
     );
 
     /**
@@ -129,23 +151,7 @@ public class ToolMetadataDriftTest {
      * New tools are NOT allowed to be added here; they must agree with the gold
      * file or join {@link #NO_GOLDEN_FILE_TOOLS}.
      */
-    private static final Set<String> KNOWN_GOLDEN_FILE_FAILURES = Set.of(
-        "d360_activation_target_delete",
-        "d360_activation_target_update",
-        "d360_activation_update",
-        "d360_ci_run_status",
-        "d360_connection_endpoints",
-        "d360_datakit_components",
-        "d360_datakit_deploy",
-        "d360_datakit_manifest",
-        "d360_dataspace_delete",
-        "d360_dataspace_member_add",
-        "d360_dataspace_member_remove",
-        "d360_datastream_run",
-        "d360_dmo_mapping_update",
-        "d360_ir_full_update",
-        "d360_transform_update"
-    );
+    private static final Set<String> KNOWN_GOLDEN_FILE_FAILURES = Set.of();
 
     private static final String GOLDEN_FILE_DIR = "src/test/resources/golden";
     private static final String GOLDEN_FILE_PREFIX = "cdp-connect-udf-";
@@ -167,6 +173,7 @@ public class ToolMetadataDriftTest {
         "d360_ci_disable",
         "d360_ci_enable",
         "d360_ci_run",
+        "d360_ci_run_status",
         "d360_ci_update",
         "d360_ci_validate",
         "d360_connection_create_snowflake",
@@ -186,7 +193,6 @@ public class ToolMetadataDriftTest {
         "d360_dlo_update",
         "d360_dmo_create",
         "d360_dmo_field_mapping_add",
-        "d360_dmo_mapping_update",
         "d360_dmo_update",
         "d360_ir_full_update",
         "d360_ir_publish",

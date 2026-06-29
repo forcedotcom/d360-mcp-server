@@ -18,6 +18,13 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionCreateRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionDbSchemaCollectionRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionFieldCollectionRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionObjectCollectionRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionPatchRequest;
+import com.salesforce.data360.mcp.model.request.metadata.ConnectionTestRequest;
+import com.salesforce.data360.mcp.model.request.metadata.PrismMetadataSearchInputRepresentation;
 import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
@@ -25,9 +32,7 @@ import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,42 +55,16 @@ public class MetadataTools {
     @ApiEndpoint(path = "/connect/search/metadata/results", verb = "POST")
     @McpTool(
         name = "d360_metadata_search",
-        description = "PREFERRED way to discover Data 360 metadata. Search using natural language instead of listing all entities. The apiName in results maps to entityName in d360_metadata."
+        description = "POST method for Prism Metadata Search. PREFERRED way to discover Data 360 metadata. Search using natural language instead of listing all entities. The apiName in results maps to entityName in d360_metadata."
     )
     public String searchMetadata(
-        @McpToolParam(description = "Natural language search query") String query,
-        @McpToolParam(description = "Max results to return (default: 10)", required = false) Integer limit,
-        @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
-        @McpToolParam(description = "JSON array of metadata types to filter (e.g., [\"DataModelObject\"])", required = false) String metadataTypes,
-        @McpToolParam(description = "JSON array of tags to filter (e.g., [\"crm\"])", required = false) String tags
+        @McpToolParam(description = "Request body for Prism Metadata Search") PrismMetadataSearchInputRepresentation request
     ) {
         try {
-            Map<String, Object> body = new HashMap<>();
-            body.put("query", query);
-
-            Map<String, Object> pagination = new HashMap<>();
-            pagination.put("limit", limit != null ? limit : 10);
-            if (offset != null) {
-                pagination.put("offset", offset);
-            }
-            body.put("pagination", pagination);
-
-            List<Map<String, Object>> filters = new ArrayList<>();
-            if (metadataTypes != null && !metadataTypes.isEmpty()) {
-                List<String> typesList = ToolUtils.parseJson(metadataTypes, List.class, "metadataTypes");
-                filters.add(Map.of("field", "metadataType", "values", typesList));
-            }
-            if (tags != null && !tags.isEmpty()) {
-                List<String> tagsList = ToolUtils.parseJson(tags, List.class, "tags");
-                filters.add(Map.of("field", "tags", "values", tagsList));
-            }
-            if (!filters.isEmpty()) {
-                body.put("filters", filters);
-            }
-
+            Map<String, Object> body = JsonUtil.toMap(request);
             Map result = client.post("/connect/search/metadata/results", body, Map.class);
             return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
+        } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }
@@ -105,7 +84,7 @@ public class MetadataTools {
         @McpToolParam(description = "Entity type (e.g., DataModelObject, CalculatedInsight)", required = false) String entityType,
         @McpToolParam(description = "Entity category: Profile, Engagement, Other, DirectoryTable. "
             + "Use 'DirectoryTable' for unstructured file DMOs.", required = false) String entityCategory,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
@@ -136,7 +115,7 @@ public class MetadataTools {
         @McpToolParam(description = "Entity type: CalculatedInsight, DataModelObject, or DataLakeObject", required = false) String entityType,
         @McpToolParam(description = "Entity category: Profile, Engagement, Other, DirectoryTable. "
             + "Use 'DirectoryTable' for unstructured file DMOs.", required = false) String entityCategory,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
         @McpToolParam(description = "Next batch ID for pagination continuation", required = false) String nextBatchId
     ) {
         try {
@@ -174,13 +153,25 @@ public class MetadataTools {
         description = "List all data connections."
     )
     public String listConnections(
-        @McpToolParam(description = "Connector type to filter by") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Connector type to filter by", required = false) String connectorType,
+        @McpToolParam(description = "Filter group for the request", required = false) String filterGroup,
+        @McpToolParam(description = "Filter by developer name", required = false) String devName,
+        @McpToolParam(description = "Filter by label", required = false) String label,
+        @McpToolParam(description = "Max number of results to return", required = false) Integer limit,
+        @McpToolParam(description = "Row offset for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to sort results by", required = false) String orderBy,
+        @McpToolParam(description = "Filter by organization ID", required = false) String organizationId
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            params.put("connectorType", connectorType);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (connectorType != null) params.put("connectorType", connectorType);
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            if (devName != null) params.put("devName", devName);
+            if (label != null) params.put("label", label);
+            if (limit != null) params.put("limit", limit);
+            if (offset != null) params.put("offset", offset);
+            if (orderBy != null) params.put("orderBy", orderBy);
+            if (organizationId != null) params.put("organizationId", organizationId);
 
             String path = ToolUtils.buildPath("/ssot/connections", params);
             Map result = client.get(path, Map.class);
@@ -197,13 +188,11 @@ public class MetadataTools {
     )
     public String getConnection(
         @McpToolParam(description = "The connection ID") String connectionId,
-        @McpToolParam(description = "Connector type") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter group for the request", required = false) String filterGroup
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            params.put("connectorType", connectorType);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
 
             String path = ToolUtils.buildPath("/ssot/connections/" + ToolUtils.encodePath(connectionId), params);
             Map result = client.get(path, Map.class);
@@ -216,26 +205,20 @@ public class MetadataTools {
     @ApiEndpoint(path = "/ssot/connections", verb = "POST")
     @McpTool(
         name = "d360_connection_create",
-        description = "Create a new data connection. The 'connectorType' parameter is a query param (passed separately). "
-            + "The body uses 'parameters' (not 'params') for connection settings, and 'credentials' for auth. "
+        description = "Create a new data connection. The body must include 'connectorType' "
+            + "along with 'parameters' (not 'params') for connection settings, and 'credentials' for auth. "
             + "See payload_examples for Snowflake and Salesforce body formats."
     )
     public String createConnection(
-        @McpToolParam(description = "Connection body as JSON string") String body,
-        @McpToolParam(description = "Connector type") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for creating a connection") ConnectionCreateRequest request
     ) {
         try {
-            Map<String, Object> bodyMap = ToolUtils.parseJson(body, Map.class, "body");
+            Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            params.put("connectorType", connectorType);
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/connections", params);
-            Map result = client.post(path, bodyMap, Map.class);
+            String path = "/ssot/connections";
+            Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
+        } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }
@@ -243,25 +226,23 @@ public class MetadataTools {
     @ApiEndpoint(path = "/ssot/connections/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_connection_update",
-        description = "Update an existing connection."
+        description = "Update an existing connection. NOTE: Only Salesforce Marketing Cloud connections can be patched via this endpoint. Non-MC connectors (e.g. AwsS3, SFTP, Snowflake) will be rejected with 'Could not resolve type id ... as a subtype of ConnectionPatchInputRepresentation' because the underlying server representation only registers MC subtypes. To modify a non-MC connection, delete and recreate it."
     )
     public String updateConnection(
         @McpToolParam(description = "The connection ID") String connectionId,
-        @McpToolParam(description = "Update body as JSON string") String body,
-        @McpToolParam(description = "Connector type") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for patching a connection") ConnectionPatchRequest request,
+        @McpToolParam(description = "Filter group for the request", required = false) String filterGroup
     ) {
         try {
-            Map<String, Object> bodyMap = ToolUtils.parseJson(body, Map.class, "body");
+            Map<String, Object> body = JsonUtil.toMap(request);
 
             Map<String, Object> params = new HashMap<>();
-            params.put("connectorType", connectorType);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
 
             String path = ToolUtils.buildPath("/ssot/connections/" + ToolUtils.encodePath(connectionId), params);
-            Map result = client.patch(path, bodyMap, Map.class);
+            Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
+        } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }
@@ -272,16 +253,10 @@ public class MetadataTools {
         description = "Delete a connection."
     )
     public String deleteConnection(
-        @McpToolParam(description = "The connection ID") String connectionId,
-        @McpToolParam(description = "Connector type") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The connection ID") String connectionId
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            params.put("connectorType", connectorType);
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/connections/" + ToolUtils.encodePath(connectionId), params);
+            String path = "/ssot/connections/" + ToolUtils.encodePath(connectionId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -295,39 +270,13 @@ public class MetadataTools {
         description = "Test a connection configuration."
     )
     public String testConnection(
-        @McpToolParam(description = "Connection test body as JSON string") String body,
-        @McpToolParam(description = "Connector type") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for testing a connection") ConnectionTestRequest request
     ) {
         try {
-            Map<String, Object> bodyMap = ToolUtils.parseJson(body, Map.class, "body");
+            Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            params.put("connectorType", connectorType);
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/connections/actions/test", params);
-            Map result = client.post(path, bodyMap, Map.class);
-            return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
-            return ToolUtils.errorResponse(e);
-        }
-    }
-
-    @ApiEndpoint(path = "/ssot/connection-endpoints", verb = "GET")
-    @McpTool(
-        name = "d360_connection_endpoints",
-        description = "List available connection endpoints for Data 360 integrations."
-    )
-    public String listConnectionEndpoints(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/connection-endpoints", params);
-            Map result = client.get(path, Map.class);
+            String path = "/ssot/connections/actions/test";
+            Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -344,11 +293,15 @@ public class MetadataTools {
         description = "List available connector types."
     )
     public String listConnectors(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Field group for the request", required = false) String fieldGroup,
+        @McpToolParam(description = "Filters expression for the request", required = false) String filters,
+        @McpToolParam(description = "Order by clause for sorting results", required = false) String orderBy
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (fieldGroup != null) params.put("fieldGroup", fieldGroup);
+            if (filters != null) params.put("filters", filters);
+            if (orderBy != null) params.put("orderBy", orderBy);
 
             String path = ToolUtils.buildPath("/ssot/connectors", params);
             Map result = client.get(path, Map.class);
@@ -364,14 +317,10 @@ public class MetadataTools {
         description = "Get metadata/schema for a specific connector type."
     )
     public String getConnectorMetadata(
-        @McpToolParam(description = "The connector type") String connectorType,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The connector type") String connectorType
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/connectors/" + ToolUtils.encodePath(connectorType), params);
+            String path = "/ssot/connectors/" + ToolUtils.encodePath(connectorType);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -391,24 +340,15 @@ public class MetadataTools {
     )
     public String listConnectionDbSchemas(
         @McpToolParam(description = "The connection ID") String connectionId,
-        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\"})") String advancedAttributes,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for listing database schemas") ConnectionDbSchemaCollectionRequest request
     ) {
         try {
-            Map<String, Object> attrs = ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes");
-            Map<String, Object> body = new HashMap<>();
-            body.put("advancedAttributes", attrs);
+            Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath(
-                "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/database-schemas",
-                params
-            );
+            String path = "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/database-schemas";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
+        } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }
@@ -421,29 +361,15 @@ public class MetadataTools {
     )
     public String listConnectionObjects(
         @McpToolParam(description = "The connection ID") String connectionId,
-        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})", required = false) String advancedAttributes,
-        @McpToolParam(description = "JSON object of filter criteria for narrowing the result set", required = false) String filters,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for listing connection objects") ConnectionObjectCollectionRequest request
     ) {
         try {
-            Map<String, Object> body = new HashMap<>();
-            if (advancedAttributes != null && !advancedAttributes.isEmpty()) {
-                body.put("advancedAttributes", ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes"));
-            }
-            if (filters != null && !filters.isEmpty()) {
-                body.put("filters", ToolUtils.parseJson(filters, Map.class, "filters"));
-            }
+            Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath(
-                "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/objects",
-                params
-            );
+            String path = "/ssot/connections/" + ToolUtils.encodePath(connectionId) + "/objects";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
+        } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }
@@ -457,30 +383,16 @@ public class MetadataTools {
     public String describeConnectionObjectFields(
         @McpToolParam(description = "The connection ID") String connectionId,
         @McpToolParam(description = "The object/table name (from d360_connection_objects_list)") String resourceName,
-        @McpToolParam(description = "JSON object of connector-specific properties (e.g., {\"database\":\"MY_DB\",\"schema\":\"PUBLIC\"})", required = false) String advancedAttributes,
-        @McpToolParam(description = "JSON object of filter criteria for narrowing the field set", required = false) String filters,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for describing connection object fields") ConnectionFieldCollectionRequest request
     ) {
         try {
-            Map<String, Object> body = new HashMap<>();
-            if (advancedAttributes != null && !advancedAttributes.isEmpty()) {
-                body.put("advancedAttributes", ToolUtils.parseJson(advancedAttributes, Map.class, "advancedAttributes"));
-            }
-            if (filters != null && !filters.isEmpty()) {
-                body.put("filters", ToolUtils.parseJson(filters, Map.class, "filters"));
-            }
+            Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath(
-                "/ssot/connections/" + ToolUtils.encodePath(connectionId)
-                    + "/objects/" + ToolUtils.encodePath(resourceName) + "/fields",
-                params
-            );
+            String path = "/ssot/connections/" + ToolUtils.encodePath(connectionId)
+                + "/objects/" + ToolUtils.encodePath(resourceName) + "/fields";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
-        } catch (IllegalArgumentException | ApiException e) {
+        } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }

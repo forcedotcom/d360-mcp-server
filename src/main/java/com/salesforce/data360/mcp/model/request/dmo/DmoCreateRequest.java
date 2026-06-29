@@ -16,105 +16,68 @@
  */
 package com.salesforce.data360.mcp.model.request.dmo;
 
-
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.ai.mcp.annotation.McpToolParam;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.ai.mcp.annotation.McpToolParam;
+
 import java.util.List;
 
 /**
- * Request body for creating a Data Model Object.
+ * Request body for {@code POST /ssot/data-model-objects}.
+ *
+ * <p>Mirrors {@code DataModelObjectInputRepresentation} (no own properties)
+ * which extends {@code DataObjectInputRepresentation} (abstract) which extends
+ * {@code CdpObjectBaseInputRepresentation} (abstract). All inherited
+ * properties are flattened onto this single class.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DmoCreateRequest {
 
-    @NotBlank
-    @McpToolParam(description = "DMO API name — do NOT include __dlm suffix, the API appends it automatically. " +
-        "Must contain only alphanumeric characters and underscores, must begin with a letter, " +
-        "must not end with an underscore or contain two consecutive underscores and not start with 'ssot'.")
-    private String name;
+    // ---- CdpObjectBaseInputRepresentation (shared) ----
 
-    @NotBlank
-    @McpToolParam(description = "DMO display name")
-    private String label;
-
-    @McpToolParam(description = "Object type (e.g., 'Standard', 'Custom'). " +
-        "Omit for most custom DMO creation — the API infers it.", required = false)
-    private String objectType;
-
-    @JsonProperty("category")
-    @JsonAlias("objectCategory")
-    @McpToolParam(description = "Object category: 'Profile', 'Engagement', or 'Other'. " +
-        "Pass as 'category' in JSON (not 'objectCategory').", required = false)
-    private String category;
-
-    @McpToolParam(description = "Field definitions. Each field must include: name, label, dataType, and isPrimaryKey (true/false).",
-        required = false)
-    private List<DataModelFieldInputRepresentation> fields;
-
-    @McpToolParam(description = "DMO status: Active, Error, Inactive, or Processing", required = false)
-    private String status;
-
-    @McpToolParam(description = "Description of the DMO", required = false)
-    private String description;
-
-    @McpToolParam(description = "Data space name", required = false)
+    @McpToolParam(description = "Name of the data space. If unspecified, the default data space is used.", required = false)
     private String dataSpaceName;
 
-    @McpToolParam(description = "Event date/time field name (required when category is Engagement)", required = false)
+    @McpToolParam(description = "Description.", required = false)
+    private String description;
+
+    @NotBlank
+    @McpToolParam(description = "Display label for the DMO.")
+    private String label;
+
+    @NotBlank
+    @McpToolParam(
+        description = "DMO API name. Do NOT include the __dlm suffix; the API appends it. "
+            + "Must be alphanumeric/underscore, begin with a letter, and not start with 'ssot'.")
+    private String name;
+
+    // ---- DataObjectInputRepresentation ----
+
+    @NotBlank
+    @McpToolParam(
+        description = "Category of the data object. One of Engagement, Other, Profile")
+    private String category;
+
+    @McpToolParam(
+        description = "Event date time field name (required when category is Engagement).",
+        required = false)
     private String eventDateTimeFieldName;
 
-    @McpToolParam(description = "Record modified field name", required = false)
+    @McpToolParam(description = "Fields in the data object.", required = false)
+    private List<DataObjectFieldInput> fields;
+
+    @McpToolParam(description = "Record modified field name.", required = false)
     private String recordModifiedFieldName;
 
-    public String getName() {
-        return name;
+    @McpToolParam(description = "Type of data object (DataModelObject)", required = false)
+    private String type;
+
+    public String getDataSpaceName() {
+        return dataSpaceName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getObjectType() {
-        return objectType;
-    }
-
-    public void setObjectType(String objectType) {
-        this.objectType = objectType;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public List<DataModelFieldInputRepresentation> getFields() {
-        return fields;
-    }
-
-    public void setFields(List<DataModelFieldInputRepresentation> fields) {
-        this.fields = fields;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDataSpaceName(String dataSpaceName) {
+        this.dataSpaceName = dataSpaceName;
     }
 
     public String getDescription() {
@@ -125,12 +88,28 @@ public class DmoCreateRequest {
         this.description = description;
     }
 
-    public String getDataSpaceName() {
-        return dataSpaceName;
+    public String getLabel() {
+        return label;
     }
 
-    public void setDataSpaceName(String dataSpaceName) {
-        this.dataSpaceName = dataSpaceName;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getEventDateTimeFieldName() {
@@ -141,11 +120,27 @@ public class DmoCreateRequest {
         this.eventDateTimeFieldName = eventDateTimeFieldName;
     }
 
+    public List<DataObjectFieldInput> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<DataObjectFieldInput> fields) {
+        this.fields = fields;
+    }
+
     public String getRecordModifiedFieldName() {
         return recordModifiedFieldName;
     }
 
     public void setRecordModifiedFieldName(String recordModifiedFieldName) {
         this.recordModifiedFieldName = recordModifiedFieldName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

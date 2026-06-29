@@ -29,6 +29,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProcessingConfigInput {
 
+    @McpToolParam(description = "Processing strategy configuration with id and userValues")
+    private ConfigInput config;
+
     @McpToolParam(description = "File extensions this processing applies to (e.g., pdf, html, docx)")
     private List<String> fileExtensions;
 
@@ -38,8 +41,8 @@ public class ProcessingConfigInput {
     @McpToolParam(description = "Developer name of the source DMO field", required = false)
     private String sourceDmoFieldDeveloperName;
 
-    @McpToolParam(description = "Processing strategy configuration with id and userValues")
-    private ConfigInput config;
+    public ConfigInput getConfig() { return config; }
+    public void setConfig(ConfigInput config) { this.config = config; }
 
     public List<String> getFileExtensions() { return fileExtensions; }
     public void setFileExtensions(List<String> fileExtensions) { this.fileExtensions = fileExtensions; }
@@ -49,7 +52,4 @@ public class ProcessingConfigInput {
 
     public String getSourceDmoFieldDeveloperName() { return sourceDmoFieldDeveloperName; }
     public void setSourceDmoFieldDeveloperName(String sourceDmoFieldDeveloperName) { this.sourceDmoFieldDeveloperName = sourceDmoFieldDeveloperName; }
-
-    public ConfigInput getConfig() { return config; }
-    public void setConfig(ConfigInput config) { this.config = config; }
 }

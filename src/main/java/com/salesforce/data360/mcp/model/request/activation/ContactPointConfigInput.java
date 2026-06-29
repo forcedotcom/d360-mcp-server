@@ -20,55 +20,87 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Contact point configuration for activation.
+ * Mirrors ConnectApi.ActivationContactPointInput.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactPointConfigInput {
 
-    @McpToolParam(description = "Array of activation contact point objects. Each has: entityName, type (Email|Phone|Push|etc), externalPlatformHashMethod, queryPathConfig, attributesConfig, sourcesConfig, filterExpression", required = false)
-    private List<Map<String, Object>> contactPoints;
+    @McpToolParam(description = "Contact Point Attributes Config", required = false)
+    private List<ContactPointAttributeInput> attributesConfig;
 
-    @McpToolParam(description = "ID", required = false)
-    private String id;
+    @McpToolParam(description = "Entity Name", required = false)
+    private String entityName;
 
-    @McpToolParam(description = "Name", required = false)
-    private String name;
+    @McpToolParam(description = "External Platform Hash Method", required = false)
+    private String externalPlatformHashMethod;
 
-    @McpToolParam(description = "Namespace", required = false)
-    private String namespace;
+    @McpToolParam(description = "Contact Point Filter Expression", required = false)
+    private List<DMOFilterConfigInput> filterExpression;
 
-    public List<Map<String, Object>> getContactPoints() {
-        return contactPoints;
+    @McpToolParam(description = "Query Path", required = false)
+    private List<QueryPathInputConfig> queryPathConfig;
+
+    @McpToolParam(description = "Sources Config", required = false)
+    private List<ContactPointSourceInput> sourcesConfig;
+
+    @McpToolParam(description = "Contact point type. One of Email, Maid, Ott, Phone, Push, SubscriberKeyEmail, SubscriberKeyPhone, WhatsApp.", required = false)
+    private String type;
+
+    public List<ContactPointAttributeInput> getAttributesConfig() {
+        return attributesConfig;
     }
 
-    public void setContactPoints(List<Map<String, Object>> contactPoints) {
-        this.contactPoints = contactPoints;
+    public void setAttributesConfig(List<ContactPointAttributeInput> attributesConfig) {
+        this.attributesConfig = attributesConfig;
     }
 
-    public String getId() {
-        return id;
+    public String getEntityName() {
+        return entityName;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
-    public String getName() {
-        return name;
+    public String getExternalPlatformHashMethod() {
+        return externalPlatformHashMethod;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setExternalPlatformHashMethod(String externalPlatformHashMethod) {
+        this.externalPlatformHashMethod = externalPlatformHashMethod;
     }
 
-    public String getNamespace() {
-        return namespace;
+    public List<DMOFilterConfigInput> getFilterExpression() {
+        return filterExpression;
     }
 
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
+    public void setFilterExpression(List<DMOFilterConfigInput> filterExpression) {
+        this.filterExpression = filterExpression;
+    }
+
+    public List<QueryPathInputConfig> getQueryPathConfig() {
+        return queryPathConfig;
+    }
+
+    public void setQueryPathConfig(List<QueryPathInputConfig> queryPathConfig) {
+        this.queryPathConfig = queryPathConfig;
+    }
+
+    public List<ContactPointSourceInput> getSourcesConfig() {
+        return sourcesConfig;
+    }
+
+    public void setSourcesConfig(List<ContactPointSourceInput> sourcesConfig) {
+        this.sourcesConfig = sourcesConfig;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

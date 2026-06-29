@@ -20,39 +20,39 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Request to update an activation target.
- * All fields are optional.
+ * Request body for updating a Connect API activation target
+ * (PATCH /ssot/activation-targets/{id}). All fields optional.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivationTargetUpdateRequest {
 
-    @McpToolParam(description = "Connector configuration details", required = false)
-    private DataConnectorInput connector;
-
-    @McpToolParam(description = "Name of the data space", required = false)
-    private String dataSpaceName;
-
-    @McpToolParam(description = "Description for the activation target", required = false)
-    private String description;
-
-    @McpToolParam(description = "Whether communication capping is enabled", required = false)
-    private Boolean isCappingEnabled;
-
-    @McpToolParam(description = "Name of the activation target", required = false)
+    @McpToolParam(description = "Name of the activation target.", required = false)
     private String name;
 
-    @McpToolParam(description = "Platform type: AmazonS3, AzureBlob, DataCloud, ExternalPlatform, GoogleCloudStorage, SalesforceMarketingCloud, Sftp", required = false)
+    @McpToolParam(description = "Data space developer name for activation target.", required = false)
+    private String dataSpaceName;
+
+    @McpToolParam(description = "Target type for activation target. One of AmazonS3, AzureBlob, DataCloud, ExternalPlatform, GoogleCloudStorage, SalesforceMarketingCloud, Sftp", required = false)
     private String platformType;
 
-    @McpToolParam(description = "Egress properties (only for file-based targets)", required = false)
+    @McpToolParam(description = "Connector details for Activation Target", required = false)
+    private ConnectorInput connector;
+
+    @McpToolParam(description = "Description of the activation target.", required = false)
+    private String description;
+
+    @McpToolParam(description = "Indicates whether communication capping is enabled (true) or not (false).", required = false)
+    private Boolean isCappingEnabled;
+
+    @McpToolParam(description = "Egress properties for the activation target, which are applicable only for file-based activation targets.", required = false)
     private EgressPropertiesInput egressProperties;
 
-    public DataConnectorInput getConnector() {
-        return connector;
+    public String getName() {
+        return name;
     }
 
-    public void setConnector(DataConnectorInput connector) {
-        this.connector = connector;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDataSpaceName() {
@@ -61,6 +61,22 @@ public class ActivationTargetUpdateRequest {
 
     public void setDataSpaceName(String dataSpaceName) {
         this.dataSpaceName = dataSpaceName;
+    }
+
+    public String getPlatformType() {
+        return platformType;
+    }
+
+    public void setPlatformType(String platformType) {
+        this.platformType = platformType;
+    }
+
+    public ConnectorInput getConnector() {
+        return connector;
+    }
+
+    public void setConnector(ConnectorInput connector) {
+        this.connector = connector;
     }
 
     public String getDescription() {
@@ -77,22 +93,6 @@ public class ActivationTargetUpdateRequest {
 
     public void setIsCappingEnabled(Boolean isCappingEnabled) {
         this.isCappingEnabled = isCappingEnabled;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPlatformType() {
-        return platformType;
-    }
-
-    public void setPlatformType(String platformType) {
-        this.platformType = platformType;
     }
 
     public EgressPropertiesInput getEgressProperties() {

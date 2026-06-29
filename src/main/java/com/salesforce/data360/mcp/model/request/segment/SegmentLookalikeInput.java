@@ -20,16 +20,24 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Lookalike criteria for segments.
+ * Mirrors {@code CdpSegmentLookalikeInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SegmentLookalikeInput {
 
-    @McpToolParam(description = "Seed segment name", required = false)
+    @McpToolParam(description = "Lookalike Additional Population Criteria", required = false)
+    private Long additionalPopulation;
+
+    @McpToolParam(description = "Seed Segment Name", required = false)
     private String seedSegmentName;
 
-    @McpToolParam(description = "Additional population count", required = false)
-    private Integer additionalPopulation;
+    public Long getAdditionalPopulation() {
+        return additionalPopulation;
+    }
+
+    public void setAdditionalPopulation(Long additionalPopulation) {
+        this.additionalPopulation = additionalPopulation;
+    }
 
     public String getSeedSegmentName() {
         return seedSegmentName;
@@ -37,13 +45,5 @@ public class SegmentLookalikeInput {
 
     public void setSeedSegmentName(String seedSegmentName) {
         this.seedSegmentName = seedSegmentName;
-    }
-
-    public Integer getAdditionalPopulation() {
-        return additionalPopulation;
-    }
-
-    public void setAdditionalPopulation(Integer additionalPopulation) {
-        this.additionalPopulation = additionalPopulation;
     }
 }

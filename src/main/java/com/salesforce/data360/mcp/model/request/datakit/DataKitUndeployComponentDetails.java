@@ -28,7 +28,7 @@ public class DataKitUndeployComponentDetails {
     @McpToolParam(description = "Component name")
     private String name;
 
-    @McpToolParam(description = "Component type")
+    @McpToolParam(description = "Component type. One of ActivationTarget, AnalyticsDashboard, AnalyticsVisualization, AnalyticsWorkspace, CalculatedInsight, CopyFieldEnrichment, CurrencyConfigObject, DataAction, DataActionTarget, DataCleanRoomDataSpecDef, DataCleanRoomProvider, DataConnection, DataCustomCode, DataGraph, DataLakeObject, DataSemanticSearch, DataShare, DataStreamBundle, DataTransform, EngagementSignal, FiscalCalendarConfigObject, IdentityResolution, IdpConfiguration, InternalDataConnector, IrRelatedListEnrichment, MarketSegment, MarketSegmentActivation, MlConfiguredModel, MlPredictionJob, MlRetriever, PersnlBatchDecision, PersonalizationObjective, PersonalizationPoint, PersonalizationRecommender, PersonalizationSchema, SecondaryIndex, SemanticModel, TuaTemplatedObject")
     private String type;
 
     public String getName() {

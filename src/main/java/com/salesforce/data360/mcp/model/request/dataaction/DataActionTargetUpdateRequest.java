@@ -32,10 +32,10 @@ public class DataActionTargetUpdateRequest {
     @McpToolParam(description = "Label", required = false)
     private String label;
 
-    @McpToolParam(description = "Type: Core, Internal_WebHook, MarketingCloud, WebHook", required = false)
+    @McpToolParam(description = "Data Action Target Type. One of Core, Internal_WebHook, MarketingCloud, WebHook", required = false)
     private String type;
 
-    @McpToolParam(description = "Sub type: Grpc, Rest", required = false)
+    @McpToolParam(description = "Data Action Target Sub type. One of Grpc, Rest", required = false)
     private String subType;
 
     @McpToolParam(description = "External record identifier", required = false)

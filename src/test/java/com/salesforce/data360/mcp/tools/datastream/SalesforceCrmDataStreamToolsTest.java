@@ -61,7 +61,7 @@ class SalesforceCrmDataStreamToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams");
 
         Map<String, Object> body = bodyCaptor.getValue();
         assertThat(body).containsEntry("name", "Benefit_Home");
@@ -131,11 +131,17 @@ class SalesforceCrmDataStreamToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        String result = tools.createSfdcDataStream("Lead", "Home", null, null, null, "custom-dataspace", null);
+        tools.createSfdcDataStream("Lead", "Home", null, null, null, "custom-dataspace", null);
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(Map.class), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("dataspace=custom-dataspace");
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams");
+
+        Map<String, Object> dloInfo = (Map<String, Object>) bodyCaptor.getValue().get("dataLakeObjectInfo");
+        List<Map<String, Object>> dataspaceInfo = (List<Map<String, Object>>) dloInfo.get("dataspaceInfo");
+        assertThat(dataspaceInfo.get(0)).containsEntry("name", "custom-dataspace");
     }
 
     @Test

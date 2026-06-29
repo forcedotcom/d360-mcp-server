@@ -18,7 +18,7 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
-import com.salesforce.data360.mcp.model.request.dmo.DataModelFieldInputRepresentation;
+import com.salesforce.data360.mcp.model.request.dmo.DataObjectFieldInput;
 import com.salesforce.data360.mcp.model.request.dmo.DmoCreateRequest;
 import com.salesforce.data360.mcp.model.request.dmo.DmoUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +61,7 @@ class DmoToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dmoTools.listDataModelObjects(null, null, null, null, null);
+        String result = dmoTools.listDataModelObjects(null, null, null, null, null, null, null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains("Individual__dlm");
@@ -75,10 +75,10 @@ class DmoToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dmoTools.listDataModelObjects("Profile", null, null, null, null);
+        String result = dmoTools.listDataModelObjects("Profile", null, null, null, null, null, null, null, null, null, null, null);
 
         // Then
-        verify(client).get("/ssot/data-model-objects?category=Profile", Map.class);
+        verify(client).get("/ssot/data-model-objects?dataObjectCategory=Profile", Map.class);
     }
 
     @Test
@@ -88,10 +88,10 @@ class DmoToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dmoTools.listDataModelObjects(null, DEFAULT_DATASPACE, null, null, null);
+        String result = dmoTools.listDataModelObjects(null, DEFAULT_DATASPACE, null, null, null, null, null, null, null, null, null, null);
 
         // Then
-        verify(client).get("/ssot/data-model-objects?dataspace=default", Map.class);
+        verify(client).get("/ssot/data-model-objects?dataSpaceName=default", Map.class);
     }
 
     @Test
@@ -101,7 +101,7 @@ class DmoToolsTest {
             .thenThrow(new ApiException(500, "Internal Server Error", "/ssot/data-model-objects"));
 
         // When
-        String result = dmoTools.listDataModelObjects(null, null, null, null, null);
+        String result = dmoTools.listDataModelObjects(null, null, null, null, null, null, null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains("error", "500", "Internal Server Error");
@@ -120,7 +120,7 @@ class DmoToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dmoTools.getDataModelObject("Individual__dlm", null);
+        String result = dmoTools.getDataModelObject("Individual__dlm", null, null);
 
         // Then
         assertThat(result).contains("Individual__dlm", "ssot__Id__c");
@@ -128,16 +128,19 @@ class DmoToolsTest {
     }
 
     @Test
-    void testGetDataModelObject_withDataspace() {
+    void testGetDataModelObject_withParams() {
         // Given
         Map<String, Object> mockResponse = Map.of("name", "Individual__dlm");
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dmoTools.getDataModelObject("Individual__dlm", DEFAULT_DATASPACE);
+        String result = dmoTools.getDataModelObject("Individual__dlm", "true", "true");
 
         // Then
-        verify(client).get("/ssot/data-model-objects/Individual__dlm?dataspace=default", Map.class);
+        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        verify(client).get(pathCaptor.capture(), eq(Map.class));
+        assertThat(pathCaptor.getValue()).contains("includeActiveFieldsOnly=true");
+        assertThat(pathCaptor.getValue()).contains("includeStatus=true");
     }
 
     @Test
@@ -147,7 +150,7 @@ class DmoToolsTest {
             .thenThrow(new ApiException(404, "Not Found", "/ssot/data-model-objects/NonExistent__dlm"));
 
         // When
-        String result = dmoTools.getDataModelObject("NonExistent__dlm", null);
+        String result = dmoTools.getDataModelObject("NonExistent__dlm", null, null);
 
         // Then
         assertThat(result).contains("error", "404", "Not Found");
@@ -166,7 +169,7 @@ class DmoToolsTest {
         DmoCreateRequest request = new DmoCreateRequest();
         request.setName("MyCustomObject__dlm");
         request.setLabel("My Custom Object");
-        String result = dmoTools.createDataModelObject(request, null);
+        String result = dmoTools.createDataModelObject(request);
 
         // Then
         assertThat(result).contains("MyCustomObject__dlm");
@@ -186,7 +189,7 @@ class DmoToolsTest {
         Map<String, Object> mockResponse = Map.of("name", "MyCustomObject__dlm");
         when(client.post(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        DataModelFieldInputRepresentation field = new DataModelFieldInputRepresentation();
+        DataObjectFieldInput field = new DataObjectFieldInput();
         field.setName("field1__c");
         field.setLabel("Field 1");
         field.setDataType("Text");
@@ -195,17 +198,15 @@ class DmoToolsTest {
         DmoCreateRequest request = new DmoCreateRequest();
         request.setName("MyCustomObject__dlm");
         request.setLabel("My Custom Object");
-        request.setObjectType("Custom");
         request.setCategory("Profile");
         request.setFields(List.of(field));
-        String result = dmoTools.createDataModelObject(request, DEFAULT_DATASPACE);
+        String result = dmoTools.createDataModelObject(request);
 
         // Then
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
 
         Map<String, Object> body = bodyCaptor.getValue();
-        assertThat(body.get("objectType")).isEqualTo("Custom");
         assertThat(body.get("category")).isEqualTo("Profile");
         assertThat(body.get("fields")).isInstanceOf(List.class);
     }
@@ -220,7 +221,7 @@ class DmoToolsTest {
         DmoCreateRequest request = new DmoCreateRequest();
         request.setName("InvalidName");
         request.setLabel("Invalid");
-        String result = dmoTools.createDataModelObject(request, null);
+        String result = dmoTools.createDataModelObject(request);
 
         // Then
         assertThat(result).contains("error", "400", "Invalid DMO name");
@@ -235,7 +236,7 @@ class DmoToolsTest {
         // When
         DmoUpdateRequest request = new DmoUpdateRequest();
         request.setLabel("Updated Label");
-        String result = dmoTools.updateDataModelObject("MyCustomObject__dlm", request, null);
+        String result = dmoTools.updateDataModelObject("MyCustomObject__dlm", request);
 
         // Then
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
@@ -253,14 +254,14 @@ class DmoToolsTest {
         Map<String, Object> mockResponse = Map.of("name", "MyCustomObject__dlm");
         when(client.patch(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
 
-        DataModelFieldInputRepresentation field = new DataModelFieldInputRepresentation();
+        DataObjectFieldInput field = new DataObjectFieldInput();
         field.setName("field2__c");
         field.setLabel("Field 2");
 
         // When
         DmoUpdateRequest request = new DmoUpdateRequest();
         request.setFields(List.of(field));
-        String result = dmoTools.updateDataModelObject("MyCustomObject__dlm", request, DEFAULT_DATASPACE);
+        String result = dmoTools.updateDataModelObject("MyCustomObject__dlm", request);
 
         // Then
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
@@ -279,7 +280,7 @@ class DmoToolsTest {
         // When
         DmoUpdateRequest request = new DmoUpdateRequest();
         request.setLabel("Label");
-        String result = dmoTools.updateDataModelObject("NonExistent__dlm", request, null);
+        String result = dmoTools.updateDataModelObject("NonExistent__dlm", request);
 
         // Then
         assertThat(result).contains("error", "404");
@@ -292,24 +293,11 @@ class DmoToolsTest {
         when(client.delete(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dmoTools.deleteDataModelObject("MyCustomObject__dlm", null);
+        String result = dmoTools.deleteDataModelObject("MyCustomObject__dlm");
 
         // Then
         assertThat(result).contains("success");
         verify(client).delete("/ssot/data-model-objects/MyCustomObject__dlm", Map.class);
-    }
-
-    @Test
-    void testDeleteDataModelObject_withDataspace() {
-        // Given
-        Map<String, Object> mockResponse = Map.of("success", true);
-        when(client.delete(anyString(), eq(Map.class))).thenReturn(mockResponse);
-
-        // When
-        String result = dmoTools.deleteDataModelObject("MyCustomObject__dlm", DEFAULT_DATASPACE);
-
-        // Then
-        verify(client).delete("/ssot/data-model-objects/MyCustomObject__dlm?dataspace=default", Map.class);
     }
 
     @Test
@@ -319,7 +307,7 @@ class DmoToolsTest {
             .thenThrow(new ApiException(409, "DMO has dependencies", "/ssot/data-model-objects/MyCustomObject__dlm"));
 
         // When
-        String result = dmoTools.deleteDataModelObject("MyCustomObject__dlm", null);
+        String result = dmoTools.deleteDataModelObject("MyCustomObject__dlm");
 
         // Then
         assertThat(result).contains("error", "409", "has dependencies");

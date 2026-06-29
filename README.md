@@ -28,7 +28,7 @@ server consolidates everything behind **three facade tools**:
 
 **Typical workflow:** `search` → `payload_examples` → `execute`.
 
-Under the hood, 187 operations are organized into 21 tool families:
+Under the hood, 201 operations are organized into 22 tool families:
 
 | Family | Tools | Description |
 |--------|-------|-------------|
@@ -53,6 +53,7 @@ Under the hood, 187 operations are organized into 21 tool families:
 | Standard Mappings | 2 | Pre-configured mapping bundles |
 | Eventing | 2 | Single + batch event publish |
 | GDPR | 3 | Data subject read / delete requests |
+| Machine Learning | 44 | Train and deploy AI Models on top of Data 360. Generate inferences via jobs and API requests. |
 
 ## Quick start (one command)
 

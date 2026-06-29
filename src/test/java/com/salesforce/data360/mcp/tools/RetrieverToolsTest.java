@@ -19,6 +19,10 @@ package com.salesforce.data360.mcp.tools;
 import com.salesforce.data360.mcp.client.Data360Client;
 
 import com.salesforce.data360.mcp.model.common.ApiException;
+import com.salesforce.data360.mcp.model.request.retriever.CdpAssetReferenceInput;
+import com.salesforce.data360.mcp.model.request.retriever.CdpMlFilterInput;
+import com.salesforce.data360.mcp.model.request.retriever.MlRetrieverOutputFieldInput;
+import com.salesforce.data360.mcp.model.request.retriever.MlRetrieverSourceInput;
 import com.salesforce.data360.mcp.model.request.retriever.RetrieverConfigurationCreateRequest;
 import com.salesforce.data360.mcp.model.request.retriever.RetrieverConfigurationUpdateRequest;
 import com.salesforce.data360.mcp.model.request.retriever.RetrieverCreateRequest;
@@ -64,7 +68,7 @@ class RetrieverToolsTest {
         );
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null);
+        String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null, null, null);
 
         assertThat(result).contains("MyRetriever");
         assertThat(result).contains("NoCode");
@@ -79,7 +83,7 @@ class RetrieverToolsTest {
         Map<String, Object> mockResponse = Map.of("retrievers", List.of(), "totalSize", 0);
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
-        retrieverTools.listRetrievers(10, 5, "test", "Name", "ASC", null, true, null, "NoCode");
+        retrieverTools.listRetrievers(10, 5, "test", "Name", "ASC", null, true, null, "NoCode", null, null);
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
@@ -97,7 +101,7 @@ class RetrieverToolsTest {
         when(client.get(anyString(), eq(Map.class)))
             .thenThrow(new ApiException(403, "Forbidden", "/ssot/machine-learning/retrievers"));
 
-        String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null);
+        String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null, null, null);
 
         assertThat(result).contains("error");
         assertThat(result).contains("403");
@@ -108,7 +112,7 @@ class RetrieverToolsTest {
         when(client.get(anyString(), eq(Map.class)))
             .thenThrow(new ApiException("Connection timeout", new RuntimeException("timeout")));
 
-        String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null);
+        String result = retrieverTools.listRetrievers(null, null, null, null, null, null, null, null, null, null, null);
 
         assertThat(result).contains("error");
         assertThat(result).contains("Connection timeout");
@@ -424,6 +428,93 @@ class RetrieverToolsTest {
         assertThat(bodyCaptor.getValue()).containsEntry("queryType", "NoCode");
         assertThat(bodyCaptor.getValue()).containsEntry("isActive", true);
         assertThat(bodyCaptor.getValue()).containsEntry("numberOfResults", 5);
+    }
+
+    @Test
+    void testCreateRetrieverConfiguration_noCodeShape() {
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(Map.of("name", "config_v3"));
+
+        MlRetrieverSourceInput input = new MlRetrieverSourceInput();
+        input.setName("MySearchDef");
+
+        MlRetrieverOutputFieldInput outputField = new MlRetrieverOutputFieldInput();
+        outputField.setRelatedDmoName("Doc__dlm");
+        outputField.setRelatedDmoFieldName("Body__c");
+        outputField.setLabel("Document Body");
+
+        CdpMlFilterInput queryFilter = new CdpMlFilterInput();
+        queryFilter.setConjunctiveOperator("AND");
+
+        RetrieverConfigurationCreateRequest request = new RetrieverConfigurationCreateRequest();
+        request.setQueryType("NoCode");
+        request.setInput(input);
+        request.setOutputFields(List.of(outputField));
+        request.setQueryFilter(queryFilter);
+        request.setNumberOfResults(10);
+        request.setIsActive(true);
+
+        retrieverTools.createRetrieverConfiguration("MyRetriever", request);
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsEntry("queryType", "NoCode");
+        assertThat(body.get("input")).asString().contains("MySearchDef");
+        assertThat(body.get("outputFields")).asString()
+            .contains("Doc__dlm", "Body__c", "Document Body");
+        assertThat(body.get("queryFilter")).asString().contains("AND");
+        assertThat(body).doesNotContainKey("referencedRetrievers");
+    }
+
+    @Test
+    void testCreateRetrieverConfiguration_ensembleShape() {
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(Map.of("name", "config_v4"));
+
+        CdpAssetReferenceInput child = new CdpAssetReferenceInput();
+        child.setName("ChildRetriever");
+
+        RetrieverConfigurationCreateRequest request = new RetrieverConfigurationCreateRequest();
+        request.setQueryType("Ensemble");
+        request.setReferencedRetrievers(List.of(child));
+
+        retrieverTools.createRetrieverConfiguration("MyRetriever", request);
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsEntry("queryType", "Ensemble");
+        assertThat(body.get("referencedRetrievers")).asString().contains("ChildRetriever");
+        assertThat(body).doesNotContainKey("outputFields");
+        assertThat(body).doesNotContainKey("queryFilter");
+    }
+
+    @Test
+    void testCreateRetriever_nestedConfiguration() {
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(Map.of("name", "TopRetriever"));
+
+        RetrieverConfigurationCreateRequest config = new RetrieverConfigurationCreateRequest();
+        config.setQueryType("NoCode");
+        config.setIsActive(true);
+
+        RetrieverCreateRequest request = new RetrieverCreateRequest();
+        request.setLabel("TopRetriever");
+        request.setOwnerType("User");
+        request.setConfiguration(config);
+
+        retrieverTools.createRetriever(request);
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+
+        Map<String, Object> body = bodyCaptor.getValue();
+        assertThat(body).containsEntry("label", "TopRetriever");
+        assertThat(body).containsEntry("ownerType", "User");
+        assertThat(body.get("configuration")).asString().contains("NoCode", "isActive");
     }
 
     @Test

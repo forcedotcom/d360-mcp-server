@@ -20,48 +20,78 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Request body for creating a retriever.
- * Maps to MlRetrieverInputRepresentation in core.
+ * Request body for {@code POST /ssot/machine-learning/retrievers}.
+ *
+ * <p>Mirrors {@code MlRetrieverInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RetrieverCreateRequest {
 
-    @McpToolParam(description = "Label for the retriever")
-    private String label;
+    @McpToolParam(description = "Retriever configuration", required = false)
+    private RetrieverConfigurationCreateRequest configuration;
 
-    @McpToolParam(description = "Description of the retriever", required = false)
-    private String description;
-
-    @McpToolParam(description = "REQUIRED. Retriever configuration object with queryType-specific fields. "
-        + "Must include 'queryType' (NoCode, ProCode, or Ensemble). "
-        + "For NoCode: REQUIRED: input ({id: '<search_index_id>'}), outputFields (REQUIRED, non-empty array of "
-        + "{relatedDmoName: '<dmo_name>', relatedDmoFieldName: '<field_name>', label: '<display_label>', relationships: []}), "
-        + "numberOfResults (top-K integer), isActive (boolean). Optional: queryFilter, isCitationEnabled. "
-        + "For Ensemble: include referencedRetrievers (list of retriever references), outputFields. "
-        + "For ProCode: include input, outputFields, queryFilterFields, resultFilterFields, retrieverQueryTemplate.")
-    private Map<String, Object> configuration;
-
-    @McpToolParam(description = "Data source type for the retriever (e.g., SearchIndex, Web)", required = false)
+    @McpToolParam(description = "Retriever data source type. One of DataCloudAsset, RealTimeSearchIndex, SearchIndex, Web", required = false)
     private String dataSourceType;
 
-    @McpToolParam(description = "List of dataspace names that this retriever belongs to", required = false)
+    @McpToolParam(description = "DataSpaces that this retriever belongs to", required = false)
     private List<String> dataSpaces;
 
-    public String getLabel() { return label; }
-    public void setLabel(String label) { this.label = label; }
+    @McpToolParam(description = "Description", required = false)
+    private String description;
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    @McpToolParam(description = "Label", required = false)
+    private String label;
 
-    public Map<String, Object> getConfiguration() { return configuration; }
-    public void setConfiguration(Map<String, Object> configuration) { this.configuration = configuration; }
+    @McpToolParam(description = "Retriever owner type", required = false)
+    private String ownerType;
 
-    public String getDataSourceType() { return dataSourceType; }
-    public void setDataSourceType(String dataSourceType) { this.dataSourceType = dataSourceType; }
+    public RetrieverConfigurationCreateRequest getConfiguration() {
+        return configuration;
+    }
 
-    public List<String> getDataSpaces() { return dataSpaces; }
-    public void setDataSpaces(List<String> dataSpaces) { this.dataSpaces = dataSpaces; }
+    public void setConfiguration(RetrieverConfigurationCreateRequest configuration) {
+        this.configuration = configuration;
+    }
+
+    public String getDataSourceType() {
+        return dataSourceType;
+    }
+
+    public void setDataSourceType(String dataSourceType) {
+        this.dataSourceType = dataSourceType;
+    }
+
+    public List<String> getDataSpaces() {
+        return dataSpaces;
+    }
+
+    public void setDataSpaces(List<String> dataSpaces) {
+        this.dataSpaces = dataSpaces;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getOwnerType() {
+        return ownerType;
+    }
+
+    public void setOwnerType(String ownerType) {
+        this.ownerType = ownerType;
+    }
 }

@@ -20,8 +20,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Request body for updating a retriever configuration.
- * Maps to MlRetrieverConfigurationUpdateInputRepresentation in core.
+ * Request body for {@code PATCH /ssot/machine-learning/retrievers/{id}/configurations/{configurationId}}.
+ *
+ * <p>Mirrors {@code MlRetrieverConfigurationUpdateInputRepresentation} which
+ * exposes only the active flag.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RetrieverConfigurationUpdateRequest {
@@ -29,6 +31,11 @@ public class RetrieverConfigurationUpdateRequest {
     @McpToolParam(description = "Set this configuration to be active or not. At most one configuration can be active within the parent retriever", required = false)
     private Boolean isActive;
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 }

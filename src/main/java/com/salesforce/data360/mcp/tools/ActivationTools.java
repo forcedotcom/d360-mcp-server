@@ -18,6 +18,7 @@ package com.salesforce.data360.mcp.tools;
 
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
+import com.salesforce.data360.mcp.model.request.activation.ActivationCreateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationTargetCreateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationTargetUpdateRequest;
 import com.salesforce.data360.mcp.model.request.activation.ActivationUpdateRequest;
@@ -57,10 +58,18 @@ public class ActivationTools {
         description = "List all activations."
     )
     public String listActivations(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Maximum number of records to return", required = false) Integer batchSize,
+        @McpToolParam(description = "Filter expression to narrow results", required = false) String filters,
+        @McpToolParam(description = "Number of records to skip for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to order results by", required = false) String orderBy
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/activations", dataspace);
+            Map<String, Object> params = new java.util.LinkedHashMap<>();
+            params.put("batchSize", batchSize);
+            params.put("filters", filters);
+            params.put("offset", offset);
+            params.put("orderBy", orderBy);
+            String path = ToolUtils.buildPath("/ssot/activations", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -78,11 +87,10 @@ public class ActivationTools {
         description = "Get an activation."
     )
     public String getActivation(
-        @McpToolParam(description = "The activation ID") String activationId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The activation ID") String activationId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/activations/" + ToolUtils.encodePath(activationId), dataspace);
+            String path = "/ssot/activations/" + ToolUtils.encodePath(activationId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -105,12 +113,11 @@ public class ActivationTools {
             + "Pass the body as a raw JSON string."
     )
     public String createActivation(
-        @McpToolParam(description = "Activation body as JSON string") String body,
-        @McpToolParam(description = "Optional dataspace query parameter", required = false) String dataspace
-    ) {
+            @McpToolParam(description = "Request body for Activation creation") ActivationCreateRequest request
+            ) {
         try {
-            Map<String, Object> bodyMap = ToolUtils.parseJson(body, Map.class, "body");
-            String path = ToolUtils.buildPath("/ssot/activations", dataspace);
+            Map<String, Object> bodyMap = JsonUtil.toMap(request);
+            String path = "/ssot/activations";
             Map result = client.post(path, bodyMap, Map.class);
             return JsonUtil.toJson(result);
         } catch (IllegalArgumentException | ApiException e) {
@@ -122,20 +129,19 @@ public class ActivationTools {
      * Update an existing activation.
      * Can update refreshType, filters, and other configuration.
      */
-    @ApiEndpoint(path = "/ssot/activations/{id}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/activations/{id}", verb = "PUT")
     @McpTool(
         name = "d360_activation_update",
         description = "Update an activation."
     )
     public String updateActivation(
         @McpToolParam(description = "The activation ID to update") String activationId,
-        @McpToolParam(description = "Activation update details") ActivationUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Activation update details") ActivationUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/activations/" + ToolUtils.encodePath(activationId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            String path = "/ssot/activations/" + ToolUtils.encodePath(activationId);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -152,11 +158,10 @@ public class ActivationTools {
         description = "Delete an activation."
     )
     public String deleteActivation(
-        @McpToolParam(description = "The activation ID to delete") String activationId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The activation ID to delete") String activationId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/activations/" + ToolUtils.encodePath(activationId), dataspace);
+            String path = "/ssot/activations/" + ToolUtils.encodePath(activationId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -178,10 +183,18 @@ public class ActivationTools {
         description = "List activation targets."
     )
     public String listActivationTargets(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Maximum number of records to return", required = false) Integer batchSize,
+        @McpToolParam(description = "Filter expression to narrow results", required = false) String filters,
+        @McpToolParam(description = "Number of records to skip for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to order results by", required = false) String orderBy
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/activation-targets", dataspace);
+            Map<String, Object> params = new java.util.LinkedHashMap<>();
+            params.put("batchSize", batchSize);
+            params.put("filters", filters);
+            params.put("offset", offset);
+            params.put("orderBy", orderBy);
+            String path = ToolUtils.buildPath("/ssot/activation-targets", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -199,11 +212,10 @@ public class ActivationTools {
         description = "Get an activation target."
     )
     public String getActivationTarget(
-        @McpToolParam(description = "The activation target ID") String targetId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The activation target ID") String targetId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/activation-targets/" + ToolUtils.encodePath(targetId), dataspace);
+            String path = "/ssot/activation-targets/" + ToolUtils.encodePath(targetId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -221,12 +233,11 @@ public class ActivationTools {
         description = "Create an activation target."
     )
     public String createActivationTarget(
-        @McpToolParam(description = "Activation target creation details") ActivationTargetCreateRequest request,
-        @McpToolParam(description = "Optional dataspace query parameter", required = false) String dataspace
+        @McpToolParam(description = "Activation target creation details") ActivationTargetCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/activation-targets", dataspace);
+            String path = "/ssot/activation-targets";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -238,42 +249,19 @@ public class ActivationTools {
      * Update an existing activation target.
      * Can update name, dataSpaceName, and other settings.
      */
-    @ApiEndpoint(path = "/ssot/activation-targets/{id}", verb = "PUT")
+    @ApiEndpoint(path = "/ssot/activation-targets/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_activation_target_update",
         description = "Update an activation target."
     )
     public String updateActivationTarget(
         @McpToolParam(description = "The activation target ID to update") String targetId,
-        @McpToolParam(description = "Activation target update details") ActivationTargetUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace query parameter", required = false) String dataspace
+        @McpToolParam(description = "Activation target update details") ActivationTargetUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/activation-targets/" + ToolUtils.encodePath(targetId), dataspace);
-            Map result = client.put(path, body, Map.class);
-            return JsonUtil.toJson(result);
-        } catch (ApiException e) {
-            return ToolUtils.errorResponse(e);
-        }
-    }
-
-    /**
-     * Delete an activation target.
-     * Breaks activations using this target.
-     */
-    @ApiEndpoint(path = "/ssot/activation-targets/{id}", verb = "DELETE")
-    @McpTool(
-        name = "d360_activation_target_delete",
-        description = "Delete an activation target."
-    )
-    public String deleteActivationTarget(
-        @McpToolParam(description = "The activation target ID to delete") String targetId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        try {
-            String path = ToolUtils.buildPath("/ssot/activation-targets/" + ToolUtils.encodePath(targetId), dataspace);
-            Map result = client.delete(path, Map.class);
+            String path = "/ssot/activation-targets/" + ToolUtils.encodePath(targetId);
+            Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);

@@ -20,21 +20,32 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Request body for updating a retriever.
- * Maps to MlRetrieverUpdateInputRepresentation in core.
+ * Request body for {@code PATCH /ssot/machine-learning/retrievers/{id}}.
+ *
+ * <p>Mirrors {@code MlRetrieverUpdateInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RetrieverUpdateRequest {
 
-    @McpToolParam(description = "Updated label for the retriever", required = false)
-    private String label;
-
-    @McpToolParam(description = "Updated description for the retriever", required = false)
+    @McpToolParam(description = "Description", required = false)
     private String description;
 
-    public String getLabel() { return label; }
-    public void setLabel(String label) { this.label = label; }
+    @McpToolParam(description = "Label", required = false)
+    private String label;
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

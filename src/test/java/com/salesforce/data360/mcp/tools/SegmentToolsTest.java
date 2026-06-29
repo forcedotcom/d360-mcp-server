@@ -19,6 +19,11 @@ package com.salesforce.data360.mcp.tools;
 import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.segment.SegmentCreateRequest;
+import com.salesforce.data360.mcp.model.request.segment.SegmentDbtInput;
+import com.salesforce.data360.mcp.model.request.segment.SegmentDbtModelInput;
+import com.salesforce.data360.mcp.model.request.segment.SegmentDbtModelsWrapper;
+import com.salesforce.data360.mcp.model.request.segment.SegmentScheduleInput;
+import com.salesforce.data360.mcp.model.request.segment.SegmentScheduleTimeInput;
 import com.salesforce.data360.mcp.model.request.segment.SegmentUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,7 +66,7 @@ class SegmentToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = segmentTools.listSegments(DEFAULT_DATASPACE);
+        String result = segmentTools.listSegments(DEFAULT_DATASPACE, null, null, null, null);
 
         // Then
         assertThat(result).contains("seg-123", "High Value Customers");
@@ -81,7 +86,7 @@ class SegmentToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = segmentTools.listSegments(null);
+        String result = segmentTools.listSegments(null, null, null, null, null);
 
         // Then
         assertThat(result).contains("segments");
@@ -106,7 +111,7 @@ class SegmentToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = segmentTools.getSegment(segmentId, DEFAULT_DATASPACE);
+        String result = segmentTools.getSegment(segmentId, DEFAULT_DATASPACE, null, null, null, null);
 
         // Then
         assertThat(result).contains(segmentId, "ACTIVE");
@@ -151,9 +156,9 @@ class SegmentToolsTest {
     @Test
     void testUpdateSegment_success() {
         // Given
-        String segmentId = "seg-123";
+        String segmentApiName = "My_Segment__seg";
         Map<String, Object> mockResponse = Map.of(
-            "id", segmentId,
+            "apiName", segmentApiName,
             "displayName", "Updated Segment Name"
         );
 
@@ -165,7 +170,7 @@ class SegmentToolsTest {
         request.setDisplayName("Updated Segment Name");
         request.setPublishSchedule("TwentyFour");
 
-        String result = segmentTools.updateSegment(segmentId, request, DEFAULT_DATASPACE);
+        String result = segmentTools.updateSegment(segmentApiName, request, DEFAULT_DATASPACE);
 
         // Then
         assertThat(result).contains("Updated Segment Name");
@@ -174,7 +179,7 @@ class SegmentToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/seg-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/My_Segment__seg?dataspace=default");
         assertThat(bodyCaptor.getValue()).containsEntry("displayName", "Updated Segment Name");
     }
 
@@ -212,7 +217,7 @@ class SegmentToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = segmentTools.deactivateSegment(segmentApiName, DEFAULT_DATASPACE);
+        String result = segmentTools.deactivateSegment(segmentApiName);
 
         // Then
         assertThat(result).contains("INACTIVE");
@@ -220,7 +225,7 @@ class SegmentToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/High_Value_Customers__seg/actions/deactivate?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/High_Value_Customers__seg/actions/deactivate");
     }
 
     @Test
@@ -236,7 +241,7 @@ class SegmentToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = segmentTools.publishSegment(segmentId, DEFAULT_DATASPACE);
+        String result = segmentTools.publishSegment(segmentId);
 
         // Then
         assertThat(result).contains("PUBLISHING");
@@ -244,7 +249,79 @@ class SegmentToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/seg-123/actions/publish?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/segments/seg-123/actions/publish");
+    }
+
+    @Test
+    void testCreateSegment_nestedDbtShape() {
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(Map.of("id", "seg-789"));
+
+        SegmentDbtModelInput model = new SegmentDbtModelInput();
+        model.setName("model-1");
+        model.setSql("SELECT 1");
+        SegmentDbtModelsWrapper wrapper = new SegmentDbtModelsWrapper();
+        wrapper.setModels(List.of(model));
+        SegmentDbtInput dbt = new SegmentDbtInput();
+        dbt.setModels(wrapper);
+
+        SegmentCreateRequest request = new SegmentCreateRequest();
+        request.setDisplayName("With Dbt");
+        request.setSegmentType("Ui");
+        request.setSegmentCreationFlow("Datakit");
+        request.setIncludeDbt(dbt);
+
+        segmentTools.createSegment(request, null);
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+
+        Map<String, Object> body = bodyCaptor.getValue();
+        Map<String, Object> includeDbt = (Map<String, Object>) body.get("includeDbt");
+        assertThat(includeDbt).isNotNull();
+        // Server expects doubly-nested: includeDbt.models.models[]
+        Map<String, Object> outerModels = (Map<String, Object>) includeDbt.get("models");
+        assertThat(outerModels).isNotNull();
+        Object innerModels = outerModels.get("models");
+        assertThat(innerModels).isInstanceOf(List.class);
+        assertThat((List<?>) innerModels).hasSize(1);
+        Map<String, Object> first = (Map<String, Object>) ((List<?>) innerModels).get(0);
+        assertThat(first).containsEntry("name", "model-1").containsEntry("sql", "SELECT 1");
+    }
+
+    @Test
+    void testCreateSegment_typedScheduleInfo() {
+        when(client.post(anyString(), any(), eq(Map.class)))
+            .thenReturn(Map.of("id", "seg-987"));
+
+        SegmentScheduleTimeInput timeInfo = new SegmentScheduleTimeInput();
+        timeInfo.setHour(2);
+        timeInfo.setMinute(30);
+        timeInfo.setTimeZone("America/Los_Angeles");
+        SegmentScheduleInput schedule = new SegmentScheduleInput();
+        schedule.setDefinitionName("nightly");
+        schedule.setFrequency("DAILY");
+        schedule.setTimeInfo(timeInfo);
+
+        SegmentCreateRequest request = new SegmentCreateRequest();
+        request.setDisplayName("Scheduled");
+        request.setPublishScheduleInfo(schedule);
+
+        segmentTools.createSegment(request, null);
+
+        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
+        verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
+
+        Map<String, Object> body = bodyCaptor.getValue();
+        Map<String, Object> info = (Map<String, Object>) body.get("publishScheduleInfo");
+        assertThat(info)
+            .containsEntry("definitionName", "nightly")
+            .containsEntry("frequency", "DAILY");
+        Map<String, Object> time = (Map<String, Object>) info.get("timeInfo");
+        assertThat(time)
+            .containsEntry("hour", 2)
+            .containsEntry("minute", 30)
+            .containsEntry("timeZone", "America/Los_Angeles");
     }
 
     @Test
@@ -253,7 +330,7 @@ class SegmentToolsTest {
         when(client.get(anyString(), eq(Map.class)))
             .thenThrow(new ApiException(500, "Server error", "/ssot/segments"));
 
-        String listResult = segmentTools.listSegments(DEFAULT_DATASPACE);
+        String listResult = segmentTools.listSegments(DEFAULT_DATASPACE, null, null, null, null);
         assertThat(listResult).contains("error", "Server error", "500");
 
         // Test POST error (create segment)

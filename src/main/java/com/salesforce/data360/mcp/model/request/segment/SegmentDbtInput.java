@@ -20,8 +20,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * dbt configuration for SQL-based segments.
- * The Data 360 API expects nested structure: includeDbt.models.models[].sql
+ * Mirrors {@code CdpSegmentDbtInputRepresentation}.
+ *
+ * <p>The Data 360 API expects a doubly-nested structure:
+ * {@code includeDbt.models.models[]}. The outer {@code models} here is a
+ * wrapper object whose own {@code models} field is the list of dbt models.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SegmentDbtInput {

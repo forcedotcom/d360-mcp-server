@@ -26,22 +26,25 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CalculatedInsightUpdateRequest {
 
-    @McpToolParam(description = "Display name for the calculated insight", required = false)
+    @McpToolParam(description = "API name for the calculated insight (must end with __cio)", required = false)
+    private String apiName;
+
+    @McpToolParam(description = "Display name (label) for the calculated insight", required = false)
     private String displayName;
 
-    @McpToolParam(description = "Definition type: CALCULATED_METRIC, EXTERNAL_METRIC, or STREAMING_METRIC", required = false)
+    @McpToolParam(description = "Calculated insight definition type. One of CALCULATED_METRIC, EXTERNAL_METRIC, STREAMING_METRIC, GRAPH_METRIC, HISTORY_METRIC", required = false)
     private String definitionType;
 
-    @McpToolParam(description = "SQL expression for the calculated insight", required = false)
+    @McpToolParam(description = "Calculated insight ansi sql statement/expression", required = false)
     private String expression;
 
     @McpToolParam(description = "Publish schedule interval: ExternallyManaged, NotScheduled, One, Six, Streaming, SystemManaged, Twelve, TwentyFour", required = false)
     private String publishScheduleInterval;
 
-    @McpToolParam(description = "Publish schedule start date/time (ISO 8601)", required = false)
+    @McpToolParam(description = "Calculated insight publish schedule start date time - Expected format: yyyy-MM-ddTHH:mm", required = false)
     private String publishScheduleStartDateTime;
 
-    @McpToolParam(description = "Publish schedule end date (ISO 8601)", required = false)
+    @McpToolParam(description = "Calculated insight publish schedule end date - Expected format: yyyy-MM-dd", required = false)
     private String publishScheduleEndDate;
 
     @McpToolParam(description = "Data space name", required = false)
@@ -50,14 +53,31 @@ public class CalculatedInsightUpdateRequest {
     @McpToolParam(description = "Description", required = false)
     private String description;
 
-    @McpToolParam(description = "Whether this is a draft", required = false)
+    @McpToolParam(description = "Flag to identify Save as draft flow. If true, the calculated insight will get saved as draft.", required = false)
     private Boolean draft;
 
-    @McpToolParam(description = "Whether created from a package", required = false)
+    @McpToolParam(description = "Flag to identify the ci creation thru package. If true, the ci is created from a installed package", required = false)
     private Boolean createdFromPackage;
 
     @McpToolParam(description = "Packaged calculated insight API name", required = false)
     private String packagedCalculatedInsightApiName;
+
+    @McpToolParam(description = "History publish schedule interval. One of Daily, ExternallyManaged, Streaming, SystemManaged.", required = false)
+    private String historyPublishScheduleInterval;
+
+    @McpToolParam(description = "History publish time", required = false)
+    private String historyPublishTime;
+
+    @McpToolParam(description = "Source developer name", required = false)
+    private String sourceDeveloperName;
+
+    public String getApiName() {
+        return apiName;
+    }
+
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
+    }
 
     public String getDisplayName() {
         return displayName;
@@ -145,5 +165,29 @@ public class CalculatedInsightUpdateRequest {
 
     public void setPackagedCalculatedInsightApiName(String packagedCalculatedInsightApiName) {
         this.packagedCalculatedInsightApiName = packagedCalculatedInsightApiName;
+    }
+
+    public String getHistoryPublishScheduleInterval() {
+        return historyPublishScheduleInterval;
+    }
+
+    public void setHistoryPublishScheduleInterval(String historyPublishScheduleInterval) {
+        this.historyPublishScheduleInterval = historyPublishScheduleInterval;
+    }
+
+    public String getHistoryPublishTime() {
+        return historyPublishTime;
+    }
+
+    public void setHistoryPublishTime(String historyPublishTime) {
+        this.historyPublishTime = historyPublishTime;
+    }
+
+    public String getSourceDeveloperName() {
+        return sourceDeveloperName;
+    }
+
+    public void setSourceDeveloperName(String sourceDeveloperName) {
+        this.sourceDeveloperName = sourceDeveloperName;
     }
 }

@@ -79,6 +79,14 @@ public class FamilyCatalog {
 
     public List<String> getAllToolNames() { return List.copyOf(toolIndex.keySet()); }
 
+    /**
+     * Returns every tool's name, family, HTTP method, and API path. Used by
+     * ToolEndpointPathTest to validate tool paths against a connect-api goldfile
+     * manifest. The full {@link ToolDef} is exposed for this validation use case;
+     * runtime tool-discovery code should keep using {@link #getToolInfo(String)}.
+     */
+    public List<ToolDef> getAllToolDefs() { return List.copyOf(buildAllTools()); }
+
     public Endpoint getEndpoint(String toolName) { return endpointIndex.get(toolName); }
 
     // ── Family Summaries (tuned for 89% search coverage) ───────────────────
@@ -104,13 +112,15 @@ public class FamilyCatalog {
         s.put("StandardMappings", "Create standard DLO-to-DMO mappings from 500+ predefined definitions. Creates all mappings for a source object in one call. Preview before creating.");
         s.put("SearchIndex", "Manage search indexes for Data 360 entities. Create, update, delete, and configure search indexes.");
         s.put("Retriever", "RAG and machine learning retrievers for AI-powered search. Create, configure, and manage retriever endpoints for semantic search over Data 360 data.");
+        s.put("MachineLearning", "Train and deploy AI Models on top of Data 360. Generate inferences via Batch and Streaming jobs and real-time inference requests.");
+        s.put("Personalization", "Personalization and recommendation configuration for web and mobile apps. Configure experience configs (what content to show where), transformers (how to render content using templates/scripts/components), engagement signals (track user interactions), mobile previews (test before deploy), and org settings. Supports A/B testing, content zones, and AI-driven recommendations. WORKFLOW: 1) Check org info → 2) Create/configure transformers → 3) Create experience configs linking data providers to transformers → 4) Test with mobile previews → 5) Monitor engagement signals. Also called web personalization, mobile personalization, content targeting, experience management.");
         return s;
     }
 
     // ── Tool Definitions ───────────────────────────────────────────────────
 
-    private record ToolDef(String name, String family, String description, String httpMethod, String apiPath, String tips) {
-        ToolDef(String name, String family, String description, String httpMethod, String apiPath) {
+    public record ToolDef(String name, String family, String description, String httpMethod, String apiPath, String tips) {
+        public ToolDef(String name, String family, String description, String httpMethod, String apiPath) {
             this(name, family, description, httpMethod, apiPath, null);
         }
     }
@@ -152,7 +162,6 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_dmo_mapping_list", "Mappings", "List mappings by DMO name or CRM source.", "GET", "/ssot/data-model-object-mappings"));
         t.add(new ToolDef("d360_dmo_mapping_get", "Mappings", "Get mapping configuration.", "GET", "/ssot/data-model-object-mappings/{mappingName}"));
         t.add(new ToolDef("d360_dmo_mapping_create", "Mappings", "Create a single DLO-to-DMO mapping.", "POST", "/ssot/data-model-object-mappings"));
-        t.add(new ToolDef("d360_dmo_mapping_update", "Mappings", "Update mapping. Changes affect future ingestion.", "PATCH", "/ssot/data-model-object-mappings/{mappingName}"));
         t.add(new ToolDef("d360_dmo_mapping_delete", "Mappings", "Delete mapping.", "DELETE", "/ssot/data-model-object-mappings/{mappingName}"));
         t.add(new ToolDef("d360_dmo_field_mapping_add", "Mappings", "Add field mappings to an existing object mapping.", "PATCH", "/ssot/data-model-object-mappings/{mappingName}/field-mappings"));
         t.add(new ToolDef("d360_dmo_field_mapping_delete", "Mappings", "Delete a single field mapping.", "DELETE", "/ssot/data-model-object-mappings/{mappingName}/field-mappings/{fieldMappingName}"));
@@ -163,7 +172,7 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_datastream_create", "DataStreams", "Create data stream. Requires Connection and DMO Mapping.", "POST", "/ssot/data-streams"));
         t.add(new ToolDef("d360_datastream_update", "DataStreams", "Update stream. Changes apply to future runs.", "PATCH", "/ssot/data-streams/{id}"));
         t.add(new ToolDef("d360_datastream_delete", "DataStreams", "Delete stream. Does not delete existing data.", "DELETE", "/ssot/data-streams/{id}"));
-        t.add(new ToolDef("d360_datastream_run", "DataStreams", "Manually trigger ingestion.", "POST", "/ssot/data-streams/{id}/run"));
+        t.add(new ToolDef("d360_datastream_run", "DataStreams", "Manually trigger ingestion.", "POST", "/ssot/data-streams/{id}/actions/run"));
         t.add(new ToolDef("d360_datastream_create_sfdc", "DataStreams", "Create Salesforce CRM data stream. Auto-populates source fields.", "POST", "/ssot/data-streams"));
         t.add(new ToolDef("d360_datastream_create_aws_s3", "DataStreams", "Create AWS S3 data stream.", "POST", "/ssot/data-streams"));
         t.add(new ToolDef("d360_datastream_create_snowflake", "DataStreams", "Create Snowflake-backed data stream. Builds sourceFields, mappings, and advancedAttributes (database/schema/object) from field definitions.", "POST", "/ssot/data-streams"));
@@ -178,7 +187,6 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_connection_test", "Connection", "Validate connection before saving. Does NOT create.", "POST", "/ssot/connections/actions/test"));
         t.add(new ToolDef("d360_connector_list", "Connection", "Discover supported connector types.", "GET", "/ssot/connectors"));
         t.add(new ToolDef("d360_connector_metadata", "Connection", "Get required/optional fields for connector type.", "GET", "/ssot/connectors/{type}"));
-        t.add(new ToolDef("d360_connection_endpoints", "Connection", "List pre-configured endpoints.", "GET", "/ssot/connection-endpoints"));
         t.add(new ToolDef("d360_snowflake_connection_list", "Connection", "List Data 360 connections for a connector type. Use connectorType=SNOWFLAKE for Snowflake.", "GET", "/ssot/connections"));
         t.add(new ToolDef("d360_connection_create_snowflake", "Connection", "Create a Snowflake connection with KeyPair auth. Provide private key content directly.", "POST", "/ssot/connections"));
         t.add(new ToolDef("d360_connection_db_schemas_list", "Connection", "List database schemas available in a connection (e.g., Snowflake schemas). Pass database name in advancedAttributes.", "POST", "/ssot/connections/{id}/database-schemas"));
@@ -187,10 +195,10 @@ public class FamilyCatalog {
 
         // ── Segment ────────────────────────────────────────────────────────
         t.add(new ToolDef("d360_segment_list", "Segment", "List all segments.", "GET", "/ssot/segments"));
-        t.add(new ToolDef("d360_segment_get", "Segment", "Get segment by ID. Check segmentStatus for ACTIVE.", "GET", "/ssot/segments/{id}"));
+        t.add(new ToolDef("d360_segment_get", "Segment", "Get segment by record ID or API name. Check segmentStatus for ACTIVE.", "GET", "/ssot/segments/{id}"));
         t.add(new ToolDef("d360_segment_create", "Segment", "Create segment. Requires ACTIVE CIs first.", "POST", "/ssot/segments"));
-        t.add(new ToolDef("d360_segment_update", "Segment", "Update segment metadata. Cannot change SQL via PATCH.", "PATCH", "/ssot/segments/{id}"));
-        t.add(new ToolDef("d360_segment_delete", "Segment", "Delete segment by API name (developer name). Irreversible.", "DELETE", "/ssot/segments/{apiName}"));
+        t.add(new ToolDef("d360_segment_update", "Segment", "Update segment metadata by API name. Cannot change SQL via PATCH.", "PATCH", "/ssot/segments/{segmentApiName}"));
+        t.add(new ToolDef("d360_segment_delete", "Segment", "Delete segment by API name (developer name). Irreversible.", "DELETE", "/ssot/segments/{segmentApiName}"));
         t.add(new ToolDef("d360_segment_publish", "Segment", "Trigger segment calculation.", "POST", "/ssot/segments/{id}/actions/publish"));
         t.add(new ToolDef("d360_segment_deactivate", "Segment", "Deactivate a segment by API name (developer name). Inverse of publish.", "POST", "/ssot/segments/{apiName}/actions/deactivate"));
 
@@ -203,7 +211,7 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_ci_enable", "CalculatedInsights", "Enable CI.", "POST", "/ssot/calculated-insights/{ciName}/actions/enable"));
         t.add(new ToolDef("d360_ci_disable", "CalculatedInsights", "Disable CI.", "POST", "/ssot/calculated-insights/{ciName}/actions/disable"));
         t.add(new ToolDef("d360_ci_run", "CalculatedInsights", "Execute CI calculation.", "POST", "/ssot/calculated-insights/{ciName}/actions/run"));
-        t.add(new ToolDef("d360_ci_run_status", "CalculatedInsights", "Get CI run status.", "GET", "/ssot/calculated-insights/{ciName}/actions/run"));
+        t.add(new ToolDef("d360_ci_run_status", "CalculatedInsights", "Get CI run status.", "POST", "/ssot/calculated-insights/{ciName}/actions/refresh-status"));
         t.add(new ToolDef("d360_ci_validate", "CalculatedInsights", "Validate CI before creation.", "POST", "/ssot/calculated-insights/actions/validate"));
 
         // ── IdentityResolution ─────────────────────────────────────────────
@@ -211,7 +219,7 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_ir_get", "IdentityResolution", "Get ruleset details.", "GET", "/ssot/identity-resolutions/{id}"));
         t.add(new ToolDef("d360_ir_create", "IdentityResolution", "Create ruleset. Rules execute in priority order.", "POST", "/ssot/identity-resolutions"));
         t.add(new ToolDef("d360_ir_update", "IdentityResolution", "Update ruleset. Changes apply after republish.", "PATCH", "/ssot/identity-resolutions/{id}"));
-        t.add(new ToolDef("d360_ir_full_update", "IdentityResolution", "Full replacement of ruleset.", "PUT", "/ssot/identity-resolutions/{id}"));
+        t.add(new ToolDef("d360_ir_full_update", "IdentityResolution", "Update ruleset.", "PATCH", "/ssot/identity-resolutions/{id}"));
         t.add(new ToolDef("d360_ir_delete", "IdentityResolution", "Delete ruleset.", "DELETE", "/ssot/identity-resolutions/{id}"));
         t.add(new ToolDef("d360_ir_publish", "IdentityResolution", "Publish ruleset.", "POST", "/ssot/identity-resolutions/{id}/actions/publish"));
         t.add(new ToolDef("d360_ir_run", "IdentityResolution", "Execute ruleset.", "POST", "/ssot/identity-resolutions/{id}/actions/run-now"));
@@ -220,30 +228,29 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_activation_list", "Activation", "List activations.", "GET", "/ssot/activations"));
         t.add(new ToolDef("d360_activation_get", "Activation", "Get activation details.", "GET", "/ssot/activations/{id}"));
         t.add(new ToolDef("d360_activation_create", "Activation", "Create activation. Requires active segment + target.", "POST", "/ssot/activations"));
-        t.add(new ToolDef("d360_activation_update", "Activation", "Update activation.", "PATCH", "/ssot/activations/{id}"));
+        t.add(new ToolDef("d360_activation_update", "Activation", "Update activation.", "PUT", "/ssot/activations/{id}"));
         t.add(new ToolDef("d360_activation_delete", "Activation", "Delete activation.", "DELETE", "/ssot/activations/{id}"));
         t.add(new ToolDef("d360_activation_target_list", "Activation", "List activation targets.", "GET", "/ssot/activation-targets"));
         t.add(new ToolDef("d360_activation_target_get", "Activation", "Get target details.", "GET", "/ssot/activation-targets/{id}"));
         t.add(new ToolDef("d360_activation_target_create", "Activation", "Create target. Must reference existing Connection.", "POST", "/ssot/activation-targets"));
-        t.add(new ToolDef("d360_activation_target_update", "Activation", "Update target.", "PUT", "/ssot/activation-targets/{id}"));
-        t.add(new ToolDef("d360_activation_target_delete", "Activation", "Delete target.", "DELETE", "/ssot/activation-targets/{id}"));
+        t.add(new ToolDef("d360_activation_target_update", "Activation", "Update target.", "PATCH", "/ssot/activation-targets/{id}"));
 
         // ── Dataspace ──────────────────────────────────────────────────────
         t.add(new ToolDef("d360_dataspace_list", "Dataspace", "List data spaces.", "GET", "/ssot/data-spaces"));
         t.add(new ToolDef("d360_dataspace_get", "Dataspace", "Get data space details.", "GET", "/ssot/data-spaces/{name}"));
         t.add(new ToolDef("d360_dataspace_create", "Dataspace", "Create isolated workspace.", "POST", "/ssot/data-spaces"));
         t.add(new ToolDef("d360_dataspace_update", "Dataspace", "Update data space.", "PATCH", "/ssot/data-spaces/{name}"));
-        t.add(new ToolDef("d360_dataspace_delete", "Dataspace", "Delete data space and all contents.", "DELETE", "/ssot/data-spaces/{name}"));
         t.add(new ToolDef("d360_dataspace_member_list", "Dataspace", "List data space members.", "GET", "/ssot/data-spaces/{name}/members"));
-        t.add(new ToolDef("d360_dataspace_member_add", "Dataspace", "Add member to data space.", "POST", "/ssot/data-spaces/{name}/members"));
-        t.add(new ToolDef("d360_dataspace_member_remove", "Dataspace", "Remove member from data space.", "DELETE", "/ssot/data-spaces/{name}/members/{memberId}"));
+
+        t.add(new ToolDef("d360_dataspace_member_add", "Dataspace", "Add member to data space.", "PUT", "/ssot/data-spaces/{name}/members"));
+        t.add(new ToolDef("d360_dataspace_member_remove", "Dataspace", "Remove members from a data space (max 10).", "DELETE", "/ssot/data-spaces/{name}/members"));
 
         // ── DataTransform ──────────────────────────────────────────────────
         t.add(new ToolDef("d360_transform_list", "DataTransform", "List data transforms.", "GET", "/ssot/data-transforms"));
         t.add(new ToolDef("d360_transform_get", "DataTransform", "Get transform details.", "GET", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_create", "DataTransform", "Create transform. Schedule runs separately.", "POST", "/ssot/data-transforms"));
+        t.add(new ToolDef("d360_transform_update", "DataTransform", "Update transform.", "PUT", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_prepare", "DataTransform", "Validate + enrich with output schema. RECOMMENDED before create.", "POST", "/ssot/data-transforms-validation"));
-        t.add(new ToolDef("d360_transform_update", "DataTransform", "Update transform.", "PATCH", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_delete", "DataTransform", "Delete transform.", "DELETE", "/ssot/data-transforms/{id}"));
         t.add(new ToolDef("d360_transform_run", "DataTransform", "Execute transform manually.", "POST", "/ssot/data-transforms/{id}/actions/run"));
         t.add(new ToolDef("d360_transform_validate", "DataTransform", "Quick SQL validation (simple). Use prepare for full validation.", "POST", "/ssot/data-transforms-validation"));
@@ -253,13 +260,13 @@ public class FamilyCatalog {
         // ── DataKit ────────────────────────────────────────────────────────
         t.add(new ToolDef("d360_datakit_list", "DataKit", "List available DataKits.", "GET", "/ssot/data-kits"));
         t.add(new ToolDef("d360_datakit_get", "DataKit", "Get DataKit details.", "GET", "/ssot/data-kits/{id}"));
-        t.add(new ToolDef("d360_datakit_manifest", "DataKit", "Get DataKit manifest.", "GET", "/ssot/data-kits/{id}/manifest"));
-        t.add(new ToolDef("d360_datakit_deploy", "DataKit", "Deploy/update components.", "POST", "/ssot/data-kits/update-components"));
+        t.add(new ToolDef("d360_datakit_manifest", "DataKit", "Get DataKit manifest.", "GET", "/ssot/datakit/{id}/manifest"));
+        t.add(new ToolDef("d360_datakit_deploy", "DataKit", "Deploy a data kit.", "POST", "/ssot/data-kits/{dataKitDevName}"));
         t.add(new ToolDef("d360_datakit_undeploy", "DataKit", "Undeploy components.", "POST", "/ssot/data-kits/{id}/undeploy"));
         t.add(new ToolDef("d360_datakit_deploy_status", "DataKit", "Get deployment job status.", "GET", "/ssot/data-kits/deployment-jobs/{jobId}"));
         t.add(new ToolDef("d360_datakit_component_status", "DataKit", "Get component deployment status.", "GET", "/ssot/data-kits/{id}/components/{cid}/deployment-status"));
         t.add(new ToolDef("d360_datakit_component_deps", "DataKit", "Get component dependencies.", "GET", "/ssot/data-kits/{id}/components/{cid}/dependencies"));
-        t.add(new ToolDef("d360_datakit_components", "DataKit", "List DataKit components.", "GET", "/ssot/data-kits/{id}/components"));
+        t.add(new ToolDef("d360_datakit_components", "DataKit", "List org components available for inclusion in data kits.", "GET", "/ssot/data-kits/available-components"));
 
         // ── DataAction ─────────────────────────────────────────────────────
         t.add(new ToolDef("d360_dataaction_list", "DataAction", "List data actions.", "GET", "/ssot/data-actions"));
@@ -278,34 +285,34 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_sdm_update", "SDM", "Update model metadata only.", "PATCH", "/ssot/semantic/models/{id}"));
         t.add(new ToolDef("d360_sdm_delete", "SDM", "Delete model and all sub-components.", "DELETE", "/ssot/semantic/models/{id}"));
         t.add(new ToolDef("d360_sdm_clone", "SDM", "Clone semantic model.", "POST", "/ssot/semantic/models/{id}/clone"));
-        t.add(new ToolDef("d360_sdm_validate", "SDM", "Validate model before querying.", "POST", "/ssot/semantic/models/{id}/validate"));
-        t.add(new ToolDef("d360_sdm_dependencies", "SDM", "Get model dependencies.", "GET", "/ssot/semantic/models/{id}/dependencies"));
+        t.add(new ToolDef("d360_sdm_validate", "SDM", "Validate model before querying.", "GET", "/ssot/semantic/models/{id}/validate"));
+        t.add(new ToolDef("d360_sdm_dependencies", "SDM", "Get model external dependencies.", "GET", "/ssot/semantic/models/{id}/external-dependencies"));
         t.add(new ToolDef("d360_sdm_data_object_create", "SDM", "Add data object. Type: Dmo, Dlo, or Cio.", "POST", "/ssot/semantic/models/{id}/data-objects"));
         t.add(new ToolDef("d360_sdm_data_objects_list", "SDM", "List data objects in model.", "GET", "/ssot/semantic/models/{id}/data-objects"));
         t.add(new ToolDef("d360_sdm_data_object_get", "SDM", "Get data object.", "GET", "/ssot/semantic/models/{id}/data-objects/{oid}"));
-        t.add(new ToolDef("d360_sdm_data_object_update", "SDM", "Update data object.", "PATCH", "/ssot/semantic/models/{id}/data-objects/{oid}"));
+        t.add(new ToolDef("d360_sdm_data_object_update", "SDM", "Update data object.", "PUT", "/ssot/semantic/models/{id}/data-objects/{oid}"));
         t.add(new ToolDef("d360_sdm_data_object_delete", "SDM", "Delete data object. Breaks relationships.", "DELETE", "/ssot/semantic/models/{id}/data-objects/{oid}"));
         t.add(new ToolDef("d360_sdm_dimensions_list", "SDM", "List dimensions.", "GET", "/ssot/semantic/models/{id}/data-objects/{oid}/dimensions"));
         t.add(new ToolDef("d360_sdm_measurements_list", "SDM", "List measurements.", "GET", "/ssot/semantic/models/{id}/data-objects/{oid}/measurements"));
         t.add(new ToolDef("d360_sdm_calc_dims_list", "SDM", "List calculated dimensions.", "GET", "/ssot/semantic/models/{id}/calculated-dimensions"));
         t.add(new ToolDef("d360_sdm_calc_dim_create", "SDM", "Create calculated dimension. Use [DataObject].[Field] syntax.", "POST", "/ssot/semantic/models/{id}/calculated-dimensions"));
         t.add(new ToolDef("d360_sdm_calc_dim_get", "SDM", "Get calculated dimension.", "GET", "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}"));
-        t.add(new ToolDef("d360_sdm_calc_dim_update", "SDM", "Update calculated dimension.", "PATCH", "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}"));
+        t.add(new ToolDef("d360_sdm_calc_dim_update", "SDM", "Update calculated dimension.", "PUT", "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}"));
         t.add(new ToolDef("d360_sdm_calc_dim_delete", "SDM", "Delete calculated dimension.", "DELETE", "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}"));
         t.add(new ToolDef("d360_sdm_calc_measures_list", "SDM", "List calculated measurements.", "GET", "/ssot/semantic/models/{id}/calculated-measurements"));
         t.add(new ToolDef("d360_sdm_calc_measure_create", "SDM", "Create calculated measurement. aggregationType UserAgg required.", "POST", "/ssot/semantic/models/{id}/calculated-measurements"));
         t.add(new ToolDef("d360_sdm_calc_measure_get", "SDM", "Get calculated measurement.", "GET", "/ssot/semantic/models/{id}/calculated-measurements/{mid}"));
-        t.add(new ToolDef("d360_sdm_calc_measure_update", "SDM", "Update calculated measurement.", "PATCH", "/ssot/semantic/models/{id}/calculated-measurements/{mid}"));
+        t.add(new ToolDef("d360_sdm_calc_measure_update", "SDM", "Update calculated measurement.", "PUT", "/ssot/semantic/models/{id}/calculated-measurements/{mid}"));
         t.add(new ToolDef("d360_sdm_calc_measure_delete", "SDM", "Delete calculated measurement.", "DELETE", "/ssot/semantic/models/{id}/calculated-measurements/{mid}"));
         t.add(new ToolDef("d360_sdm_metrics_list", "SDM", "List metrics.", "GET", "/ssot/semantic/models/{id}/metrics"));
         t.add(new ToolDef("d360_sdm_metric_create", "SDM", "Create named metric for BI tools.", "POST", "/ssot/semantic/models/{id}/metrics"));
         t.add(new ToolDef("d360_sdm_metric_get", "SDM", "Get metric.", "GET", "/ssot/semantic/models/{id}/metrics/{mid}"));
-        t.add(new ToolDef("d360_sdm_metric_update", "SDM", "Update metric.", "PATCH", "/ssot/semantic/models/{id}/metrics/{mid}"));
+        t.add(new ToolDef("d360_sdm_metric_update", "SDM", "Update metric.", "PUT", "/ssot/semantic/models/{id}/metrics/{mid}"));
         t.add(new ToolDef("d360_sdm_metric_delete", "SDM", "Delete metric.", "DELETE", "/ssot/semantic/models/{id}/metrics/{mid}"));
         t.add(new ToolDef("d360_sdm_relationships_list", "SDM", "List relationships.", "GET", "/ssot/semantic/models/{id}/relationships"));
         t.add(new ToolDef("d360_sdm_relationship_create", "SDM", "Create relationship. Use semantic field names, not DMO names.", "POST", "/ssot/semantic/models/{id}/relationships"));
         t.add(new ToolDef("d360_sdm_relationship_get", "SDM", "Get relationship.", "GET", "/ssot/semantic/models/{id}/relationships/{rid}"));
-        t.add(new ToolDef("d360_sdm_relationship_update", "SDM", "Update relationship.", "PATCH", "/ssot/semantic/models/{id}/relationships/{rid}"));
+        t.add(new ToolDef("d360_sdm_relationship_update", "SDM", "Update relationship.", "PUT", "/ssot/semantic/models/{id}/relationships/{rid}"));
         t.add(new ToolDef("d360_sdm_relationship_delete", "SDM", "Delete relationship. Breaks queries.", "DELETE", "/ssot/semantic/models/{id}/relationships/{rid}"));
         t.add(new ToolDef("d360_sdm_formula_metadata", "SDM", "Reference available functions for calc dims/measures.", "GET", "/ssot/semantic/models/formula-metadata"));
         t.add(new ToolDef("d360_sdm_permissions", "SDM", "Get SDM permissions.", "GET", "/ssot/semantic/permissions"));
@@ -330,6 +337,29 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_search_index_config", "SearchIndex", "Get search index configuration.", "GET", "/ssot/search-index/config"));
         t.add(new ToolDef("d360_search_index_process_history", "SearchIndex", "Get search index processing history.", "GET", "/ssot/search-index/{id}/process-history"));
 
+        // ── Personalization ────────────────────────────────────────────────
+        t.add(new ToolDef("d360_p13n_engagement_signals_list", "Personalization", "List engagement signals for a data graph. Required for recommender attribution setup.", "GET", "/personalization/engagement-signals"));
+        t.add(new ToolDef("d360_p13n_org_info_get", "Personalization", "Get org info (Data Cloud TSE endpoint).", "GET", "/personalization/external-apps/org"));
+        t.add(new ToolDef("d360_p13n_mobile_preview_create", "Personalization", "Generate mobile live preview link.", "POST", "/personalization/external-apps/mobile/live-preview-link"));
+        t.add(new ToolDef("d360_p13n_experience_config_list", "Personalization", "List experience configs for a data connector.", "GET", "/personalization/external-apps/{id}/personalization-experience-configs"));
+        t.add(new ToolDef("d360_p13n_experience_config_get", "Personalization", "Get specific experience config.", "GET", "/personalization/external-apps/{id}/personalization-experience-configs/{name}"));
+        t.add(new ToolDef("d360_p13n_experience_config_create", "Personalization", "Create experience config.", "POST", "/personalization/external-apps/{id}/personalization-experience-configs"));
+        t.add(new ToolDef("d360_p13n_experience_config_update", "Personalization", "Update experience config.", "PUT", "/personalization/external-apps/{id}/personalization-experience-configs/{name}"));
+        t.add(new ToolDef("d360_p13n_experience_config_delete", "Personalization", "Delete experience config.", "DELETE", "/personalization/external-apps/{id}/personalization-experience-configs/{name}"));
+        t.add(new ToolDef("d360_p13n_transformer_list", "Personalization", "List transformers with filtering.", "GET", "/personalization/external-apps/transformers"));
+        t.add(new ToolDef("d360_p13n_transformer_get", "Personalization", "Get specific transformer.", "GET", "/personalization/external-apps/transformer"));
+        t.add(new ToolDef("d360_p13n_transformer_create", "Personalization", "Create transformer.", "POST", "/personalization/external-apps/transformers"));
+        t.add(new ToolDef("d360_p13n_transformer_update", "Personalization", "Update transformer.", "PUT", "/personalization/external-apps/transformer"));
+        t.add(new ToolDef("d360_p13n_transformer_delete", "Personalization", "Delete transformer.", "DELETE", "/personalization/external-apps/transformer"));
+        t.add(new ToolDef("d360_p13n_schema_create", "Personalization", "Create personalization schema.", "POST", "/personalization/personalization-schemas"));
+        t.add(new ToolDef("d360_p13n_schema_get", "Personalization", "Get specific personalization schema.", "GET", "/personalization/personalization-schemas/{idOrName}"));
+        t.add(new ToolDef("d360_p13n_schema_update", "Personalization", "Update personalization schema.", "PATCH", "/personalization/personalization-schemas/{idOrName}"));
+        t.add(new ToolDef("d360_p13n_schema_delete", "Personalization", "Delete personalization schema.", "DELETE", "/personalization/personalization-schemas/{idOrName}"));
+        t.add(new ToolDef("d360_p13n_point_create", "Personalization", "Create personalization point.", "POST", "/personalization/personalization-points"));
+        t.add(new ToolDef("d360_p13n_point_get", "Personalization", "Get specific personalization point.", "GET", "/personalization/personalization-points/{idOrName}"));
+        t.add(new ToolDef("d360_p13n_point_update", "Personalization", "Update personalization point.", "PUT", "/personalization/personalization-points/{idOrName}"));
+        t.add(new ToolDef("d360_p13n_point_delete", "Personalization", "Delete personalization point.", "DELETE", "/personalization/personalization-points/{idOrName}"));
+
         // ── Retriever ──────────────────────────────────────────────────────
         t.add(new ToolDef("d360_retriever_list", "Retriever", "List retrievers.", "GET", "/ssot/machine-learning/retrievers"));
         t.add(new ToolDef("d360_retriever_get", "Retriever", "Get retriever.", "GET", "/ssot/machine-learning/retrievers/{id}"));
@@ -341,6 +371,51 @@ public class FamilyCatalog {
         t.add(new ToolDef("d360_retriever_config_create", "Retriever", "Create retriever configuration.", "POST", "/ssot/machine-learning/retrievers/{id}/configurations"));
         t.add(new ToolDef("d360_retriever_config_update", "Retriever", "Update retriever configuration.", "PATCH", "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}"));
         t.add(new ToolDef("d360_retriever_config_delete", "Retriever", "Delete retriever configuration.", "DELETE", "/ssot/machine-learning/retrievers/{id}/configurations/{configurationId}"));
+
+        // ── MachineLearning ────────────────────────────────────────────────
+        t.add(new ToolDef("d360_prediction_job_def_list", "MachineLearning", "List prediction job definitions. Optional modelId filter.", "GET", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_get", "MachineLearning", "Get a prediction job definition by id or developer name.", "GET", "/ssot/machine-learning/prediction-job-definitions/{idOrName}"));
+        t.add(new ToolDef("d360_prediction_job_def_create", "MachineLearning", "Generic create — prefer the type-specific tools (regression, binary, multiclass, sentiment, topic, clustering) which pre-shape the payload and validate locally.", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_create_regression", "MachineLearning", "Create a Regression prediction job definition. Pre-shapes payload, validates settings ranges (maxTopContributors 0-3, maxPrescriptions 0-3, prescriptionThreshold 0-100).", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_create_binary_classification", "MachineLearning", "Create a BinaryClassification prediction job definition. showClassProbabilities defaults to true.", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_create_multiclass_classification", "MachineLearning", "Create a MulticlassClassification prediction job definition. numberOfClasses ≥ 1, default = all classes.", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_create_sentiment_detection", "MachineLearning", "Create a SentimentDetection prediction job definition. Defaults model to sfdc_ai__DefaultSalesforceSentimentAnalysis.", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_create_topic_classification", "MachineLearning", "Create a TopicClassification prediction job definition. 2-5 distinct topic labels, each ≤ 100 chars; up to 3 text fields. Defaults model to sfdc_ai__DefaultSalesforceTopicClassification.", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_create_clustering", "MachineLearning", "Create a Clustering prediction job definition. clusterIdFieldLabel and clusterLabelFieldLabel are required.", "POST", "/ssot/machine-learning/prediction-job-definitions"));
+        t.add(new ToolDef("d360_prediction_job_def_update", "MachineLearning", "Update a prediction job definition. Partial-update; for activation toggle prefer the activate/deactivate tools.", "PATCH", "/ssot/machine-learning/prediction-job-definitions/{idOrName}"));
+        t.add(new ToolDef("d360_prediction_job_def_activate", "MachineLearning", "Activate a prediction job definition (sets activationStatus=Active). Required before running.", "PATCH", "/ssot/machine-learning/prediction-job-definitions/{idOrName}"));
+        t.add(new ToolDef("d360_prediction_job_def_deactivate", "MachineLearning", "Deactivate a prediction job definition (sets activationStatus=Inactive). Inactive defs cannot be run.", "PATCH", "/ssot/machine-learning/prediction-job-definitions/{idOrName}"));
+        t.add(new ToolDef("d360_prediction_job_def_delete", "MachineLearning", "Delete a prediction job definition. Irreversible.", "DELETE", "/ssot/machine-learning/prediction-job-definitions/{idOrName}"));
+        t.add(new ToolDef("d360_prediction_job_run", "MachineLearning", "Submit a prediction job for execution. Async — response carries job id and initial status. PREREQUISITE: definition must be Active.", "POST", "/ssot/machine-learning/jobs"));
+        t.add(new ToolDef("d360_ml_predict", "MachineLearning", "Run synchronous prediction against a configured model — submits raw feature rows and returns per-row Success/Error results with factors, prescriptions, and warnings.", "POST", "/ssot/machine-learning/predict"));
+        t.add(new ToolDef("d360_ml_setup_version_inspector_metrics_get", "MachineLearning", "Training-time inspector metrics for a setup version (AUC, RMSE, confusion matrices, gain table, outcome distribution). gauges defaults to 'Overview'; use 'All' for the full payload.", "GET", "/ssot/machine-learning/model-setups/{idOrName}/setup-versions/{versionId}/inspector/metrics"));
+        t.add(new ToolDef("d360_ml_alerts_query", "MachineLearning", "Query training-time and runtime data alerts for a model artifact. Returns alerts with structured directives[] for auto-remediation on retrain.", "POST", "/ssot/machine-learning/alerts"));
+        t.add(new ToolDef("d360_ml_alert_update", "MachineLearning", "Triage an alert: accept (directives auto-apply on next setup-version) or dismiss.", "PATCH", "/ssot/machine-learning/alerts/{alertId}"));
+        t.add(new ToolDef("d360_ml_model_artifact_list", "MachineLearning", "List trained model artifacts. Filter by modelType, sourceType, dataCloudOneVisibility.", "GET", "/ssot/machine-learning/model-artifacts"));
+        t.add(new ToolDef("d360_ml_model_artifact_get", "MachineLearning", "Get a trained model artifact. Carries the parameters, inputFields, outputFields, source/setupContainer back-links.", "GET", "/ssot/machine-learning/model-artifacts/{idOrName}"));
+        t.add(new ToolDef("d360_ml_model_artifact_update", "MachineLearning", "Update a model artifact (label, description, status, output-field overrides). Status writable values are Enabled/Disabled only.", "PATCH", "/ssot/machine-learning/model-artifacts/{idOrName}"));
+        t.add(new ToolDef("d360_ml_model_artifact_delete", "MachineLearning", "Delete a model artifact. Predictive deletes do not cascade — referencing configured models become orphaned.", "DELETE", "/ssot/machine-learning/model-artifacts/{idOrName}"));
+        t.add(new ToolDef("d360_ml_configured_model_list", "MachineLearning", "List configured models. Filter by assetIdOrName + assetType (ModelArtifact|ModelSetup) to find configured models bound to a specific artifact or setup.", "GET", "/ssot/machine-learning/configured-models"));
+        t.add(new ToolDef("d360_ml_configured_model_get", "MachineLearning", "Get a configured model by id or developer name.", "GET", "/ssot/machine-learning/configured-models/{idOrName}"));
+        t.add(new ToolDef("d360_ml_configured_model_create", "MachineLearning", "Create a configured model wrapping a model artifact. artifact reference is required. Status defaults to Disabled unless explicitly Enabled.", "POST", "/ssot/machine-learning/configured-models"));
+        t.add(new ToolDef("d360_ml_configured_model_update", "MachineLearning", "Update a configured model.", "PATCH", "/ssot/machine-learning/configured-models/{idOrName}"));
+        t.add(new ToolDef("d360_ml_configured_model_delete", "MachineLearning", "Delete a configured model.", "DELETE", "/ssot/machine-learning/configured-models/{idOrName}"));
+        t.add(new ToolDef("d360_ml_configured_model_activate", "MachineLearning", "Activate a configured model (status=Enabled). Required before the model can be deployed.", "PATCH", "/ssot/machine-learning/configured-models/{idOrName}"));
+        t.add(new ToolDef("d360_ml_configured_model_history_list", "MachineLearning", "List history snapshots for a configured model.", "GET", "/ssot/machine-learning/configured-models/{idOrName}/histories"));
+        t.add(new ToolDef("d360_ml_configured_model_history_get", "MachineLearning", "Get one configured-model history snapshot.", "GET", "/ssot/machine-learning/configured-models/{idOrName}/histories/{historyId}"));
+        t.add(new ToolDef("d360_ml_query_setup_fields", "MachineLearning", "Enumerate fields and applicable transformations for a data source. First call when authoring a model setup.", "POST", "/ssot/machine-learning/query-setup-fields"));
+        t.add(new ToolDef("d360_ml_query_data_profile", "MachineLearning", "Profile values on a data source — cardinality, null counts, distribution stats. Use to decide which fields are usable as features.", "POST", "/ssot/machine-learning/query-data-profile"));
+        t.add(new ToolDef("d360_ml_query_outcome", "MachineLearning", "List candidate outcome columns (Binary, Discrete, Continuous, Clustering) the data source can support. Optional predictionType narrows results.", "POST", "/ssot/machine-learning/query-outcome"));
+        t.add(new ToolDef("d360_ml_query_row_count", "MachineLearning", "Row count for the data source after filters and joins are applied. Used to gate whether there is enough data to train.", "POST", "/ssot/machine-learning/query-row-count"));
+        t.add(new ToolDef("d360_ml_model_setup_list", "MachineLearning", "List model-setup containers. Filters: search, modelType, modelCapability, setupType, connectorType. Pagination via limit/offset.", "GET", "/ssot/machine-learning/model-setups"));
+        t.add(new ToolDef("d360_ml_model_setup_get", "MachineLearning", "Get a model-setup container by id or developer name.", "GET", "/ssot/machine-learning/model-setups/{idOrName}"));
+        t.add(new ToolDef("d360_ml_model_setup_create", "MachineLearning", "Create a model-setup container (parent record). Does not start training; follow up with d360_ml_setup_version_create.", "POST", "/ssot/machine-learning/model-setups"));
+        t.add(new ToolDef("d360_ml_model_setup_update", "MachineLearning", "Update a model-setup container (label, description, modelCapability, outcomeDefinition).", "PATCH", "/ssot/machine-learning/model-setups/{idOrName}"));
+        t.add(new ToolDef("d360_ml_model_setup_delete", "MachineLearning", "Delete a model-setup container. Cascades to all versions. Irreversible.", "DELETE", "/ssot/machine-learning/model-setups/{idOrName}"));
+        t.add(new ToolDef("d360_ml_setup_version_list", "MachineLearning", "List versions of a model-setup container.", "GET", "/ssot/machine-learning/model-setups/{idOrName}/setup-versions"));
+        t.add(new ToolDef("d360_ml_setup_version_get", "MachineLearning", "Get one setup version with its full setup body. Use to poll status during training.", "GET", "/ssot/machine-learning/model-setups/{idOrName}/setup-versions/{versionId}"));
+        t.add(new ToolDef("d360_ml_setup_version_create", "MachineLearning", "Create a new EdcNoCode setup version — kicks off training. Algorithm defaulted by outcome type if omitted.", "POST", "/ssot/machine-learning/model-setups/{idOrName}/setup-versions"));
+        t.add(new ToolDef("d360_ml_setup_version_update", "MachineLearning", "Update setup version description or status (only mutable fields). Send status='Training' to start training on a Draft version.", "PATCH", "/ssot/machine-learning/model-setups/{idOrName}/setup-versions/{versionId}"));
 
         return t;
     }

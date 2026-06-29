@@ -135,7 +135,7 @@ class AwsS3DataStreamToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        String result = tools.createS3DataStream(buildSampleRequest(), null);
+        String result = tools.createS3DataStream(buildSampleRequest());
 
         assertThat(result).contains("stream-s3-123");
         assertThat(result).contains("AirlineBookings_S3");
@@ -163,7 +163,7 @@ class AwsS3DataStreamToolsTest {
         DataStreamCreateRequest request = buildSampleRequest();
         request.setDatastreamType("ShouldBeOverridden");
 
-        tools.createS3DataStream(request, null);
+        tools.createS3DataStream(request);
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -179,7 +179,7 @@ class AwsS3DataStreamToolsTest {
         DataStreamCreateRequest request = buildSampleRequest();
         request.getConnectorInfo().setConnectorType("ShouldBeOverridden");
 
-        tools.createS3DataStream(request, null);
+        tools.createS3DataStream(request);
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -196,7 +196,7 @@ class AwsS3DataStreamToolsTest {
         DataStreamCreateRequest request = buildSampleRequest();
         request.setConnectorInfo(null);
 
-        tools.createS3DataStream(request, null);
+        tools.createS3DataStream(request);
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -210,7 +210,7 @@ class AwsS3DataStreamToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        tools.createS3DataStream(buildSampleRequest(), null);
+        tools.createS3DataStream(buildSampleRequest());
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -229,7 +229,7 @@ class AwsS3DataStreamToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        tools.createS3DataStream(buildSampleRequest(), null);
+        tools.createS3DataStream(buildSampleRequest());
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -252,7 +252,7 @@ class AwsS3DataStreamToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        tools.createS3DataStream(buildSampleRequest(), null);
+        tools.createS3DataStream(buildSampleRequest());
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -263,24 +263,11 @@ class AwsS3DataStreamToolsTest {
     }
 
     @Test
-    void testWithDataspace() {
-        Map<String, Object> mockResponse = Map.of("id", "stream-ds");
-        when(client.post(anyString(), any(Map.class), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        tools.createS3DataStream(buildSampleRequest(), "custom-dataspace");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(Map.class), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("dataspace=custom-dataspace");
-    }
-
-    @Test
     void testApiError() {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenThrow(new ApiException(400, "Bad request", "/ssot/data-streams"));
 
-        String result = tools.createS3DataStream(buildSampleRequest(), null);
+        String result = tools.createS3DataStream(buildSampleRequest());
 
         assertThat(result).contains("error");
         assertThat(result).contains("Bad request");
@@ -292,7 +279,7 @@ class AwsS3DataStreamToolsTest {
         when(client.post(anyString(), any(Map.class), eq(Map.class)))
             .thenThrow(new ApiException("Connection failed", new RuntimeException("timeout")));
 
-        String result = tools.createS3DataStream(buildSampleRequest(), null);
+        String result = tools.createS3DataStream(buildSampleRequest());
 
         assertThat(result).contains("Connection failed");
     }

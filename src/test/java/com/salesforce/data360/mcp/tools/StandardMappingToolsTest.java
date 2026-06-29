@@ -185,7 +185,7 @@ class StandardMappingToolsTest {
             .thenReturn(Map.of("name", "mapping1"))
             .thenReturn(Map.of("name", "mapping2"));
 
-        String result = standardMappingTools.standardMappingCreate("Account__dll", null, null);
+        String result = standardMappingTools.standardMappingCreate("Account__dll", null);
 
         assertThat(result).contains("\"succeeded\":2", "\"failed\":0", "\"attempted\":2", "\"totalDmos\":2");
 
@@ -218,7 +218,7 @@ class StandardMappingToolsTest {
             .thenReturn(Map.of("name", "mapping1"));
 
         String result = standardMappingTools.standardMappingCreate(
-            "Account__dll", "ContactPointPhoneDmo, FinancialCustomerDmo", null);
+            "Account__dll", "ContactPointPhoneDmo, FinancialCustomerDmo");
 
         assertThat(result).contains("\"attempted\":1", "\"succeeded\":1", "\"totalDmos\":3",
             "ContactPointPhoneDmo", "FinancialCustomerDmo", "\"skipped\"");
@@ -242,7 +242,7 @@ class StandardMappingToolsTest {
             .thenReturn(Map.of("name", "mapping1"))
             .thenThrow(new ApiException(409, "Mapping already exists for ContactPointPhoneDmo", "/ssot/data-model-object-mappings"));
 
-        String result = standardMappingTools.standardMappingCreate("Account__dll", null, null);
+        String result = standardMappingTools.standardMappingCreate("Account__dll", null);
 
         assertThat(result).contains("\"succeeded\":1", "\"failed\":1",
             "\"status\":\"success\"", "\"status\":\"error\"", "Mapping already exists");
@@ -253,14 +253,14 @@ class StandardMappingToolsTest {
         when(mappingLookupService.lookup("UnknownObject")).thenReturn(null);
         when(mappingLookupService.size()).thenReturn(550);
 
-        String result = standardMappingTools.standardMappingCreate("UnknownObject", null, null);
+        String result = standardMappingTools.standardMappingCreate("UnknownObject", null);
 
         assertThat(result).contains("\"error\"", "No standard mapping found");
         verifyNoInteractions(client);
     }
 
     @Test
-    void testCreate_passesDataspaceParam() {
+    void testCreate_usesCorrectEndpointWithNoDataspace() {
         SObjectDmoMappings mapping = new SObjectDmoMappings("Account", List.of(
             new DmoMapping("AccountDmo", List.of(
                 new FieldMapping("Name", "Name", false, null)
@@ -271,11 +271,11 @@ class StandardMappingToolsTest {
         when(client.post(anyString(), anyMap(), eq(Map.class)))
             .thenReturn(Map.of("name", "mapping1"));
 
-        String result = standardMappingTools.standardMappingCreate("Account__dll", null, "myDataspace");
+        standardMappingTools.standardMappingCreate("Account__dll", null);
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).post(pathCaptor.capture(), anyMap(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("dataspace=myDataspace");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-model-object-mappings");
     }
 
     @Test
@@ -292,7 +292,7 @@ class StandardMappingToolsTest {
         when(client.post(anyString(), anyMap(), eq(Map.class)))
             .thenReturn(Map.of("name", "mapping1"));
 
-        standardMappingTools.standardMappingCreate("Contact__dll", null, null);
+        standardMappingTools.standardMappingCreate("Contact__dll", null);
 
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(anyString(), bodyCaptor.capture(), eq(Map.class));
@@ -323,7 +323,7 @@ class StandardMappingToolsTest {
         when(client.post(anyString(), anyMap(), eq(Map.class)))
             .thenReturn(Map.of("name", "mapping1"));
 
-        String result = standardMappingTools.standardMappingCreate("Lead_Home__dll", null, null);
+        String result = standardMappingTools.standardMappingCreate("Lead_Home__dll", null);
 
         assertThat(result).contains("\"succeeded\":1", "\"failed\":0", "\"dloFieldCount\":4",
             "\"skippedFields\":[\"NotOnDlo__c\"]");
@@ -347,7 +347,7 @@ class StandardMappingToolsTest {
         when(client.get(contains("/ssot/data-lake-objects/"), eq(Map.class)))
             .thenReturn(Map.of("dataLakeObjects", List.of(Map.of())));
 
-        String result = standardMappingTools.standardMappingCreate("Account__dll", null, null);
+        String result = standardMappingTools.standardMappingCreate("Account__dll", null);
 
         assertThat(result).contains("\"error\":", "Account__dll", "returned no fields");
         verify(client, never()).post(anyString(), anyMap(), eq(Map.class));

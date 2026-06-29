@@ -22,13 +22,19 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 import java.util.List;
 
 /**
- * Vector embedding configuration specifying which related DMO fields to embed.
+ * Mirrors {@code VectorEmbeddingInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VectorEmbeddingInput {
 
-    @McpToolParam(description = "Related DMO fields to include in vector embedding. Use empty list if no related fields needed.")
+    @McpToolParam(description = "Einstein Studio AI Model ID", required = false)
+    private String einsteinStudioModelId;
+
+    @McpToolParam(description = "Vector embedding extra fields. Use empty list if no related fields needed.", required = false)
     private List<VectorEmbeddingRelatedFieldInput> vectorEmbeddingRelatedFields;
+
+    public String getEinsteinStudioModelId() { return einsteinStudioModelId; }
+    public void setEinsteinStudioModelId(String einsteinStudioModelId) { this.einsteinStudioModelId = einsteinStudioModelId; }
 
     public List<VectorEmbeddingRelatedFieldInput> getVectorEmbeddingRelatedFields() { return vectorEmbeddingRelatedFields; }
     public void setVectorEmbeddingRelatedFields(List<VectorEmbeddingRelatedFieldInput> vectorEmbeddingRelatedFields) { this.vectorEmbeddingRelatedFields = vectorEmbeddingRelatedFields; }

@@ -16,29 +16,35 @@
  */
 package com.salesforce.data360.mcp.model.request.dlo;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Data object field definition.
+ * Mirrors {@code DataObjectFieldInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataObjectFieldInput {
 
-    @McpToolParam(description = "Field name")
+    @McpToolParam(description = "Name of the field.", required = false)
     private String name;
 
-    @McpToolParam(description = "Field label")
+    @McpToolParam(description = "Label of the field.", required = false)
     private String label;
 
-    @McpToolParam(description = "Field type: Boolean, Date, DateOnly, DateTime, Email, Number, Percent, Phone, Text, Url")
-    private String type;
+    @JsonProperty("dataType")
+    @JsonAlias("type")
+    @McpToolParam(
+        description = "Data type of the field. One of Boolean, Date, DateOnly, DateTime, Email, Number, Percent, Phone, Text, Url.",
+        required = false)
+    private String dataType;
 
-    @McpToolParam(description = "Whether this field is a primary key")
+    @McpToolParam(description = "Is the field a primary key.", required = false)
     private Boolean isPrimaryKey;
 
-    @McpToolParam(description = "Key qualifier field name")
-    private String keyQualifierFieldName;
+    @McpToolParam(description = "Key qualifier field name.", required = false)
+    private String keyQualifierField;
 
     public String getName() {
         return name;
@@ -56,12 +62,12 @@ public class DataObjectFieldInput {
         this.label = label;
     }
 
-    public String getType() {
-        return type;
+    public String getDataType() {
+        return dataType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public Boolean getIsPrimaryKey() {
@@ -72,11 +78,11 @@ public class DataObjectFieldInput {
         this.isPrimaryKey = isPrimaryKey;
     }
 
-    public String getKeyQualifierFieldName() {
-        return keyQualifierFieldName;
+    public String getKeyQualifierField() {
+        return keyQualifierField;
     }
 
-    public void setKeyQualifierFieldName(String keyQualifierFieldName) {
-        this.keyQualifierFieldName = keyQualifierFieldName;
+    public void setKeyQualifierField(String keyQualifierField) {
+        this.keyQualifierField = keyQualifierField;
     }
 }

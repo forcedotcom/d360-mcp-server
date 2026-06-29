@@ -29,6 +29,7 @@ import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,10 +55,12 @@ public class IdentityResolutionTools {
         description = "List all identity resolution rulesets."
     )
     public String listIdentityResolutions(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter group for the request", required = false) String filterGroup
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions", dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            String path = ToolUtils.buildPath("/ssot/identity-resolutions", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -76,10 +79,12 @@ public class IdentityResolutionTools {
     )
     public String getIdentityResolution(
         @McpToolParam(description = "The identity resolution ID") String identityResolutionId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter group for the request", required = false) String filterGroup
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId), dataspace);
+            Map<String, Object> params = new HashMap<>();
+            if (filterGroup != null) params.put("filterGroup", filterGroup);
+            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId), params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -97,12 +102,11 @@ public class IdentityResolutionTools {
         description = "Create an identity resolution ruleset."
     )
     public String createIdentityResolution(
-        IdentityResolutionCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+            @McpToolParam(description = "The request body for identity resolution creation")  IdentityResolutionCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions", dataspace);
+            String path = "/ssot/identity-resolutions";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -121,12 +125,11 @@ public class IdentityResolutionTools {
     )
     public String updateIdentityResolution(
         @McpToolParam(description = "The identity resolution ID") String identityResolutionId,
-        IdentityResolutionPatchRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for identity resolution updation") IdentityResolutionPatchRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId), dataspace);
+            String path = "/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -135,23 +138,22 @@ public class IdentityResolutionTools {
     }
 
     /**
-     * Full replacement of an identity resolution ruleset.
-     * Replaces entire ruleset. More destructive than PATCH.
+     * Fully update an identity resolution ruleset with an alternative request shape.
+     * Use d360_ir_update for standard partial updates.
      */
-    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}", verb = "PUT")
+    @ApiEndpoint(path = "/ssot/identity-resolutions/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_ir_full_update",
-        description = "Full replacement of an identity resolution ruleset."
+        description = "Fully update an identity resolution ruleset (alternative request shape). Use d360_ir_update for standard partial updates."
     )
     public String fullUpdateIdentityResolution(
         @McpToolParam(description = "The identity resolution ID") String identityResolutionId,
-        IdentityResolutionFullUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for identity resolution updation") IdentityResolutionFullUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId), dataspace);
-            Map result = client.put(path, body, Map.class);
+            String path = "/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId);
+            Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -168,11 +170,10 @@ public class IdentityResolutionTools {
         description = "Delete an identity resolution ruleset."
     )
     public String deleteIdentityResolution(
-        @McpToolParam(description = "The identity resolution ID") String identityResolutionId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The identity resolution ID") String identityResolutionId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId), dataspace);
+            String path = "/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -190,11 +191,10 @@ public class IdentityResolutionTools {
         description = "Publish identity resolution config."
     )
     public String publishIdentityResolution(
-        @McpToolParam(description = "The identity resolution ID") String identityResolutionId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The identity resolution ID") String identityResolutionId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId) + "/actions/publish", dataspace);
+            String path = "/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId) + "/actions/publish";
             Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -213,12 +213,11 @@ public class IdentityResolutionTools {
     )
     public String runIdentityResolution(
         @McpToolParam(description = "The identity resolution ID") String identityResolutionId,
-        IdentityResolutionRunRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for identity resolution run") IdentityResolutionRunRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId) + "/actions/run-now", dataspace);
+            String path = "/ssot/identity-resolutions/" + ToolUtils.encodePath(identityResolutionId) + "/actions/run-now";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
