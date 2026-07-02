@@ -20,6 +20,7 @@ import com.salesforce.data360.mcp.client.Data360Client;
 import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightCreateRequest;
 import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightUpdateRequest;
+import com.salesforce.data360.mcp.model.request.calculatedinsight.CalculatedInsightValidateRequest;
 import com.salesforce.data360.mcp.runtime.ApiEndpoint;
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
@@ -62,11 +63,21 @@ public class CalculatedInsightTools {
         description = "List all calculated insights."
     )
     public String listCalculatedInsights(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Number of records per page", required = false) Integer batchSize,
+        @McpToolParam(description = "Filter by definition type (e.g. CALCULATED_METRIC)", required = false) String definitionType,
+        @McpToolParam(description = "Number of records to skip", required = false) Integer offset,
+        @McpToolParam(description = "Order by clause", required = false) String orderby,
+        @McpToolParam(description = "Page token for cursor-based pagination", required = false) String pageToken
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
             if (dataspace != null) params.put("dataspace", dataspace);
+            if (batchSize != null) params.put("batchSize", batchSize);
+            if (definitionType != null) params.put("definitionType", definitionType);
+            if (offset != null) params.put("offset", offset);
+            if (orderby != null) params.put("orderby", orderby);
+            if (pageToken != null) params.put("pageToken", pageToken);
 
             String path = ToolUtils.buildPath("/ssot/calculated-insights", params);
             Map result = client.get(path, Map.class);
@@ -86,14 +97,10 @@ public class CalculatedInsightTools {
         description = "Get a calculated insight by name."
     )
     public String getCalculatedInsight(
-        @McpToolParam(description = "The calculated insight API name") String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The calculated insight API name") String ciName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName), params);
+            String path = "/ssot/calculated-insights/" + ToolUtils.encodePath(ciName);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -112,16 +119,13 @@ public class CalculatedInsightTools {
         description = "Create a calculated insight. Required body fields: apiName (must end with __cio), displayName, definitionType ('CALCULATED_METRIC'), publishScheduleInterval ('SYSTEM_MANAGED'), expression (CI SQL). CI SQL rules: columns must use table.column format (e.g. ssot__Individual__dlm.ssot__Id__c), GROUP BY must use fully qualified names (not aliases), COUNT(DISTINCT) is not supported (use APPROX_COUNT_DISTINCT), subqueries are not supported, CAST(... AS FLOAT) is not supported (compute raw counts instead), CURRENT_DATE - INTERVAL is not supported (no date arithmetic). Do NOT include dimensions/measures arrays — the API derives them from the expression."
     )
     public String createCalculatedInsight(
-        CalculatedInsightCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for calculated insight creation") CalculatedInsightCreateRequest request,
+        @McpToolParam(description = "Whether to commit the transaction immediately", required = false) Boolean shouldCommitTransaction
     ) {
         try {
             // Idempotent: check if CI already exists
             try {
-                Map<String, Object> params = new HashMap<>();
-                if (dataspace != null) params.put("dataspace", dataspace);
-
-                String checkPath = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(request.getApiName()), params);
+                String checkPath = "/ssot/calculated-insights/" + ToolUtils.encodePath(request.getApiName());
                 Map existing = client.get(checkPath, Map.class);
 
                 // If we get here, it exists - return it with a flag
@@ -138,7 +142,7 @@ public class CalculatedInsightTools {
             Map<String, Object> body = JsonUtil.toMap(request);
 
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (shouldCommitTransaction != null) params.put("shouldCommitTransaction", shouldCommitTransaction);
 
             String path = ToolUtils.buildPath("/ssot/calculated-insights", params);
             Map result = client.post(path, body, Map.class);
@@ -159,14 +163,14 @@ public class CalculatedInsightTools {
     )
     public String updateCalculatedInsight(
         @McpToolParam(description = "The calculated insight API name") String ciName,
-        CalculatedInsightUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for calculated insight updation") CalculatedInsightUpdateRequest request,
+        @McpToolParam(description = "Whether to commit the transaction immediately", required = false) Boolean shouldCommitTransaction
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (shouldCommitTransaction != null) params.put("shouldCommitTransaction", shouldCommitTransaction);
 
             String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName), params);
             Map result = client.patch(path, body, Map.class);
@@ -187,11 +191,11 @@ public class CalculatedInsightTools {
     )
     public String deleteCalculatedInsight(
         @McpToolParam(description = "The calculated insight API name") String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Whether to commit the transaction immediately", required = false) Boolean shouldCommitTransaction
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (shouldCommitTransaction != null) params.put("shouldCommitTransaction", shouldCommitTransaction);
 
             String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName), params);
             Map result = client.delete(path, Map.class);
@@ -211,14 +215,10 @@ public class CalculatedInsightTools {
         description = "Trigger a run of a calculated insight."
     )
     public String runCalculatedInsight(
-        @McpToolParam(description = "The calculated insight API name") String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The calculated insight API name") String ciName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/run", params);
+            String path = "/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/run";
             Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -230,21 +230,17 @@ public class CalculatedInsightTools {
      * Get the run status of a Calculated Insight.
      * Returns the current execution status, progress, and completion info.
      */
-    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}/actions/run", verb = "GET")
+    @ApiEndpoint(path = "/ssot/calculated-insights/{ciName}/actions/refresh-status", verb = "POST")
     @McpTool(
         name = "d360_ci_run_status",
         description = "Get the status of a CI run."
     )
     public String getCalculatedInsightRunStatus(
-        @McpToolParam(description = "The calculated insight API name") String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The calculated insight API name") String ciName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/run", params);
-            Map result = client.get(path, Map.class);
+            String path = "/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/refresh-status";
+            Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -269,7 +265,7 @@ public class CalculatedInsightTools {
         @McpToolParam(description = "Batch size for pagination", required = false) Integer batchSize,
         @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
         @McpToolParam(description = "Time granularity (e.g., 'DAY', 'MONTH')", required = false) String timeGranularity,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
@@ -299,14 +295,10 @@ public class CalculatedInsightTools {
         description = "Enable a calculated insight."
     )
     public String enableCalculatedInsight(
-        @McpToolParam(description = "The calculated insight API name") String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The calculated insight API name") String ciName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/enable", params);
+            String path = "/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/enable";
             Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -323,14 +315,10 @@ public class CalculatedInsightTools {
         description = "Disable a calculated insight."
     )
     public String disableCalculatedInsight(
-        @McpToolParam(description = "The calculated insight API name") String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The calculated insight API name") String ciName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/disable", params);
+            String path = "/ssot/calculated-insights/" + ToolUtils.encodePath(ciName) + "/actions/disable";
             Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -347,14 +335,12 @@ public class CalculatedInsightTools {
         description = "Validate a calculated insight."
     )
     public String validateCalculatedInsight(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Validation request body") CalculatedInsightValidateRequest request
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/calculated-insights/actions/validate", params);
-            Map result = client.post(path, Map.of(), Map.class);
+            String path = "/ssot/calculated-insights/actions/validate";
+            Map<String, Object> body = JsonUtil.toMap(request);
+            Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -371,8 +357,8 @@ public class CalculatedInsightTools {
         description = "Get metadata for calculated insights. Lists all CIs or details for a specific one."
     )
     public String getInsightsMetadata(
-        @McpToolParam(description = "Optional calculated insight API name for specific metadata", required = false) String ciName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated insight API name for specific metadata", required = false) String ciName,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             StringBuilder pathBuilder = new StringBuilder("/ssot/insight/metadata");

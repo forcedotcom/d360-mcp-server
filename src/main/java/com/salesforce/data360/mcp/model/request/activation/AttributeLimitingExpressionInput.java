@@ -20,28 +20,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Attribute limiting expression for activation.
+ * Mirrors ConnectApi.AttributeLimitingExpressionInput.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AttributeLimitingExpressionInput {
 
-    @McpToolParam(description = "Attribute name")
+    @McpToolParam(description = "Attribute Name", required = false)
     private String attributeName;
 
-    @McpToolParam(description = "Entity name")
+    @McpToolParam(description = "Entity Name", required = false)
     private String entityName;
 
-    @McpToolParam(description = "Sort order: FilterSortOrderAsc, FilterSortOrderDesc")
+    @McpToolParam(description = "Sort order. One of FilterSortOrderAsc, FilterSortOrderDesc.", required = false)
     private String order;
 
-    @McpToolParam(description = "Type")
-    private String type;
+    @McpToolParam(description = "Query Path Config", required = false)
+    private List<QueryPathInputConfig> queryPathConfig;
 
-    @McpToolParam(description = "Query path config")
-    private List<Map<String, Object>> queryPathConfig;
+    @McpToolParam(description = "Attribute Type", required = false)
+    private String type;
 
     public String getAttributeName() {
         return attributeName;
@@ -75,11 +74,11 @@ public class AttributeLimitingExpressionInput {
         this.type = type;
     }
 
-    public List<Map<String, Object>> getQueryPathConfig() {
+    public List<QueryPathInputConfig> getQueryPathConfig() {
         return queryPathConfig;
     }
 
-    public void setQueryPathConfig(List<Map<String, Object>> queryPathConfig) {
+    public void setQueryPathConfig(List<QueryPathInputConfig> queryPathConfig) {
         this.queryPathConfig = queryPathConfig;
     }
 }

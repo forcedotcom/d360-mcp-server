@@ -22,22 +22,63 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 import java.util.List;
 
 /**
- * Request body for updating a Data Model Object.
+ * Request body for {@code PATCH /ssot/data-model-objects/{name}}.
+ *
+ * <p>The endpoint accepts the same {@code DataModelObjectInputRepresentation}
+ * as create. Mirrors that representation flattened with its parents
+ * {@code DataObjectInputRepresentation} and {@code CdpObjectBaseInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DmoUpdateRequest {
 
-    @McpToolParam(description = "New display name", required = false)
+    // ---- CdpObjectBaseInputRepresentation (shared) ----
+
+    @McpToolParam(description = "Name of the data space", required = false)
+    private String dataSpaceName;
+
+    @McpToolParam(description = "Description.", required = false)
+    private String description;
+
+    @McpToolParam(description = "Display label for the DMO.", required = false)
     private String label;
 
-    @McpToolParam(description = "Updated field definitions", required = false)
-    private List<DataModelFieldInputRepresentation> fields;
+    @McpToolParam(description = "DMO API name.", required = false)
+    private String name;
 
-    @McpToolParam(description = "Updated object category (e.g., 'Profile', 'Engagement', 'Other')", required = false)
+    // ---- DataObjectInputRepresentation ----
+
+    @McpToolParam(
+        description = "Category of the data object. One of Engagement, Other, Profile",
+        required = false)
     private String category;
 
-    @McpToolParam(description = "Updated description", required = false)
-    private String description;
+    @McpToolParam(description = "Event date time field name.", required = false)
+    private String eventDateTimeFieldName;
+
+    @McpToolParam(description = "Fields in the data object.", required = false)
+    private List<DataObjectFieldInput> fields;
+
+    @McpToolParam(description = "Record modified field name.", required = false)
+    private String recordModifiedFieldName;
+
+    @McpToolParam(description = "Type of data object.", required = false)
+    private String type;
+
+    public String getDataSpaceName() {
+        return dataSpaceName;
+    }
+
+    public void setDataSpaceName(String dataSpaceName) {
+        this.dataSpaceName = dataSpaceName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getLabel() {
         return label;
@@ -47,12 +88,12 @@ public class DmoUpdateRequest {
         this.label = label;
     }
 
-    public List<DataModelFieldInputRepresentation> getFields() {
-        return fields;
+    public String getName() {
+        return name;
     }
 
-    public void setFields(List<DataModelFieldInputRepresentation> fields) {
-        this.fields = fields;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCategory() {
@@ -63,11 +104,35 @@ public class DmoUpdateRequest {
         this.category = category;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEventDateTimeFieldName() {
+        return eventDateTimeFieldName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEventDateTimeFieldName(String eventDateTimeFieldName) {
+        this.eventDateTimeFieldName = eventDateTimeFieldName;
+    }
+
+    public List<DataObjectFieldInput> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<DataObjectFieldInput> fields) {
+        this.fields = fields;
+    }
+
+    public String getRecordModifiedFieldName() {
+        return recordModifiedFieldName;
+    }
+
+    public void setRecordModifiedFieldName(String recordModifiedFieldName) {
+        this.recordModifiedFieldName = recordModifiedFieldName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -57,7 +57,7 @@ class DataActionToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dataActionTools.listDataActions(null);
+        String result = dataActionTools.listDataActions(null, null, null, null);
 
         // Then
         assertThat(result).contains("MyAction");
@@ -115,7 +115,9 @@ class DataActionToolsTest {
         request.setDataActionName("NewAction");
         request.setDeveloperName("New_Action");
         request.setDataspace(DEFAULT_DATASPACE);
-        request.setDataActionSources(List.of(Map.of("sourceType", "DLO")));
+        DataActionSourceInput src = new DataActionSourceInput();
+        src.setSourceType("DLO");
+        request.setDataActionSources(List.of(src));
 
         // When
         String result = dataActionTools.createDataAction(request, null);
@@ -153,7 +155,7 @@ class DataActionToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dataActionTools.listDataActionTargets(null);
+        String result = dataActionTools.listDataActionTargets(null, null, null);
 
         // Then
         assertThat(result).contains("MyTarget");
@@ -167,7 +169,7 @@ class DataActionToolsTest {
         when(client.get(anyString(), eq(Map.class))).thenReturn(mockResponse);
 
         // When
-        String result = dataActionTools.getDataActionTarget("dat-1", null);
+        String result = dataActionTools.getDataActionTarget("dat-1");
 
         // Then
         assertThat(result).contains("dat-1");
@@ -190,7 +192,7 @@ class DataActionToolsTest {
         request.setConfig(config);
 
         // When
-        String result = dataActionTools.createDataActionTarget(request, null);
+        String result = dataActionTools.createDataActionTarget(request);
 
         // Then
         assertThat(result).contains("dat-new");
@@ -216,7 +218,7 @@ class DataActionToolsTest {
         request.setType("Webhook");
 
         // When
-        String result = dataActionTools.createDataActionTarget(request, null);
+        String result = dataActionTools.createDataActionTarget(request);
 
         // Then
         assertThat(result).contains("error", "400");
@@ -232,7 +234,7 @@ class DataActionToolsTest {
         request.setLabel("Updated");
 
         // When
-        String result = dataActionTools.updateDataActionTarget("dat-1", request, null);
+        String result = dataActionTools.updateDataActionTarget("dat-1", request);
 
         // Then
         assertThat(result).contains("Updated");
@@ -252,7 +254,7 @@ class DataActionToolsTest {
         request.setLabel("Updated");
 
         // When
-        String result = dataActionTools.updateDataActionTarget("bad", request, null);
+        String result = dataActionTools.updateDataActionTarget("bad", request);
 
         // Then
         assertThat(result).contains("error", "404");
@@ -263,7 +265,7 @@ class DataActionToolsTest {
         // Given - delete returns void
 
         // When
-        String result = dataActionTools.deleteDataActionTarget("dat-1", null);
+        String result = dataActionTools.deleteDataActionTarget("dat-1");
 
         // Then
         assertThat(result).contains("success");
@@ -277,7 +279,7 @@ class DataActionToolsTest {
             .when(client).delete(anyString());
 
         // When
-        String result = dataActionTools.deleteDataActionTarget("bad", null);
+        String result = dataActionTools.deleteDataActionTarget("bad");
 
         // Then
         assertThat(result).contains("error", "404");

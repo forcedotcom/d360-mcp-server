@@ -29,7 +29,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Map;
 
-import static com.salesforce.data360.mcp.tools.TestConstants.DEFAULT_DATASPACE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -54,7 +53,6 @@ class ActivationToolsTest {
     @Test
     void testListActivations_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "activations", List.of(
                 Map.of("id", "act-123", "name", "Send to Salesforce")
@@ -65,7 +63,7 @@ class ActivationToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = activationTools.listActivations(dataspace);
+        String result = activationTools.listActivations(null, null, null, null);
 
         // Then
         assertThat(result).contains("act-123", "Send to Salesforce");
@@ -73,14 +71,13 @@ class ActivationToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations");
     }
 
     @Test
     void testGetActivation_success() {
         // Given
         String activationId = "act-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", activationId,
             "name", "Send to Salesforce",
@@ -91,7 +88,7 @@ class ActivationToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = activationTools.getActivation(activationId, dataspace);
+        String result = activationTools.getActivation(activationId);
 
         // Then
         assertThat(result).contains(activationId, "Send to Salesforce");
@@ -99,13 +96,12 @@ class ActivationToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations/act-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations/act-123");
     }
 
     @Test
     void testCreateActivation_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", "act-789",
             "name", "Send High Value to Salesforce"
@@ -114,15 +110,24 @@ class ActivationToolsTest {
         when(client.post(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        String body = "{\"name\":\"Send High Value to Salesforce\",\"refreshType\":\"FULL\","
-            + "\"dataSpaceName\":\"default\",\"activationTargetName\":\"target-456\","
-            + "\"segmentApiName\":\"seg-123\",\"limitValue\":1000,"
-            + "\"curatedEntity\":{\"name\":\"Individual\",\"label\":\"Individual\"},"
-            + "\"activationTargetSubjectConfig\":{\"developerName\":\"ContactPointEmail\"},"
-            + "\"attributeLimitingExpressionConfig\":{}}";
+        ActivationCreateRequest request = new ActivationCreateRequest();
+        request.setName("Send High Value to Salesforce");
+        request.setRefreshType("FULL");
+        request.setDataSpaceName("default");
+        request.setActivationTargetName("target-456");
+        request.setSegmentApiName("seg-123");
+        request.setLimitValue(1000);
+        CuratedEntityInput curatedEntity = new CuratedEntityInput();
+        curatedEntity.setName("Individual");
+        curatedEntity.setLabel("Individual");
+        request.setCuratedEntity(curatedEntity);
+        ActivationTargetSubjectConfigInput subjectConfig = new ActivationTargetSubjectConfigInput();
+        subjectConfig.setDeveloperName("ContactPointEmail");
+        request.setActivationTargetSubjectConfig(subjectConfig);
+        request.setAttributeLimitingExpressionConfig(java.util.List.of());
 
         // When
-        String result = activationTools.createActivation(body, dataspace);
+        String result = activationTools.createActivation(request);
 
         // Then
         assertThat(result).contains("act-789", "Send High Value to Salesforce");
@@ -131,7 +136,7 @@ class ActivationToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations");
         assertThat(bodyCaptor.getValue()).containsEntry("name", "Send High Value to Salesforce");
         assertThat(bodyCaptor.getValue()).containsEntry("activationTargetName", "target-456");
         assertThat(bodyCaptor.getValue()).containsEntry("segmentApiName", "seg-123");
@@ -142,29 +147,28 @@ class ActivationToolsTest {
     void testUpdateActivation_success() {
         // Given
         String activationId = "act-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", activationId,
             "refreshType", "INCREMENTAL"
         );
 
-        when(client.patch(anyString(), any(), eq(Map.class)))
+        when(client.put(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         ActivationUpdateRequest request = new ActivationUpdateRequest();
         request.setRefreshType("INCREMENTAL");
 
         // When
-        String result = activationTools.updateActivation(activationId, request, dataspace);
+        String result = activationTools.updateActivation(activationId, request);
 
         // Then
         assertThat(result).contains("INCREMENTAL");
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
-        verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+        verify(client).put(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations/act-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations/act-123");
         assertThat(bodyCaptor.getValue()).containsEntry("refreshType", "INCREMENTAL");
     }
 
@@ -172,14 +176,13 @@ class ActivationToolsTest {
     void testDeleteActivation_success() {
         // Given
         String activationId = "act-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of("success", true);
 
         when(client.delete(anyString(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         // When
-        String result = activationTools.deleteActivation(activationId, dataspace);
+        String result = activationTools.deleteActivation(activationId);
 
         // Then
         assertThat(result).contains("success");
@@ -187,7 +190,7 @@ class ActivationToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations/act-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activations/act-123");
     }
 
     // ========================================================================
@@ -197,7 +200,6 @@ class ActivationToolsTest {
     @Test
     void testListActivationTargets_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "targets", List.of(
                 Map.of("id", "target-123", "name", "Salesforce Production")
@@ -208,7 +210,7 @@ class ActivationToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = activationTools.listActivationTargets(dataspace);
+        String result = activationTools.listActivationTargets(null, null, null, null);
 
         // Then
         assertThat(result).contains("target-123", "Salesforce Production");
@@ -216,14 +218,13 @@ class ActivationToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets");
     }
 
     @Test
     void testGetActivationTarget_success() {
         // Given
         String targetId = "target-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", targetId,
             "name", "Salesforce Production",
@@ -234,7 +235,7 @@ class ActivationToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = activationTools.getActivationTarget(targetId, dataspace);
+        String result = activationTools.getActivationTarget(targetId);
 
         // Then
         assertThat(result).contains(targetId, "Salesforce Production");
@@ -242,13 +243,12 @@ class ActivationToolsTest {
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets/target-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets/target-123");
     }
 
     @Test
     void testCreateActivationTarget_success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", "target-456",
             "name", "Salesforce Production"
@@ -257,7 +257,7 @@ class ActivationToolsTest {
         when(client.post(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
-        DataConnectorInput connector = new DataConnectorInput();
+        ConnectorInput connector = new ConnectorInput();
         connector.setName("myConnector");
         connector.setOutputFormat("CSV");
 
@@ -270,7 +270,7 @@ class ActivationToolsTest {
         request.setIsCappingEnabled(false);
 
         // When
-        String result = activationTools.createActivationTarget(request, dataspace);
+        String result = activationTools.createActivationTarget(request);
 
         // Then
         assertThat(result).contains("target-456", "Salesforce Production");
@@ -279,7 +279,7 @@ class ActivationToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets");
         assertThat(bodyCaptor.getValue()).containsEntry("name", "Salesforce Production");
         assertThat(bodyCaptor.getValue()).containsEntry("dataSpaceName", "default");
         assertThat(bodyCaptor.getValue()).containsEntry("platformType", "SALESFORCE");
@@ -290,53 +290,31 @@ class ActivationToolsTest {
     void testUpdateActivationTarget_success() {
         // Given
         String targetId = "target-123";
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", targetId,
             "name", "Updated Target Name"
         );
 
-        when(client.put(anyString(), any(), eq(Map.class)))
+        when(client.patch(anyString(), any(), eq(Map.class)))
             .thenReturn(mockResponse);
 
         ActivationTargetUpdateRequest request = new ActivationTargetUpdateRequest();
         request.setName("Updated Target Name");
 
         // When
-        String result = activationTools.updateActivationTarget(targetId, request, dataspace);
+        String result = activationTools.updateActivationTarget(targetId, request);
 
         // Then
         assertThat(result).contains("Updated Target Name");
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
-        verify(client).put(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
+        verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets/target-123?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets/target-123");
         assertThat(bodyCaptor.getValue()).containsEntry("name", "Updated Target Name");
     }
 
-    @Test
-    void testDeleteActivationTarget_success() {
-        // Given
-        String targetId = "target-123";
-        String dataspace = DEFAULT_DATASPACE;
-        Map<String, Object> mockResponse = Map.of("success", true);
-
-        when(client.delete(anyString(), eq(Map.class)))
-            .thenReturn(mockResponse);
-
-        // When
-        String result = activationTools.deleteActivationTarget(targetId, dataspace);
-
-        // Then
-        assertThat(result).contains("success");
-
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).delete(pathCaptor.capture(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/activation-targets/target-123?dataspace=default");
-    }
 
     // ========================================================================
     // ERROR HANDLING TESTS
@@ -349,7 +327,7 @@ class ActivationToolsTest {
             .thenThrow(new ApiException(500, "Server error", "/ssot/activations"));
 
         // When
-        String result = activationTools.listActivations(DEFAULT_DATASPACE);
+        String result = activationTools.listActivations(null, null, null, null);
 
         // Then
         assertThat(result).contains("error", "Server error", "500");
@@ -361,15 +339,22 @@ class ActivationToolsTest {
         when(client.post(anyString(), any(), eq(Map.class)))
             .thenThrow(new ApiException(400, "Invalid activation definition", "/ssot/activations"));
 
-        String body = "{\"name\":\"My Act\",\"refreshType\":\"FULL\","
-            + "\"dataSpaceName\":\"default\",\"activationTargetName\":\"target-1\","
-            + "\"segmentApiName\":\"seg-1\",\"limitValue\":1000,"
-            + "\"curatedEntity\":{\"name\":\"Individual\",\"label\":\"Individual\"},"
-            + "\"activationTargetSubjectConfig\":{},"
-            + "\"attributeLimitingExpressionConfig\":{}}";
+        ActivationCreateRequest request = new ActivationCreateRequest();
+        request.setName("My Act");
+        request.setRefreshType("FULL");
+        request.setDataSpaceName("default");
+        request.setActivationTargetName("target-1");
+        request.setSegmentApiName("seg-1");
+        request.setLimitValue(1000);
+        CuratedEntityInput curatedEntity = new CuratedEntityInput();
+        curatedEntity.setName("Individual");
+        curatedEntity.setLabel("Individual");
+        request.setCuratedEntity(curatedEntity);
+        request.setActivationTargetSubjectConfig(new ActivationTargetSubjectConfigInput());
+        request.setAttributeLimitingExpressionConfig(java.util.List.of());
 
         // When
-        String result = activationTools.createActivation(body, null);
+        String result = activationTools.createActivation(request);
 
         // Then
         assertThat(result).contains("error", "Invalid activation definition", "400");

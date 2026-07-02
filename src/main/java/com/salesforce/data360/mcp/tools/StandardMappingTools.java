@@ -35,7 +35,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -113,8 +112,7 @@ public class StandardMappingTools {
     )
     public String standardMappingCreate(
         @McpToolParam(description = "Source DLO developer name (e.g., 'Account_00D000000000000__dll' or 'Account_Home__dll'). Must be the actual DLO name as it appears in Data 360.") String sourceObjectName,
-        @McpToolParam(description = "Comma-separated list of DMO names to skip (e.g., 'FinancialCustomerDmo,ContactPointPhoneDmo'). If omitted, creates mappings for ALL target DMOs.", required = false) String excludeDmos,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Comma-separated list of DMO names to skip (e.g., 'FinancialCustomerDmo,ContactPointPhoneDmo'). If omitted, creates mappings for ALL target DMOs.", required = false) String excludeDmos
     ) {
         try {
             if (sourceObjectName != null) {
@@ -144,21 +142,18 @@ public class StandardMappingTools {
 
             Set<String> dloFieldNames;
             try {
-                dloFieldNames = fetchDloFieldNames(sourceObjectName, dataspace);
+                dloFieldNames = fetchDloFieldNames(sourceObjectName);
             } catch (ApiException e) {
                 return ToolUtils.errorResponse(e);
             }
 
             if (dloFieldNames.isEmpty()) {
                 return JsonUtil.toJson(Map.of(
-                    "error", "DLO '" + sourceObjectName + "' returned no fields. Verify the DLO name"
-                        + (dataspace != null ? " and dataspace '" + dataspace + "'" : "") + "."
+                    "error", "DLO '" + sourceObjectName + "' returned no fields. Verify the DLO name."
                 ));
             }
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-            String path = ToolUtils.buildPath("/ssot/data-model-object-mappings", params);
+            String path = "/ssot/data-model-object-mappings";
 
             List<Map<String, Object>> results = new ArrayList<>();
             int succeeded = 0;
@@ -294,9 +289,8 @@ public class StandardMappingTools {
         return request;
     }
 
-    private Set<String> fetchDloFieldNames(String dloName, String dataspace) {
-        String path = ToolUtils.buildPath(
-            "/ssot/data-lake-objects/" + ToolUtils.encodePath(dloName), dataspace);
+    private Set<String> fetchDloFieldNames(String dloName) {
+        String path = "/ssot/data-lake-objects/" + ToolUtils.encodePath(dloName);
         @SuppressWarnings("unchecked")
         Map<String, Object> dlo = client.get(path, Map.class);
         return extractFieldNames(dlo);

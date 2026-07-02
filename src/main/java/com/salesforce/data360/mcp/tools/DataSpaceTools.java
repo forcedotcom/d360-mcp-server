@@ -52,9 +52,18 @@ public class DataSpaceTools {
         name = "d360_dataspace_list",
         description = "List all data spaces."
     )
-    public String listDataSpaces() {
+    public String listDataSpaces(
+        @McpToolParam(description = "Maximum number of records to return", required = false) Integer batchSize,
+        @McpToolParam(description = "Number of records to skip for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to order results by", required = false) String orderBy
+    ) {
         try {
-            Map result = client.get("/ssot/data-spaces", Map.class);
+            Map<String, Object> params = new java.util.LinkedHashMap<>();
+            params.put("batchSize", batchSize);
+            params.put("offset", offset);
+            params.put("orderBy", orderBy);
+            String path = ToolUtils.buildPath("/ssot/data-spaces", params);
+            Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -71,10 +80,10 @@ public class DataSpaceTools {
         description = "Get a data space."
     )
     public String getDataSpace(
-        @McpToolParam(description = "The data space name") String dataSpaceName
+        @McpToolParam(description = "The data space name or ID") String dataSpaceNameOrId
     ) {
         try {
-            Map result = client.get("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceName), Map.class);
+            Map result = client.get("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceNameOrId), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -112,32 +121,12 @@ public class DataSpaceTools {
         description = "Update a data space."
     )
     public String updateDataSpace(
-        @McpToolParam(description = "The data space name") String dataSpaceName,
+        @McpToolParam(description = "The data space name or ID") String dataSpaceNameOrId,
         @McpToolParam(description = "Data space update request body") DataSpacePatchRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            Map result = client.patch("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceName), body, Map.class);
-            return JsonUtil.toJson(result);
-        } catch (ApiException e) {
-            return ToolUtils.errorResponse(e);
-        }
-    }
-
-    /**
-     * Delete a data space.
-     * Deletes dataspace and all contents. Irreversible.
-     */
-    @ApiEndpoint(path = "/ssot/data-spaces/{name}", verb = "DELETE")
-    @McpTool(
-        name = "d360_dataspace_delete",
-        description = "Delete a data space."
-    )
-    public String deleteDataSpace(
-        @McpToolParam(description = "The data space name") String dataSpaceName
-    ) {
-        try {
-            Map result = client.delete("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceName), Map.class);
+            Map result = client.patch("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceNameOrId), body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -154,10 +143,19 @@ public class DataSpaceTools {
         description = "List data space members."
     )
     public String listDataSpaceMembers(
-        @McpToolParam(description = "The data space name") String dataSpaceName
+        @McpToolParam(description = "The data space name or ID") String dataSpaceNameOrID,
+        @McpToolParam(description = "Maximum number of records to return", required = false) Integer batchSize,
+        @McpToolParam(description = "Number of records to skip for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to order results by", required = false) String orderBy
     ) {
         try {
-            Map result = client.get("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceName) + "/members", Map.class);
+            Map<String, Object> params = new java.util.LinkedHashMap<>();
+            params.put("batchSize", batchSize);
+            params.put("offset", offset);
+            params.put("orderBy", orderBy);
+            String basePath = "/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceNameOrID) + "/members";
+            String path = ToolUtils.buildPath(basePath, params);
+            Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -168,18 +166,18 @@ public class DataSpaceTools {
      * Add a member to a data space.
      * Grant dataspace access to a user with specified role.
      */
-    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members", verb = "POST")
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members", verb = "PUT")
     @McpTool(
         name = "d360_dataspace_member_add",
         description = "Add a member to a data space."
     )
     public String addDataSpaceMember(
-        @McpToolParam(description = "The data space name") String dataSpaceName,
+        @McpToolParam(description = "The data space name or ID") String dataSpaceNameOrId,
         @McpToolParam(description = "Data space member request body") DataSpaceMemberRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            Map result = client.put("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceName) + "/members", body, Map.class);
+            Map result = client.put("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceNameOrId) + "/members", body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -187,20 +185,22 @@ public class DataSpaceTools {
     }
 
     /**
-     * Remove a member from a data space.
+     * Remove members from a data space.
      * Revoke dataspace access from a user.
      */
-    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members/{memberId}", verb = "DELETE")
+    @ApiEndpoint(path = "/ssot/data-spaces/{name}/members", verb = "DELETE")
     @McpTool(
         name = "d360_dataspace_member_remove",
-        description = "Remove a member from a data space."
+        description = "Remove members from a data space (max 10)."
     )
     public String removeDataSpaceMember(
-        @McpToolParam(description = "The data space name") String dataSpaceName,
-        @McpToolParam(description = "The member ID to remove") String memberId
+        @McpToolParam(description = "The data space name or ID") String dataSpaceNameOrId,
+        @McpToolParam(description = "Comma-separated DLO names to remove (max 10)") String memberNames
     ) {
         try {
-            Map result = client.delete("/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceName) + "/members/" + ToolUtils.encodePath(memberId), Map.class);
+            String path = "/ssot/data-spaces/" + ToolUtils.encodePath(dataSpaceNameOrId)
+                + "/members?memberNames=" + ToolUtils.encodePath(memberNames);
+            Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);

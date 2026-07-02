@@ -74,7 +74,9 @@ public class SearchIndexTools {
             + "vectorDmoName, vectorDmoDeveloperName, vectorEmbedding, chunkingConfiguration, vectorEmbeddingConfiguration, "
             + "searchType (HYBRID or VECTOR), and transformConfigurations."
     )
-    public String createSearchIndex(SearchIndexCreateRequest request) {
+    public String createSearchIndex(
+        @McpToolParam(description = "Search index creation request body") SearchIndexCreateRequest request
+    ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
@@ -185,7 +187,7 @@ public class SearchIndexTools {
     )
     public String updateSearchIndex(
         @McpToolParam(description = "ID or API Name of the search index") String searchIndexApiNameOrId,
-        SearchIndexCreateRequest request
+        @McpToolParam(description = "Search index update request body") SearchIndexCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);

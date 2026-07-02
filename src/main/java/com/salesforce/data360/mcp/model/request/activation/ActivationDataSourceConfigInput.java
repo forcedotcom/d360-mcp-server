@@ -19,23 +19,20 @@ package com.salesforce.data360.mcp.model.request.activation;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
-import java.util.List;
-import java.util.Map;
-
 /**
- * Data source configuration for activation.
+ * Mirrors ConnectApi.DataSourceNameConfigInput.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivationDataSourceConfigInput {
 
-    @McpToolParam(description = "Array of data source name config objects. Each has: dataSourceName (string, required)")
-    private List<Map<String, Object>> dataSources;
+    @McpToolParam(description = "Activation data source name", required = false)
+    private String name;
 
-    public List<Map<String, Object>> getDataSources() {
-        return dataSources;
+    public String getName() {
+        return name;
     }
 
-    public void setDataSources(List<Map<String, Object>> dataSources) {
-        this.dataSources = dataSources;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -17,6 +17,7 @@
 package com.salesforce.data360.mcp.model.request.dataaction;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
@@ -25,19 +26,23 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataActionTargetCreateRequest {
 
+    @NotBlank
     @McpToolParam(description = "API name of the data action target")
     private String apiName;
 
+    @NotBlank
     @McpToolParam(description = "Label")
     private String label;
 
-    @McpToolParam(description = "Type: Core, Internal_WebHook, MarketingCloud, WebHook")
+    @NotBlank
+    @McpToolParam(description = "Data Action Target Type. One of Core, Internal_WebHook, MarketingCloud, WebHook")
     private String type;
 
-    @McpToolParam(description = "Sub type: Grpc, Rest")
+    @NotBlank
+    @McpToolParam(description = "Data Action Target Sub type. One of Grpc, Rest", required = false)
     private String subType;
 
-    @McpToolParam(description = "External record identifier")
+    @McpToolParam(description = "External record identifier", required = false)
     private String externalRecordIdentifier;
 
     @McpToolParam(description = "Target configuration")

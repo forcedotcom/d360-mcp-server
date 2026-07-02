@@ -51,13 +51,23 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
         description = "List all data streams (ingestion pipelines)."
     )
     public String listDataStreams(
-        @McpToolParam(description = "Filter by category (e.g., 'profile', 'engagement')", required = false) String category,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter by connection name", required = false) String connectionName,
+        @McpToolParam(description = "Filter expression", required = false) String filter,
+        @McpToolParam(description = "Whether to include mappings in the response", required = false) String includeMappings,
+        @McpToolParam(description = "Maximum number of results to return", required = false) Integer limit,
+        @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Order by clause for sorting results", required = false) String orderBy,
+        @McpToolParam(description = "Filter by source object name", required = false) String sourceObjectName
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (category != null) params.put("category", category);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (connectionName != null) params.put("connectionName", connectionName);
+            if (filter != null) params.put("filter", filter);
+            if (includeMappings != null) params.put("includeMappings", includeMappings);
+            if (limit != null) params.put("limit", limit);
+            if (offset != null) params.put("offset", offset);
+            if (orderBy != null) params.put("orderBy", orderBy);
+            if (sourceObjectName != null) params.put("sourceObjectName", sourceObjectName);
 
             String path = ToolUtils.buildPath("/ssot/data-streams", params);
             Map result = client.get(path, Map.class);
@@ -77,14 +87,14 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
         description = "Get details of a specific data stream."
     )
     public String getDataStream(
-        @McpToolParam(description = "The data stream ID or name") String dataStreamId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data stream record ID or developer name") String dataStreamIdOrName,
+        @McpToolParam(description = "Whether to include mappings in the response", required = false) String includeMappings
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (includeMappings != null) params.put("includeMappings", includeMappings);
 
-            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamId), params);
+            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamIdOrName), params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -105,10 +115,9 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
                 + "Both pre-fill connector-specific defaults and require fewer parameters."
     )
     public String createDataStream(
-        @McpToolParam(description = "Data stream creation request body") DataStreamCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Data stream creation request body") DataStreamCreateRequest request
     ) {
-        return super.createDataStream(request, dataspace);
+        return super.createDataStream(request);
     }
 
     /**
@@ -125,17 +134,13 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
             + "label, mappings, and sourceFields."
     )
     public String updateDataStream(
-        @McpToolParam(description = "The data stream ID or name") String dataStreamId,
-        @McpToolParam(description = "Data stream update request body") DataStreamPatchRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data stream record ID or developer name") String dataStreamIdOrName,
+        @McpToolParam(description = "Data stream update request body") DataStreamPatchRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamId), params);
+            String path = "/ssot/data-streams/" + ToolUtils.encodePath(dataStreamIdOrName);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -153,16 +158,14 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
         description = "Delete a data stream."
     )
     public String deleteDataStream(
-        @McpToolParam(description = "The data stream record ID (e.g. 1dsaj000000qaH7AAI)") String dataStreamId,
-        @McpToolParam(description = "Whether to also delete the associated DLO. Defaults to true.", required = false) Boolean shouldDeleteDataLakeObject,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data stream record ID or developer name") String dataStreamIdOrName,
+        @McpToolParam(description = "Whether to also delete the associated DLO", required = false) Boolean shouldDeleteDataLakeObject
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            params.put("shouldDeleteDataLakeObject", shouldDeleteDataLakeObject != null ? shouldDeleteDataLakeObject : true);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (shouldDeleteDataLakeObject != null) params.put("shouldDeleteDataLakeObject", shouldDeleteDataLakeObject);
 
-            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamId), params);
+            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamIdOrName), params);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -174,7 +177,7 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
      * Run a Data Stream manually.
      * Triggers an immediate refresh of the data stream. Use for testing or manual syncs.
      */
-    @ApiEndpoint(path = "/ssot/data-streams/{id}/run", verb = "POST")
+    @ApiEndpoint(path = "/ssot/data-streams/{id}/actions/run", verb = "POST")
     @McpTool(
         name = "d360_datastream_run",
         description = "Trigger a data stream ingestion run. "
@@ -183,14 +186,14 @@ public class DataStreamTools extends AbstractConnectorDataStreamTools {
             + "This tool works for S3, Snowflake, file upload, and other non-CRM data streams."
     )
     public String runDataStream(
-        @McpToolParam(description = "The data stream ID or name") String dataStreamId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data stream record ID or developer name") String dataStreamIdOrName,
+        @McpToolParam(description = "Whether to run interactively", required = false) Boolean interactive
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (interactive != null) params.put("interactive", interactive);
 
-            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamId) + "/actions/run", params);
+            String path = ToolUtils.buildPath("/ssot/data-streams/" + ToolUtils.encodePath(dataStreamIdOrName) + "/actions/run", params);
             Map result = client.post(path, Map.of(), Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {

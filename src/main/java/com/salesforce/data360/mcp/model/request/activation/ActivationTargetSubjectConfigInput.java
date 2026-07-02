@@ -20,28 +20,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Activation target subject configuration.
+ * Mirrors ConnectApi.ActivationTargetSubjectConfigInput.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivationTargetSubjectConfigInput {
 
-    @McpToolParam(description = "Developer name of activation target subject configuration", required = false)
+    @McpToolParam(description = "Developer Name of Activation Target Subject Config", required = false)
     private String developerName;
 
-    @McpToolParam(description = "Array of query path config objects. Each has: configs (array of objects with queryPaths)", required = false)
-    private List<Map<String, Object>> queryPathConfig;
-
-    @McpToolParam(description = "ID", required = false)
-    private String id;
-
-    @McpToolParam(description = "Name", required = false)
-    private String name;
-
-    @McpToolParam(description = "Namespace", required = false)
-    private String namespace;
+    @McpToolParam(description = "Path of Activation Target Subject Config", required = false)
+    private List<QueryPathInputConfig> queryPathConfig;
 
     public String getDeveloperName() {
         return developerName;
@@ -51,35 +41,11 @@ public class ActivationTargetSubjectConfigInput {
         this.developerName = developerName;
     }
 
-    public List<Map<String, Object>> getQueryPathConfig() {
+    public List<QueryPathInputConfig> getQueryPathConfig() {
         return queryPathConfig;
     }
 
-    public void setQueryPathConfig(List<Map<String, Object>> queryPathConfig) {
+    public void setQueryPathConfig(List<QueryPathInputConfig> queryPathConfig) {
         this.queryPathConfig = queryPathConfig;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
     }
 }

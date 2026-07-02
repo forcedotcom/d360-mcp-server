@@ -53,8 +53,7 @@ public class AwsS3DataStreamTools extends AbstractConnectorDataStreamTools {
                     + "dataLakeObjectInfo (with fields), sourceFields, mappings, and refreshConfig in the request body."
     )
     public String createS3DataStream(
-            @McpToolParam(description = "Data stream creation request body. datastreamType and connectorInfo.connectorType are auto-set.") DataStreamCreateRequest request,
-            @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+            @McpToolParam(description = "Data stream creation request body. datastreamType and connectorInfo.connectorType are auto-set.") DataStreamCreateRequest request
     ) {
         request.setDatastreamType(DATASTREAM_TYPE);
 
@@ -65,6 +64,6 @@ public class AwsS3DataStreamTools extends AbstractConnectorDataStreamTools {
         }
         connectorInfo.setConnectorType(CONNECTOR_TYPE);
 
-        return super.createDataStream(request, dataspace);
+        return super.createDataStream(request);
     }
 }

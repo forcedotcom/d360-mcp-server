@@ -22,31 +22,40 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 import java.util.List;
 
 /**
- * A related DMO field to include in vector embedding.
+ * Mirrors {@code VectorEmbeddingRelatedFieldsInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VectorEmbeddingRelatedFieldInput {
 
-    @McpToolParam(description = "Developer name of the related DMO")
+    @McpToolParam(description = "Alias of the field", required = false)
+    private String aliasName;
+
+    @McpToolParam(description = "Filter expression", required = false)
+    private String filterExpression;
+
+    @McpToolParam(description = "Related DMO developer name", required = false)
     private String relatedDmoDeveloperName;
 
-    @McpToolParam(description = "Developer name of the related DMO field")
+    @McpToolParam(description = "Related DMO field developer name", required = false)
     private String relatedDmoFieldDeveloperName;
 
-    @McpToolParam(description = "Name of the related DMO", required = false)
-    private String relatedDmoName;
-
-    @McpToolParam(description = "Name of the related DMO field", required = false)
+    @McpToolParam(description = "Related DMO field name", required = false)
     private String relatedDmoFieldName;
 
-    @McpToolParam(description = "Relationships between source and target DMOs", required = false)
-    private List<SourceTargetRelationshipInput> relationships;
+    @McpToolParam(description = "Related DMO name", required = false)
+    private String relatedDmoName;
 
-    @McpToolParam(description = "Relationship cardinality: OneToOne, NToOne, or OneToN", required = false)
+    @McpToolParam(description = "Relationship cardinality (OneToOne, ManyToOne, OneToMany)", required = false)
     private String relationshipCardinality;
 
-    @McpToolParam(description = "Alias name for this related field", required = false)
-    private String aliasName;
+    @McpToolParam(description = "Field relationship paths", required = false)
+    private List<SourceTargetRelationshipInput> relationships;
+
+    public String getAliasName() { return aliasName; }
+    public void setAliasName(String aliasName) { this.aliasName = aliasName; }
+
+    public String getFilterExpression() { return filterExpression; }
+    public void setFilterExpression(String filterExpression) { this.filterExpression = filterExpression; }
 
     public String getRelatedDmoDeveloperName() { return relatedDmoDeveloperName; }
     public void setRelatedDmoDeveloperName(String relatedDmoDeveloperName) { this.relatedDmoDeveloperName = relatedDmoDeveloperName; }
@@ -54,18 +63,15 @@ public class VectorEmbeddingRelatedFieldInput {
     public String getRelatedDmoFieldDeveloperName() { return relatedDmoFieldDeveloperName; }
     public void setRelatedDmoFieldDeveloperName(String relatedDmoFieldDeveloperName) { this.relatedDmoFieldDeveloperName = relatedDmoFieldDeveloperName; }
 
-    public String getRelatedDmoName() { return relatedDmoName; }
-    public void setRelatedDmoName(String relatedDmoName) { this.relatedDmoName = relatedDmoName; }
-
     public String getRelatedDmoFieldName() { return relatedDmoFieldName; }
     public void setRelatedDmoFieldName(String relatedDmoFieldName) { this.relatedDmoFieldName = relatedDmoFieldName; }
 
-    public List<SourceTargetRelationshipInput> getRelationships() { return relationships; }
-    public void setRelationships(List<SourceTargetRelationshipInput> relationships) { this.relationships = relationships; }
+    public String getRelatedDmoName() { return relatedDmoName; }
+    public void setRelatedDmoName(String relatedDmoName) { this.relatedDmoName = relatedDmoName; }
 
     public String getRelationshipCardinality() { return relationshipCardinality; }
     public void setRelationshipCardinality(String relationshipCardinality) { this.relationshipCardinality = relationshipCardinality; }
 
-    public String getAliasName() { return aliasName; }
-    public void setAliasName(String aliasName) { this.aliasName = aliasName; }
+    public List<SourceTargetRelationshipInput> getRelationships() { return relationships; }
+    public void setRelationships(List<SourceTargetRelationshipInput> relationships) { this.relationships = relationships; }
 }

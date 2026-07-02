@@ -72,7 +72,7 @@ public class SalesforceCrmDataStreamTools extends AbstractConnectorDataStreamToo
             @McpToolParam(description = "DLO category: 'Profile', 'Engagement', 'Other'", required = false) String category,
             @McpToolParam(description = "Override for data stream name; defaults to '{sourceObject}_{connectionAliasOrOrganizationId}'", required = false) String dataStreamName,
             @McpToolParam(description = "Override for Data Lake Object name; defaults to '{sourceObject}_{connectionAliasOrOrganizationId}'", required = false) String dloName,
-            @McpToolParam(description = "Optional dataspace name override (defaults to 'default')", required = false) String dataspace,
+            @McpToolParam(description = "Dataspace name override (defaults to 'default')", required = false) String dataspace,
             @McpToolParam(description = "Name of the event date/time field. Required when category is 'Engagement'.", required = false) String eventDateTimeFieldName
     ) {
         String resolvedConnectionName = (connectionAliasOrOrganizationId != null) ? connectionAliasOrOrganizationId : DEFAULT_CONNECTOR_ALIAS;
@@ -88,7 +88,7 @@ public class SalesforceCrmDataStreamTools extends AbstractConnectorDataStreamToo
 
         DataStreamCreateRequest request = buildRequest(resolvedName, sourceObject, resolvedCategory,
                 resolvedDloName, resolvedConnectionName, eventDateTimeFieldName, resolvedDataspace);
-        return createDataStream(request, resolvedDataspace);
+        return createDataStream(request);
     }
 
     private DataStreamCreateRequest buildRequest(String name, String sourceObject,

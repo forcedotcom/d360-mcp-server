@@ -21,7 +21,6 @@ import com.salesforce.data360.mcp.model.common.ApiException;
 import com.salesforce.data360.mcp.model.request.mapping.FieldMappingAddRequest;
 import com.salesforce.data360.mcp.model.request.mapping.FieldMappingInput;
 import com.salesforce.data360.mcp.model.request.mapping.MappingCreateRequest;
-import com.salesforce.data360.mcp.model.request.mapping.MappingUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -184,7 +183,7 @@ class MappingToolsTest {
         request.setFieldMapping(List.of(fieldMapping));
 
         // When
-        String result = mappingTools.createDataModelObjectMapping(request, null);
+        String result = mappingTools.createDataModelObjectMapping(request, null, null);
 
         // Then
         assertThat(result).contains("NewMapping");
@@ -209,7 +208,7 @@ class MappingToolsTest {
         request.setFieldMapping(List.of());
 
         // When
-        String result = mappingTools.createDataModelObjectMapping(request, DEFAULT_DATASPACE);
+        String result = mappingTools.createDataModelObjectMapping(request, DEFAULT_DATASPACE, null);
 
         // Then
         verify(client).post(eq("/ssot/data-model-object-mappings?dataspace=default"), any(), eq(Map.class));
@@ -227,67 +226,10 @@ class MappingToolsTest {
         request.setFieldMapping(List.of());
 
         // When
-        String result = mappingTools.createDataModelObjectMapping(request, null);
+        String result = mappingTools.createDataModelObjectMapping(request, null, null);
 
         // Then
         assertThat(result).contains("error", "400", "Invalid mapping definition");
-    }
-
-    @Test
-    void testUpdateDataModelObjectMapping_basic() {
-        // Given
-        Map<String, Object> mockResponse = Map.of("name", "AccountMapping");
-        when(client.patch(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
-
-        FieldMappingInput fieldMapping = new FieldMappingInput();
-        fieldMapping.setSourceFieldDeveloperName("Email");
-        fieldMapping.setTargetFieldDeveloperName("ssot__Email__c");
-
-        MappingUpdateRequest request = new MappingUpdateRequest();
-        request.setFieldMapping(List.of(fieldMapping));
-
-        // When
-        String result = mappingTools.updateDataModelObjectMapping("AccountMapping", request, null);
-
-        // Then
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
-        verify(client).patch(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
-
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-model-object-mappings/AccountMapping");
-        assertThat(bodyCaptor.getValue()).containsKey("fieldMapping");
-    }
-
-    @Test
-    void testUpdateDataModelObjectMapping_withDataspace() {
-        // Given
-        Map<String, Object> mockResponse = Map.of("name", "AccountMapping");
-        when(client.patch(anyString(), any(), eq(Map.class))).thenReturn(mockResponse);
-
-        MappingUpdateRequest request = new MappingUpdateRequest();
-        request.setSourceEntityDeveloperName("NewSource__dll");
-
-        // When
-        String result = mappingTools.updateDataModelObjectMapping("AccountMapping", request, DEFAULT_DATASPACE);
-
-        // Then
-        verify(client).patch(eq("/ssot/data-model-object-mappings/AccountMapping?dataspace=default"), any(), eq(Map.class));
-    }
-
-    @Test
-    void testUpdateDataModelObjectMapping_error() {
-        // Given
-        when(client.patch(anyString(), any(), eq(Map.class)))
-            .thenThrow(new ApiException(404, "Mapping not found", "/ssot/data-model-object-mappings/NonExistent"));
-
-        MappingUpdateRequest request = new MappingUpdateRequest();
-        request.setFieldMapping(List.of());
-
-        // When
-        String result = mappingTools.updateDataModelObjectMapping("NonExistent", request, null);
-
-        // Then
-        assertThat(result).contains("error", "404");
     }
 
     @Test

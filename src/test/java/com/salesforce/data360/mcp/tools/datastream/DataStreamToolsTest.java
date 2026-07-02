@@ -61,7 +61,7 @@ class DataStreamToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataStreamTools.listDataStreams(null, null);
+        String result = dataStreamTools.listDataStreams(null, null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains("AccountStream");
@@ -81,14 +81,14 @@ class DataStreamToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataStreamTools.listDataStreams("profile", "default");
+        String result = dataStreamTools.listDataStreams("myConnection", null, null, null, null, null, "Account");
 
         // Then
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).get(pathCaptor.capture(), eq(Map.class));
         assertThat(pathCaptor.getValue())
-            .contains("category=profile")
-            .contains("dataspace=default");
+            .contains("connectionName=myConnection")
+            .contains("sourceObjectName=Account");
     }
 
     @Test
@@ -136,7 +136,7 @@ class DataStreamToolsTest {
         request.setDatastreamType("lightning");
 
         // When
-        String result = dataStreamTools.createDataStream(request, null);
+        String result = dataStreamTools.createDataStream(request);
 
         // Then
         assertThat(result).contains("stream-123");
@@ -170,7 +170,7 @@ class DataStreamToolsTest {
         request.setLabel("Updated Label");
 
         // When
-        String result = dataStreamTools.updateDataStream(dataStreamId, request, null);
+        String result = dataStreamTools.updateDataStream(dataStreamId, request);
 
         // Then
         assertThat(result).contains("Updated Label");
@@ -193,15 +193,14 @@ class DataStreamToolsTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = dataStreamTools.deleteDataStream(dataStreamId, null, null);
+        String result = dataStreamTools.deleteDataStream(dataStreamId, null);
 
         // Then
         assertThat(result).contains("success");
 
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).delete(pathCaptor.capture(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("/ssot/data-streams/" + dataStreamId);
-        assertThat(pathCaptor.getValue()).contains("shouldDeleteDataLakeObject=true");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams/" + dataStreamId);
     }
 
     @Test
@@ -235,7 +234,7 @@ class DataStreamToolsTest {
             .thenThrow(new ApiException(500, "Internal server error", "/ssot/data-streams"));
 
         // When
-        String result = dataStreamTools.listDataStreams(null, null);
+        String result = dataStreamTools.listDataStreams(null, null, null, null, null, null, null);
 
         // Then
         assertThat(result).contains("error");
@@ -259,7 +258,7 @@ class DataStreamToolsTest {
     }
 
     @Test
-    void testCreateDataStream_withDataspace() {
+    void testCreateDataStream_returnsId() {
         // Given
         Map<String, Object> mockResponse = Map.of("id", "stream-789");
 
@@ -273,12 +272,13 @@ class DataStreamToolsTest {
         request.setDatastreamType("lightning");
 
         // When
-        String result = dataStreamTools.createDataStream(request, "custom-dataspace");
+        String result = dataStreamTools.createDataStream(request);
 
         // Then
+        assertThat(result).contains("stream-789");
         ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
         verify(client).post(pathCaptor.capture(), any(Map.class), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("dataspace=custom-dataspace");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams");
     }
 
     @Test
@@ -292,7 +292,7 @@ class DataStreamToolsTest {
         request.setDatasource("src");
         request.setDatastreamType("lightning");
 
-        String result = dataStreamTools.createDataStream(request, null);
+        String result = dataStreamTools.createDataStream(request);
 
         assertThat(result).contains("Data 360 API connection error");
         assertThat(result).doesNotContain("Invalid JSON body");

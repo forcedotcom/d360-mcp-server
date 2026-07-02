@@ -19,23 +19,81 @@ package com.salesforce.data360.mcp.model.request.datatransform;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
+import java.util.List;
+
 /**
- * Request body for setting data transform schedule.
+ * Flat union of {@code CdpScheduleInputRepresentation} (abstract) and every
+ * concrete subtype: {@code CdpDailyScheduleInputRepresentation},
+ * {@code CdpHourlyScheduleInputRepresentation},
+ * {@code CdpMonthlyRelativeScheduleInputRepresentation},
+ * {@code CdpMonthlySpecificScheduleInputRepresentation} (frequency value
+ * {@code Monthly}),
+ * {@code CdpNoneScheduleInputRepresentation},
+ * {@code CdpWeeklyScheduleInputRepresentation}.
+ *
+ * <p>The discriminator is {@code frequency}; only fields applicable to the
+ * chosen frequency should be populated. {@code @JsonInclude(NON_NULL)} drops
+ * unused fields on the wire.
+ *
+ * <p>The UDF {@code shouldForceSpecifiedMinutes} property is
+ * {@code hidden="REST"} and is intentionally omitted.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataTransformScheduleRequest {
 
-    @McpToolParam(description = "Frequency: Daily, Hourly, Minutely, Monthly, MonthlyRelative, Weekly, None, Transform")
-    private String frequency;
+    // ---- CdpScheduleInputRepresentation (shared) ----
 
-    @McpToolParam(description = "Time configuration")
-    private DataTransformTimeInput time;
-
-    @McpToolParam(description = "Definition name for the schedule", required = false)
+    @McpToolParam(description = "Definition name the schedule applies to.", required = false)
     private String definitionName;
 
-    @McpToolParam(description = "Whether to force specified minutes", required = false)
-    private Boolean shouldForceSpecifiedMinutes;
+    @McpToolParam(
+        description = "Frequency. One of Daily, Hourly, Monthly, MonthlyRelative, None, Weekly.",
+        required = false)
+    private String frequency;
+
+    @McpToolParam(description = "Time of day for the schedule.", required = false)
+    private DataTransformTimeInput time;
+
+    // ---- Daily / Hourly ----
+
+    @McpToolParam(
+        description = "Daily, Hourly only: number of days/hours between runs.",
+        required = false)
+    private Integer interval;
+
+    // ---- Hourly / Weekly ----
+
+    @McpToolParam(
+        description = "Hourly, Weekly only: days of the week to run. Each value one of MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY.",
+        required = false)
+    private List<String> daysOfWeek;
+
+    // ---- MonthlyRelative ----
+
+    @McpToolParam(
+        description = "MonthlyRelative only: day of the week to run. One of MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY.",
+        required = false)
+    private String dayOfWeek;
+
+    @McpToolParam(
+        description = "MonthlyRelative only: relative week of the month. One of FIRST, SECOND, THIRD, FOURTH, LAST.",
+        required = false)
+    private String weekOfMonth;
+
+    // ---- Monthly (CdpMonthlySpecificScheduleInputRepresentation) ----
+
+    @McpToolParam(
+        description = "Monthly only: days of the month to run (numbers 1-31, or -1 for last day).",
+        required = false)
+    private List<Integer> daysOfMonth;
+
+    public String getDefinitionName() {
+        return definitionName;
+    }
+
+    public void setDefinitionName(String definitionName) {
+        this.definitionName = definitionName;
+    }
 
     public String getFrequency() {
         return frequency;
@@ -53,19 +111,43 @@ public class DataTransformScheduleRequest {
         this.time = time;
     }
 
-    public String getDefinitionName() {
-        return definitionName;
+    public Integer getInterval() {
+        return interval;
     }
 
-    public void setDefinitionName(String definitionName) {
-        this.definitionName = definitionName;
+    public void setInterval(Integer interval) {
+        this.interval = interval;
     }
 
-    public Boolean getShouldForceSpecifiedMinutes() {
-        return shouldForceSpecifiedMinutes;
+    public List<String> getDaysOfWeek() {
+        return daysOfWeek;
     }
 
-    public void setShouldForceSpecifiedMinutes(Boolean shouldForceSpecifiedMinutes) {
-        this.shouldForceSpecifiedMinutes = shouldForceSpecifiedMinutes;
+    public void setDaysOfWeek(List<String> daysOfWeek) {
+        this.daysOfWeek = daysOfWeek;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getWeekOfMonth() {
+        return weekOfMonth;
+    }
+
+    public void setWeekOfMonth(String weekOfMonth) {
+        this.weekOfMonth = weekOfMonth;
+    }
+
+    public List<Integer> getDaysOfMonth() {
+        return daysOfMonth;
+    }
+
+    public void setDaysOfMonth(List<Integer> daysOfMonth) {
+        this.daysOfMonth = daysOfMonth;
     }
 }

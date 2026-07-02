@@ -22,7 +22,6 @@ import com.salesforce.data360.mcp.model.request.datastream.DataStreamCreateReque
 import com.salesforce.data360.mcp.util.JsonUtil;
 import com.salesforce.data360.mcp.util.ToolUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,32 +38,13 @@ public abstract class AbstractConnectorDataStreamTools {
         this.client = client;
     }
 
-    /**
-     * Post a {@link DataStreamCreateRequest} to the Data 360 data-streams endpoint.
-     *
-     * @param request   the fully-built create request
-     * @param dataspace optional dataspace query-param override
-     * @return JSON response string (success or structured error)
-     */
-    protected String createDataStream(DataStreamCreateRequest request, String dataspace) {
-        return createDataStream(JsonUtil.toMap(request), dataspace);
+    protected String createDataStream(DataStreamCreateRequest request) {
+        return createDataStream(JsonUtil.toMap(request));
     }
 
-    /**
-     * Post a pre-built request body to the Data 360 data-streams endpoint.
-     * Used by connectors whose payload shape diverges from {@link DataStreamCreateRequest}.
-     *
-     * @param body      the fully-built request body
-     * @param dataspace optional dataspace query-param override; pass {@code null} to omit
-     * @return JSON response string (success or structured error)
-     */
-    protected String createDataStream(Map<String, Object> body, String dataspace) {
+    protected String createDataStream(Map<String, Object> body) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-streams", params);
-            Map result = client.post(path, body, Map.class);
+            Map result = client.post("/ssot/data-streams", body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);

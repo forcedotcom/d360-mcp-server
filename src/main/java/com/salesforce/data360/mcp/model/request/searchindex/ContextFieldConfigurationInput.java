@@ -28,26 +28,26 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContextFieldConfigurationInput {
 
+    @McpToolParam(description = "Alias name for the context field")
+    private String aliasName;
+
     @McpToolParam(description = "Developer name of the DMO containing the field")
     private String dmoDeveloperName;
 
     @McpToolParam(description = "Developer name of the DMO field")
     private String dmoFieldDeveloperName;
 
-    @McpToolParam(description = "Alias name for the context field")
-    private String aliasName;
-
     @McpToolParam(description = "Relationships between source and target DMOs", required = false)
     private List<SourceTargetRelationshipInput> relationships;
+
+    public String getAliasName() { return aliasName; }
+    public void setAliasName(String aliasName) { this.aliasName = aliasName; }
 
     public String getDmoDeveloperName() { return dmoDeveloperName; }
     public void setDmoDeveloperName(String dmoDeveloperName) { this.dmoDeveloperName = dmoDeveloperName; }
 
     public String getDmoFieldDeveloperName() { return dmoFieldDeveloperName; }
     public void setDmoFieldDeveloperName(String dmoFieldDeveloperName) { this.dmoFieldDeveloperName = dmoFieldDeveloperName; }
-
-    public String getAliasName() { return aliasName; }
-    public void setAliasName(String aliasName) { this.aliasName = aliasName; }
 
     public List<SourceTargetRelationshipInput> getRelationships() { return relationships; }
     public void setRelationships(List<SourceTargetRelationshipInput> relationships) { this.relationships = relationships; }

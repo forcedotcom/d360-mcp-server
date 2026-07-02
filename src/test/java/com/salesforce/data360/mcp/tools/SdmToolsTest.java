@@ -89,7 +89,7 @@ class SdmToolsTest {
         when(client.get(eq("/ssot/semantic/models?dataspace=default"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.listSemanticModels(DEFAULT_DATASPACE);
+        String result = sdmTools.listSemanticModels(DEFAULT_DATASPACE, null, null, null, null, null, null, null, null, null, null);
 
         assertThat(result).isNotNull();
         Map parsed = JsonUtil.fromJson(result, Map.class);
@@ -99,13 +99,13 @@ class SdmToolsTest {
 
     @Test
     void testGetSemanticModel() {
-        when(client.get(eq("/ssot/semantic/models/TestModel?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel"), eq(Map.class)))
             .thenReturn(mockModel);
 
-        String result = sdmTools.getSemanticModel("TestModel", DEFAULT_DATASPACE);
+        String result = sdmTools.getSemanticModel("TestModel", null, null, null, null, null, null);
 
         assertThat(result).contains("TestModel");
-        verify(client).get(eq("/ssot/semantic/models/TestModel?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel"), eq(Map.class));
     }
 
     @Test
@@ -114,83 +114,83 @@ class SdmToolsTest {
         expectedBody.put("apiName", "TestModel");
         expectedBody.put("label", "Test Model");
         expectedBody.put("dataspace", DEFAULT_DATASPACE);
-        when(client.post(eq("/ssot/semantic/models?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.post(eq("/ssot/semantic/models"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockModel);
 
         SdmModelCreateRequest request = new SdmModelCreateRequest();
         request.setApiName("TestModel");
         request.setLabel("Test Model");
         request.setDataspace(DEFAULT_DATASPACE);
-        String result = sdmTools.createSemanticModel(request, DEFAULT_DATASPACE);
+        String result = sdmTools.createSemanticModel(request, null, null, null);
 
         assertThat(result).contains("TestModel");
-        verify(client).post(eq("/ssot/semantic/models?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).post(eq("/ssot/semantic/models"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testUpdateSemanticModel() {
         Map<String, Object> expectedBody = new HashMap<>();
         expectedBody.put("label", "Updated Model");
-        when(client.patch(eq("/ssot/semantic/models/TestModel?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.patch(eq("/ssot/semantic/models/TestModel"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockModel);
 
         SdmModelUpdateRequest request = new SdmModelUpdateRequest();
         request.setLabel("Updated Model");
-        String result = sdmTools.updateSemanticModel("TestModel", request, DEFAULT_DATASPACE);
+        String result = sdmTools.updateSemanticModel("TestModel", request, null);
 
         assertThat(result).contains("TestModel");
-        verify(client).patch(eq("/ssot/semantic/models/TestModel?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).patch(eq("/ssot/semantic/models/TestModel"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testDeleteSemanticModel() {
         Map<String, Object> response = Map.of("success", true);
-        when(client.delete(eq("/ssot/semantic/models/TestModel?dataspace=default"), eq(Map.class)))
+        when(client.delete(eq("/ssot/semantic/models/TestModel"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.deleteSemanticModel("TestModel", DEFAULT_DATASPACE);
+        String result = sdmTools.deleteSemanticModel("TestModel");
 
         assertThat(result).contains("success");
-        verify(client).delete(eq("/ssot/semantic/models/TestModel?dataspace=default"), eq(Map.class));
+        verify(client).delete(eq("/ssot/semantic/models/TestModel"), eq(Map.class));
     }
 
     @Test
     void testCloneSemanticModel() {
         Map<String, Object> expectedBody = new HashMap<>();
         expectedBody.put("apiName", "ClonedModel");
-        when(client.post(eq("/ssot/semantic/models/TestModel/clone?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.post(eq("/ssot/semantic/models/TestModel/clone"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockModel);
 
         SdmModelCloneRequest request = new SdmModelCloneRequest();
         request.setApiName("ClonedModel");
-        String result = sdmTools.cloneSemanticModel("TestModel", request, DEFAULT_DATASPACE);
+        String result = sdmTools.cloneSemanticModel("TestModel", request);
 
         assertThat(result).contains("TestModel");
-        verify(client).post(eq("/ssot/semantic/models/TestModel/clone?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).post(eq("/ssot/semantic/models/TestModel/clone"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testValidateSemanticModel() {
         Map<String, Object> response = Map.of("valid", true);
-        when(client.post(eq("/ssot/semantic/models/TestModel/validate?dataspace=default"), any(), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/validate"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.validateSemanticModel("TestModel", DEFAULT_DATASPACE);
+        String result = sdmTools.validateSemanticModel("TestModel");
 
         assertThat(result).contains("valid");
-        verify(client).post(eq("/ssot/semantic/models/TestModel/validate?dataspace=default"), any(), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/validate"), eq(Map.class));
     }
 
     @Test
     void testGetSemanticModelDependencies() {
         Map<String, Object> response = Map.of("dependencies", List.of("CI1", "CI2"));
-        when(client.get(eq("/ssot/semantic/models/TestModel/dependencies?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/external-dependencies"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.getSemanticModelDependencies("TestModel", DEFAULT_DATASPACE);
+        String result = sdmTools.getSemanticModelDependencies("TestModel");
 
         assertThat(result).contains("dependencies");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/dependencies?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/external-dependencies"), eq(Map.class));
     }
 
     // ============================================================
@@ -204,7 +204,7 @@ class SdmToolsTest {
         expectedBody.put("label", "Account");
         expectedBody.put("dataObjectType", "Dmo");
         expectedBody.put("shouldIncludeAllFields", true);
-        when(client.post(eq("/ssot/semantic/models/TestModel/data-objects?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.post(eq("/ssot/semantic/models/TestModel/data-objects"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockDataObject);
 
         SdmDataObjectCreateRequest request = new SdmDataObjectCreateRequest();
@@ -212,60 +212,60 @@ class SdmToolsTest {
         request.setLabel("Account");
         request.setDataObjectType("Dmo");
         request.setShouldIncludeAllFields(true);
-        String result = sdmTools.createDataObject("TestModel", request, DEFAULT_DATASPACE);
+        String result = sdmTools.createDataObject("TestModel", request, null);
 
         assertThat(result).contains("Account__dlm");
-        verify(client).post(eq("/ssot/semantic/models/TestModel/data-objects?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).post(eq("/ssot/semantic/models/TestModel/data-objects"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testListDataObjects() {
         Map<String, Object> response = Map.of("items", List.of(mockDataObject));
-        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.listDataObjects("TestModel", DEFAULT_DATASPACE);
+        String result = sdmTools.listDataObjects("TestModel");
 
         assertThat(result).contains("Account__dlm");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects"), eq(Map.class));
     }
 
     @Test
     void testGetDataObject() {
-        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm"), eq(Map.class)))
             .thenReturn(mockDataObject);
 
-        String result = sdmTools.getDataObject("TestModel", "Account__dlm", DEFAULT_DATASPACE);
+        String result = sdmTools.getDataObject("TestModel", "Account__dlm");
 
         assertThat(result).contains("Account__dlm");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm"), eq(Map.class));
     }
 
     @Test
     void testUpdateDataObject() {
         Map<String, Object> expectedBody = new HashMap<>();
         expectedBody.put("label", "Updated Account");
-        when(client.patch(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.put(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockDataObject);
 
         SdmDataObjectUpdateRequest request = new SdmDataObjectUpdateRequest();
         request.setLabel("Updated Account");
-        String result = sdmTools.updateDataObject("TestModel", "Account__dlm", request, DEFAULT_DATASPACE);
+        String result = sdmTools.updateDataObject("TestModel", "Account__dlm", request);
 
         assertThat(result).contains("Account__dlm");
-        verify(client).patch(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).put(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testDeleteDataObject() {
         Map<String, Object> response = Map.of("success", true);
-        when(client.delete(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm?dataspace=default"), eq(Map.class)))
+        when(client.delete(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.deleteDataObject("TestModel", "Account__dlm", DEFAULT_DATASPACE);
+        String result = sdmTools.deleteDataObject("TestModel", "Account__dlm", null);
 
         assertThat(result).contains("success");
-        verify(client).delete(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm?dataspace=default"), eq(Map.class));
+        verify(client).delete(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm"), eq(Map.class));
     }
 
     // ============================================================
@@ -275,25 +275,25 @@ class SdmToolsTest {
     @Test
     void testListDimensions() {
         Map<String, Object> response = Map.of("items", List.of(Map.of("name", "AccountName")));
-        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/dimensions?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/dimensions"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.listDimensions("TestModel", "Account__dlm", DEFAULT_DATASPACE);
+        String result = sdmTools.listDimensions("TestModel", "Account__dlm", null);
 
         assertThat(result).contains("AccountName");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/dimensions?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/dimensions"), eq(Map.class));
     }
 
     @Test
     void testListMeasurements() {
         Map<String, Object> response = Map.of("items", List.of(Map.of("name", "Revenue")));
-        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/measurements?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/measurements"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.listMeasurements("TestModel", "Account__dlm", DEFAULT_DATASPACE);
+        String result = sdmTools.listMeasurements("TestModel", "Account__dlm", null);
 
         assertThat(result).contains("Revenue");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/measurements?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/data-objects/Account__dlm/measurements"), eq(Map.class));
     }
 
     // ============================================================
@@ -307,7 +307,7 @@ class SdmToolsTest {
         expectedBody.put("leftSemanticDefinitionApiName", "Account");
         expectedBody.put("rightSemanticDefinitionApiName", "Opportunity");
         expectedBody.put("cardinality", "OneToMany");
-        when(client.post(eq("/ssot/semantic/models/TestModel/relationships?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.post(eq("/ssot/semantic/models/TestModel/relationships"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockRelationship);
 
         SdmRelationshipCreateRequest request = new SdmRelationshipCreateRequest();
@@ -315,60 +315,60 @@ class SdmToolsTest {
         request.setLeftSemanticDefinitionApiName("Account");
         request.setRightSemanticDefinitionApiName("Opportunity");
         request.setCardinality("OneToMany");
-        String result = sdmTools.createRelationship("TestModel", request, DEFAULT_DATASPACE);
+        String result = sdmTools.createRelationship("TestModel", request);
 
         assertThat(result).contains("Account to Opportunity");
-        verify(client).post(eq("/ssot/semantic/models/TestModel/relationships?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).post(eq("/ssot/semantic/models/TestModel/relationships"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testListRelationships() {
         Map<String, Object> response = Map.of("items", List.of(mockRelationship));
-        when(client.get(eq("/ssot/semantic/models/TestModel/relationships?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/relationships"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.listRelationships("TestModel", DEFAULT_DATASPACE);
+        String result = sdmTools.listRelationships("TestModel");
 
         assertThat(result).contains("Account to Opportunity");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/relationships?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/relationships"), eq(Map.class));
     }
 
     @Test
     void testGetRelationship() {
-        when(client.get(eq("/ssot/semantic/models/TestModel/relationships/rel-789?dataspace=default"), eq(Map.class)))
+        when(client.get(eq("/ssot/semantic/models/TestModel/relationships/rel-789"), eq(Map.class)))
             .thenReturn(mockRelationship);
 
-        String result = sdmTools.getRelationship("TestModel", "rel-789", DEFAULT_DATASPACE);
+        String result = sdmTools.getRelationship("TestModel", "rel-789");
 
         assertThat(result).contains("Account to Opportunity");
-        verify(client).get(eq("/ssot/semantic/models/TestModel/relationships/rel-789?dataspace=default"), eq(Map.class));
+        verify(client).get(eq("/ssot/semantic/models/TestModel/relationships/rel-789"), eq(Map.class));
     }
 
     @Test
     void testUpdateRelationship() {
         Map<String, Object> expectedBody = new HashMap<>();
         expectedBody.put("cardinality", "ManyToOne");
-        when(client.patch(eq("/ssot/semantic/models/TestModel/relationships/rel-789?dataspace=default"), eq(expectedBody), eq(Map.class)))
+        when(client.put(eq("/ssot/semantic/models/TestModel/relationships/rel-789"), eq(expectedBody), eq(Map.class)))
             .thenReturn(mockRelationship);
 
         SdmRelationshipUpdateRequest request = new SdmRelationshipUpdateRequest();
         request.setCardinality("ManyToOne");
-        String result = sdmTools.updateRelationship("TestModel", "rel-789", request, DEFAULT_DATASPACE);
+        String result = sdmTools.updateRelationship("TestModel", "rel-789", request);
 
         assertThat(result).contains("Account to Opportunity");
-        verify(client).patch(eq("/ssot/semantic/models/TestModel/relationships/rel-789?dataspace=default"), eq(expectedBody), eq(Map.class));
+        verify(client).put(eq("/ssot/semantic/models/TestModel/relationships/rel-789"), eq(expectedBody), eq(Map.class));
     }
 
     @Test
     void testDeleteRelationship() {
         Map<String, Object> response = Map.of("success", true);
-        when(client.delete(eq("/ssot/semantic/models/TestModel/relationships/rel-789?dataspace=default"), eq(Map.class)))
+        when(client.delete(eq("/ssot/semantic/models/TestModel/relationships/rel-789"), eq(Map.class)))
             .thenReturn(response);
 
-        String result = sdmTools.deleteRelationship("TestModel", "rel-789", DEFAULT_DATASPACE);
+        String result = sdmTools.deleteRelationship("TestModel", "rel-789");
 
         assertThat(result).contains("success");
-        verify(client).delete(eq("/ssot/semantic/models/TestModel/relationships/rel-789?dataspace=default"), eq(Map.class));
+        verify(client).delete(eq("/ssot/semantic/models/TestModel/relationships/rel-789"), eq(Map.class));
     }
 
     // ============================================================
@@ -406,7 +406,7 @@ class SdmToolsTest {
         when(client.get(anyString(), eq(Map.class)))
             .thenThrow(new ApiException(404, "Not found", "/ssot/semantic/models/missing"));
 
-        String result = sdmTools.getSemanticModel("missing", DEFAULT_DATASPACE);
+        String result = sdmTools.getSemanticModel("missing", null, null, null, null, null, null);
 
         assertThat(result).contains("error", "Not found", "404");
     }

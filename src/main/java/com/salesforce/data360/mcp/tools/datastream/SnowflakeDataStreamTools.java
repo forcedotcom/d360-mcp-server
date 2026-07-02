@@ -74,7 +74,7 @@ public class SnowflakeDataStreamTools extends AbstractConnectorDataStreamTools {
         } catch (IllegalArgumentException e) {
             return JsonUtil.toJson(Map.of("error", e.getMessage()));
         }
-        return createDataStream(body, null);
+        return createDataStream(body);
     }
 
     private static Map<String, Object> buildRequestBody(String streamName, String label,

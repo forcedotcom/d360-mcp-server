@@ -66,7 +66,9 @@ public class RetrieverTools {
         @McpToolParam(description = "Filter by source DMO id or fully qualified name", required = false) String sourceDmo,
         @McpToolParam(description = "Filter by active status", required = false) Boolean isActive,
         @McpToolParam(description = "Filter by default status", required = false) Boolean isDefault,
-        @McpToolParam(description = "Filter by query type: NoCode, ProCode, or Ensemble", required = false) String queryType
+        @McpToolParam(description = "Filter by query type: NoCode, ProCode, or Ensemble", required = false) String queryType,
+        @McpToolParam(description = "Data Cloud One visibility filter", required = false) String dataCloudOneVisibility,
+        @McpToolParam(description = "Detail level for the response", required = false) String detailLevel
     ) {
         try {
             Map<String, Object> params = new LinkedHashMap<>();
@@ -79,6 +81,8 @@ public class RetrieverTools {
             if (isActive != null) params.put("isActive", isActive);
             if (isDefault != null) params.put("isDefault", isDefault);
             if (queryType != null) params.put("queryType", queryType);
+            if (dataCloudOneVisibility != null) params.put("dataCloudOneVisibility", dataCloudOneVisibility);
+            if (detailLevel != null) params.put("detailLevel", detailLevel);
             String path = ToolUtils.buildPath(BASE_PATH, params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
@@ -118,7 +122,9 @@ public class RetrieverTools {
             + "Optional: description, dataSourceType (SearchIndex, Web), dataSpaces. "
             + "After creating a retriever, use d360_query_sql with hybrid_search() SQL to test it with sample queries."
     )
-    public String createRetriever(RetrieverCreateRequest request) {
+    public String createRetriever(
+        @McpToolParam(description = "Retriever creation request body") RetrieverCreateRequest request
+    ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
             Map result = client.post(BASE_PATH, body, Map.class);
@@ -135,7 +141,7 @@ public class RetrieverTools {
     )
     public String updateRetriever(
         @McpToolParam(description = "The retriever ID or name") String retrieverIdOrName,
-        RetrieverUpdateRequest request
+        @McpToolParam(description = "Retriever update request body") RetrieverUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
@@ -224,7 +230,7 @@ public class RetrieverTools {
     )
     public String createRetrieverConfiguration(
         @McpToolParam(description = "The retriever ID or name") String retrieverIdOrName,
-        RetrieverConfigurationCreateRequest request
+        @McpToolParam(description = "Retriever configuration creation request body") RetrieverConfigurationCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
@@ -245,7 +251,7 @@ public class RetrieverTools {
     public String updateRetrieverConfiguration(
         @McpToolParam(description = "The retriever ID or name") String retrieverIdOrName,
         @McpToolParam(description = "The configuration ID or name") String configurationIdOrName,
-        RetrieverConfigurationUpdateRequest request
+        @McpToolParam(description = "Retriever configuration update request body") RetrieverConfigurationUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);

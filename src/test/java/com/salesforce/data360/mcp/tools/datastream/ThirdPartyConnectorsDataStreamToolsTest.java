@@ -58,7 +58,7 @@ class ThirdPartyConnectorsDataStreamToolsTest {
         ArgumentCaptor<Map> bodyCaptor = ArgumentCaptor.forClass(Map.class);
         verify(client).post(pathCaptor.capture(), bodyCaptor.capture(), eq(Map.class));
 
-        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams?dataspace=default");
+        assertThat(pathCaptor.getValue()).isEqualTo("/ssot/data-streams");
 
         Map<String, Object> body = bodyCaptor.getValue();
         assertThat(body).containsEntry("name", "Tasks_airtable_dev_conn");

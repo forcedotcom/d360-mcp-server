@@ -49,7 +49,7 @@ class QueryServiceTest {
         // Given
         String sql = "SELECT * FROM Individual__dlm";
         String dataspace = "default";
-        Integer rowLimit = 100;
+        Long rowLimit = 100L;
 
         Map<String, Object> mockResponse = Map.of(
             "queryId", "query-123",
@@ -121,8 +121,8 @@ class QueryServiceTest {
     void querySqlRows_success() {
         // Given
         String queryId = "query-123";
-        Integer offset = 0;
-        Integer rowLimit = 100;
+        Long offset = 0L;
+        Long rowLimit = 100L;
 
         Map<String, Object> mockResponse = Map.of(
             "data", Map.of("rows", java.util.List.of())
@@ -180,7 +180,7 @@ class QueryServiceTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = queryService.queryProfile(dataModelName, null, null, null, null, null, null, null, null, null, dataspace);
+        String result = queryService.queryProfile(dataModelName, null, null, null, null, null, null, null, null, null, dataspace, null, null, null);
 
         // Then
         assertThat(result).contains("data");
@@ -227,7 +227,7 @@ class QueryServiceTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = queryService.queryDataGraph(dataGraphEntityName, id, null, null);
+        String result = queryService.queryDataGraph(dataGraphEntityName, id, null, null, null, null);
 
         // Then
         assertThat(result).contains("rec-1");
@@ -250,7 +250,7 @@ class QueryServiceTest {
             .thenReturn(mockResponse);
 
         // When
-        String result = queryService.lookupDataGraph(dataGraphEntityName, lookupKeys, null, null);
+        String result = queryService.lookupDataGraph(dataGraphEntityName, lookupKeys, null, null, null, null);
 
         // Then
         assertThat(result).contains("results");

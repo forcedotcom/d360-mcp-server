@@ -51,12 +51,13 @@ public class SnowflakeConnectionTools {
     )
     public String listConnections(
         @McpToolParam(description = "Connector type to list, for example SNOWFLAKE, SalesforceDotCom, or SalesforceMarketingCloud.") String connectorType,
-        @McpToolParam(description = "Optional developer name filter.", required = false) String devName,
-        @McpToolParam(description = "Optional label filter.", required = false) String label,
-        @McpToolParam(description = "Optional max number of results.", required = false) Integer limit,
-        @McpToolParam(description = "Optional row offset.", required = false) Integer offset,
-        @McpToolParam(description = "Optional sort field, for example label, createdDate, or lastModifiedDate.", required = false) String orderBy,
-        @McpToolParam(description = "Optional organization ID filter.", required = false) String organizationId
+        @McpToolParam(description = "Developer name filter.", required = false) String devName,
+        @McpToolParam(description = "Label filter.", required = false) String label,
+        @McpToolParam(description = "Max number of results.", required = false) Integer limit,
+        @McpToolParam(description = "Row offset.", required = false) Integer offset,
+        @McpToolParam(description = "Sort field, for example label, createdDate, or lastModifiedDate.", required = false) String orderBy,
+        @McpToolParam(description = "Organization ID filter.", required = false) String organizationId,
+        @McpToolParam(description = "Filter group for the request.", required = false) String filterGroup
     ) {
         try {
             validateRequired("connectorType", connectorType);
@@ -69,6 +70,7 @@ public class SnowflakeConnectionTools {
             query.put("offset", offset);
             putIfNotBlank(query, "orderBy", orderBy);
             putIfNotBlank(query, "organizationId", organizationId);
+            putIfNotBlank(query, "filterGroup", filterGroup);
 
             Map result = client.get(ToolUtils.buildPath("/ssot/connections", query), Map.class);
             return JsonUtil.toJson(result);
@@ -94,7 +96,7 @@ public class SnowflakeConnectionTools {
         @McpToolParam(description = "Snowflake account URL, for example https://my-account.snowflakecomputing.com.") String accountUrl,
         @McpToolParam(description = "Snowflake region, for example us-west-2.") String region,
         @McpToolParam(description = "Snowflake warehouse.") String warehouse,
-        @McpToolParam(description = "Optional private key passphrase.", required = false) String passphrase,
+        @McpToolParam(description = "Private key passphrase.", required = false) String passphrase,
         @McpToolParam(description = "Whether to use a private network route. Defaults to false.", required = false) Boolean hasPrivateNetworkRoute,
         @McpToolParam(description = "Private Network Route identifier when hasPrivateNetworkRoute=true.", required = false) String outboundNetworkConnection
     ) {

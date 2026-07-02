@@ -17,201 +17,115 @@
 package com.salesforce.data360.mcp.model.request.dataaction;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Request body for creating a data action.
+ * Request body for creating a Connect API data action
+ * (POST /ssot/data-actions).
+ *
+ * <p>Mirrors ConnectApi.CdpDataActionInputRepresentation.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataActionCreateRequest {
 
-    @McpToolParam(description = "Name of the data action")
-    private String dataActionName;
-
-    @McpToolParam(description = "Developer name")
-    private String developerName;
-
-    @McpToolParam(description = "Data space developer name")
-    private String dataspace;
-
-    @McpToolParam(description = "Description")
-    private String description;
-
-    @McpToolParam(description = "Master label")
-    private String masterLabel;
-
-    @McpToolParam(description = "Action condition expression")
+    @McpToolParam(description = "Action condition expression.")
     private String actionConditionExpression;
 
-    @McpToolParam(description = "Event trigger condition")
-    private String eventTriggerCondition;
+    @McpToolParam(description = "Action conditions.")
+    private List<DataActionConditionInput> actionConditions;
 
-    @McpToolParam(description = "External record identifier")
-    private String externalRecordIdentifier;
+    @McpToolParam(description = "Data action enrichment properties.")
+    private List<DataActionEnrichmentInput> dataActionEnrichmentProperties;
 
-    @McpToolParam(description = "Subscriber key")
-    private String subscriberKey;
+    @NotBlank
+    @McpToolParam(description = "Name of the data action.")
+    private String dataActionName;
 
-    @McpToolParam(description = "Whether this is a real-time action")
-    private Boolean isRealTimeAction;
+    @McpToolParam(description = "Data action projected fields.")
+    private List<DataActionProjectedFieldInput> dataActionProjectedFields;
 
-    @McpToolParam(description = "Whether to process day zero")
-    private Boolean shouldProcessDayZero;
+    @McpToolParam(description = "Data action sources.")
+    private List<DataActionSourceInput> dataActionSources;
 
-    @McpToolParam(description = "Whether to trigger event only first time")
-    private Boolean shouldTriggerEventOnlyFirstTime;
+    @McpToolParam(description = "Data action status. One of Active, Error, Inactive, Processing", required = false)
+    private String dataActionStatus;
 
-    @McpToolParam(description = "Array of data action source objects")
-    private List<Map<String, Object>> dataActionSources;
-
-    @McpToolParam(description = "Array of action condition objects")
-    private List<Map<String, Object>> actionConditions;
-
-    @McpToolParam(description = "Array of target names")
+    @McpToolParam(description = "Names of data action targets to invoke.")
     private List<String> dataActionTargetNames;
 
-    @McpToolParam(description = "Array of projected field objects")
-    private List<Map<String, Object>> dataActionProjectedFields;
+    @McpToolParam(description = "Dataspace name.")
+    private String dataspace;
 
-    @McpToolParam(description = "Array of enrichment property objects")
-    private List<Map<String, Object>> dataActionEnrichmentProperties;
+    @McpToolParam(description = "Description of the data action.", required = false)
+    private String description;
 
-    public String getDataActionName() {
-        return dataActionName;
-    }
+    @NotBlank
+    @McpToolParam(description = "Developer name (API name).")
+    private String developerName;
 
-    public void setDataActionName(String dataActionName) {
-        this.dataActionName = dataActionName;
-    }
+    @McpToolParam(description = "Event trigger condition.", required = false)
+    private String eventTriggerCondition;
 
-    public String getDeveloperName() {
-        return developerName;
-    }
+    @McpToolParam(description = "External record identifier.", required = false)
+    private String externalRecordIdentifier;
 
-    public void setDeveloperName(String developerName) {
-        this.developerName = developerName;
-    }
+    @McpToolParam(description = "Whether this is a real-time action.", required = false)
+    private Boolean isRealTimeAction;
 
-    public String getDataspace() {
-        return dataspace;
-    }
+    @McpToolParam(description = "Master label (display name).", required = false)
+    private String masterLabel;
 
-    public void setDataspace(String dataspace) {
-        this.dataspace = dataspace;
-    }
+    @McpToolParam(description = "Search configuration for the data action.", required = false)
+    private DataActionSearchConfigInput searchConfig;
 
-    public String getDescription() {
-        return description;
-    }
+    @McpToolParam(description = "Whether to process day zero records.", required = false)
+    private Boolean shouldProcessDayZero;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @McpToolParam(description = "If true, the related event is triggered only the first time that the data action is used. If false, the event is triggered each time the data action is used.", required = false)
+    private Boolean shouldTriggerEventOnlyFirstTime;
 
-    public String getMasterLabel() {
-        return masterLabel;
-    }
+    @McpToolParam(description = "Subscriber key.", required = false)
+    private String subscriberKey;
 
-    public void setMasterLabel(String masterLabel) {
-        this.masterLabel = masterLabel;
-    }
-
-    public String getActionConditionExpression() {
-        return actionConditionExpression;
-    }
-
-    public void setActionConditionExpression(String actionConditionExpression) {
-        this.actionConditionExpression = actionConditionExpression;
-    }
-
-    public String getEventTriggerCondition() {
-        return eventTriggerCondition;
-    }
-
-    public void setEventTriggerCondition(String eventTriggerCondition) {
-        this.eventTriggerCondition = eventTriggerCondition;
-    }
-
-    public String getExternalRecordIdentifier() {
-        return externalRecordIdentifier;
-    }
-
-    public void setExternalRecordIdentifier(String externalRecordIdentifier) {
-        this.externalRecordIdentifier = externalRecordIdentifier;
-    }
-
-    public String getSubscriberKey() {
-        return subscriberKey;
-    }
-
-    public void setSubscriberKey(String subscriberKey) {
-        this.subscriberKey = subscriberKey;
-    }
-
-    public Boolean getIsRealTimeAction() {
-        return isRealTimeAction;
-    }
-
-    public void setIsRealTimeAction(Boolean isRealTimeAction) {
-        this.isRealTimeAction = isRealTimeAction;
-    }
-
-    public Boolean getShouldProcessDayZero() {
-        return shouldProcessDayZero;
-    }
-
-    public void setShouldProcessDayZero(Boolean shouldProcessDayZero) {
-        this.shouldProcessDayZero = shouldProcessDayZero;
-    }
-
-    public Boolean getShouldTriggerEventOnlyFirstTime() {
-        return shouldTriggerEventOnlyFirstTime;
-    }
-
-    public void setShouldTriggerEventOnlyFirstTime(Boolean shouldTriggerEventOnlyFirstTime) {
-        this.shouldTriggerEventOnlyFirstTime = shouldTriggerEventOnlyFirstTime;
-    }
-
-    public List<Map<String, Object>> getDataActionSources() {
-        return dataActionSources;
-    }
-
-    public void setDataActionSources(List<Map<String, Object>> dataActionSources) {
-        this.dataActionSources = dataActionSources;
-    }
-
-    public List<Map<String, Object>> getActionConditions() {
-        return actionConditions;
-    }
-
-    public void setActionConditions(List<Map<String, Object>> actionConditions) {
-        this.actionConditions = actionConditions;
-    }
-
-    public List<String> getDataActionTargetNames() {
-        return dataActionTargetNames;
-    }
-
-    public void setDataActionTargetNames(List<String> dataActionTargetNames) {
-        this.dataActionTargetNames = dataActionTargetNames;
-    }
-
-    public List<Map<String, Object>> getDataActionProjectedFields() {
-        return dataActionProjectedFields;
-    }
-
-    public void setDataActionProjectedFields(List<Map<String, Object>> dataActionProjectedFields) {
-        this.dataActionProjectedFields = dataActionProjectedFields;
-    }
-
-    public List<Map<String, Object>> getDataActionEnrichmentProperties() {
-        return dataActionEnrichmentProperties;
-    }
-
-    public void setDataActionEnrichmentProperties(List<Map<String, Object>> dataActionEnrichmentProperties) {
-        this.dataActionEnrichmentProperties = dataActionEnrichmentProperties;
-    }
+    public String getActionConditionExpression() { return actionConditionExpression; }
+    public void setActionConditionExpression(String actionConditionExpression) { this.actionConditionExpression = actionConditionExpression; }
+    public List<DataActionConditionInput> getActionConditions() { return actionConditions; }
+    public void setActionConditions(List<DataActionConditionInput> actionConditions) { this.actionConditions = actionConditions; }
+    public List<DataActionEnrichmentInput> getDataActionEnrichmentProperties() { return dataActionEnrichmentProperties; }
+    public void setDataActionEnrichmentProperties(List<DataActionEnrichmentInput> dataActionEnrichmentProperties) { this.dataActionEnrichmentProperties = dataActionEnrichmentProperties; }
+    public String getDataActionName() { return dataActionName; }
+    public void setDataActionName(String dataActionName) { this.dataActionName = dataActionName; }
+    public List<DataActionProjectedFieldInput> getDataActionProjectedFields() { return dataActionProjectedFields; }
+    public void setDataActionProjectedFields(List<DataActionProjectedFieldInput> dataActionProjectedFields) { this.dataActionProjectedFields = dataActionProjectedFields; }
+    public List<DataActionSourceInput> getDataActionSources() { return dataActionSources; }
+    public void setDataActionSources(List<DataActionSourceInput> dataActionSources) { this.dataActionSources = dataActionSources; }
+    public String getDataActionStatus() { return dataActionStatus; }
+    public void setDataActionStatus(String dataActionStatus) { this.dataActionStatus = dataActionStatus; }
+    public List<String> getDataActionTargetNames() { return dataActionTargetNames; }
+    public void setDataActionTargetNames(List<String> dataActionTargetNames) { this.dataActionTargetNames = dataActionTargetNames; }
+    public String getDataspace() { return dataspace; }
+    public void setDataspace(String dataspace) { this.dataspace = dataspace; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public String getDeveloperName() { return developerName; }
+    public void setDeveloperName(String developerName) { this.developerName = developerName; }
+    public String getEventTriggerCondition() { return eventTriggerCondition; }
+    public void setEventTriggerCondition(String eventTriggerCondition) { this.eventTriggerCondition = eventTriggerCondition; }
+    public String getExternalRecordIdentifier() { return externalRecordIdentifier; }
+    public void setExternalRecordIdentifier(String externalRecordIdentifier) { this.externalRecordIdentifier = externalRecordIdentifier; }
+    public Boolean getIsRealTimeAction() { return isRealTimeAction; }
+    public void setIsRealTimeAction(Boolean isRealTimeAction) { this.isRealTimeAction = isRealTimeAction; }
+    public String getMasterLabel() { return masterLabel; }
+    public void setMasterLabel(String masterLabel) { this.masterLabel = masterLabel; }
+    public DataActionSearchConfigInput getSearchConfig() { return searchConfig; }
+    public void setSearchConfig(DataActionSearchConfigInput searchConfig) { this.searchConfig = searchConfig; }
+    public Boolean getShouldProcessDayZero() { return shouldProcessDayZero; }
+    public void setShouldProcessDayZero(Boolean shouldProcessDayZero) { this.shouldProcessDayZero = shouldProcessDayZero; }
+    public Boolean getShouldTriggerEventOnlyFirstTime() { return shouldTriggerEventOnlyFirstTime; }
+    public void setShouldTriggerEventOnlyFirstTime(Boolean shouldTriggerEventOnlyFirstTime) { this.shouldTriggerEventOnlyFirstTime = shouldTriggerEventOnlyFirstTime; }
+    public String getSubscriberKey() { return subscriberKey; }
+    public void setSubscriberKey(String subscriberKey) { this.subscriberKey = subscriberKey; }
 }

@@ -25,10 +25,10 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CuratedEntityInput {
 
-    @McpToolParam(description = "Entity label")
+    @McpToolParam(description = "curated entity label", required = false)
     private String label;
 
-    @McpToolParam(description = "Entity name")
+    @McpToolParam(description = "curated entity name", required = false)
     private String name;
 
     public String getLabel() {

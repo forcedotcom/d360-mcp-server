@@ -25,10 +25,10 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StaticDataInput {
 
-    @McpToolParam(description = "Static data name")
+    @McpToolParam(description = "static data name", required = false)
     private String name;
 
-    @McpToolParam(description = "Static data value")
+    @McpToolParam(description = "static data value", required = false)
     private String value;
 
     public String getName() {

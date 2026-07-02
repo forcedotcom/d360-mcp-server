@@ -17,60 +17,73 @@
 package com.salesforce.data360.mcp.model.request.dlo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.ai.mcp.annotation.McpToolParam;
-
-import com.salesforce.data360.mcp.model.request.datastream.DataLakeFieldInput;
 
 import java.util.List;
 
 /**
- * Request body for creating a Data Lake Object.
+ * Request body for {@code POST /ssot/data-lake-objects}.
+ *
+ * <p>Mirrors {@code DataLakeObjectInputRepresentation} which extends
+ * {@code DataObjectInputRepresentation} (abstract) which extends
+ * {@code CdpObjectBaseInputRepresentation} (abstract). All inherited
+ * properties are flattened onto this single class.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DloCreateRequest {
 
-    @McpToolParam(description = "DLO API name")
-    private String name;
+    // ---- CdpObjectBaseInputRepresentation (shared) ----
+    // NOTE: dataspaceName is intentionally omitted. The DLO endpoint
+    // (/ssot/data-lake-objects) rejects this field with
+    // "Unrecognized field 'dataspaceName'" / "Unrecognized field 'dataSpaceName'"
+    // even though the UDF inherits it from CdpObjectBaseInputRepresentation.
+    // The DLO endpoint defaults to the "default" dataspace when unspecified.
+    // (DMO endpoint, by contrast, does accept dataSpaceName.)
 
-    @McpToolParam(description = "Display label for the DLO")
-    private String label;
-
-    @McpToolParam(description = "Category: Directory_Table, Engagement, Insights, Other, Profile")
-    private String category;
-
-    @McpToolParam(description = "Array of dataspace info objects")
-    private List<DataSpaceInfoInput> dataspaceInfo;
-
-    @McpToolParam(description = "Array of field definitions", required = false)
-    private List<DataLakeFieldInput> dataLakeFieldInputRepresentations;
-
-    @McpToolParam(description = "Array of data object field definitions", required = false)
-    private List<DataObjectFieldInput> fields;
-
-    @McpToolParam(description = "Data space name", required = false)
-    private String dataSpaceName;
-
-    @McpToolParam(description = "Description", required = false)
+    @McpToolParam(description = "Description of the object to create.", required = false)
     private String description;
 
-    @McpToolParam(description = "Org unit identifier field name", required = false)
-    private String orgUnitIdentifierFieldName;
+    @NotBlank
+    @McpToolParam(description = "Display label for the DLO.")
+    private String label;
 
-    @McpToolParam(description = "Record modified timestamp field name", required = false)
-    private String recordModifiedFieldName;
+    @NotBlank
+    @McpToolParam(description = "DLO API name.")
+    private String name;
 
-    @McpToolParam(description = "Event date time field name", required = false)
+    // ---- DataObjectInputRepresentation ----
+
+    @NotBlank
+    @McpToolParam(
+        description = "Category of the data object. One of Engagement, Other, Profile")
+    private String category;
+
+    @McpToolParam(description = "Name of the event date and time field. This property is required when the value of the category property is Engagement.Name of the event date and time field. This property is required when the value of the category property is Engagement.", required = false)
     private String eventDateTimeFieldName;
 
-    @McpToolParam(description = "Type: DataLakeObject or DataModelObject", required = false)
+    @McpToolParam(description = "Fields in the data object.", required = false)
+    private List<DataObjectFieldInput> fields;
+
+    @McpToolParam(description = "Record modified field name.", required = false)
+    private String recordModifiedFieldName;
+
+    @McpToolParam(
+        description = "Type of data object (DataLakeObject)",
+        required = false)
     private String type;
 
-    public String getName() {
-        return name;
+    // ---- DataLakeObjectInputRepresentation (own) ----
+
+    @McpToolParam(description = "Status of the DLO.", required = false)
+    private String status;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLabel() {
@@ -81,68 +94,20 @@ public class DloCreateRequest {
         this.label = label;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public List<DataSpaceInfoInput> getDataspaceInfo() {
-        return dataspaceInfo;
-    }
-
-    public void setDataspaceInfo(List<DataSpaceInfoInput> dataspaceInfo) {
-        this.dataspaceInfo = dataspaceInfo;
-    }
-
-    public List<DataLakeFieldInput> getDataLakeFieldInputRepresentations() {
-        return dataLakeFieldInputRepresentations;
-    }
-
-    public void setDataLakeFieldInputRepresentations(List<DataLakeFieldInput> dataLakeFieldInputRepresentations) {
-        this.dataLakeFieldInputRepresentations = dataLakeFieldInputRepresentations;
-    }
-
-    public List<DataObjectFieldInput> getFields() {
-        return fields;
-    }
-
-    public void setFields(List<DataObjectFieldInput> fields) {
-        this.fields = fields;
-    }
-
-    public String getDataSpaceName() {
-        return dataSpaceName;
-    }
-
-    public void setDataSpaceName(String dataSpaceName) {
-        this.dataSpaceName = dataSpaceName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getOrgUnitIdentifierFieldName() {
-        return orgUnitIdentifierFieldName;
-    }
-
-    public void setOrgUnitIdentifierFieldName(String orgUnitIdentifierFieldName) {
-        this.orgUnitIdentifierFieldName = orgUnitIdentifierFieldName;
-    }
-
-    public String getRecordModifiedFieldName() {
-        return recordModifiedFieldName;
-    }
-
-    public void setRecordModifiedFieldName(String recordModifiedFieldName) {
-        this.recordModifiedFieldName = recordModifiedFieldName;
     }
 
     public String getEventDateTimeFieldName() {
@@ -153,11 +118,35 @@ public class DloCreateRequest {
         this.eventDateTimeFieldName = eventDateTimeFieldName;
     }
 
+    public List<DataObjectFieldInput> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<DataObjectFieldInput> fields) {
+        this.fields = fields;
+    }
+
+    public String getRecordModifiedFieldName() {
+        return recordModifiedFieldName;
+    }
+
+    public void setRecordModifiedFieldName(String recordModifiedFieldName) {
+        this.recordModifiedFieldName = recordModifiedFieldName;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

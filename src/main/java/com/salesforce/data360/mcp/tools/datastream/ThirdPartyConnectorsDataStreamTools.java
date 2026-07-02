@@ -133,7 +133,7 @@ public class ThirdPartyConnectorsDataStreamTools extends AbstractConnectorDataSt
                 frequencyType, hours, refreshDayOfWeek, refreshDayOfMonth));
             body.put("sourceFields", buildSourceFields(fields, normalizedFields));
 
-            return createDataStream(body, resolvedDataSpace);
+            return createDataStream(body);
         } catch (RuntimeException e) {
             return ToolUtils.errorResponse(e);
         }

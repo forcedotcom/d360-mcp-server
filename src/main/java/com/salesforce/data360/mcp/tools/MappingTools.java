@@ -58,7 +58,7 @@ public class MappingTools {
         @McpToolParam(description = "DMO developer name (e.g. 'ssot__Account__dlm'). Required if sourceObjectName is not provided.", required = false) String dmoDeveloperName,
         @McpToolParam(description = "DLO developer name to further filter results", required = false) String dloDeveloperName,
         @McpToolParam(description = "Salesforce CRM source object name (e.g. 'Account'). Required if dmoDeveloperName is not provided.", required = false) String sourceObjectName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         if (dmoDeveloperName == null && sourceObjectName == null) {
             return JsonUtil.toJson(Map.of("error", "Either dmoDeveloperName or sourceObjectName is required"));
@@ -90,7 +90,7 @@ public class MappingTools {
     )
     public String getDataModelObjectMapping(
         @McpToolParam(description = "Developer name (e.g. Account_std_map_Account_1775572837882) of the Mapping") String mappingDeveloperName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
@@ -119,45 +119,19 @@ public class MappingTools {
             + "(Date→Date, DateTime→DateTime). If the target DMO has no field matching the DLO event date type, create a custom DMO with a matching field."
     )
     public String createDataModelObjectMapping(
-        MappingCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for DMO mapping creation") MappingCreateRequest request,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Whether to ignore system field validations", required = false) Boolean ignoreSystemFieldValidations
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
             Map<String, Object> params = new HashMap<>();
             if (dataspace != null) params.put("dataspace", dataspace);
+            if (ignoreSystemFieldValidations != null) params.put("ignoreSystemFieldValidations", ignoreSystemFieldValidations);
 
             String path = ToolUtils.buildPath("/ssot/data-model-object-mappings", params);
             Map result = client.post(path, body, Map.class);
-            return JsonUtil.toJson(result);
-        } catch (ApiException e) {
-            return ToolUtils.errorResponse(e);
-        }
-    }
-
-    /**
-     * Update an existing DMO mapping.
-     * Use this to add, remove, or change field mappings between a DLO and DMO.
-     */
-    @ApiEndpoint(path = "/ssot/data-model-object-mappings/{mappingName}", verb = "PATCH")
-    @McpTool(
-        name = "d360_dmo_mapping_update",
-        description = "Update an existing DMO mapping."
-    )
-    public String updateDataModelObjectMapping(
-        @McpToolParam(description = "Developer name (e.g. Account_std_map_Account_1775572837882) of the Mapping") String mappingName,
-        MappingUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
-    ) {
-        try {
-            Map<String, Object> body = JsonUtil.toMap(request);
-
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-model-object-mappings/" + ToolUtils.encodePath(mappingName), params);
-            Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -175,7 +149,7 @@ public class MappingTools {
     )
     public String deleteDataModelObjectMapping(
         @McpToolParam(description = "Developer name (e.g. Account_std_map_Account_1775572837882) of the Mapping") String mappingName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
@@ -200,8 +174,8 @@ public class MappingTools {
     )
     public String addFieldMappings(
         @McpToolParam(description = "Developer name of the object mapping (e.g. Contact_00D000000000000_map_ContactPointAddress_1714460254874)") String mappingName,
-        FieldMappingAddRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for field mapping creation") FieldMappingAddRequest request,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
@@ -229,7 +203,7 @@ public class MappingTools {
     public String deleteFieldMapping(
         @McpToolParam(description = "Developer name of the object mapping") String mappingName,
         @McpToolParam(description = "Developer name of the field mapping to delete (e.g. MailingCity__c_fieldmap_ssot__CityId__c)") String fieldMappingName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> params = new HashMap<>();

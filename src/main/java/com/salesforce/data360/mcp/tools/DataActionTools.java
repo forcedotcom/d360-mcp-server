@@ -53,10 +53,18 @@ public class DataActionTools {
         description = "List all data actions."
     )
     public String listDataActions(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "Maximum number of records to return", required = false) Integer batchSize,
+        @McpToolParam(description = "Number of records to skip for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to order results by", required = false) String orderBy
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-actions", dataspace);
+            Map<String, Object> params = new java.util.LinkedHashMap<>();
+            params.put("dataspace", dataspace);
+            params.put("batchSize", batchSize);
+            params.put("offset", offset);
+            params.put("orderby", orderBy);
+            String path = ToolUtils.buildPath("/ssot/data-actions", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -74,11 +82,11 @@ public class DataActionTools {
         description = "Get a data action."
     )
     public String getDataAction(
-        @McpToolParam(description = "Data action ID") String actionId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data action developer name") String actionDeveloperName,
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-actions/" + ToolUtils.encodePath(actionId), dataspace);
+            String path = ToolUtils.buildPath("/ssot/data-actions/" + ToolUtils.encodePath(actionDeveloperName), dataspace);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -97,7 +105,7 @@ public class DataActionTools {
     )
     public String createDataAction(
         @McpToolParam(description = "Data action creation request body") DataActionCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
@@ -119,10 +127,16 @@ public class DataActionTools {
         description = "List data action targets."
     )
     public String listDataActionTargets(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Maximum number of records to return", required = false) Integer batchSize,
+        @McpToolParam(description = "Number of records to skip for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Field to order results by", required = false) String orderBy
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-action-targets", dataspace);
+            Map<String, Object> params = new java.util.LinkedHashMap<>();
+            params.put("batchSize", batchSize);
+            params.put("offset", offset);
+            params.put("orderby", orderBy);
+            String path = ToolUtils.buildPath("/ssot/data-action-targets", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -140,11 +154,10 @@ public class DataActionTools {
         description = "Get a data action target."
     )
     public String getDataActionTarget(
-        @McpToolParam(description = "Data action target ID") String targetId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data action target API name") String targetApiName
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-action-targets/" + ToolUtils.encodePath(targetId), dataspace);
+            String path = "/ssot/data-action-targets/" + ToolUtils.encodePath(targetApiName);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -162,12 +175,11 @@ public class DataActionTools {
         description = "Create a data action target."
     )
     public String createDataActionTarget(
-        @McpToolParam(description = "Data action target creation request body") DataActionTargetCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Data action target creation request body") DataActionTargetCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-action-targets", dataspace);
+            String path = "/ssot/data-action-targets";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -185,13 +197,12 @@ public class DataActionTools {
         description = "Update a data action target."
     )
     public String updateDataActionTarget(
-        @McpToolParam(description = "Data action target ID") String targetId,
-        @McpToolParam(description = "Data action target update request body") DataActionTargetUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data action target API name") String targetApiName,
+        @McpToolParam(description = "Data action target update request body") DataActionTargetUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/data-action-targets/" + ToolUtils.encodePath(targetId), dataspace);
+            String path = "/ssot/data-action-targets/" + ToolUtils.encodePath(targetApiName);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -209,11 +220,10 @@ public class DataActionTools {
         description = "Delete a data action target."
     )
     public String deleteDataActionTarget(
-        @McpToolParam(description = "Data action target ID") String targetId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The data action target API name") String targetApiName
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/data-action-targets/" + ToolUtils.encodePath(targetId), dataspace);
+            String path = "/ssot/data-action-targets/" + ToolUtils.encodePath(targetApiName);
             client.delete(path);
             return JsonUtil.toJson(Map.of("success", true));
         } catch (ApiException e) {

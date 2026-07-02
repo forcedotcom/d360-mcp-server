@@ -20,40 +20,67 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 
 /**
- * Egress properties for file-based activation targets.
+ * Mirrors ConnectApi.EgressPropertiesInput.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EgressPropertiesInput {
 
-    @McpToolParam(description = "Filename date suffix format")
-    private String filenameDateSuffixFormat;
-
-    @McpToolParam(description = "Compression: Bzip2, Gzip, None")
-    private String outputCompressionFormat;
-
-    @McpToolParam(description = "Delimiter: BrokenPipe, Caret, Colon, Comma, Hash, Pipe, Semicolon, Slash, Tab, Tilde, Underscore")
-    private String outputDelimiter;
-
-    @McpToolParam(description = "Output format")
-    private String outputFormat;
-
-    @McpToolParam(description = "Max file size in MB (1-500)")
-    private Integer outputMaxFileSizeMegaBytes;
-
-    @McpToolParam(description = "Max records per file")
-    private Integer outputMaxRecordsPerFile;
-
-    @McpToolParam(description = "Child folder path", required = false)
+    @McpToolParam(description = "Child folder path for the output", required = false)
     private String childFolder;
 
-    @McpToolParam(description = "Custom filename", required = false)
+    @McpToolParam(description = "Custom file name prefix for the output file", required = false)
     private String customFilename;
 
-    @McpToolParam(description = "Whether subfolder creation is enabled", required = false)
+    @McpToolParam(description = "File name type for the output file. One of Custom, Predetermined.", required = false)
+    private String fileNameType;
+
+    @McpToolParam(description = "Date suffix format for the output file name", required = false)
+    private String filenameDateSuffixFormat;
+
+    @McpToolParam(description = "Indicates permission to create a subfolder", required = false)
     private Boolean isSubfolderCreationEnabled;
 
-    @McpToolParam(description = "Predetermined filename: Activation, Segment, SegmentActivation", required = false)
+    @McpToolParam(description = "Compression format for the output file. One of Bzip2, Gzip, None.", required = false)
+    private String outputCompressionFormat;
+
+    @McpToolParam(description = "Delimiter for the output file data. One of BrokenPipe, Caret, Colon, Comma, Hash, Pipe, Semicolon, Slash, Tab, Tilde, Underscore.", required = false)
+    private String outputDelimiter;
+
+    @McpToolParam(description = "Output format for the output file", required = false)
+    private String outputFormat;
+
+    @McpToolParam(description = "Maximum file size in Mega bytes", required = false)
+    private Long outputMaxFileSizeMegaBytes;
+
+    @McpToolParam(description = "Maximum records per file", required = false)
+    private Long outputMaxRecordsPerFile;
+
+    @McpToolParam(description = "Predetermined file name. One of Activation, Segment, SegmentActivation.", required = false)
     private String predeterminedFilename;
+
+    public String getChildFolder() {
+        return childFolder;
+    }
+
+    public void setChildFolder(String childFolder) {
+        this.childFolder = childFolder;
+    }
+
+    public String getCustomFilename() {
+        return customFilename;
+    }
+
+    public void setCustomFilename(String customFilename) {
+        this.customFilename = customFilename;
+    }
+
+    public String getFileNameType() {
+        return fileNameType;
+    }
+
+    public void setFileNameType(String fileNameType) {
+        this.fileNameType = fileNameType;
+    }
 
     public String getFilenameDateSuffixFormat() {
         return filenameDateSuffixFormat;
@@ -61,6 +88,14 @@ public class EgressPropertiesInput {
 
     public void setFilenameDateSuffixFormat(String filenameDateSuffixFormat) {
         this.filenameDateSuffixFormat = filenameDateSuffixFormat;
+    }
+
+    public Boolean getIsSubfolderCreationEnabled() {
+        return isSubfolderCreationEnabled;
+    }
+
+    public void setIsSubfolderCreationEnabled(Boolean isSubfolderCreationEnabled) {
+        this.isSubfolderCreationEnabled = isSubfolderCreationEnabled;
     }
 
     public String getOutputCompressionFormat() {
@@ -87,44 +122,20 @@ public class EgressPropertiesInput {
         this.outputFormat = outputFormat;
     }
 
-    public Integer getOutputMaxFileSizeMegaBytes() {
+    public Long getOutputMaxFileSizeMegaBytes() {
         return outputMaxFileSizeMegaBytes;
     }
 
-    public void setOutputMaxFileSizeMegaBytes(Integer outputMaxFileSizeMegaBytes) {
+    public void setOutputMaxFileSizeMegaBytes(Long outputMaxFileSizeMegaBytes) {
         this.outputMaxFileSizeMegaBytes = outputMaxFileSizeMegaBytes;
     }
 
-    public Integer getOutputMaxRecordsPerFile() {
+    public Long getOutputMaxRecordsPerFile() {
         return outputMaxRecordsPerFile;
     }
 
-    public void setOutputMaxRecordsPerFile(Integer outputMaxRecordsPerFile) {
+    public void setOutputMaxRecordsPerFile(Long outputMaxRecordsPerFile) {
         this.outputMaxRecordsPerFile = outputMaxRecordsPerFile;
-    }
-
-    public String getChildFolder() {
-        return childFolder;
-    }
-
-    public void setChildFolder(String childFolder) {
-        this.childFolder = childFolder;
-    }
-
-    public String getCustomFilename() {
-        return customFilename;
-    }
-
-    public void setCustomFilename(String customFilename) {
-        this.customFilename = customFilename;
-    }
-
-    public Boolean getIsSubfolderCreationEnabled() {
-        return isSubfolderCreationEnabled;
-    }
-
-    public void setIsSubfolderCreationEnabled(Boolean isSubfolderCreationEnabled) {
-        this.isSubfolderCreationEnabled = isSubfolderCreationEnabled;
     }
 
     public String getPredeterminedFilename() {

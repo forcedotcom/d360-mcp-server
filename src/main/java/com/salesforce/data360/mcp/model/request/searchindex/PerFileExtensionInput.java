@@ -22,26 +22,32 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 import java.util.List;
 
 /**
- * Chunking configuration for a specific file extension.
+ * Mirrors {@code PerFileExtensionInputRepresentation}.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PerFileExtensionInput {
 
-    @McpToolParam(description = "File extension (e.g., pdf, html, docx)")
-    private String fileExtension;
-
-    @McpToolParam(description = "Chunking strategy configuration with id and userValues")
-    private ConfigInput config;
-
-    @McpToolParam(description = "Citation fields to extract (e.g., page_number, type)", required = false)
+    @McpToolParam(description = "List of allowed citations", required = false)
     private List<String> citations;
 
-    public String getFileExtension() { return fileExtension; }
-    public void setFileExtension(String fileExtension) { this.fileExtension = fileExtension; }
+    @McpToolParam(description = "Configuration", required = false)
+    private ConfigInput config;
+
+    @McpToolParam(description = "File extension (e.g., html, pdf, docx)", required = false)
+    private String fileExtension;
+
+    @McpToolParam(description = "Chunk config version", required = false)
+    private String version;
+
+    public List<String> getCitations() { return citations; }
+    public void setCitations(List<String> citations) { this.citations = citations; }
 
     public ConfigInput getConfig() { return config; }
     public void setConfig(ConfigInput config) { this.config = config; }
 
-    public List<String> getCitations() { return citations; }
-    public void setCitations(List<String> citations) { this.citations = citations; }
+    public String getFileExtension() { return fileExtension; }
+    public void setFileExtension(String fileExtension) { this.fileExtension = fileExtension; }
+
+    public String getVersion() { return version; }
+    public void setVersion(String version) { this.version = version; }
 }

@@ -49,8 +49,6 @@ class DataTransformPrepareToolTest {
     @Test
     void testPrepareDataTransform_DCSQLBatch_Success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
-
         // Mock validation response with outputDataObjects
         Map<String, Object> validationResponse = new HashMap<>();
         validationResponse.put("issues", Collections.emptyList());
@@ -97,7 +95,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, dataspace);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -134,7 +132,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"validationStatus\":\"invalid\"");
@@ -144,7 +142,6 @@ class DataTransformPrepareToolTest {
     @Test
     void testCreateDataTransform_WithCompletePayload_Success() {
         // Given
-        String dataspace = DEFAULT_DATASPACE;
         Map<String, Object> mockResponse = Map.of(
             "id", "transform-new",
             "name", "sampleDBTExample"
@@ -181,7 +178,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.createDataTransform(request, dataspace);
+        String result = dataTransformTools.createDataTransform(request, null, null);
 
         // Then
         assertThat(result).contains("transform-new");
@@ -218,7 +215,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.createDataTransform(request, null);
+        String result = dataTransformTools.createDataTransform(request, null, null);
 
         // Then
         assertThat(result).contains("streaming-123");
@@ -258,7 +255,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"name\":\"Id__c\"");
@@ -298,7 +295,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"name\":\"account_id__c\"");
@@ -338,7 +335,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"name\":\"UniqueKey__c\"");
@@ -374,7 +371,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"category\":\"Profile\"");
@@ -395,7 +392,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"validationStatus\":\"invalid\"");
@@ -426,7 +423,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -443,7 +440,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("error");
@@ -490,7 +487,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -524,7 +521,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should handle null fields gracefully
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -567,51 +564,12 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should use first field as primary key
         assertThat(result).contains("\"validationStatus\":\"valid\"");
         assertThat(result).contains("FirstField__c");
         assertThat(result).contains("\"isPrimaryKey\":true");
-    }
-
-    @Test
-    void testPrepareDataTransform_WithDataspace() {
-        // Given
-        String dataspace = "custom_dataspace";
-        Map<String, Object> validationResponse = new HashMap<>();
-        validationResponse.put("issues", Collections.emptyList());
-
-        Map<String, Object> outputDataObjects = new HashMap<>();
-        List<Map<String, Object>> dloList = new ArrayList<>();
-        Map<String, Object> dlo = new HashMap<>();
-        dlo.put("name", "output__dll");
-        List<Map<String, Object>> fields = new ArrayList<>();
-        Map<String, Object> field = new HashMap<>();
-        field.put("name", "Id__c");
-        fields.add(field);
-        dlo.put("fields", fields);
-        dloList.add(dlo);
-        outputDataObjects.put("test", dloList);
-        validationResponse.put("outputDataObjects", outputDataObjects);
-
-        when(client.post(anyString(), any(), eq(Map.class))).thenReturn(validationResponse);
-
-        DataTransformPrepareRequest request = new DataTransformPrepareRequest();
-        request.setName("test");
-        request.setType("batch");
-        request.setDefinition(new DataTransformDefinitionInput());
-
-        // When
-        String result = dataTransformTools.prepareDataTransform(request, dataspace);
-
-        // Then
-        assertThat(result).contains("\"validationStatus\":\"valid\"");
-
-        // Verify dataspace was passed to buildPath
-        ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
-        verify(client).post(pathCaptor.capture(), any(), eq(Map.class));
-        assertThat(pathCaptor.getValue()).contains("dataspace=custom_dataspace");
     }
 
     @Test
@@ -643,7 +601,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should preserve the label
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -683,7 +641,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect lowercase id__c as primary key
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -729,7 +687,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect Engagement category and event timestamp
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -767,7 +725,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect Profile category
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -805,9 +763,10 @@ class DataTransformPrepareToolTest {
         request.setName("test");
         request.setType("batch");
         request.setDefinition(definition);
+        request.setDataSpaceName("test_dataspace");
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, "test_dataspace");
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect dataModelObject type
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -847,7 +806,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When - no dataspace provided
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should warn about missing dataspace
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -894,7 +853,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect dataLakeObject type
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -940,7 +899,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect Engagement and pick first timestamp as event timestamp
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -985,7 +944,7 @@ class DataTransformPrepareToolTest {
             request.setType("batch");
             request.setDefinition(new DataTransformDefinitionInput());
 
-            String result = dataTransformTools.prepareDataTransform(request, null);
+            String result = dataTransformTools.prepareDataTransform(request);
             assertThat(result).contains("\"category\":\"Engagement\"");
         }
     }
@@ -1022,7 +981,7 @@ class DataTransformPrepareToolTest {
             request.setType("batch");
             request.setDefinition(new DataTransformDefinitionInput());
 
-            String result = dataTransformTools.prepareDataTransform(request, null);
+            String result = dataTransformTools.prepareDataTransform(request);
             assertThat(result).contains("\"category\":\"Profile\"");
         }
     }
@@ -1056,7 +1015,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should default to Profile when no timestamp
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -1093,7 +1052,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect timestamp by type
         assertThat(result).contains("\"category\":\"Engagement\"");
@@ -1129,7 +1088,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"category\":\"Engagement\"");
@@ -1169,7 +1128,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - mixed sources default to DLO
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1207,7 +1166,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - defaults to DLO
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1246,7 +1205,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1281,7 +1240,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - defaults to Profile
         assertThat(result).contains("\"category\":\"Profile\"");
@@ -1326,7 +1285,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - defaults to DLO
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1363,9 +1322,10 @@ class DataTransformPrepareToolTest {
         request.setName("test");
         request.setType("batch");
         request.setDefinition(definition);
+        request.setDataSpaceName("  ");
 
         // When - empty dataspace
-        String result = dataTransformTools.prepareDataTransform(request, "  ");
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should warn
         assertThat(result).contains("DMO transforms require a dataspace");
@@ -1400,7 +1360,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(null); // This will trigger exception handling in determineOutputType
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should succeed with valid status (defaults to DLO for output type)
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -1446,7 +1406,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When - this will catch exception and default to DLO
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should handle exception gracefully and default to DLO
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -1486,7 +1446,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should default to DLO
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1525,7 +1485,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should default to DLO
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1566,7 +1526,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(definition);
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should default to DLO
         assertThat(result).contains("\"type\":\"dataLakeObject\"");
@@ -1609,7 +1569,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should be Profile (no timestamp to confirm engagement)
         assertThat(result).contains("\"validationStatus\":\"valid\"");
@@ -1653,7 +1613,7 @@ class DataTransformPrepareToolTest {
         request.setDefinition(new DataTransformDefinitionInput());
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should detect Engagement and eventTimestamp
         assertThat(result).contains("\"category\":\"Engagement\"");
@@ -1691,7 +1651,7 @@ class DataTransformPrepareToolTest {
         // Don't set definition - it's null
 
         // When
-        String result = dataTransformTools.prepareDataTransform(request, null);
+        String result = dataTransformTools.prepareDataTransform(request);
 
         // Then - should still succeed even though definition is null
         assertThat(result).contains("\"validationStatus\":\"valid\"");

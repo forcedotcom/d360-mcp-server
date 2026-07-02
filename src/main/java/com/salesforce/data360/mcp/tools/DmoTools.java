@@ -56,19 +56,33 @@ public class DmoTools {
     )
     public String listDataModelObjects(
         @McpToolParam(description = "Filter by category: Profile, Engagement, Other, DirectoryTable. "
-            + "Use 'DirectoryTable' for unstructured file DMOs.", required = false) String category,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace,
+            + "Use 'DirectoryTable' for unstructured file DMOs.", required = false) String dataObjectCategory,
+        @McpToolParam(description = "Dataspace name", required = false) String dataSpaceName,
         @McpToolParam(description = "Number of results to return (1-50, default 50)", required = false) Integer limit,
         @McpToolParam(description = "Number of results to skip", required = false) Integer offset,
-        @McpToolParam(description = "Sorting order: ASC or DESC", required = false) String orderBy
+        @McpToolParam(description = "Sorting order: ASC or DESC", required = false) String orderBy,
+        @McpToolParam(description = "Filter by creation type", required = false) String creationType,
+        @McpToolParam(description = "Filter by DMO status", required = false) String dataModelObjectStatus,
+        @McpToolParam(description = "Fields to include in response", required = false) String includeFields,
+        @McpToolParam(description = "Include status information", required = false) String includeStatus,
+        @McpToolParam(description = "Filter by enabled state", required = false) String isEnabled,
+        @McpToolParam(description = "Filter by marketing data connection ID", required = false) String mktDataConnectionId,
+        @McpToolParam(description = "Search term to filter results", required = false) String search
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (category != null) params.put("category", category);
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (dataObjectCategory != null) params.put("dataObjectCategory", dataObjectCategory);
+            if (dataSpaceName != null) params.put("dataSpaceName", dataSpaceName);
             if (limit != null) params.put("limit", limit);
             if (offset != null) params.put("offset", offset);
             if (orderBy != null) params.put("orderBy", orderBy);
+            if (creationType != null) params.put("creationType", creationType);
+            if (dataModelObjectStatus != null) params.put("dataModelObjectStatus", dataModelObjectStatus);
+            if (includeFields != null) params.put("includeFields", includeFields);
+            if (includeStatus != null) params.put("includeStatus", includeStatus);
+            if (isEnabled != null) params.put("isEnabled", isEnabled);
+            if (mktDataConnectionId != null) params.put("mktDataConnectionId", mktDataConnectionId);
+            if (search != null) params.put("search", search);
 
             String path = ToolUtils.buildPath("/ssot/data-model-objects", params);
             Map result = client.get(path, Map.class);
@@ -91,11 +105,13 @@ public class DmoTools {
     )
     public String getDataModelObject(
         @McpToolParam(description = "DMO API name (e.g., 'Individual__dlm')") String dmoName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Filter to active fields only", required = false) String includeActiveFieldsOnly,
+        @McpToolParam(description = "Include status information", required = false) String includeStatus
     ) {
         try {
             Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
+            if (includeActiveFieldsOnly != null) params.put("includeActiveFieldsOnly", includeActiveFieldsOnly);
+            if (includeStatus != null) params.put("includeStatus", includeStatus);
 
             String path = ToolUtils.buildPath("/ssot/data-model-objects/" + ToolUtils.encodePath(dmoName), params);
             Map result = client.get(path, Map.class);
@@ -120,16 +136,12 @@ public class DmoTools {
             + "The 'fields' parameter with at least one primary key field is required for creation to succeed."
     )
     public String createDataModelObject(
-        DmoCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "DMO creation request body") DmoCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-model-objects", params);
+            String path = "/ssot/data-model-objects";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -148,16 +160,12 @@ public class DmoTools {
     )
     public String updateDataModelObject(
         @McpToolParam(description = "DMO API name") String dmoName,
-        DmoUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "DMO update request body") DmoUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
 
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-model-objects/" + ToolUtils.encodePath(dmoName), params);
+            String path = "/ssot/data-model-objects/" + ToolUtils.encodePath(dmoName);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -175,14 +183,10 @@ public class DmoTools {
         description = "Delete a Data Model Object."
     )
     public String deleteDataModelObject(
-        @McpToolParam(description = "DMO API name") String dmoName,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "DMO API name") String dmoName
     ) {
         try {
-            Map<String, Object> params = new HashMap<>();
-            if (dataspace != null) params.put("dataspace", dataspace);
-
-            String path = ToolUtils.buildPath("/ssot/data-model-objects/" + ToolUtils.encodePath(dmoName), params);
+            String path = "/ssot/data-model-objects/" + ToolUtils.encodePath(dmoName);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {

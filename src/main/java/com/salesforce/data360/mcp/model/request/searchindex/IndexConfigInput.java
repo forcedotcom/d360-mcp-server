@@ -27,20 +27,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class IndexConfigInput {
 
-    @McpToolParam(description = "Record field configurations — searchable and retrievable fields for keyword search", required = false)
-    private List<RecordFieldConfigurationInput> recordFieldConfiguration;
-
     @McpToolParam(description = "Context field configurations — retrievable-only fields", required = false)
     private List<ContextFieldConfigurationInput> contextFieldConfiguration;
+
+    @McpToolParam(description = "Record field configurations — searchable and retrievable fields for keyword search", required = false)
+    private List<RecordFieldConfigurationInput> recordFieldConfiguration;
 
     @McpToolParam(description = "Whether to vectorize the record chunks for searchable fields", required = false)
     private Boolean shouldVectorizeSearchableFields;
 
-    public List<RecordFieldConfigurationInput> getRecordFieldConfiguration() { return recordFieldConfiguration; }
-    public void setRecordFieldConfiguration(List<RecordFieldConfigurationInput> recordFieldConfiguration) { this.recordFieldConfiguration = recordFieldConfiguration; }
-
     public List<ContextFieldConfigurationInput> getContextFieldConfiguration() { return contextFieldConfiguration; }
     public void setContextFieldConfiguration(List<ContextFieldConfigurationInput> contextFieldConfiguration) { this.contextFieldConfiguration = contextFieldConfiguration; }
+
+    public List<RecordFieldConfigurationInput> getRecordFieldConfiguration() { return recordFieldConfiguration; }
+    public void setRecordFieldConfiguration(List<RecordFieldConfigurationInput> recordFieldConfiguration) { this.recordFieldConfiguration = recordFieldConfiguration; }
 
     public Boolean getShouldVectorizeSearchableFields() { return shouldVectorizeSearchableFields; }
     public void setShouldVectorizeSearchableFields(Boolean shouldVectorizeSearchableFields) { this.shouldVectorizeSearchableFields = shouldVectorizeSearchableFields; }

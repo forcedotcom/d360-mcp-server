@@ -39,6 +39,7 @@ import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -67,10 +68,32 @@ public class SdmTools {
         description = "List all semantic data models."
     )
     public String listSemanticModels(
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dataspace name", required = false) String dataspace,
+        @McpToolParam(description = "App filter", required = false) String app,
+        @McpToolParam(description = "Category filter (Marketing, Commerce, Sales, Service, Other)", required = false) String category,
+        @McpToolParam(description = "Label filter", required = false) String label,
+        @McpToolParam(description = "Max number of results", required = false) Integer limit,
+        @McpToolParam(description = "Offset for pagination", required = false) Integer offset,
+        @McpToolParam(description = "Order-by clause", required = false) String orderBy,
+        @McpToolParam(description = "Search term", required = false) String searchTerm,
+        @McpToolParam(description = "Comma-separated semantic model api names", required = false) String semanticModelApiNames,
+        @McpToolParam(description = "Source-creation filter", required = false) String sourceCreation,
+        @McpToolParam(description = "Source-creation-name filter", required = false) String sourceCreationName
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("app", app);
+            params.put("category", category);
+            params.put("dataspace", dataspace);
+            params.put("label", label);
+            params.put("limit", limit);
+            params.put("offset", offset);
+            params.put("orderBy", orderBy);
+            params.put("searchTerm", searchTerm);
+            params.put("semanticModelApiNames", semanticModelApiNames);
+            params.put("sourceCreation", sourceCreation);
+            params.put("sourceCreationName", sourceCreationName);
+            String path = ToolUtils.buildPath("/ssot/semantic/models", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -81,14 +104,26 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}", verb = "GET")
     @McpTool(
         name = "d360_sdm_get",
-        description = "Get a semantic data model by API name or ID."
+        description = "Gets the semantic model."
     )
     public String getSemanticModel(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "ABAC filtering mode", required = false) Boolean abacFilteringMode,
+        @McpToolParam(description = "Flag to allow unmapped fields", required = false) Boolean allowUnmapped,
+        @McpToolParam(description = "Field name filter", required = false) String fieldName,
+        @McpToolParam(description = "Fine-grain security flag", required = false) Boolean fineGrainSecurity,
+        @McpToolParam(description = "Flag to include model content", required = false) Boolean includeModelContent,
+        @McpToolParam(description = "Flag to include table keys", required = false) Boolean includeTableKeys
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId), dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("abacFilteringMode", abacFilteringMode);
+            params.put("allowUnmapped", allowUnmapped);
+            params.put("fieldName", fieldName);
+            params.put("fineGrainSecurity", fineGrainSecurity);
+            params.put("includeModelContent", includeModelContent);
+            params.put("includeTableKeys", includeTableKeys);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId), params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -99,15 +134,21 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models", verb = "POST")
     @McpTool(
         name = "d360_sdm_create",
-        description = "Create a semantic data model shell. Body: { apiName, label, description, dataspace (REQUIRED in body) }. Then add data objects, relationships, calc dims/measures via separate tools. DEPENDENCY: All CIs/DMOs must exist before adding as data objects."
+        description = "Creates a new semantic model. Body: { apiName, label, description, dataspace (REQUIRED in body) }. Then add data objects, relationships, calc dims/measures via separate tools. DEPENDENCY: All CIs/DMOs must exist before adding as data objects."
     )
     public String createSemanticModel(
-        SdmModelCreateRequest request,
-        @McpToolParam(description = "Optional dataspace query parameter", required = false) String dataspace
+        @McpToolParam(description = "The request body for semantic model creation") SdmModelCreateRequest request,
+        @McpToolParam(description = "Flag to allow external definitions", required = false) Boolean allowExternalDefinitions,
+        @McpToolParam(description = "Flag to allow unmapped fields", required = false) Boolean allowUnmapped,
+        @McpToolParam(description = "Flag to inherit data cloud relationships", required = false) Boolean inheritDcRelationship
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("allowExternalDefinitions", allowExternalDefinitions);
+            params.put("allowUnmapped", allowUnmapped);
+            params.put("inheritDcRelationship", inheritDcRelationship);
+            String path = ToolUtils.buildPath("/ssot/semantic/models", params);
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -118,16 +159,18 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}", verb = "PATCH")
     @McpTool(
         name = "d360_sdm_update",
-        description = "Update a semantic data model."
+        description = "Updates specific entity fields in the Semantic Model object without affecting child dependencies or relationships."
     )
     public String updateSemanticModel(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        SdmModelUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for updating semantic model") SdmModelUpdateRequest request,
+        @McpToolParam(description = "Flag to allow unmapped fields", required = false) Boolean allowUnmapped
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId), dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("allowUnmapped", allowUnmapped);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId), params);
             Map result = client.patch(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -138,14 +181,13 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_delete",
-        description = "Delete a semantic data model."
+        description = "Deletes a specific Semantic Model."
     )
     public String deleteSemanticModel(
-        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -156,16 +198,15 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/clone", verb = "POST")
     @McpTool(
         name = "d360_sdm_clone",
-        description = "Clone a semantic data model."
+        description = "Clones an existing semantic model."
     )
     public String cloneSemanticModel(
         @McpToolParam(description = "Model API name or ID to clone") String modelApiNameOrId,
-        SdmModelCloneRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for semantic model cloning") SdmModelCloneRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/clone", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/clone";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -173,35 +214,33 @@ public class SdmTools {
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/validate", verb = "POST")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/validate", verb = "GET")
     @McpTool(
         name = "d360_sdm_validate",
-        description = "Validate a semantic data model."
+        description = "Validate the semantic model."
     )
     public String validateSemanticModel(
-        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/validate", dataspace);
-            Map result = client.post(path, Map.of(), Map.class);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/validate";
+            Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/dependencies", verb = "GET")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/external-dependencies", verb = "GET")
     @McpTool(
         name = "d360_sdm_dependencies",
-        description = "Get dependencies of a semantic model."
+        description = "Retrieves all external dependencies for a specific model."
     )
     public String getSemanticModelDependencies(
-        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/dependencies", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/external-dependencies";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -216,16 +255,18 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects", verb = "POST")
     @McpTool(
         name = "d360_sdm_data_object_create",
-        description = "Add a data object to a semantic model. Required body: { dataObjectName, label, dataObjectType, shouldIncludeAllFields }. dataObjectType values: 'Dmo' for DMOs, 'Dlo' for DLOs, 'Cio' for Calculated Insights (NOT 'CalculatedInsight'). Use shouldIncludeAllFields: true to auto-include all fields as dimensions/measurements."
+        description = "Add an existing Data Cloud Object as a new Semantic Data Object to a specific Semantic Model. Required body: { dataObjectName, label, dataObjectType, shouldIncludeAllFields }. dataObjectType values: 'Dmo' for DMOs, 'Dlo' for DLOs, 'Cio' for Calculated Insights (NOT 'CalculatedInsight'). Use shouldIncludeAllFields: true to auto-include all fields as dimensions/measurements."
     )
     public String createDataObject(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        SdmDataObjectCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for adding data object to a semantic model") SdmDataObjectCreateRequest request,
+        @McpToolParam(description = "Flag to allow unmapped fields", required = false) Boolean allowUnmapped
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("allowUnmapped", allowUnmapped);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects", params);
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -236,14 +277,13 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects", verb = "GET")
     @McpTool(
         name = "d360_sdm_data_objects_list",
-        description = "List data objects in a semantic model."
+        description = "Retrieves a list of all objects within a specific Semantic Model."
     )
     public String listDataObjects(
-        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -254,15 +294,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_data_object_get",
-        description = "Get a data object from a semantic model."
+        description = "Retrieves the attributes of a specific Semantic Data Object in a specific Semantic Model."
     )
     public String getDataObject(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Data object name or ID") String dataObjectNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Data object name or ID") String dataObjectNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -270,21 +309,20 @@ public class SdmTools {
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "PUT")
     @McpTool(
         name = "d360_sdm_data_object_update",
-        description = "Update a data object in a semantic model."
+        description = "Updates the fields in a specific Semantic Data Object in a specific Semantic Model."
     )
     public String updateDataObject(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
         @McpToolParam(description = "Data object name or ID") String dataObjectNameOrId,
-        SdmDataObjectUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for updating data object") SdmDataObjectUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -294,15 +332,17 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_data_object_delete",
-        description = "Delete a data object from a semantic model."
+        description = "Delete a Semantic Data Object in a specific Semantic Model."
     )
     public String deleteDataObject(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
         @McpToolParam(description = "Data object name or ID") String dataObjectNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Flag to cascade-delete dependent relationships", required = false) Boolean relationshipCascadeDelete
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId), dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("relationshipCascadeDelete", relationshipCascadeDelete);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId), params);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -317,15 +357,17 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}/dimensions", verb = "GET")
     @McpTool(
         name = "d360_sdm_dimensions_list",
-        description = "List dimensions for a data object in a semantic model."
+        description = "Retrieves a list of all Semantic Dimensions in a specific Semantic Model."
     )
     public String listDimensions(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
         @McpToolParam(description = "Data object name or ID") String dataObjectNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Dimension name filter", required = false) String name
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId) + "/dimensions", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("name", name);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId) + "/dimensions", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -336,15 +378,17 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/data-objects/{oid}/measurements", verb = "GET")
     @McpTool(
         name = "d360_sdm_measurements_list",
-        description = "List measurements for a data object in a semantic model."
+        description = "Retrieves a list of all Semantic Measurements in a specific Semantic Model."
     )
     public String listMeasurements(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
         @McpToolParam(description = "Data object name or ID") String dataObjectNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Measurement name filter", required = false) String name
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId) + "/measurements", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("name", name);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/data-objects/" + ToolUtils.encodePath(dataObjectNameOrId) + "/measurements", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -359,14 +403,16 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_dims_list",
-        description = "List calculated dimensions in a semantic model."
+        description = "Retrieves a list of all Semantic Calculated Dimensions in a specific Semantic Model."
     )
     public String listCalculatedDimensions(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated dimension name filter", required = false) String name
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("name", name);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -377,16 +423,15 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions", verb = "POST")
     @McpTool(
         name = "d360_sdm_calc_dim_create",
-        description = "Create a calculated dimension in a semantic model. Body: { label, expression, dataType: 'Text'|'Number'|'DateTime' }. Formula syntax uses [DataObject].[Field] references (NOT {field}). Use IF/ELSEIF/ELSE/END for conditionals (not CASE WHEN). Example: IF [MyObj].[field1] > 10 THEN 'High' ELSE 'Low' END"
+        description = "Creates a new Semantic Calculated Dimension in a specific Semantic Model. Body: { label, expression, dataType: 'Text'|'Number'|'DateTime' }. Formula syntax uses [DataObject].[Field] references (NOT {field}). Use IF/ELSEIF/ELSE/END for conditionals (not CASE WHEN). Example: IF [MyObj].[field1] > 10 THEN 'High' ELSE 'Low' END"
     )
     public String createCalculatedDimension(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        SdmCalcDimensionCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "The request body for creating calculated dimension") SdmCalcDimensionCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -397,15 +442,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_dim_get",
-        description = "Get a calculated dimension from a semantic model."
+        description = "Retrieves the attributes of a specific Semantic Calculated Dimensions in a specific Semantic Model."
     )
     public String getCalculatedDimension(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Calculated dimension ID") String calculatedDimensionId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated dimension name or ID") String calculatedDimensionNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions/" + ToolUtils.encodePath(calculatedDimensionId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions/" + ToolUtils.encodePath(calculatedDimensionNameOrId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -413,21 +457,20 @@ public class SdmTools {
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "PUT")
     @McpTool(
         name = "d360_sdm_calc_dim_update",
-        description = "Update a calculated dimension in a semantic model."
+        description = "Updates the attributes of a specific Semantic Calculated Dimension in a specific Semantic Model."
     )
     public String updateCalculatedDimension(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Calculated dimension ID") String calculatedDimensionId,
-        SdmCalcDimensionUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated dimension name or ID") String calculatedDimensionNameOrId,
+        @McpToolParam(description = "The request body for updating calculated dimension") SdmCalcDimensionUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions/" + ToolUtils.encodePath(calculatedDimensionId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions/" + ToolUtils.encodePath(calculatedDimensionNameOrId);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -437,15 +480,17 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-dimensions/{dimId}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_calc_dim_delete",
-        description = "Delete a calculated dimension from a semantic model."
+        description = "Deletes a specific Semantic Calculated Dimension in a specific Semantic Model."
     )
     public String deleteCalculatedDimension(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Calculated dimension ID") String calculatedDimensionId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated dimension name or ID") String calculatedDimensionNameOrId,
+        @McpToolParam(description = "Flag to cascade-delete dependent relationships", required = false) Boolean relationshipCascadeDelete
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions/" + ToolUtils.encodePath(calculatedDimensionId), dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("relationshipCascadeDelete", relationshipCascadeDelete);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-dimensions/" + ToolUtils.encodePath(calculatedDimensionNameOrId), params);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -460,14 +505,16 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_measures_list",
-        description = "List calculated measurements in a semantic model."
+        description = "Retrieves a list of all Semantic Calculated Measurements in a specific Semantic Model."
     )
     public String listCalculatedMeasurements(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated measurement name filter", required = false) String name
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements", dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("name", name);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements", params);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -478,16 +525,15 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements", verb = "POST")
     @McpTool(
         name = "d360_sdm_calc_measure_create",
-        description = "Create a calculated measurement in a semantic model. Body: { label, expression, dataType: 'Number', aggregationType: 'UserAgg' }. IMPORTANT: aggregationType 'UserAgg' is REQUIRED for any formula containing aggregation functions (SUM, COUNT, AVG, etc.). Formula syntax uses [DataObject].[Field] references. Use IIF(condition, true_val, false_val) for inline conditionals."
+        description = "Creates a new Semantic Calculated Measurement in a specific Semantic Model. Body: { label, expression, dataType: 'Number', aggregationType: 'UserAgg' }. IMPORTANT: aggregationType 'UserAgg' is REQUIRED for any formula containing aggregation functions (SUM, COUNT, AVG, etc.). Formula syntax uses [DataObject].[Field] references. Use IIF(condition, true_val, false_val) for inline conditionals."
     )
     public String createCalculatedMeasurement(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        SdmCalcMeasurementCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for creating calculated measurement") SdmCalcMeasurementCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -498,15 +544,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_calc_measure_get",
-        description = "Get a calculated measurement from a semantic model."
+        description = "Retrieves the attributes of a specific Semantic Calculated Measurement in a specific Semantic Model."
     )
     public String getCalculatedMeasurement(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Calculated measure ID") String calculatedMeasureId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated measurement name or ID") String calculatedMeasurementNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements/" + ToolUtils.encodePath(calculatedMeasureId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements/" + ToolUtils.encodePath(calculatedMeasurementNameOrId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -514,21 +559,20 @@ public class SdmTools {
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "PUT")
     @McpTool(
         name = "d360_sdm_calc_measure_update",
-        description = "Update a calculated measurement in a semantic model."
+        description = "Updates the attributes of a specific Semantic Calculated Measurement in a specific Semantic Model."
     )
     public String updateCalculatedMeasurement(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Calculated measure ID") String calculatedMeasureId,
-        SdmCalcMeasurementUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated measurement name or ID") String calculatedMeasurementNameOrId,
+        @McpToolParam(description = "Request body for updating calculated measurement") SdmCalcMeasurementUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements/" + ToolUtils.encodePath(calculatedMeasureId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements/" + ToolUtils.encodePath(calculatedMeasurementNameOrId);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -538,15 +582,17 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/calculated-measurements/{mid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_calc_measure_delete",
-        description = "Delete a calculated measurement from a semantic model."
+        description = "Deletes a specific Semantic Calculated Measurement in a specific Semantic Model."
     )
     public String deleteCalculatedMeasurement(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Calculated measure ID") String calculatedMeasureId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Calculated measurement name or ID") String calculatedMeasurementNameOrId,
+        @McpToolParam(description = "Flag to cascade-delete dependent relationships", required = false) Boolean relationshipCascadeDelete
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements/" + ToolUtils.encodePath(calculatedMeasureId), dataspace);
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("relationshipCascadeDelete", relationshipCascadeDelete);
+            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/calculated-measurements/" + ToolUtils.encodePath(calculatedMeasurementNameOrId), params);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -561,14 +607,13 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics", verb = "GET")
     @McpTool(
         name = "d360_sdm_metrics_list",
-        description = "List metrics in a semantic model."
+        description = "Retrieves a result of Semantic Metrics."
     )
     public String listMetrics(
-        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -579,15 +624,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_metric_get",
-        description = "Get a metric from a semantic model."
+        description = "Retrieves a specific Semantic Metric."
     )
     public String getMetric(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Metric name or ID") String metricNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Metric name or ID") String metricNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics/" + ToolUtils.encodePath(metricNameOrId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics/" + ToolUtils.encodePath(metricNameOrId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -598,17 +642,16 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics", verb = "POST")
     @McpTool(
         name = "d360_sdm_metric_create",
-        description = "Create a metric in a semantic model."
+        description = "Creates a new semantic metric."
     )
     public String createMetric(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        SdmMetricCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for creating SDM metric") SdmMetricCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
             body.put("definition", ToolUtils.parseJson(request.getDefinition(), Map.class, "definition"));
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (IllegalArgumentException | ApiException e) {
@@ -616,24 +659,23 @@ public class SdmTools {
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "PUT")
     @McpTool(
         name = "d360_sdm_metric_update",
-        description = "Update a metric in a semantic model."
+        description = "Updates a specific Semantic Metric."
     )
     public String updateMetric(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
         @McpToolParam(description = "Metric name or ID") String metricNameOrId,
-        SdmMetricUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for updating SDM metric") SdmMetricUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
             if (request.getDefinition() != null) {
                 body.put("definition", ToolUtils.parseJson(request.getDefinition(), Map.class, "definition"));
             }
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics/" + ToolUtils.encodePath(metricNameOrId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics/" + ToolUtils.encodePath(metricNameOrId);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (IllegalArgumentException | ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -643,15 +685,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/metrics/{mid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_metric_delete",
-        description = "Delete a metric from a semantic model."
+        description = "Deletes a specific Semantic Metric."
     )
     public String deleteMetric(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Metric name or ID") String metricNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Metric name or ID") String metricNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics/" + ToolUtils.encodePath(metricNameOrId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/metrics/" + ToolUtils.encodePath(metricNameOrId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -666,19 +707,18 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships", verb = "POST")
     @McpTool(
         name = "d360_sdm_relationship_create",
-        description = "Create a relationship between data objects in a semantic model. Body format: { label, leftSemanticDefinitionApiName, rightSemanticDefinitionApiName, criteria: [{joinOperator: 'Equals', leftFieldType: 'TableField', leftSemanticFieldApiName, rightFieldType: 'TableField', rightSemanticFieldApiName}], cardinality: 'OneToMany|ManyToOne|OneToOne|ManyToMany', joinType: 'Auto' }. Use the semantic field apiNames from d360_sdm_data_objects_list (e.g. 'Individual_Id18'), NOT the underlying DMO field names."
+        description = "Creates a new relationship between specific Semantic Data Objects in a specific Semantic Model. Body format: { label, leftSemanticDefinitionApiName, rightSemanticDefinitionApiName, criteria: [{joinOperator: 'Equals', leftFieldType: 'TableField', leftSemanticFieldApiName, rightFieldType: 'TableField', rightSemanticFieldApiName}], cardinality: 'OneToMany|ManyToOne|OneToOne|ManyToMany', joinType: 'Auto' }. Use the semantic field apiNames from d360_sdm_data_objects_list (e.g. 'Individual_Id18'), NOT the underlying DMO field names."
     )
     public String createRelationship(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        SdmRelationshipCreateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Request body for creating SDM relationship") SdmRelationshipCreateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
             if (request.getCriteria() != null) {
                 body.put("criteria", ToolUtils.parseJson(request.getCriteria(), Map.class, "criteria"));
             }
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships";
             Map result = client.post(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (IllegalArgumentException | ApiException e) {
@@ -689,14 +729,13 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships", verb = "GET")
     @McpTool(
         name = "d360_sdm_relationships_list",
-        description = "List relationships in a semantic model."
+        description = "Retrieves a list of relationships between all Semantic Data Objects in a specific Semantic Model."
     )
     public String listRelationships(
-        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Model API name or ID") String modelApiNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships", dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships";
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -707,15 +746,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "GET")
     @McpTool(
         name = "d360_sdm_relationship_get",
-        description = "Get a relationship from a semantic model."
+        description = "Retrieves the attributes for a specific relationship between Semantic Definitions in a specific Semantic Model."
     )
     public String getRelationship(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Relationship ID") String relationshipId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Relationship name or ID") String relationshipNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships/" + ToolUtils.encodePath(relationshipId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships/" + ToolUtils.encodePath(relationshipNameOrId);
             Map result = client.get(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -723,24 +761,23 @@ public class SdmTools {
         }
     }
 
-    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "PATCH")
+    @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "PUT")
     @McpTool(
         name = "d360_sdm_relationship_update",
-        description = "Update a relationship in a semantic model."
+        description = "Updates the attributes for a specific relationship between Semantic Definitions in a specific Semantic Model."
     )
     public String updateRelationship(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Relationship ID") String relationshipId,
-        SdmRelationshipUpdateRequest request,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Relationship name or ID") String relationshipNameOrId,
+        @McpToolParam(description = "Request body for updating SDM relationship") SdmRelationshipUpdateRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);
             if (request.getCriteria() != null) {
                 body.put("criteria", ToolUtils.parseJson(request.getCriteria(), Map.class, "criteria"));
             }
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships/" + ToolUtils.encodePath(relationshipId), dataspace);
-            Map result = client.patch(path, body, Map.class);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships/" + ToolUtils.encodePath(relationshipNameOrId);
+            Map result = client.put(path, body, Map.class);
             return JsonUtil.toJson(result);
         } catch (IllegalArgumentException | ApiException e) {
             return ToolUtils.errorResponse(e);
@@ -750,15 +787,14 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/{id}/relationships/{rid}", verb = "DELETE")
     @McpTool(
         name = "d360_sdm_relationship_delete",
-        description = "Delete a relationship from a semantic model."
+        description = "Delete a specific relationship between Semantic Data Objects in a specific Semantic Model."
     )
     public String deleteRelationship(
         @McpToolParam(description = "Model API name or ID") String modelApiNameOrId,
-        @McpToolParam(description = "Relationship ID") String relationshipId,
-        @McpToolParam(description = "Optional dataspace name", required = false) String dataspace
+        @McpToolParam(description = "Relationship name or ID") String relationshipNameOrId
     ) {
         try {
-            String path = ToolUtils.buildPath("/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships/" + ToolUtils.encodePath(relationshipId), dataspace);
+            String path = "/ssot/semantic/models/" + ToolUtils.encodePath(modelApiNameOrId) + "/relationships/" + ToolUtils.encodePath(relationshipNameOrId);
             Map result = client.delete(path, Map.class);
             return JsonUtil.toJson(result);
         } catch (ApiException e) {
@@ -773,10 +809,10 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/models/formula-metadata", verb = "GET")
     @McpTool(
         name = "d360_sdm_formula_metadata",
-        description = "Get supported formula metadata for semantic models."
+        description = "Endpoint to get metadata for supported formulas from off-core semantic engine."
     )
     public String getFormulaMetadata(
-        @McpToolParam(description = "Optional model API name or ID", required = false) String modelApiNameOrId
+        @McpToolParam(description = "Model API name or ID", required = false) String modelApiNameOrId
     ) {
         try {
             String path = "/ssot/semantic/models/formula-metadata";
@@ -793,7 +829,7 @@ public class SdmTools {
     @ApiEndpoint(path = "/ssot/semantic/permissions", verb = "GET")
     @McpTool(
         name = "d360_sdm_permissions",
-        description = "Get semantic model permissions."
+        description = "Gets the semantic permissions."
     )
     public String getSemanticPermissions() {
         try {
@@ -811,10 +847,10 @@ public class SdmTools {
     @ApiEndpoint(path = "/semantic-engine/gateway", verb = "POST")
     @McpTool(
         name = "d360_sdm_query",
-        description = "Execute a semantic query against a semantic data model. The body must follow this structure: { semanticModelId, structuredSemanticQuery: { fields: [{expression, alias, rowGrouping?, semanticAggregationMethod?}, ...], options: {limitOptions: {limit: 10}} } }. For regular fields: use tableField with tableName (e.g. 'Norm_Geography' in table 'AccountRevenue'). For calculated dimensions/measurements: use semanticField with just name (e.g. {semanticField: {name: 'Cluster_Size_Tier'}}) — these are model-level, NOT on a specific table."
+        description = "Endpoint to query off-core semantic engine. The body must follow this structure: { semanticModelId, structuredSemanticQuery: { fields: [{expression, alias, rowGrouping?, semanticAggregationMethod?}, ...], options: {limitOptions: {limit: 10}} } }. For regular fields: use tableField with tableName (e.g. 'Norm_Geography' in table 'AccountRevenue'). For calculated dimensions/measurements: use semanticField with just name (e.g. {semanticField: {name: 'Cluster_Size_Tier'}}) — these are model-level, NOT on a specific table."
     )
     public String executeSemanticQuery(
-        SdmSemanticQueryRequest request
+            @McpToolParam(description = "Request body for executing semantic query") SdmSemanticQueryRequest request
     ) {
         try {
             Map<String, Object> body = JsonUtil.toMap(request);

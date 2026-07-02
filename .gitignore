@@ -33,3 +33,7 @@ tmp_*.json
 
 # Agent workspace
 .claude
+
+# Connect-API route manifest — generated locally from core goldfiles via
+# ConnectRoutesManifestGeneratorTest. Not shipped to the public OSS repo.
+src/test/resources/connect-routes.json

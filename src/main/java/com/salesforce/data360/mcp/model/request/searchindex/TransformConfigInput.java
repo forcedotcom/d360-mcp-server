@@ -27,15 +27,15 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransformConfigInput {
 
-    @McpToolParam(description = "Transform type (e.g., transcribe)")
-    private String transformType;
-
     @McpToolParam(description = "File-level configurations for this transform", required = false)
     private List<TransformFileLevelConfigInput> fileLevelConfiguration;
 
-    public String getTransformType() { return transformType; }
-    public void setTransformType(String transformType) { this.transformType = transformType; }
+    @McpToolParam(description = "Transform type (e.g., transcribe)")
+    private String transformType;
 
     public List<TransformFileLevelConfigInput> getFileLevelConfiguration() { return fileLevelConfiguration; }
     public void setFileLevelConfiguration(List<TransformFileLevelConfigInput> fileLevelConfiguration) { this.fileLevelConfiguration = fileLevelConfiguration; }
+
+    public String getTransformType() { return transformType; }
+    public void setTransformType(String transformType) { this.transformType = transformType; }
 }

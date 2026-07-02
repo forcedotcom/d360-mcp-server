@@ -22,103 +22,91 @@ import org.springframework.ai.mcp.annotation.McpToolParam;
 import java.util.Map;
 
 /**
- * Request body for updating a segment.
- * All fields are optional for partial updates.
+ * Request body for {@code PATCH /ssot/segments/{segmentApiName}}.
+ *
+ * <p>Mirrors {@code CdpSegmentInputRepresentation} (the UDF declares the same input
+ * representation for POST and PATCH).
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SegmentUpdateRequest {
 
-    @McpToolParam(description = "Display name for the segment", required = false)
-    private String displayName;
+    @McpToolParam(description = "Component Template Name for the Segment", required = false)
+    private String componentTemplateName;
 
-    @McpToolParam(description = "API name of the entity to segment on (e.g., 'UnifiedIndividual__dlm')", required = false)
-    private String segmentOnApiName;
+    @McpToolParam(description = "DataKit Name for the Segment", required = false)
+    private String dataKitDevName;
 
-    @McpToolParam(description = "Segment type: Dbt, Dynamic, EinsteinGptSegmentsUI, Lookalike, Realtimez, Waterfall", required = false)
-    private String segmentType;
-
-    @McpToolParam(description = "Description of the segment", required = false)
+    @McpToolParam(description = "Segment Description", required = false)
     private String description;
 
-    @McpToolParam(description = "Developer name", required = false)
+    @McpToolParam(description = "Segment Developer Name", required = false)
     private String developerName;
 
-    @McpToolParam(description = "Data space", required = false)
-    private String dataSpace;
+    @McpToolParam(description = "Segment Display Name", required = false)
+    private String displayName;
 
-    @McpToolParam(description = "Publish schedule: NoRefresh, One, Two, Four, Six, Twelve, TwentyFour", required = false)
-    private String publishSchedule;
-
-    @McpToolParam(description = "Publish schedule start date/time (ISO 8601)", required = false)
-    private String publishScheduleStartDateTime;
-
-    @McpToolParam(description = "Publish schedule end date (ISO 8601)", required = false)
-    private String publishScheduleEndDate;
-
-    @McpToolParam(description = "Publish schedule end date/time (ISO 8601)", required = false)
-    private String publishScheduleEndDateTime;
-
-    @McpToolParam(description = "Publish schedule info: {interval, frequency, daysOfWeek: {daysOfWeek: []}}", required = false)
-    private Map<String, Object> publishScheduleInfo;
-
-    @McpToolParam(description = "Creation flow: Datakit, EinsteinGpt, Visual", required = false)
-    private String segmentCreationFlow;
-
-    @McpToolParam(description = "Include criteria", required = false)
-    private String includeCriteria;
+    @McpToolParam(description = "EinsteinGptSegmentsUI segment criteria", required = false)
+    private SegmentEinsteinGptInput einsteinGptSegmentsUICriteria;
 
     @McpToolParam(description = "Exclude criteria", required = false)
     private String excludeCriteria;
 
-    @McpToolParam(description = "Group sort limit filter criteria", required = false)
+    @McpToolParam(description = "Group Sort Limit criteria", required = false)
     private String groupSortLimitFilterCriteria;
 
-    @McpToolParam(description = "Lookback period", required = false)
-    private String lookbackPeriod;
+    @McpToolParam(description = "Include criteria", required = false)
+    private String includeCriteria;
 
-    @McpToolParam(description = "Segment on data graph", required = false)
-    private String segmentOnDataGraph;
-
-    @McpToolParam(description = "Component template name", required = false)
-    private String componentTemplateName;
-
-    @McpToolParam(description = "Data kit developer name", required = false)
-    private String dataKitDevName;
-
-    @McpToolParam(description = "Additional metadata", required = false)
-    private Map<String, Object> additionalMetadata;
-
-    @McpToolParam(description = "dbt configuration for SQL-based segments", required = false)
+    @McpToolParam(description = "Segment data build tool (DBT).", required = false)
     private SegmentDbtInput includeDbt;
 
-    @McpToolParam(description = "Lookalike criteria", required = false)
+    @McpToolParam(description = "Lookalike segment criteria", required = false)
     private SegmentLookalikeInput lookalikeCriteria;
 
-    @McpToolParam(description = "Einstein GPT criteria", required = false)
-    private SegmentEinsteinGptInput einsteinGptSegmentsUICriteria;
+    @McpToolParam(description = "lookback period for this segment", required = false)
+    private String lookbackPeriod;
 
-    public String getDisplayName() {
-        return displayName;
+    @McpToolParam(description = "Publish schedule in hours for segment. One of NoRefresh, One, Two, Four, Six, Twelve, TwentyFour", required = false)
+    private String publishSchedule;
+
+    @McpToolParam(description = "Date indicating the end of the publish schedule. Optional if publishSchedule is unspecified.", required = false)
+    private String publishScheduleEndDate;
+
+    @McpToolParam(description = "Datetime indicating End of the publish schedule", required = false)
+    private String publishScheduleEndDateTime;
+
+    @McpToolParam(description = "Segment additional schedule", required = false)
+    private SegmentScheduleInput publishScheduleInfo;
+
+    @McpToolParam(description = "Datetime indicating the start of the publish schedule. Optional if publishSchedule is unspecified.", required = false)
+    private String publishScheduleStartDateTime;
+
+    @McpToolParam(description = "Segment Creation Flow. One of Datakit, EinsteinGpt, Visual", required = false)
+    private String segmentCreationFlow;
+
+    @McpToolParam(description = "API name of the SegmentOn entity.", required = false)
+    private String segmentOnApiName;
+
+    @McpToolParam(description = "Data graph of the SegmentOn entity for real-time segments.", required = false)
+    private String segmentOnDataGraph;
+
+    @McpToolParam(description = "Segment Type. One of Dbt, Dynamic, EinsteinGptSegmentsUI, Lookalike, Realtime, Ui, Waterfall", required = false)
+    private String segmentType;
+
+    public String getComponentTemplateName() {
+        return componentTemplateName;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setComponentTemplateName(String componentTemplateName) {
+        this.componentTemplateName = componentTemplateName;
     }
 
-    public String getSegmentOnApiName() {
-        return segmentOnApiName;
+    public String getDataKitDevName() {
+        return dataKitDevName;
     }
 
-    public void setSegmentOnApiName(String segmentOnApiName) {
-        this.segmentOnApiName = segmentOnApiName;
-    }
-
-    public String getSegmentType() {
-        return segmentType;
-    }
-
-    public void setSegmentType(String segmentType) {
-        this.segmentType = segmentType;
+    public void setDataKitDevName(String dataKitDevName) {
+        this.dataKitDevName = dataKitDevName;
     }
 
     public String getDescription() {
@@ -137,68 +125,20 @@ public class SegmentUpdateRequest {
         this.developerName = developerName;
     }
 
-    public String getDataSpace() {
-        return dataSpace;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setDataSpace(String dataSpace) {
-        this.dataSpace = dataSpace;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public String getPublishSchedule() {
-        return publishSchedule;
+    public SegmentEinsteinGptInput getEinsteinGptSegmentsUICriteria() {
+        return einsteinGptSegmentsUICriteria;
     }
 
-    public void setPublishSchedule(String publishSchedule) {
-        this.publishSchedule = publishSchedule;
-    }
-
-    public String getPublishScheduleStartDateTime() {
-        return publishScheduleStartDateTime;
-    }
-
-    public void setPublishScheduleStartDateTime(String publishScheduleStartDateTime) {
-        this.publishScheduleStartDateTime = publishScheduleStartDateTime;
-    }
-
-    public String getPublishScheduleEndDate() {
-        return publishScheduleEndDate;
-    }
-
-    public void setPublishScheduleEndDate(String publishScheduleEndDate) {
-        this.publishScheduleEndDate = publishScheduleEndDate;
-    }
-
-    public String getPublishScheduleEndDateTime() {
-        return publishScheduleEndDateTime;
-    }
-
-    public void setPublishScheduleEndDateTime(String publishScheduleEndDateTime) {
-        this.publishScheduleEndDateTime = publishScheduleEndDateTime;
-    }
-
-    public Map<String, Object> getPublishScheduleInfo() {
-        return publishScheduleInfo;
-    }
-
-    public void setPublishScheduleInfo(Map<String, Object> publishScheduleInfo) {
-        this.publishScheduleInfo = publishScheduleInfo;
-    }
-
-    public String getSegmentCreationFlow() {
-        return segmentCreationFlow;
-    }
-
-    public void setSegmentCreationFlow(String segmentCreationFlow) {
-        this.segmentCreationFlow = segmentCreationFlow;
-    }
-
-    public String getIncludeCriteria() {
-        return includeCriteria;
-    }
-
-    public void setIncludeCriteria(String includeCriteria) {
-        this.includeCriteria = includeCriteria;
+    public void setEinsteinGptSegmentsUICriteria(SegmentEinsteinGptInput einsteinGptSegmentsUICriteria) {
+        this.einsteinGptSegmentsUICriteria = einsteinGptSegmentsUICriteria;
     }
 
     public String getExcludeCriteria() {
@@ -217,44 +157,12 @@ public class SegmentUpdateRequest {
         this.groupSortLimitFilterCriteria = groupSortLimitFilterCriteria;
     }
 
-    public String getLookbackPeriod() {
-        return lookbackPeriod;
+    public String getIncludeCriteria() {
+        return includeCriteria;
     }
 
-    public void setLookbackPeriod(String lookbackPeriod) {
-        this.lookbackPeriod = lookbackPeriod;
-    }
-
-    public String getSegmentOnDataGraph() {
-        return segmentOnDataGraph;
-    }
-
-    public void setSegmentOnDataGraph(String segmentOnDataGraph) {
-        this.segmentOnDataGraph = segmentOnDataGraph;
-    }
-
-    public String getComponentTemplateName() {
-        return componentTemplateName;
-    }
-
-    public void setComponentTemplateName(String componentTemplateName) {
-        this.componentTemplateName = componentTemplateName;
-    }
-
-    public String getDataKitDevName() {
-        return dataKitDevName;
-    }
-
-    public void setDataKitDevName(String dataKitDevName) {
-        this.dataKitDevName = dataKitDevName;
-    }
-
-    public Map<String, Object> getAdditionalMetadata() {
-        return additionalMetadata;
-    }
-
-    public void setAdditionalMetadata(Map<String, Object> additionalMetadata) {
-        this.additionalMetadata = additionalMetadata;
+    public void setIncludeCriteria(String includeCriteria) {
+        this.includeCriteria = includeCriteria;
     }
 
     public SegmentDbtInput getIncludeDbt() {
@@ -273,11 +181,83 @@ public class SegmentUpdateRequest {
         this.lookalikeCriteria = lookalikeCriteria;
     }
 
-    public SegmentEinsteinGptInput getEinsteinGptSegmentsUICriteria() {
-        return einsteinGptSegmentsUICriteria;
+    public String getLookbackPeriod() {
+        return lookbackPeriod;
     }
 
-    public void setEinsteinGptSegmentsUICriteria(SegmentEinsteinGptInput einsteinGptSegmentsUICriteria) {
-        this.einsteinGptSegmentsUICriteria = einsteinGptSegmentsUICriteria;
+    public void setLookbackPeriod(String lookbackPeriod) {
+        this.lookbackPeriod = lookbackPeriod;
+    }
+
+    public String getPublishSchedule() {
+        return publishSchedule;
+    }
+
+    public void setPublishSchedule(String publishSchedule) {
+        this.publishSchedule = publishSchedule;
+    }
+
+    public String getPublishScheduleEndDate() {
+        return publishScheduleEndDate;
+    }
+
+    public void setPublishScheduleEndDate(String publishScheduleEndDate) {
+        this.publishScheduleEndDate = publishScheduleEndDate;
+    }
+
+    public String getPublishScheduleEndDateTime() {
+        return publishScheduleEndDateTime;
+    }
+
+    public void setPublishScheduleEndDateTime(String publishScheduleEndDateTime) {
+        this.publishScheduleEndDateTime = publishScheduleEndDateTime;
+    }
+
+    public SegmentScheduleInput getPublishScheduleInfo() {
+        return publishScheduleInfo;
+    }
+
+    public void setPublishScheduleInfo(SegmentScheduleInput publishScheduleInfo) {
+        this.publishScheduleInfo = publishScheduleInfo;
+    }
+
+    public String getPublishScheduleStartDateTime() {
+        return publishScheduleStartDateTime;
+    }
+
+    public void setPublishScheduleStartDateTime(String publishScheduleStartDateTime) {
+        this.publishScheduleStartDateTime = publishScheduleStartDateTime;
+    }
+
+    public String getSegmentCreationFlow() {
+        return segmentCreationFlow;
+    }
+
+    public void setSegmentCreationFlow(String segmentCreationFlow) {
+        this.segmentCreationFlow = segmentCreationFlow;
+    }
+
+    public String getSegmentOnApiName() {
+        return segmentOnApiName;
+    }
+
+    public void setSegmentOnApiName(String segmentOnApiName) {
+        this.segmentOnApiName = segmentOnApiName;
+    }
+
+    public String getSegmentOnDataGraph() {
+        return segmentOnDataGraph;
+    }
+
+    public void setSegmentOnDataGraph(String segmentOnDataGraph) {
+        this.segmentOnDataGraph = segmentOnDataGraph;
+    }
+
+    public String getSegmentType() {
+        return segmentType;
+    }
+
+    public void setSegmentType(String segmentType) {
+        this.segmentType = segmentType;
     }
 }
