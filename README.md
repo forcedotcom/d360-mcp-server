@@ -1,18 +1,33 @@
+> [!IMPORTANT]
+> **Use the hosted Data 360 MCP Server, now generally available (GA), for production.**
+> It is the recommended path for customers.
+> [Get started with the hosted Data 360 MCP Server](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/data360-mcp.html).
+> This open-source repository is for reference and experimentation only.
+
 # Data 360 MCP Server
 
-A [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the
-**Salesforce Data 360** Connect API to MCP-compatible clients such as
-Claude Code, Cursor, and any other host that speaks MCP over STDIO.
+This repository contains an open-source
+[Model Context Protocol](https://modelcontextprotocol.io) server that exposes the
+**Salesforce Data 360** Connect API to MCP-compatible clients such as Claude Code,
+Cursor, and any other host that speaks MCP over STDIO.
 
 Built on [Spring AI](https://spring.io/projects/spring-ai).
 
-## Developer Preview
+## General availability
 
-The Data 360 MCP server is provided as a developer preview running in a single user/org context per process. We strongly encourage use only via STDIO instead of making this server network-accessible.
+The Data 360 MCP server is now **generally available (GA)** as a hosted and managed
+Salesforce Platform MCP server. See the
+[Data 360 MCP Server documentation](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/data360-mcp.html)
+for capabilities, requirements, and setup instructions.
 
-The generally available version of this MCP server is slated to be provided as a [hosted and managed Salesforce Platform MCP server, alongside other existing Product Integration MCP servers](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/servers-reference.html).
+### Developer preview
 
-During the developer preview please share feature requests, issues, success stories, or other feedback via github issues on this repo, the R&D team will be actively reviewing these on a regular basis. We're especially interested in feedback about how effective the fascade tools approach works across use cases and clients.
+The open-source server in this repository is a developer preview for **reference
+and experimentation only**. For production use, we recommend the
+[hosted Data 360 MCP Server](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/data360-mcp.html).
+
+The developer preview runs in a single user/org context per process. Use it only
+via STDIO instead of making it network-accessible.
 
 ## How it works
 
@@ -55,7 +70,13 @@ Under the hood, 201 operations are organized into 22 tool families:
 | GDPR | 3 | Data subject read / delete requests |
 | Machine Learning | 44 | Train and deploy AI Models on top of Data 360. Generate inferences via jobs and API requests. |
 
-## Quick start (one command)
+<details>
+<summary>Open-source reference and local setup (experimentation only)</summary>
+
+The instructions below are for local experimentation with the open-source
+developer preview.
+
+## Local quick start (one command)
 
 The installer checks for Java 17+ and Maven (installs them if missing),
 clones the repo, builds the server JAR, prompts for your Salesforce
@@ -128,8 +149,8 @@ You have two options, in order of convenience:
 
 1. **Access token** — the quickest way to try the server. Run `sf org login web`
    (or the equivalent in your org tooling) and grab the access token from your
-   session. Tokens expire; for anything beyond experimentation, use the
-   option below.
+   session. Tokens expire; to refresh tokens automatically during local
+   experimentation, use the option below.
 2. **External Client App with client credentials** — create an External Client
    App in Setup, enable the Client Credentials flow, grant the `api`, `cdp_api` and
    `cdp_query_api` scopes, and use the resulting Consumer Key / Secret. The
@@ -309,6 +330,8 @@ the `"data360"` entry from your MCP client config file:
 - Claude Desktop: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `~/.config/Claude/claude_desktop_config.json` (Linux)
 - Claude Code: `~/.claude.json`
 - Cursor: `~/.cursor/mcp.json`
+
+</details>
 
 ## Contributing
 
